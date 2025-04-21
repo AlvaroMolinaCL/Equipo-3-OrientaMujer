@@ -23,8 +23,10 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
-    Route::get('/', function () {
-        dd(\App\Models\User::all());
-        return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
-    });
+    // Rutas de autenticación de Breeze
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['auth'])->name('dashboard');
+
+    require __DIR__.'/auth.php'; // Incluye las rutas de Breeze (login, register, etc.)
 });
