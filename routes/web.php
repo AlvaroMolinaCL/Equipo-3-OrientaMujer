@@ -11,7 +11,7 @@ foreach (config('tenancy.central_domains') as $domain) {
 
         // Página de inicio
         Route::get('/', function () {
-            return view('welcome');
+            return view('index');
         });
 
         // Dashboard solo para usuarios autenticados
