@@ -10,7 +10,7 @@
 @section('content')
     <section class="py-5" style="margin-top: 80px;"> {{-- margen por navbar fija --}}
         <div class="container">
-            <h1 class="mb-4">Usuari@</h1>
+            <h1 class="mb-4">Contacto</h1>
         </div>
     </section>
 @endsection
