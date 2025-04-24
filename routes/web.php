@@ -9,9 +9,29 @@ use App\Models\Tenant;
 foreach (config('tenancy.central_domains') as $domain) {
     Route::domain($domain)->group(function () {
 
-        // Página de inicio
+        // Página "Inicio"
         Route::get('/', function () {
             return view('index');
+        });
+
+        // Página "Servicios"
+        Route::get('/servicios', function () {
+            return view('services');
+        });
+
+        // Página "Contacto"
+        Route::get('/contacto', function () {
+            return view('contact');
+        });
+
+        // Página "Tips"
+        Route::get('/tips', function () {
+            return view('tips');
+        });
+
+        // Página "Sobre Orienta Mujer"
+        Route::get('/acerca-de', function () {
+            return view('about');
         });
 
         // Dashboard solo para usuarios autenticados
@@ -35,6 +55,6 @@ foreach (config('tenancy.central_domains') as $domain) {
         Route::post('/create-tenant', [TenantController::class, 'store'])->middleware('auth');
 
         // Rutas de autenticación de Breeze
-        require __DIR__.'/auth.php';
+        require __DIR__ . '/auth.php';
     });
 }
