@@ -34,6 +34,11 @@ foreach (config('tenancy.central_domains') as $domain) {
             return view('about');
         });
 
+        // Página para Agendar Asesorías
+        Route::get('/agenda', function () {
+            return view('agenda.index');
+        }); // Se debe agregar middleware una vez se implemente el inicio de sesión
+
         // Dashboard solo para usuarios autenticados
         Route::get('/dashboard', function () {
             return view('dashboard');
