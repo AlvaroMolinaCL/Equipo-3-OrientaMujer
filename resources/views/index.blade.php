@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('navbar')
-    @section('navbar-class', 'navbar-dark-mode') {{-- O navbar-light-mode si prefieres fondo blanco --}}
+    @section('navbar-class', 'navbar-dark-mode')
     @include('layouts.navigation')
 @endsection
 
@@ -13,9 +13,9 @@
             <div class="hero-text">
                 <h1>La información es poder, <br><strong>¡empodérate!</strong></h1>
                 <p class="mt-3">Acompañamiento jurídico y empático.</p>
-                <button class="btn btn-consulta">Agenda tu asesoría</button>
+                <a href="/agenda" class="btn btn-consulta" role="button">Agenda tu asesoría</a>
                 <br>
-                <a href="#" class="link-consulta">Realice una consulta</a>
+                <a href="/contacto" class="link-consulta">Realice una consulta</a>
             </div>
         </div>
     </section>
@@ -30,7 +30,5 @@
         Sección adicional 3
     </section>
 
-    <footer>
-        &copy; 2025 Orienta Mujer. Desarrollado por [nombre pendiente].
-    </footer>
+    @include('layouts.footer')
 @endsection

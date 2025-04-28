@@ -143,3 +143,83 @@ footer {
     text-align: center;
     padding: 1rem;
 }
+
+#site-footer {
+    text-align: center;
+    padding: 1rem;
+}
+
+.theme-dark #site-footer {
+    background-color: #000;
+    color: #fff;
+}
+
+.theme-light #site-footer {
+    background-color: #fff;
+    color: #000;
+}
+
+.accordion-item {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+}
+
+.theme-light .accordion-item {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.accordion-button {
+    background-color: transparent;
+    color: #fff;
+    font-weight: bold;
+    border: 2px solid #fff;
+}
+
+.theme-light .accordion-button {
+    background-color: transparent;
+    color: #000;
+    font-weight: bold;
+    border: 2px solid #000;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+.theme-light .accordion-button:not(.collapsed) {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #000;
+}
+
+.accordion-body {
+    background-color: transparent;
+    color: #fff;
+}
+
+.theme-light .accordion-body {
+    background-color: transparent;
+    color: #000;
+}
+
+.accordion-icon-color {
+    color: #fff;
+}
+
+.theme-light .accordion-icon-color {
+    color: #000;
+}
+
+.theme-dark .card {
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+.theme-light .card {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+}

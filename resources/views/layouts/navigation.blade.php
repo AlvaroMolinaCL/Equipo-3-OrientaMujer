@@ -13,6 +13,14 @@
                 <li class="nav-item"><a class="nav-link" href="/contacto">Contacto</a></li>
                 <li class="nav-item"><a class="nav-link" href="/tips">Tips</a></li>
                 <li class="nav-item"><a class="nav-link" href="/acerca-de">Sobre Orienta Mujer</a></li>
+                <!--
+                    <li class="nav-item" style="font-family: 'Courier Prime', Courier"><a class="nav-link" href="/">Inicio</a></li>
+                    <li class="nav-item" style="font-family: 'Courier Prime', Courier"><a class="nav-link" href="/login">Usuari@</a></li>
+                    <li class="nav-item" style="font-family: 'Courier Prime', Courier"><a class="nav-link" href="/servicios">Servicios</a></li>
+                    <li class="nav-item" style="font-family: 'Courier Prime', Courier"><a class="nav-link" href="/contacto">Contacto</a></li>
+                    <li class="nav-item" style="font-family: 'Courier Prime', Courier"><a class="nav-link" href="/tips">Tips</a></li>
+                    <li class="nav-item" style="font-family: 'Courier Prime', Courier"><a class="nav-link" href="/acerca-de">Sobre Orienta Mujer</a></li>
+                -->
             </ul>
         </div>
 
