@@ -5,6 +5,13 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
+        <a class="navbar-brand ms-auto" href="/">
+            <img id="logo-navbar" src="{{ url('/images/logo/Logo_OrientaMujer_(Letras_Blancas).png') }}"
+                data-white="{{ url('/images/logo/Logo_OrientaMujer_(Letras_Blancas).png') }}"
+                data-black="{{ url('/images/logo/Logo_OrientaMujer_(Letras_Negras).png') }}" width="300px"
+                height="50px" alt="Logo Orienta Mujer">
+        </a>
+
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
@@ -23,12 +30,5 @@
                 -->
             </ul>
         </div>
-
-        <a class="navbar-brand ms-auto" href="/">
-            <img id="logo-navbar" src="{{ url('/images/logo/Logo_OrientaMujer_(Letras_Blancas).png') }}"
-                data-white="{{ url('/images/logo/Logo_OrientaMujer_(Letras_Blancas).png') }}"
-                data-black="{{ url('/images/logo/Logo_OrientaMujer_(Letras_Negras).png') }}" width="300px"
-                height="50px" alt="Logo Orienta Mujer">
-        </a>
     </div>
 </nav>
