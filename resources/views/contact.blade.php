@@ -11,11 +11,9 @@
     <section class="py-5" style="margin-top: 80px;">
         <div class="container">
             <h1 class="mb-4" style="font-family: 'Courier Prime', Courier">Contacto</h1>
-            <!--
-                <p class="mb-5">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
-                </p>
-            -->
+            <p class="mb-4">
+                Te invito a agendar tu asesoría. Estoy aquí para escuchar, guiar y apoyar, con un enfoque integral y humano.
+            </p>
 
             <div class="row">
                 {{-- Tarjeta: Correo --}}
