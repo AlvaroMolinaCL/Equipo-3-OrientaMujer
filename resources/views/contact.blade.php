@@ -11,80 +11,70 @@
     <section class="py-5" style="margin-top: 80px;">
         <div class="container">
             <h1 class="mb-4" style="font-family: 'Courier Prime', Courier">Contacto</h1>
-            <p class="mb-5">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
-            </p>
+            <!--
+                <p class="mb-5">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+                </p>
+            -->
 
             <div class="row">
-                {{-- Recuadro 1 --}}
+                {{-- Tarjeta: Correo --}}
                 <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm">
-                        <div class="row g-0">
-                            <div class="col-4 d-flex align-items-center justify-content-center">
-                                <img src="/images/banner/Banner_Principal_OrientaMujer.png" class="img-fluid rounded-circle" alt="Imagen 2">
-                            </div>
-                            <div class="col-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">Instagram</h5>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus urna sed urna ultricies ac tempor dui sagittis.</p>
+                    <a href="mailto:omaramunoznavarro@gmail.com" class="text-decoration-none text-dark">
+                        <div class="card h-100 shadow-sm fade-in-section">
+                            <div class="row g-0">
+                                <div class="col-3 d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-envelope fa-3x text-dark"></i>
+                                </div>
+                                <div class="col-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold">Correo</h5>
+                                        <p class="card-text mb-0"><small>omaramunoznavarro@gmail.com</small></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-
-                {{-- Recuadro 2 --}}
+            
+                {{-- Tarjeta: Instagram --}}
                 <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm">
-                        <div class="row g-0">
-                            <div class="col-4 d-flex align-items-center justify-content-center">
-                                <img src="/images/banner/Banner_Principal_OrientaMujer.png" class="img-fluid rounded-circle" alt="Imagen 2">
-                            </div>
-                            <div class="col-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">Correo</h5>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus urna sed urna ultricies ac tempor dui sagittis.</p>
+                    <a href="https://www.instagram.com/orientamujer.cl" target="_blank" class="text-decoration-none text-dark">
+                        <div class="card h-100 shadow-sm fade-in-section">
+                            <div class="row g-0">
+                                <div class="col-3 d-flex align-items-center justify-content-center">
+                                    <i class="fab fa-instagram fa-3x text-dark"></i>
+                                </div>
+                                <div class="col-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold">Instagram</h5>
+                                        <p class="card-text mb-0">@orientamujer.cl</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-
-                {{-- Recuadro 3 --}}
+            
+                {{-- Tarjeta: LinkedIn --}}
                 <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm">
-                        <div class="row g-0">
-                            <div class="col-4 d-flex align-items-center justify-content-center">
-                                <img src="/images/banner/Banner_Principal_OrientaMujer.png" class="img-fluid rounded-circle" alt="Imagen 3">
-                            </div>
-                            <div class="col-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">LinkedIn</h5>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus urna sed urna ultricies ac tempor dui sagittis.</p>
+                    <a href="https://www.linkedin.com/in/omaramuñoznavarro" target="_blank" class="text-decoration-none text-dark">
+                        <div class="card h-100 shadow-sm fade-in-section">
+                            <div class="row g-0">
+                                <div class="col-3 d-flex align-items-center justify-content-center">
+                                    <i class="fab fa-linkedin fa-3x text-dark"></i>
+                                </div>
+                                <div class="col-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold">LinkedIn</h5>
+                                        <p class="card-text mb-0"><small><small>linkedin.com/in/omaramuñoznavarro</small></small></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-            <!--
-                {{-- Recuadro 4 --}}
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm">
-                        <div class="row g-0">
-                            <div class="col-4 d-flex align-items-center justify-content-center">
-                                <img src="/images/banner/Banner_Principal_OrientaMujer.png" class="img-fluid rounded-circle" alt="Imagen 4">
-                            </div>
-                            <div class="col-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">Chat</h5>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus urna sed urna ultricies ac tempor dui sagittis.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            -->
-            </div>
+            </div>                        
         </div>
     </section>
 
