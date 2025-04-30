@@ -1,48 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TenantController;
-use App\Models\Tenant;
 
 foreach (config('tenancy.central_domains') as $domain) {
     Route::domain($domain)->group(function () {
-
-        // Página "Inicio"
-        Route::get('/', function () {
-            return view('index');
-        });
-
-        // Página "Servicios"
-        Route::get('/servicios', function () {
-            return view('services');
-        });
-
-        // Página "Contacto"
-        Route::get('/contacto', function () {
-            return view('contact');
-        });
-
-        // Página "Tips"
-        Route::get('/tips', function () {
-            return view('tips');
-        });
-
-        // Página "Sobre Orienta Mujer"
-        Route::get('/acerca-de', function () {
-            return view('about');
-        });
-
-        // Página para Agendar Asesorías
-        Route::get('/agenda', function () {
-            return view('agenda.index');
-        }); // Se debe agregar middleware una vez se implemente el inicio de sesión
 
         // Dashboard solo para usuarios autenticados
         Route::get('/dashboard', function () {
             return view('dashboard');
         })->middleware(['auth', 'verified'])->name('dashboard');
+
+        // Página "Inicio"
+        Route::get('/', function () {
+            return view('app.welcome');
+        });
 
         // Perfil de usuario
         Route::middleware('auth')->group(function () {
