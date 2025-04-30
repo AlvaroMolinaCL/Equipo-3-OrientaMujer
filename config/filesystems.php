@@ -56,6 +56,11 @@ return [
             'throw' => false,
         ],
 
+        'tenant' => [
+            'driver' => 'local',
+            'root' => storage_path('app/tenants/' . tenant('id')),
+            'throw' => false,
+        ],
     ],
 
     /*
