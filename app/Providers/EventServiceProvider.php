@@ -18,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        // \Stancl\Tenancy\Events\TenantCreated::class => [
+        //     \App\Tenants\TenantCreatedListener::class,
+        // ],
     ];
 
     /**
