@@ -3,65 +3,49 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use App\Models\Tenant;  // Asegúrate de usar la clase personalizada
+use App\Models\Tenant;
 use Stancl\Tenancy\Facades\Tenancy;
 use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
+
 
 class TenantController extends Controller
 {
+
+    public function index()
+    {
+        $tenants = Tenant::with('domains')->get();
+        return view('tenants.index', ['tenants' => $tenants]);
+    }
+
+    public function create()
+    {
+        return view('tenants.create');
+    }
+
     public function store(Request $request)
     {
-        // Validar los datos
-        $validated = $request->validate([
-            'nombre' => 'required|alpha_dash|unique:tenants,id',
-            'empresa' => 'required|string|max:255',
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-            'logo' => 'nullable|image|max:2048',
+        //validation
+        $validationData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'domain_name' => 'required|string|max:255|unique:domains,domain',
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        // Subir logo (si se envió)
-        $logoPath = null;
-        if ($request->hasFile('logo')) {
-            $logoPath = $request->file('logo')->store("tenants/{$validated['nombre']}/logo", 'public');
-            // Verifica si la subida fue exitosa
-            if (!$logoPath) {
-                return redirect()->back()->withErrors(['logo' => 'Error al subir el logo.']);
-            }
-        } else {
-            return redirect()->back()->withErrors(['logo' => 'El archivo de logo es obligatorio.']);
-        }
+        $tenant = Tenant::create($validationData);
 
-
-        // Crear el tenant
-        $tenant = Tenant::create([
-            'id' => $validated['nombre'], // Este será el subdominio
-            'data' => [
-                'empresa' => $validated['empresa'],
-                'logo' => $logoPath,
-            ],
-        ]);
-
-        // Asociar un dominio al tenant y guardarlo en la base de datos central
         $tenant->domains()->create([
-            'domain' => "{$validated['nombre']}.localhost" // Ajusta el dominio según sea necesario
+            'domain' => $validationData['domain_name'] . '.' . config('app.domain')
         ]);
 
-        // Ejecutar migraciones del tenant
-        $tenant->run(function () use ($validated) {
-            // Crear usuario administrador
-            User::create([
-                'name' => 'Administrador',
-                'email' => $validated['email'],
-                'password' => Hash::make($validated['password']),
-            ]);
-        });
+        return redirect()->route('tenants.index');
 
-        // Redirigir con mensaje de éxito
-        return redirect()->back()->with('success', 'Tenant creado correctamente.');
     }
+
 
 }
