@@ -39,10 +39,14 @@
                                 {{ $user->email }}
                                 </td>
                                 <td class="px-6 py-3">
+                                    @foreach($user->roles as $role)
+
+                                    {{ $role->name }}{{ $loop->last ? '':',' }}
+                                    @endforeach
 
                                 </td>
                                 <td class="px-6 py-3">
-                                    
+                                    <x-btn-link href=" {{ route('users.edit',$user->id)}}">Edit</x-btn-link>
                                 </td>
                             </tr>
                             @endforeach    
