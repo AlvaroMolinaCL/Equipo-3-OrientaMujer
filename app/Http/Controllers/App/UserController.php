@@ -12,7 +12,6 @@ use Stancl\Tenancy\Facades\Tenancy;
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Role;
 
 
 class UserController extends Controller
@@ -20,7 +19,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::with('roles')->get();
+        $users = User::get();
         return view('app.users.index', ['users' => $users]);
     }
 
@@ -31,7 +30,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-    
+        //validation
         $validateData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email',
@@ -42,26 +41,6 @@ class UserController extends Controller
 
         return redirect()->route('users.index');
 
-    }
-
-    public function edit(User $user)
-    {
-        $roles = Role::get();
-        return view('app.users.edit', ['user' => $user, 'roles'=>$roles]);
-    }
-
-    public function update(Request $request, User $user)
-    {
-        $validateData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,'.$user->id,
-            'roles'=>'required|array'
-        ]);
-
-        $user->update($validateData);
-        $user->roles()->sync($request->input('roles'));
-        
-        return redirect()->route('users.index');
     }
 
 
