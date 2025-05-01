@@ -34,6 +34,21 @@
                             <x-input-error :messages="$errors->get('domain_name')" class="mt-2" />
                         </div>
 
+                        <!-- Contraseña -->
+                        <div class="mt-4">
+                            <x-input-label for="password" :value="__('Contraseña (opcional)')" />
+                            <x-text-input id="password" class="block mt-1 w-full"
+                                        type="password" name="password" autocomplete="new-password" />
+                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                        </div>
+
+                        <!-- Confirmar Contraseña -->
+                        <div class="mt-4">
+                            <x-input-label for="password_confirmation" :value="__('Confirmar Contraseña')" />
+                            <x-text-input id="password_confirmation" class="block mt-1 w-full"
+                                        type="password" name="password_confirmation" autocomplete="new-password" />
+                        </div>
+
                         <!-- Botón de actualizar -->
                         <div class="flex items-center justify-end mt-4">
                             <x-primary-button class="ms-4">
