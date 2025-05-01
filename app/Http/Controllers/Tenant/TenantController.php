@@ -47,5 +47,17 @@ class TenantController extends Controller
 
     }
 
+    public function destroy(Tenant $tenant)
+    {
+        // Eliminar el tenant y sus dominios
+        $tenant->domains()->delete();
+        $tenant->delete();
+
+        // Redirigir después de eliminar
+        return redirect()->route('tenants.index')->with('success', 'Tenant eliminado con éxito');
+    }
+
+    
+
 
 }
