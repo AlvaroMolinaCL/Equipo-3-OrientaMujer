@@ -16,12 +16,25 @@ class CreateTenantsTable extends Migration
     public function up(): void
     {
         Schema::create('tenants', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->string('name');
-            $table->string('email');
-            $table->string('password');
+            $table->string('id')->primary(); // ID del tenant, usado también por Tenancy
             $table->timestamps();
-            $table->json('data')->nullable();
+
+            // Campos personalizados
+            $table->string('app_name')->nullable();
+            $table->string('logo_path')->nullable();
+            $table->string('favicon_path')->nullable();
+            $table->string('default_locale', 10)->default('es');
+
+            // Colores generales
+            $table->string('navbar_color')->nullable();
+            $table->string('background_color')->nullable();
+
+            // Tipografías por defecto
+            $table->string('heading_font')->nullable();
+            $table->string('body_font')->nullable();
+            $table->string('link_font')->nullable();
+
+            $table->json('data')->nullable(); // Puedes seguir usándolo para configuraciones varias
         });
     }
 
