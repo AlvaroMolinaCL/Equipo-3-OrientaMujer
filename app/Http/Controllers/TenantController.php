@@ -29,7 +29,6 @@ class TenantController extends Controller
 
     public function store(Request $request)
     {
-        //validation
         $validationData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -37,15 +36,20 @@ class TenantController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $tenant = Tenant::create($validationData);
+        $tenant = Tenant::create([
+            'id' => $validationData['name'],
+            'name' => $validationData['name'],
+            'email' => $validationData['email'],
+            'password' => Hash::make($validationData['password']),
+        ]);
 
         $tenant->domains()->create([
             'domain' => $validationData['domain_name'] . '.' . config('app.domain')
         ]);
 
         return redirect()->route('tenants.index');
-
     }
+
 
     public function destroy(Tenant $tenant)
     {
@@ -57,7 +61,7 @@ class TenantController extends Controller
         return redirect()->route('tenants.index')->with('success', 'Tenant eliminado con éxito');
     }
 
-    
+
 
 
 }
