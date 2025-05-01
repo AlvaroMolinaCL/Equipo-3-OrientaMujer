@@ -21,6 +21,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('tenants', TenantController::class);
+    Route::delete('tenants/{tenant}', [TenantController::class, 'destroy'])->name('tenants.destroy');
+    Route::get('tenants/{tenant}/edit', [TenantController::class, 'edit'])->name('tenants.edit');
+    Route::put('tenants/{tenant}', [TenantController::class, 'update'])->name('tenants.update');
+
+
 
 });
 

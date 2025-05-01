@@ -43,4 +43,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // En el modelo User
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
+
 }

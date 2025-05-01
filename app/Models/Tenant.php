@@ -26,4 +26,11 @@ class Tenant extends BaseTenant implements TenantWithDatabase
     {
         return $this->attributes['password'] = bcrypt($value);
     }
+
+    // En el modelo Tenant
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
 }
