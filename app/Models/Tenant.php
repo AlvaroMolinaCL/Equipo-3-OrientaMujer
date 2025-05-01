@@ -7,23 +7,44 @@ use Stancl\Tenancy\Contracts\TenantWithDatabase;
 use Stancl\Tenancy\Database\Concerns\HasDatabase;
 use Stancl\Tenancy\Database\Concerns\HasDomains;
 
-
 class Tenant extends BaseTenant implements TenantWithDatabase
 {
     use HasDatabase, HasDomains;
 
-    public static function getCustomColumns(): array
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    protected $fillable = [
+        'id',
+        'app_name',
+        'logo_path',
+        'favicon_path',
+        'default_locale',
+        'navbar_color',
+        'background_color',
+        'heading_font',
+        'body_font',
+        'link_font',
+    ];
+
+    public function pages()
     {
-        return [
-            'id',
-            'name',
-            'email',
-            'password'
-        ];
+        return $this->hasMany(TenantPage::class);
     }
 
-    public function setPasswordAttribute($value)
+    public function styles()
     {
-        return $this->attributes['password'] = bcrypt($value);
+        return $this->hasMany(TenantStyle::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(TenantImage::class);
+    }
+
+    public function settings()
+    {
+        return $this->hasMany(TenantSetting::class);
     }
 }
