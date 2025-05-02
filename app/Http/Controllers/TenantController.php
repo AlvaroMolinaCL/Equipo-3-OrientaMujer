@@ -39,7 +39,7 @@ class TenantController extends Controller
             'id' => $validationData['name'],
             'name' => $validationData['name'],
             'email' => $validationData['email'],
-            'password' => Hash::make($validationData['password']),
+            'password' => $validationData['password'],
         ]);
 
         $tenant->domains()->create([

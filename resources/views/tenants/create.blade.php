@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Add Tenant') }}
+            {{ __('Añadir Tenant') }}
         </h2>
     </x-slot>
 
@@ -15,7 +15,7 @@
 
                         <!-- Name -->
                         <div>
-                            <x-input-label for="name" :value="__('Name')" />
+                            <x-input-label for="name" :value="__('Nombre')" />
                             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
                                 :value="old('name')" required autofocus autocomplete="name" />
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
@@ -31,7 +31,7 @@
 
                         <!-- Name -->
                         <div>
-                            <x-input-label for="domain_name" :value="__('Domain name')" />
+                            <x-input-label for="domain_name" :value="__('Dominio')" />
                             <x-text-input id="domain_name" class="block mt-1 w-full" type="text" name="domain_name"
                                 :value="old('domain_name')" required autofocus autocomplete="domain_name" />
                             <x-input-error :messages="$errors->get('domain_name')" class="mt-2" />
@@ -39,7 +39,7 @@
 
                         <!-- Password -->
                         <div class="mt-4">
-                            <x-input-label for="password" :value="__('Password')" />
+                            <x-input-label for="password" :value="__('Contraseña')" />
 
                             <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
                                 required autocomplete="new-password" />
@@ -49,7 +49,7 @@
 
                         <!-- Confirm Password -->
                         <div class="mt-4">
-                            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                            <x-input-label for="password_confirmation" :value="__('Confirmar contraseña')" />
 
                             <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
                                 name="password_confirmation" required autocomplete="new-password" />
@@ -60,7 +60,7 @@
                         <div class="flex items-center justify-end mt-4">
 
                             <x-primary-button class="ms-4">
-                                {{ __('Create') }}
+                                {{ __('Crear tenant') }}
                             </x-primary-button>
                         </div>
                     </form>
