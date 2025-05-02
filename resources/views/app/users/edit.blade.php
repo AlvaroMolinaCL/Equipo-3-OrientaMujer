@@ -1,7 +1,7 @@
 <x-tenant-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Edit user') }}
+            {{ __('Editar usuario') }}
         </h2>
     </x-slot>
 
@@ -16,7 +16,7 @@
 
                         <!-- Name -->
                         <div>
-                            <x-input-label for="name" :value="__('Name')" />
+                            <x-input-label for="name" :value="__('Nombre')" />
                             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
                                 :value="old('name', $user->name)" required autofocus autocomplete="name" />
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
@@ -30,9 +30,10 @@
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
 
+                        <!-- Roles -->
                         <div class="mt-4">
-                            <x-input-label for="roles" :value="__('Email')" />
-                            <select multiple class="" name="roles[]">
+                            <x-input-label for="roles" :value="__('Roles')" />
+                            <select name="roles[]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                 @foreach ($roles as $role)
                                     <option value="{{ $role->id }}" @if(in_array($role->id, $user->roles->pluck('id')->toArray())) selected @endif>
                                         {{ $role->name }}
@@ -42,9 +43,8 @@
                         </div>
 
                         <div class="flex items-center justify-end mt-4">
-
                             <x-primary-button class="ms-4">
-                                {{ __('Update') }}
+                                {{ __('Actualizar usuario') }}
                             </x-primary-button>
                         </div>
                     </form>
