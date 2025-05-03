@@ -6,15 +6,37 @@
 
 @section('content')
     <div class="container py-5">
+        {{-- Encabezado con dropdown de usuario --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Tenants</h2>
-            <a href="{{ route('tenants.create') }}" class="btn btn-primary">Agregar Tenant</a>
+            <h2 class="h4 mb-0">{{ __('Tenants') }}</h2>
+
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="userDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ Auth::user()->name }}
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                    <li>
+                        <a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Profile') }}</a>
+                    </li>
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); this.closest('form').submit();">
+                                {{ __('Log Out') }}
+                            </a>
+                        </form>
+                    </li>
+                </ul>
+            </div>
         </div>
 
-        <div class="card shadow">
+        {{-- Tabla de tenants --}}
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered text-center align-middle">
+                    <table class="table table-hover align-middle text-center">
                         <thead class="table-light">
                             <tr>
                                 <th>Nombre</th>
@@ -34,18 +56,17 @@
                                         @endforeach
                                     </td>
                                     <td>
-                                        <div class="d-flex justify-content-center gap-1 flex-wrap">
-
+                                        <div class="d-flex flex-wrap justify-content-center gap-2">
                                             {{-- Ver --}}
-                                            <a href="http://{{ $tenant->domains->first()->domain }}"
-                                                class="btn btn-sm btn-primary">
-                                                Ver sitio
+                                            <a href="http://{{ $tenant->domains->first()->domain }}:8000"
+                                                class="btn btn-sm btn-primary d-flex align-items-center gap-1">
+                                                <i class="bi bi-eye"></i> Ver sitio
                                             </a>
 
                                             {{-- Editar --}}
                                             <a href="{{ route('tenants.edit', $tenant) }}"
-                                                class="btn btn-sm btn-warning text-white">
-                                                Editar
+                                                class="btn btn-sm btn-warning d-flex align-items-center gap-1">
+                                                <i class="bi bi-pencil"></i> Editar
                                             </a>
 
                                             {{-- Eliminar --}}
@@ -53,15 +74,24 @@
                                                 onsubmit="return confirm('¿Estás seguro de eliminar este tenant?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                                                <button type="submit"
+                                                    class="btn btn-sm btn-danger d-flex align-items-center gap-1">
+                                                    <i class="bi bi-x-circle"></i> Eliminar
+                                                </button>
                                             </form>
-
                                         </div>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+
+                {{-- Botón Agregar --}}
+                <div class="text-end mt-4">
+                    <a href="{{ route('tenants.create') }}" class="btn btn-success">
+                        <i class="bi bi-plus-circle"></i> Agregar Tenant
+                    </a>
                 </div>
             </div>
         </div>
