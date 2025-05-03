@@ -74,7 +74,7 @@
                                             <div class="flex flex-wrap justify-center gap-1">
                                                 {{-- Ver --}}
                                                 <a href="http://{{ $tenant->domains->first()->domain }}:8000"
-                                                    class="w-24 flex items-center justify-center gap-1 px-2 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600">
+                                                    class="w-20 flex items-center justify-center gap-1 px-0 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600">
                                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
                                                         viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -87,7 +87,7 @@
 
                                                 {{-- Editar --}}
                                                 <a href="{{ route('tenants.edit', $tenant) }}"
-                                                    class="w-24 flex items-center justify-center gap-1 px-2 py-1 bg-yellow-500 text-white rounded text-xs hover:bg-yellow-600">
+                                                    class="w-20 flex items-center justify-center gap-1 px-0 py-1 bg-yellow-500 text-white rounded text-xs hover:bg-yellow-600">
                                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
                                                         viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -102,7 +102,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
-                                                        class="w-24 flex items-center justify-center gap-1 px-2 py-1 bg-red-600 text-white rounded text-xs hover:bg-red-700">
+                                                        class="w-20 flex items-center justify-center gap-1 px-0 py-1 bg-red-600 text-white rounded text-xs hover:bg-red-700">
                                                         <svg class="w-4 h-4" fill="none" stroke="currentColor"
                                                             stroke-width="2" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
