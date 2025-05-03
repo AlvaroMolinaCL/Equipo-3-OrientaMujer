@@ -2,7 +2,7 @@
 
 @section('navbar')
     @section('navbar-class', 'navbar-dark-mode')
-    @include('layouts.navigation')
+    @include('tenants.default.layouts.navigation')
 @endsection
 
 @section('body-class', 'theme-dark')
@@ -160,5 +160,5 @@
             </div>
         </section>
     -->
-    @include('layouts.footer')
+    @include('tenants.default.layouts.footer')
 @endsection
