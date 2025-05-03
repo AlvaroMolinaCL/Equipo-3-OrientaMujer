@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TenantController;
+use App\Http\Controllers\App\UserController;
 use App\Models\Tenant;
 
 
@@ -24,6 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('tenants/{tenant}', [TenantController::class, 'destroy'])->name('tenants.destroy');
     Route::get('tenants/{tenant}/edit', [TenantController::class, 'edit'])->name('tenants.edit');
     Route::put('tenants/{tenant}', [TenantController::class, 'update'])->name('tenants.update');
+    Route::resource('users', UserController::class);
 
 
 
