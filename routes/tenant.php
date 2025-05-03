@@ -25,7 +25,7 @@ Route::middleware([
 ])->group(function () {
 
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view(tenantView('dashboard'));
     })->middleware(['auth'])->name('dashboard');
 
     // Página "Inicio"
