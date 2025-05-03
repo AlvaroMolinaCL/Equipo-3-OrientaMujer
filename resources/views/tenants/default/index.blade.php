@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('tenants.default.layouts.layouts.app')
 
 @section('navbar')
     @section('navbar-class', 'navbar-dark-mode')
