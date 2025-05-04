@@ -6,10 +6,10 @@
         </button>
 
         <a class="navbar-brand ms-auto" href="/">
-            <img id="logo-navbar" src="{{ url('/images/logo/Logo_OrientaMujer_(Letras_Blancas).png') }}"
-                data-white="{{ url('/images/logo/Logo_OrientaMujer_(Letras_Blancas).png') }}"
-                data-black="{{ url('/images/logo/Logo_OrientaMujer_(Letras_Negras).png') }}" width="300px"
-                height="50px" alt="Logo Orienta Mujer">
+            <img src="{{ asset(tenantSetting('logo_path_1', '')) }}" class="logo logo-1 d-none" alt="Logo 1 {{ tenantSetting('name', 'Tenant') }}"
+                width="300" height="50">
+            <img src="{{ asset(tenantSetting('logo_path_2', '')) }}" class="logo logo-2 d-none" alt="Logo 2 {{ tenantSetting('name', 'Tenant') }}"
+                width="300" height="50">
         </a>
 
         <div class="collapse navbar-collapse" id="navbarNav">

@@ -15,3 +15,10 @@ function tenantView(string $view): string
 
     return "tenants.default.$view";
 }
+
+/**
+ * Recupera configuraciones de un tenant desde la base de datos
+ */
+function tenantSetting($key, $default = null) {
+    return tenant()?->{$key} ?? $default;
+}
