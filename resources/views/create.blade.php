@@ -5,8 +5,11 @@
 @endsection
 
 @section('content')
-    <div class="container py-5">
-        <h2 class="mb-4">Añadir Tenant</h2>
+    <div class="container">
+        {{-- Encabezado --}}
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="h2 mb-0">{{ __('Agregar Tenant') }}</h2>
+        </div>
 
         <div class="card shadow">
             <div class="card-body">
@@ -58,7 +61,7 @@
                     </div>
 
                     <div class="text-end">
-                        <button type="submit" class="btn btn-success">Crear tenant</button>
+                        <button type="submit" class="btn btn-success">Crear Tenant</button>
                     </div>
                 </form>
             </div>

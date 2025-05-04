@@ -31,7 +31,7 @@ class TenantController extends Controller
         ]);
 
         $tenant = Tenant::create([
-            'id' => $validationData['name'],
+            'id' => $validationData['domain_name'],
             'name' => $validationData['name'],
             'email' => $validationData['email'],
             'password' => $validationData['password'],

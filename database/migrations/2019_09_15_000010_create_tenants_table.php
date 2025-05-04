@@ -20,7 +20,9 @@ class CreateTenantsTable extends Migration
             $table->timestamps();
 
             // Campos personalizados
-            $table->string('app_name')->nullable();
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('password')->nullable();
             $table->string('logo_path')->nullable();
             $table->string('favicon_path')->nullable();
             $table->string('default_locale', 10)->default('es');

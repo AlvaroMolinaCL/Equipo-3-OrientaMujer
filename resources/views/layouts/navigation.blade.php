@@ -7,7 +7,7 @@
     <ul class="navbar-nav flex-column w-100 mt-4">
         <li class="nav-item">
             <a class="nav-link {{ Route::is('dashboard') ? 'active bg-body-secondary' : '' }}"
-                href="{{ route('dashboard') }}">Panel de control</a>
+                href="{{ route('dashboard') }}">Panel de Control</a>
         </li>
 
         <!-- Tenants Collapse -->
@@ -25,7 +25,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('tenants.create') ? 'active' : '' }}"
-                            href="{{ route('tenants.create') }}">Añadir Tenant</a>
+                            href="{{ route('tenants.create') }}">Agregar Tenant</a>
                     </li>
                 </ul>
             </div>
@@ -41,7 +41,7 @@
             <div class="collapse ps-3" id="rolesMenu">
                 <ul class="nav flex-column">
                     <li class="nav-item"><a class="nav-link" href="#">Ver Roles</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Añadir Rol</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Agregar Rol</a></li>
                 </ul>
             </div>
         </li>
@@ -56,7 +56,7 @@
             <div class="collapse ps-3" id="permisosMenu">
                 <ul class="nav flex-column">
                     <li class="nav-item"><a class="nav-link" href="#">Ver Permisos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Añadir Permiso</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Agregar Permiso</a></li>
                 </ul>
             </div>
         </li>

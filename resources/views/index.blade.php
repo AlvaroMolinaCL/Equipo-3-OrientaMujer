@@ -5,31 +5,10 @@
 @endsection
 
 @section('content')
-    <div class="container py-5">
-        {{-- Encabezado con dropdown de usuario --}}
+    <div class="container">
+        {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h4 mb-0">{{ __('Tenants') }}</h2>
-
-            <div class="dropdown">
-                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="userDropdown"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    {{ Auth::user()->name }}
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                    <li>
-                        <a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Profile') }}</a>
-                    </li>
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                onclick="event.preventDefault(); this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </a>
-                        </form>
-                    </li>
-                </ul>
-            </div>
+            <h2 class="h2 mb-0">{{ __('Tenants') }}</h2>
         </div>
 
         {{-- Tabla de tenants --}}
@@ -58,9 +37,9 @@
                                     <td>
                                         <div class="d-flex flex-wrap justify-content-center gap-2">
                                             {{-- Ver --}}
-                                            <a href="http://{{ $tenant->domains->first()->domain }}:8000"
+                                            <a href="http://{{ $tenant->domains->first()->domain }}"
                                                 class="btn btn-sm btn-primary d-flex align-items-center gap-1">
-                                                <i class="bi bi-eye"></i> Ver sitio
+                                                <i class="bi bi-eye"></i> Ver Sitio
                                             </a>
 
                                             {{-- Editar --}}
