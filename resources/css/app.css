@@ -53,6 +53,22 @@ body {
     color: #fff !important;
 }
 
+.navbar-dark-mode .logo-1 {
+    display: block !important;
+}
+
+.navbar-dark-mode .logo-2 {
+    display: none !important;
+}
+
+.navbar-light-mode .logo-2 {
+    display: none !important;
+}
+
+.navbar-light-mode .logo-2 {
+    display: block !important;
+}
+
 .hero-section {
     background: url("/images/banner/Banner_Principal_OrientaMujer.png") no-repeat center center;
     background-size: cover;
@@ -117,13 +133,15 @@ body {
     text-decoration: none;
 }
 
+/*
 .scroll-section {
-    /* height: calc(100vh - 70px); */ /* ELIMINA ESTO */
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
-    /* font-size: 2rem; */
+    height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
 }
+*/
 
 #section1 {
     background-color: #111;
@@ -230,7 +248,7 @@ footer {
     object-fit: cover;
 }
 
-.row.g-4 > [class^="col-"] {
+.row.g-4>[class^="col-"] {
     margin-bottom: 30px;
 }
 
