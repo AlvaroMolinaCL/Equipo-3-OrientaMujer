@@ -9,6 +9,7 @@
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="h2 mb-0">{{ __('Panel de Control') }}</h2>
+            <a href="{{ route('tenants.index') }}" class="btn btn-outline-primary">Ver Tenants</a>
         </div>
 
         {{-- Métricas --}}
@@ -77,11 +78,5 @@
                 </div>
             </div>
         </div>
-
-        {{-- Botón de navegación --}}
-        <div class="text-end">
-            <a href="{{ route('tenants.index') }}" class="btn btn-outline-primary">Ver tenants</a>
-        </div>
-
     </div>
 @endsection
