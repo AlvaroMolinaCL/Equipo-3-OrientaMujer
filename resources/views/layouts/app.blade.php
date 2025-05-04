@@ -60,6 +60,7 @@
                                 Panel de control
                             </a>
                         </li>
+                        <!-- ocupar endrole aca -->
                         <li x-data="{
                             open: JSON.parse(localStorage.getItem('tenantsDropdown')) || {{ Route::is('tenants.*') ? 'true' : 'false' }},
                             toggle() {
@@ -89,65 +90,6 @@
                                         class="block px-4 py-2 rounded 
                                             {{ Route::is('tenants.create') ? 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                                         Añadir Tenant
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li x-data="{
-                            open: false,
-                            toggle() {
-                                this.open = !this.open;
-                            }
-                        }">
-                            <button @click="toggle"
-                                class="w-full flex justify-between items-center px-4 py-2 rounded text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">
-                                <span>Roles</span>
-                                <svg :class="{ 'transform rotate-180': open }" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-                            <ul x-show="open" x-transition class="ml-6 mt-1 space-y-1 text-sm">
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 rounded text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                                        Ver Roles
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 rounded text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                                        Añadir Rol
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li x-data="{
-                            open: false,
-                            toggle() {
-                                this.open = !this.open;
-                            }
-                        }">
-                            <button @click="toggle"
-                                class="w-full flex justify-between items-center px-4 py-2 rounded text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">
-                                <span>Permisos</span>
-                                <svg :class="{ 'transform rotate-180': open }" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-                            <ul x-show="open" x-transition class="ml-6 mt-1 space-y-1 text-sm">
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 rounded text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                                        Ver Permisos
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 rounded text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                                        Añadir Permiso
                                     </a>
                                 </li>
                             </ul>
