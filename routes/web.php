@@ -27,6 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::put('tenants/{tenant}', [TenantController::class, 'update'])->name('tenants.update');
     Route::resource('users', UserController::class);
 
+    Route::get('/tenants/{tenant}/seed-permissions', [TenantController::class, 'seedPermissions'])->name('tenants.seedPermissions');
+    Route::get('/tenants/{tenant}/permissions/edit', [TenantController::class, 'editPermissions'])->name('tenants.permissions.edit');
+    Route::post('/tenants/{tenant}/permissions/update', [TenantController::class, 'updatePermissions'])->name('tenants.permissions.update');
 
 
 });

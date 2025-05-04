@@ -3,6 +3,9 @@
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Dashboard') }}
             <x-btn-link class="ml-4 float-right" href="{{ route('users.index')}}">Ver usuarios</x-btn-link>
+            @if (auth()->user()->can('ver usuarios')) 
+            <h2>PRUEBA DE ADMIN SUPERADA</h2>
+           @endif
         </h2>
     </x-slot>
 

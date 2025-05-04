@@ -70,29 +70,18 @@
                                                 {{ $domain->domain }}{{ !$loop->last ? ',' : '' }}
                                             @endforeach
                                         </td>
+                                        {{-- Acciones --}}
                                         <td class="px-6 py-3">
-                                            <div class="flex flex-wrap justify-center gap-1">
+                                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
                                                 {{-- Ver --}}
                                                 <a href="http://{{ $tenant->domains->first()->domain }}:8000"
-                                                    class="w-20 flex items-center justify-center gap-1 px-0 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600">
-                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
-                                                        viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M2.458 12C3.732 7.943 7.523 5 12 5s8.268 2.943 9.542 7c-1.274 4.057-5.065 7-9.542 7s-8.268-2.943-9.542-7z" />
-                                                    </svg>
+                                                    class="w-full h-full min-h-[44px] px-2 py-2 text-xs text-white bg-blue-500 rounded hover:bg-blue-600 text-center flex items-center justify-center">
                                                     Ver sitio
                                                 </a>
 
                                                 {{-- Editar --}}
                                                 <a href="{{ route('tenants.edit', $tenant) }}"
-                                                    class="w-20 flex items-center justify-center gap-1 px-0 py-1 bg-yellow-500 text-white rounded text-xs hover:bg-yellow-600">
-                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
-                                                        viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M11 5h2M12 7v12m-6 0h12a2 2 0 002-2V7a2 2 0 00-2-2h-3.586a1 1 0 01-.707-.293l-1.414-1.414a1 1 0 00-.707-.293H9a1 1 0 00-.707.293L6.879 4.707A1 1 0 016.172 5H4a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                                    </svg>
+                                                    class="w-full h-full min-h-[44px] px-2 py-2 text-xs text-white bg-yellow-500 rounded hover:bg-yellow-600 text-center flex items-center justify-center">
                                                     Editar
                                                 </a>
 
@@ -102,18 +91,25 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
-                                                        class="w-20 flex items-center justify-center gap-1 px-0 py-1 bg-red-600 text-white rounded text-xs hover:bg-red-700">
-                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor"
-                                                            stroke-width="2" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                d="M6 18L18 6M6 6l12 12" />
-                                                        </svg>
+                                                        class="w-full h-full min-h-[44px] px-2 py-2 text-xs text-white bg-red-600 rounded hover:bg-red-700 text-center flex items-center justify-center">
                                                         Eliminar
                                                     </button>
                                                 </form>
-                                            </div>
 
+                                                {{-- Editar permisos --}}
+                                                <a href="{{ route('tenants.permissions.edit', $tenant) }}"
+                                                    class="w-full h-full min-h-[44px] px-2 py-2 text-xs text-white bg-green-500 rounded hover:bg-green-600 text-center flex items-center justify-center">
+                                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor"
+                                                        stroke-width="2" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M3 12l2 2 4-4m4 4l2-2 4 4m-4 4l4 4m0-4l-4-4"></path>
+                                                    </svg>
+                                                    Permisos
+                                                </a>
+                                            </div>
                                         </td>
+
+
                                     </tr>
                                 @endforeach
                             </tbody>
