@@ -17,9 +17,11 @@ class SeedTenantJob implements ShouldQueue
      * Create a new job instance.
      */
     protected $tenant;
-    public function __construct(Tenant $tenant)
+    protected $password;
+    public function __construct(Tenant $tenant, string $password)
     {
         $this->tenant = $tenant;
+        $this->password = $password;
     }
 
     /**
@@ -31,7 +33,7 @@ class SeedTenantJob implements ShouldQueue
             User::create([
                 'name'=>$this->tenant->name,
                 'email'=>$this->tenant->email,
-                'password'=>$this->tenant->password,
+                'password'=>$this->password,
             ]);
         });
     }

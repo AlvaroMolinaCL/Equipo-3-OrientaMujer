@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SeedTenantJob;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Hash;
@@ -34,12 +35,13 @@ class TenantController extends Controller
             'id' => $validationData['domain_name'],
             'name' => $validationData['name'],
             'email' => $validationData['email'],
-            'password' => $validationData['password'],
         ]);
 
         $tenant->domains()->create([
             'domain' => $validationData['domain_name'] . '.' . config('app.domain')
         ]);
+
+        SeedTenantJob::dispatch($tenant, Hash::make($validationData['password']));
 
         return redirect()->route('tenants.index');
     }

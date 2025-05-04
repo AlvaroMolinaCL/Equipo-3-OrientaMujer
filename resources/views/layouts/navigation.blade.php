@@ -10,7 +10,7 @@
                 href="{{ route('dashboard') }}">Panel de Control</a>
         </li>
 
-        <!-- Tenants Collapse -->
+        <!-- Tenants -->
         <li class="nav-item">
             <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
                 href="#tenantsMenu" role="button" aria-expanded="false" aria-controls="tenantsMenu">
@@ -31,7 +31,7 @@
             </div>
         </li>
 
-        <!-- Roles Collapse -->
+        <!-- Roles -->
         <li class="nav-item">
             <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
                 href="#rolesMenu" role="button" aria-expanded="false" aria-controls="rolesMenu">
@@ -46,7 +46,7 @@
             </div>
         </li>
 
-        <!-- Permisos Collapse -->
+        <!-- Permisos -->
         <li class="nav-item">
             <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
                 href="#permisosMenu" role="button" aria-expanded="false" aria-controls="permisosMenu">
@@ -57,6 +57,27 @@
                 <ul class="nav flex-column">
                     <li class="nav-item"><a class="nav-link" href="#">Ver Permisos</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Agregar Permiso</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Usuarios -->
+        <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
+                href="#usersMenu" role="button" aria-expanded="false" aria-controls="usersMenu">
+                Usuarios
+                <i class="bi bi-chevron-down small"></i>
+            </a>
+            <div class="collapse ps-3" id="usersMenu">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('users.index') ? 'active' : '' }}"
+                            href="{{ route('users.index') }}">Ver Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('users.create') ? 'active' : '' }}"
+                            href="{{ route('users.create') }}">Agregar Usuario</a>
+                    </li>
                 </ul>
             </div>
         </li>

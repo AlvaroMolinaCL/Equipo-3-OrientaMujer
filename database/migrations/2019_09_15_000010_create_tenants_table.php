@@ -16,7 +16,7 @@ class CreateTenantsTable extends Migration
     public function up(): void
     {
         Schema::create('tenants', function (Blueprint $table) {
-            $table->string('id')->primary(); // ID del tenant, usado también por Tenancy
+            $table->string('id')->primary();
             $table->timestamps();
 
             // Campos personalizados
@@ -36,7 +36,7 @@ class CreateTenantsTable extends Migration
             $table->string('body_font')->nullable();
             $table->string('link_font')->nullable();
 
-            $table->json('data')->nullable(); // Puedes seguir usándolo para configuraciones varias
+            $table->json('data')->nullable();
         });
     }
 
