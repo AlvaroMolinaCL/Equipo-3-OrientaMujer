@@ -2,28 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rules;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
+use App\Jobs\SeedTenantJob;
 use App\Models\Tenant;
-use Stancl\Tenancy\Facades\Tenancy;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class TenantController extends Controller
 {
-
     public function index()
     {
         $tenants = Tenant::with('domains')->get();
-        return view('tenants.index', ['tenants' => $tenants]);
+        return view('index', ['tenants' => $tenants]);
     }
 
     public function create()
     {
-        return view('tenants.create');
+        return view('create');
     }
 
     public function store(Request $request)
@@ -36,19 +33,19 @@ class TenantController extends Controller
         ]);
 
         $tenant = Tenant::create([
-            'id' => $validationData['name'],
+            'id' => $validationData['domain_name'],
             'name' => $validationData['name'],
             'email' => $validationData['email'],
-            'password' => $validationData['password'],
         ]);
 
         $tenant->domains()->create([
             'domain' => $validationData['domain_name'] . '.' . config('app.domain')
         ]);
 
+        SeedTenantJob::dispatch($tenant, Hash::make($validationData['password']));
+
         return redirect()->route('tenants.index');
     }
-
 
     public function destroy(Tenant $tenant)
     {
@@ -62,9 +59,8 @@ class TenantController extends Controller
 
     public function edit(Tenant $tenant)
     {
-        return view('tenants.edit', compact('tenant'));
+        return view('edit', compact('tenant'));
     }
-
 
     public function update(Request $request, Tenant $tenant)
     {
@@ -156,5 +152,4 @@ class TenantController extends Controller
 
         return redirect()->route('tenants.index')->with('success', 'Permisos actualizados.');
     }
-
 }
