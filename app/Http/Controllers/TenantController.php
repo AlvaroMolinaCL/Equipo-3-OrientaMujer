@@ -2,24 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\SeedTenantJob;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use App\Models\Tenant;
+use Stancl\Tenancy\Facades\Tenancy;
 use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
 
 class TenantController extends Controller
 {
+
     public function index()
     {
         $tenants = Tenant::with('domains')->get();
-        return view('index', ['tenants' => $tenants]);
+        return view('tenants.index', ['tenants' => $tenants]);
     }
 
     public function create()
     {
-        return view('create');
+        return view('tenants.create');
     }
 
     public function store(Request $request)
@@ -32,19 +36,19 @@ class TenantController extends Controller
         ]);
 
         $tenant = Tenant::create([
-            'id' => $validationData['domain_name'],
+            'id' => $validationData['name'],
             'name' => $validationData['name'],
             'email' => $validationData['email'],
+            'password' => $validationData['password'],
         ]);
 
         $tenant->domains()->create([
             'domain' => $validationData['domain_name'] . '.' . config('app.domain')
         ]);
 
-        SeedTenantJob::dispatch($tenant, Hash::make($validationData['password']));
-
         return redirect()->route('tenants.index');
     }
+
 
     public function destroy(Tenant $tenant)
     {
@@ -58,8 +62,9 @@ class TenantController extends Controller
 
     public function edit(Tenant $tenant)
     {
-        return view('edit', compact('tenant'));
+        return view('tenants.edit', compact('tenant'));
     }
+
 
     public function update(Request $request, Tenant $tenant)
     {
@@ -102,4 +107,54 @@ class TenantController extends Controller
 
         return redirect()->route('tenants.index')->with('success', 'Tenant y usuario actualizados correctamente.');
     }
+
+    public function seedPermissions(Tenant $tenant)
+    {
+        // Ejecuta el seeder dentro del contexto del tenant
+        $tenant->run(function () {
+            Artisan::call('db:seed', [
+                '--class' => 'TenantPermissionSeeder',
+                '--force' => true
+            ]);
+        });
+
+        return redirect()->route('tenants.index')->with('success', 'Permisos sembrados en el tenant correctamente.');
+    }
+
+    public function editPermissions(Tenant $tenant)
+    {
+        $permisosDisponibles = include resource_path('data/permisos_disponibles.php');
+
+        return view('tenants.edit-permissions', [
+            'tenant' => $tenant,
+            'permisos' => $permisosDisponibles,
+        ]);
+    }
+
+    public function updatePermissions(Request $request, Tenant $tenant)
+    {
+        $permisosSeleccionados = $request->input('permisos', []);
+
+        $tenant->run(function () use ($permisosSeleccionados) {
+            // Crear o actualizar los permisos
+            foreach ($permisosSeleccionados as $permiso) {
+                \Spatie\Permission\Models\Permission::firstOrCreate([
+                    'name' => $permiso,
+                    'guard_name' => 'web',
+                ]);
+            }
+
+            // Eliminar permisos que ya no están seleccionados
+            $todos = \Spatie\Permission\Models\Permission::pluck('name')->toArray();
+            $aEliminar = array_diff($todos, $permisosSeleccionados);
+            \Spatie\Permission\Models\Permission::whereIn('name', $aEliminar)->delete();
+
+            // Opcional: actualizar rol admin
+            $admin = \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'admin']);
+            $admin->syncPermissions($permisosSeleccionados);
+        });
+
+        return redirect()->route('tenants.index')->with('success', 'Permisos actualizados.');
+    }
+
 }
