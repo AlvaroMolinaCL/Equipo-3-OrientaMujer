@@ -47,19 +47,21 @@
         </li>
 
         <!-- Permisos -->
-        <li class="nav-item">
-            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-                href="#permisosMenu" role="button" aria-expanded="false" aria-controls="permisosMenu">
-                Permisos
-                <i class="bi bi-chevron-down small"></i>
-            </a>
-            <div class="collapse ps-3" id="permisosMenu">
-                <ul class="nav flex-column">
-                    <li class="nav-item"><a class="nav-link" href="#">Ver Permisos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Agregar Permiso</a></li>
-                </ul>
-            </div>
-        </li>
+        <!--
+            <li class="nav-item">
+                <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
+                    href="#permisosMenu" role="button" aria-expanded="false" aria-controls="permisosMenu">
+                    Permisos
+                    <i class="bi bi-chevron-down small"></i>
+                </a>
+                <div class="collapse ps-3" id="permisosMenu">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a class="nav-link" href="#">Ver Permisos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Agregar Permiso</a></li>
+                    </ul>
+                </div>
+            </li>
+        -->
 
         <!-- Usuarios -->
         <li class="nav-item">
