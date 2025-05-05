@@ -10,7 +10,7 @@
 @section('content')
     <section class="py-5" style="margin-top: 80px;">
         <div class="container">
-            <h1 class="mb-4" style="font-family: 'Courier Prime', Courier">Tips</h1>
+            <h1 class="mb-4" style="font-family: {{ tenantSetting('heading_font', '') }}">{{ tenantPageName('tips', 'Tips') }}</h1>
             <!--
                 <p class="mb-5">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vel dapibus nunc. Morbi vestibulum massa et turpis congue tincidunt.

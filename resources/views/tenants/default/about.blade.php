@@ -10,7 +10,7 @@
 @section('content')
     <section class="py-5" style="margin-top: 80px;">
         <div class="container">
-            <h1 class="mb-3" style="font-family: 'Courier Prime', Courier">Sobre Orienta Mujer</h1>
+            <h1 class="mb-3" style="font-family: {{ tenantSetting('heading_font', '') }}">{{ tenantPageName('about', '¿Quiénes somos?') }}</h1>
 
             <div class="row align-items-center fade-in-section">
                 {{-- Imagen: primer plano en móviles, segundo plano en pantallas grandes --}}
