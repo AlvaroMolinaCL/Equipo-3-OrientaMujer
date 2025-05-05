@@ -1,4 +1,6 @@
 /.phpunit.cache
+/config/app.php
+/config/tenancy.php
 /node_modules
 /public/build
 /public/hot
