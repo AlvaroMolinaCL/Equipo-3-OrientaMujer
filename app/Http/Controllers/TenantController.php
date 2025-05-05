@@ -15,12 +15,12 @@ class TenantController extends Controller
     public function index()
     {
         $tenants = Tenant::with('domains')->get();
-        return view('index', ['tenants' => $tenants]);
+        return view('tenants.index', ['tenants' => $tenants]);
     }
 
     public function create()
     {
-        return view('create');
+        return view('tenants.create');
     }
 
     public function store(Request $request)
@@ -59,7 +59,7 @@ class TenantController extends Controller
 
     public function edit(Tenant $tenant)
     {
-        return view('edit', compact('tenant'));
+        return view('tenants.edit', compact('tenant'));
     }
 
     public function update(Request $request, Tenant $tenant)
@@ -121,7 +121,7 @@ class TenantController extends Controller
     {
         $permisosDisponibles = include resource_path('data/permisos_disponibles.php');
 
-        return view('tenants.edit-permissions', [
+        return view('permissions.edit', [
             'tenant' => $tenant,
             'permisos' => $permisosDisponibles,
         ]);
