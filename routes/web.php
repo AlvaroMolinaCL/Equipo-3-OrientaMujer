@@ -1,20 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\App\UserController;
+use App\Models\Tenant;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,6 +26,15 @@ Route::middleware('auth')->group(function () {
     Route::get('tenants/{tenant}/edit', [TenantController::class, 'edit'])->name('tenants.edit');
     Route::put('tenants/{tenant}', [TenantController::class, 'update'])->name('tenants.update');
     Route::resource('users', UserController::class);
+
+    Route::get('/tenants/{tenant}/seed-permissions', [TenantController::class, 'seedPermissions'])->name('tenants.seedPermissions');
+    Route::get('/tenants/{tenant}/permissions/edit', [TenantController::class, 'editPermissions'])->name('tenants.permissions.edit');
+    Route::post('/tenants/{tenant}/permissions/update', [TenantController::class, 'updatePermissions'])->name('tenants.permissions.update');
+
+
 });
 
+
 require __DIR__ . '/auth.php';
+
+
