@@ -12,6 +12,6 @@ class TenantAppLayout extends Component
      */
     public function render(): View
     {
-        return view('app.layouts.app');
+        return view('tenants.default.layouts.app');
     }
 }
