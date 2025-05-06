@@ -61,10 +61,12 @@
                                     </form>
 
                                     {{-- Permisos --}}
-                                    <a href="{{ route('tenants.permissions.edit', $tenant) }}"
-                                        class="btn btn-sm btn-success d-flex align-items-center gap-1">
-                                        <i class="bi bi-person-gear"></i> Permisos
-                                    </a>
+                                    <!--
+                                        <a href="{{ route('tenants.permissions.edit', $tenant) }}"
+                                            class="btn btn-sm btn-success d-flex align-items-center gap-1">
+                                            <i class="bi bi-person-gear"></i> Permisos
+                                        </a>
+                                        -->
                                 </div>
                             </td>
                         </tr>
