@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('tenants.default.layouts.app')
 
 @section('navbar')
     @section('navbar-class', 'navbar-dark-mode')
@@ -13,9 +13,9 @@
             <div class="hero-text fade-in-section">
                 <h1>La información es poder, <br><strong>¡empodérate!</strong></h1>
                 <p class="mt-3">Una representación judicial con perspectiva de género, exige un acompañamiento empático e informado para alivianar las cargas del proceso.</p>
-                <a href="/contacto" class="btn btn-consulta" role="button">Agenda tu asesoría</a>
+                <a href="/contact" class="btn btn-consulta" role="button">Agenda tu asesoría</a>
                 <br>
-                <!-- <a href="/contacto" class="link-consulta">Realiza una consulta</a> -->
+                <!-- <a href="/contact" class="link-consulta">Realiza una consulta</a> -->
             </div>
         </div>
     </section>
@@ -45,7 +45,7 @@
                         Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.
                     </p>
                     <div class="text-center">
-                        <a href="/acerca-de" class="btn btn-consulta" style="background-color: #ffffff54; !important" role="button">Conoce más</a>
+                        <a href="/about" class="btn btn-consulta" style="background-color: #ffffff54; !important" role="button">Conoce más</a>
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                 </div>
             </div>
             <div class="text-center mt-4">
-                <a href="/servicios" class="btn btn-consulta fade-in-section" style="background-color: #ffffff54; !important" role="button">Revisa más detalles</a>
+                <a href="/services" class="btn btn-consulta fade-in-section" style="background-color: #ffffff54; !important" role="button">Revisa más detalles</a>
             </div>
         </div>
     </section>

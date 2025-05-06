@@ -17,7 +17,8 @@ class Tenant extends BaseTenant implements TenantWithDatabase
 
     protected $fillable = [
         'id',
-        'app_name',
+        'name',
+        'email',
         'logo_path',
         'favicon_path',
         'default_locale',
@@ -27,6 +28,22 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         'body_font',
         'link_font',
     ];
+
+    public static function getCustomColumns(): array
+    {
+        return [
+            'id',
+            'name',
+            'logo_path',
+            'favicon_path',
+            'default_locale',
+            'navbar_color',
+            'background_color',
+            'heading_font',
+            'body_font',
+            'link_font',
+        ];
+    }
 
     public function pages()
     {
@@ -48,10 +65,8 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         return $this->hasMany(TenantSetting::class);
     }
 
-    // En el modelo Tenant
     public function users()
     {
         return $this->hasMany(User::class);
     }
-
 }

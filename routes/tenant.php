@@ -34,29 +34,29 @@ Route::middleware([
     });
 
     // Página "Servicios"
-    Route::get('/servicios', function () {
+    Route::get('/services', function () {
         return view(tenantView('services'));
-    });
+    })->middleware('check.tenant.page.enabled:services');
 
     // Página "Contacto"
-    Route::get('/contacto', function () {
+    Route::get('/contact', function () {
         return view(tenantView('contact'));
-    });
+    })->middleware('check.tenant.page.enabled:contact');
 
     // Página "Tips"
     Route::get('/tips', function () {
         return view(tenantView('tips'));
-    });
+    })->middleware('check.tenant.page.enabled:tips');
 
     // Página "Sobre Orienta Mujer"
-    Route::get('/acerca-de', function () {
+    Route::get('/about', function () {
         return view(tenantView('about'));
-    });
+    })->middleware('check.tenant.page.enabled:about');
 
     // Página para Agendar Asesorías
     Route::get('/agenda', function () {
         return view(tenantView('agenda.index'));
-    }); // Se debe agregar al middleware una vez se implemente el inicio de sesión
+    })->middleware('check.tenant.page.enabled:agenda');
 
     require __DIR__ . '/tenant-auth.php';
 });

@@ -16,25 +16,34 @@ class CreateTenantsTable extends Migration
     public function up(): void
     {
         Schema::create('tenants', function (Blueprint $table) {
-            $table->string('id')->primary(); // ID del tenant, usado también por Tenancy
+            $table->string('id')->primary();
             $table->timestamps();
 
             // Campos personalizados
-            $table->string('app_name')->nullable();
-            $table->string('logo_path')->nullable();
-            $table->string('favicon_path')->nullable();
+            $table->string('name')->nullable();
             $table->string('default_locale', 10)->default('es');
+            $table->string('logo_path_1')->nullable();
+            $table->string('logo_path_2')->nullable();
+            $table->string('favicon_path')->nullable();
+            $table->string('banner_path')->nullable();
 
             // Colores generales
-            $table->string('navbar_color')->nullable();
-            $table->string('background_color')->nullable();
+            $table->string('button_banner_color')->nullable();
+            $table->string('button_banner_text_color')->nullable();
+            $table->string('navbar_color_1')->nullable();
+            $table->string('navbar_color_2')->nullable();
+            $table->string('navbar_text_color_1')->nullable();
+            $table->string('navbar_text_color_2')->nullable();
+            $table->string('background_color_1')->nullable();
+            $table->string('background_color_2')->nullable();
+            $table->string('text_color_1')->nullable();
+            $table->string('text_color_2')->nullable();
 
             // Tipografías por defecto
             $table->string('heading_font')->nullable();
             $table->string('body_font')->nullable();
             $table->string('link_font')->nullable();
-
-            $table->json('data')->nullable(); // Puedes seguir usándolo para configuraciones varias
+            $table->json('data')->nullable();
         });
     }
 

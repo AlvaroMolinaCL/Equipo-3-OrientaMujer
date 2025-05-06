@@ -10,7 +10,7 @@
 @section('content')
     <section class="py-5" style="margin-top: 80px;">
         <div class="container">
-            <h1 class="mb-4" style="font-family: 'Courier Prime', Courier">Contacto</h1>
+            <h1 class="mb-4" style="font-family: {{ tenantSetting('heading_font', '') }}">{{ tenantPageName('contact', 'Contacto') }}</h1>
             <p class="mb-4">
                 Te invito a agendar tu asesoría. Estoy aquí para escuchar, guiar y apoyar, con un enfoque integral y humano.
             </p>

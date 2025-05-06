@@ -15,3 +15,21 @@ function tenantView(string $view): string
 
     return "tenants.default.$view";
 }
+
+/**
+ * Recupera configuraciones de un tenant desde la base de datos
+ */
+function tenantSetting($key, $default = null) {
+    return tenant()?->{$key} ?? $default;
+}
+
+/**
+ * Recupera el nombre de la página de un tenant desde la base de datos
+ */
+function tenantPageName(string $pageKey, string $fallback = '')
+    {
+        return \App\Models\TenantPage::on('central')
+            ->where('tenant_id', tenant()?->id)
+            ->where('page_key', $pageKey)
+            ->value('title') ?? $fallback;
+    }
