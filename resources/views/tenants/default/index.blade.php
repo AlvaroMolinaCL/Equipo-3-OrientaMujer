@@ -26,7 +26,7 @@
                 {{-- Imagen: primer plano en móviles, segundo plano en pantallas grandes --}}
                 <div class="col-md-6 text-center order-1 order-md-2 mb-4 mb-md-0 fade-in-section">
                     <img 
-                        src="images/about/Omara_Munoz.jpg" 
+                        src="images/about/Omara_Munoz.png" 
                         alt="Omara Muñoz" 
                         class="rounded-circle img-fluid"
                         style="width: 350px; height: 350px; object-fit: cover;">
@@ -59,7 +59,7 @@
                 {{-- Recuadro 1 --}}
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm border-0 fade-in-section">
-                        <img src="/images/banner/Banner_Principal_OrientaMujer.png" class="card-img-top" alt="Asesoría jurídica integral">
+                        <img src="/images/services/Servicio_1_OrientaMujer.png" class="card-img-top" alt="Asesoría jurídica integral">
                         <div class="card-body">
                             <h5 class="card-title" style="font-weight: bold">Asesoría jurídica integral</h5>
                             <p style="text-align: justify;">Te ofrezco un servicio de orientación legal para identificar el escenario jurídico que enfrentas.</p>
@@ -70,7 +70,7 @@
                 {{-- Recuadro 2 --}}
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm border-0 fade-in-section">
-                        <img src="/images/banner/Banner_Principal_OrientaMujer.png" class="card-img-top" alt="Representación judicial">
+                        <img src="/images/services/Servicio_2_OrientaMujer.png" class="card-img-top" alt="Representación judicial">
                         <div class="card-body">
                             <h5 class="card-title" style="font-weight: bold">Representación judicial</h5>
                             <p style="text-align: justify;">Te represento en procesos judiciales penales, de familia u otras materias.</p>
@@ -81,7 +81,7 @@
                 {{-- Recuadro 3 --}}
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm border-0 fade-in-section">
-                        <img src="/images/banner/Banner_Principal_OrientaMujer.png" class="card-img-top" alt="Capacitaciones y charlas">
+                        <img src="/images/services/Servicio_3_OrientaMujer.png" class="card-img-top" alt="Capacitaciones y charlas">
                         <div class="card-body">
                             <h5 class="card-title" style="font-weight: bold">Capacitaciones y charlas</h5>
                             <p style="text-align: justify;">Realizo talleres, charlas y capacitaciones para grupos en contextos académicos, laborales o comunitarios.</p>
