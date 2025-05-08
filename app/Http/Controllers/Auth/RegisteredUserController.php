@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
 
 class RegisteredUserController extends Controller
 {
@@ -31,11 +32,29 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
+        $noUsersExist = User::count() === 0;
+
+        $rules = [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:8',
-        ]);
+        ];
+
+        // Solo pedir access_token si ya hay usuarios
+        if (!$noUsersExist) {
+            $rules['access_token'] = 'required|string';
+        }
+
+        $request->validate($rules);
+
+        // Validar token si ya hay usuarios
+        if (!$noUsersExist) {
+            $expectedToken = substr(hash_hmac('sha256', now()->format('Y-m-d'), config('app.key')), 0, 6);
+
+            if ($request->access_token !== $expectedToken) {
+                return back()->withErrors(['access_token' => 'El token de acceso es incorrecto.'])->withInput();
+            }
+        }
 
         $user = User::create([
             'name' => $request->name,
@@ -43,11 +62,12 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        // 👉 Asignar rol por defecto
-        $user->assignRole('cliente'); // Asegúrate de que este rol existe
+        $user->assignRole('Super Admin');
 
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
     }
+
+
 }

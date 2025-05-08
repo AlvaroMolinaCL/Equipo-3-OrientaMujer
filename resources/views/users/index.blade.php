@@ -30,11 +30,11 @@
                             <tr>
                                 <th class="text-center" style="color: #8C2D18;">Nombre</th>
                                 <th class="text-center" style="color: #8C2D18;">Email</th>
-                                <th class="text-center" style="color: #8C2D18;">Roles</th>
+                                <th class="text-center" style="color: #8C2D18;">Rol</th>
                                 <th class="text-center" style="color: #8C2D18;">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="text-center">
                             @foreach ($users as $user)
                                 <tr>
                                     <td>{{ $user->name }}</td>
