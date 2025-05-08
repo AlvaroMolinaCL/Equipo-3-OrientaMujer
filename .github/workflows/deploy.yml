@@ -7,6 +7,7 @@ on:
 
 jobs:
   deploy:
+    name: Desplegar a servidor de producción
     runs-on: ubuntu-latest
 
     steps:
@@ -20,11 +21,18 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: |
+            echo "Abriendo directorio del proyecto..."
             cd /var/www/laravel
+            echo "Haciendo pull de la última versión desde repositorio..."
             git pull origin main
+            echo "Instalando dependencias de PHP..."
             composer install --no-interaction --prefer-dist --optimize-autoloader
-            php artisan config:cache
-            php artisan view:cache
+            echo "Limpiando cache..."
+            php artisan optimize:clear
+            echo "Ejecutando migraciones..."
             php artisan migrate --force
-#           npm install
-#           npm run build
+            echo "Instalando dependencias de Node.js..."
+            /root/.nvm/versions/node/v20.17.0/bin/npm install
+            echo "Compilando assets..."
+            /root/.nvm/versions/node/v20.17.0/bin/npm run build
+            echo "Despliegue completado."
