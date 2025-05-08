@@ -14,7 +14,6 @@ class TenantController extends Controller
 {
     public function index()
     {
-        dd(auth()->check());
         $tenants = Tenant::with('domains')->get();
         return view('tenants.index', ['tenants' => $tenants]);
     }
