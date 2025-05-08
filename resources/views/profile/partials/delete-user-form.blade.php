@@ -1,19 +1,21 @@
-<section class="mb-1">
-    <header>
-        <h2 class="h5 text-danger">
-            {{ __('Eliminar Cuenta') }}
+<section class="bg-white p-4 rounded-3 shadow-sm">
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+        <h2 class="h3 mb-0 fw-bold" style="color: #8C2D18;">
+            <i class="bi bi-trash3 me-2"></i>{{ __('Eliminar Cuenta') }}
         </h2>
-        <p class="text-muted">
-            {{ __('Una vez eliminada su cuenta, todos sus recursos y datos se eliminarán permanentemente. Antes de eliminarla, descargue cualquier dato o información que desee conservar.') }}
+    </div>
+
+    <div class="p-3 mb-4" style="background-color: #FDF5E5; border-radius: 8px;">
+        <p class="mb-3" style="color: #8C2D18;">
+            {{ __('Una vez eliminada su cuenta, todos sus recursos y datos se eliminarán permanentemente.') }}
         </p>
-    </header>
+        <button class="btn fw-medium py-1" data-bs-toggle="modal" data-bs-target="#confirmUserDeletion"
+                style="background-color: #dc3545; color: white; width: 100%;">
+            <i class="bi bi-exclamation-triangle me-2"></i>{{ __('Eliminar Cuenta') }}
+        </button>
+    </div>
 
-    <!-- Botón para abrir el modal -->
-    <button class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#confirmUserDeletion">
-        {{ __('Eliminar Cuenta') }}
-    </button>
-
-    <!-- Modal de confirmación -->
+    <!-- Modal -->
     <div class="modal fade" id="confirmUserDeletion" tabindex="-1" aria-labelledby="confirmUserDeletionLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -21,32 +23,41 @@
                 @csrf
                 @method('delete')
 
-                <div class="modal-header">
-                    <h5 class="modal-title text-danger" id="confirmUserDeletionLabel">
-                        {{ __('¿Está seguro de querer eliminar su cuenta?') }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="{{ __('Close') }}"></button>
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold" style="color: #8C2D18;" id="confirmUserDeletionLabel">
+                        <i class="bi bi-exclamation-octagon me-2"></i>{{ __('Confirmar eliminación') }}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <div class="modal-body">
-                    <p class="text-muted">
-                        {{ __('Una vez eliminada su cuenta, todos sus recursos y datos se eliminarán permanentemente. Ingrese su contraseña para confirmar que desea eliminar su cuenta permanentemente.') }}
+                    <p style="color: #8C2D18;">
+                        {{ __('Esta acción no se puede deshacer. Todos sus datos serán eliminados permanentemente.') }}
                     </p>
 
-                    <div class="mb-3">
-                        <label for="password" class="form-label sr-only">{{ __('Contraseña') }}</label>
-                        <input type="password" id="password" name="password" class="form-control"
-                            placeholder="{{ __('Ingrese su contraseña') }}">
+                    <div class="mb-4">
+                        <label for="password" class="form-label fw-medium" style="color: #8C2D18;">
+                            {{ __('Ingrese su contraseña para confirmar') }}
+                        </label>
+                        <input type="password" id="password" name="password" 
+                               class="form-control border-0 py-2 px-3" 
+                               style="background-color: #F5E8D0; border-radius: 8px;"
+                               placeholder="{{ __('Contraseña') }}">
                         @error('password', 'userDeletion')
-                            <div class="text-danger small mt-1">{{ $message }}</div>
+                            <div class="small mt-2" style="color: #dc3545;">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">{{ __('Cancelar') }}</button>
-                    <button type="submit" class="btn btn-danger">{{ __('Eliminar Cuenta') }}</button>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn fw-medium" data-bs-dismiss="modal"
+                            style="background-color: #F5E8D0; color: #8C2D18;">
+                        {{ __('Cancelar') }}
+                    </button>
+                    <button type="submit" class="btn fw-medium" 
+                            style="background-color: #dc3545; color: white;">
+                        <i class="bi bi-trash3 me-1"></i>{{ __('Eliminar definitivamente') }}
+                    </button>
                 </div>
             </form>
         </div>
