@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('tenant_settings', function (Blueprint $table) {
             $table->id();
             $table->string('tenant_id');
-            $table->string('key');   // Ej: 'enable_blog', 'social_instagram'
-            $table->string('value'); // Valor como string
+            $table->string('key');
+            $table->string('value');
 
             $table->timestamps();
             $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('cascade');
