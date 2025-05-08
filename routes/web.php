@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\App\UserController;
+use App\Http\Controllers\Admin\TokenController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,12 +30,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 // Rutas exclusivas para SUPER ADMINISTRADOR
-Route::middleware(['auth', 'verified', 'role:super_admin'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
     // Gestión de tenants
     Route::resource('tenants', TenantController::class);
     Route::delete('tenants/{tenant}', [TenantController::class, 'destroy'])->name('tenants.destroy');
     Route::get('tenants/{tenant}/edit', [TenantController::class, 'edit'])->name('tenants.edit');
     Route::put('tenants/{tenant}', [TenantController::class, 'update'])->name('tenants.update');
+
+    Route::get('/admin/token', [TokenController::class, 'show'])->name('admin.token');
+
 
     // Gestión de usuarios
     Route::resource('users', UserController::class);

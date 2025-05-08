@@ -36,7 +36,7 @@
                                 <th class="text-center" style="color: #8C2D18;">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="text-center">
                             @foreach ($tenants as $tenant)
                                 <tr>
                                     <td>{{ $tenant->name }}</td>
