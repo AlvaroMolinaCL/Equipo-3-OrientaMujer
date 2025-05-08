@@ -1,0 +1,30 @@
+name: Desplegar a producción
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositorio al espacio de trabajo
+        uses: actions/checkout@v3
+
+      - name: Desplegar vía SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            cd /var/www/laravel
+            git pull origin main
+            composer install --no-interaction --prefer-dist --optimize-autoloader
+            php artisan config:cache
+            php artisan view:cache
+            php artisan migrate --force
+            npm install
+            npm run build
