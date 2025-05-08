@@ -1,67 +1,92 @@
 @extends('layouts.app')
 
-@section('navbar')
-    @include('layouts.navigation')
-@endsection
-
 @section('content')
-    <div class="container">
-        {{-- Encabezado --}}
+    <div class="container-fluid">
+        <!-- Encabezado -->
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h2 mb-0">{{ __('Panel de Control') }}</h2>
-            <a href="{{ route('tenants.index') }}" class="btn btn-outline-primary">Ver Tenants</a>
+            <h2 class="h2 mb-0" style="color: #8C2D18;">{{ __('Panel de Control') }}</h2>
         </div>
 
-        {{-- Métricas --}}
+        <!-- Métricas -->
         <div class="row mb-4">
-            <div class="col-md-4">
-                <div class="card text-white bg-primary mb-3">
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="card text-white h-100" style="background-color: #BF8A49;">
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-light">Usuarios Registrados</h6>
-                        <h3 class="card-title">245</h3>
-                        {{-- Reemplazar con: {{ $userCount }} --}}
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="card-subtitle mb-2 text-light">Usuarios Registrados</h6>
+                                <h3 class="card-title">245</h3>
+                            </div>
+                            <i class="bi bi-people fs-1 opacity-50"></i>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="card text-white bg-success mb-3">
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="card text-white h-100" style="background-color: #BF8A49;">
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-light">Nuevos Ingresos Hoy</h6>
-                        <h3 class="card-title">12</h3>
-                        {{-- Reemplazar con: {{ $newUsersToday }} --}}
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="card-subtitle mb-2 text-light">Nuevos Hoy</h6>
+                                <h3 class="card-title">12</h3>
+                            </div>
+                            <i class="bi bi-person-plus fs-1 opacity-50"></i>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="card text-white bg-info mb-3">
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="card text-white h-100" style="background-color: #BF8A49;">
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-light">Suscripciones Activas</h6>
-                        <h3 class="card-title">83</h3>
-                        {{-- Reemplazar con: {{ $activeSubscriptions }} --}}
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="card-subtitle mb-2 text-light">Suscripciones</h6>
+                                <h3 class="card-title">83</h3>
+                            </div>
+                            <i class="bi bi-credit-card fs-1 opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="card text-white h-100" style="background-color: #BF8A49;">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="card-subtitle mb-2 text-light">Activos Hoy</h6>
+                                <h3 class="card-title">56</h3>
+                            </div>
+                            <i class="bi bi-activity fs-1 opacity-50"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        {{-- Tabla de usuarios --}}
-        <div class="card mb-4">
-            <div class="card-header">
-                <h5 class="mb-0">Últimos Usuarios Registrados</h5>
+        <!-- Tabla de usuarios -->
+        <div class="card mb-4 border-0 shadow-sm">
+            <div class="card-header d-flex justify-content-between align-items-center"
+                style="background-color: #8C2D18; color: white;">
+                <h5 class="mb-0">Últimos Usuarios</h5>
+                <a href="{{ route('users.create') }}" class="btn btn-sm"
+                    style="background-color: #FDF5E5; color: #8C2D18;">
+                    <i class="bi bi-plus-circle"></i> Nuevo Usuario
+                </a>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table table-hover table-bordered mb-0">
-                        <thead class="table-light">
+                    <table class="table table-hover mb-0">
+                        <thead style="background-color: #FDF5E5;">
                             <tr>
-                                <th>Nombre</th>
-                                <th>Email</th>
-                                <th>Fecha Registro</th>
+                                <th style="color: #8C2D18;">Nombre</th>
+                                <th style="color: #8C2D18;">Email</th>
+                                <th style="color: #8C2D18;">Registro</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- Repetir dinámicamente con @foreach --}}
                             <tr>
                                 <td>Juan Pérez</td>
                                 <td>juan@example.com</td>
@@ -72,7 +97,11 @@
                                 <td>maria@example.com</td>
                                 <td>01/05/2025</td>
                             </tr>
-                            {{-- Fin loop --}}
+                            <tr>
+                                <td>Carlos Ruiz</td>
+                                <td>carlos@example.com</td>
+                                <td>30/04/2025</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
