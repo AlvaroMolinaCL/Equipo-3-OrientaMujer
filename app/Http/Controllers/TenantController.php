@@ -30,12 +30,33 @@ class TenantController extends Controller
             'email' => 'required|email|max:255',
             'domain_name' => 'required|string|max:255|unique:domains,domain',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
+            'logo1' => 'nullable|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
+            'background_color' => 'nullable|string|max:7',
+            'navbar_color' => 'nullable|string|max:7',
+            'body_font' => 'nullable|string|max:255',
         ]);
-
+        $logoPath1 = null;
+        $logoPath2 = null;
+        
+        if ($request->hasFile('logo')) {
+            $logoPath1 = $request->file('logo')->store('/tenant_logos', 'public');
+        }
+        if ($request->hasFile('logo1')) {
+            $logoPath2 = $request->file('logo1')->store('/tenant_logos', 'public');
+        }
+        
         $tenant = Tenant::create([
             'id' => $validationData['domain_name'],
             'name' => $validationData['name'],
             'email' => $validationData['email'],
+            'logo_path_1' => $logoPath1,
+            'logo_path_2' => $logoPath2,
+            'background_color_1' => $request->input('background_color'),
+            'background_color_2' => $request->input('background_color'),
+            'navbar_color_1' => $request->input('navbar_color'),
+            'navbar_color_2' => $request->input('navbar_color'),
+            'body_font' => $request->input('body_font'),
         ]);
 
         $tenant->domains()->create([
