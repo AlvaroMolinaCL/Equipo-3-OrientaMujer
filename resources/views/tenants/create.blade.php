@@ -11,17 +11,17 @@
             <h2 class="h3 mb-0 fw-bold" style="color: #8C2D18;">
                 <i class="bi bi-building me-2"></i>{{ __('Nuevo Tenant') }}
             </h2>
-            <a href="{{ route('tenants.index') }}" class="btn btn-sm" 
-               style="background-color: #F5E8D0; color: #8C2D18;">
+            <a href="{{ route('tenants.index') }}" class="btn btn-sm" style="background-color: #F5E8D0; color: #8C2D18;">
                 <i class="bi bi-arrow-left me-1"></i> Volver
             </a>
         </div>
 
         <div class="card shadow border-0" style="background-color: #FDF5E5;">
             <div class="card-body p-4">
-                <form method="POST" action="{{ route('tenants.store') }}" enctype="multipart/form-data" class="bg-white p-4 rounded-3 shadow-sm">
+                <form method="POST" action="{{ route('tenants.store') }}" enctype="multipart/form-data"
+                    class="bg-white p-4 rounded-3 shadow-sm">
                     @csrf
-
+            
                     {{-- Campo Nombre --}}
                     <div class="mb-4">
                         <label for="name" class="form-label fw-medium" style="color: #8C2D18;">
@@ -31,9 +31,9 @@
                             <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                 <i class="bi bi-building"></i>
                             </span>
-                            <input id="name" type="text" class="form-control border-start-0" 
-                                   style="background-color: #FDF5E5;" name="name" 
-                                   value="{{ old('name') }}" required autofocus>
+                            <input id="name" type="text" class="form-control border-start-0"
+                                style="background-color: #FDF5E5;" name="name" value="{{ old('name') }}" required
+                                autofocus>
                         </div>
                         @error('name')
                             <div class="text-danger small mt-2">
@@ -41,7 +41,7 @@
                             </div>
                         @enderror
                     </div>
-
+                
                     {{-- Campo Email --}}
                     <div class="mb-4">
                         <label for="email" class="form-label fw-medium" style="color: #8C2D18;">
@@ -51,9 +51,8 @@
                             <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                 <i class="bi bi-at"></i>
                             </span>
-                            <input id="email" type="email" class="form-control border-start-0" 
-                                   style="background-color: #FDF5E5;" name="email" 
-                                   value="{{ old('email') }}" required>
+                            <input id="email" type="email" class="form-control border-start-0"
+                                style="background-color: #FDF5E5;" name="email" value="{{ old('email') }}" required>
                         </div>
                         @error('email')
                             <div class="text-danger small mt-2">
@@ -61,7 +60,7 @@
                             </div>
                         @enderror
                     </div>
-
+                
                     {{-- Campo Dominio --}}
                     <div class="mb-4">
                         <label for="domain_name" class="form-label fw-medium" style="color: #8C2D18;">
@@ -71,9 +70,11 @@
                             <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                 <i class="bi bi-link-45deg"></i>
                             </span>
-                            <input id="domain_name" type="text" class="form-control border-start-0" 
-                                   style="background-color: #FDF5E5;" name="domain_name" 
-                                   value="{{ old('domain_name') }}" required>
+                            <input id="domain_name" type="text" class="form-control border-start-0"
+                                style="background-color: #FDF5E5;" name="domain_name" value="{{ old('domain_name') }}"
+                                required>
+                            <span class="input-group-text" id="basic-addon2"
+                                style="background-color: #F5E8D0; color: #8C2D18;">.{{ config('app.domain') }}</span>
                         </div>
                         @error('domain_name')
                             <div class="text-danger small mt-2">
@@ -81,7 +82,7 @@
                             </div>
                         @enderror
                     </div>
-
+                
                     {{-- Campo Contraseña --}}
                     <div class="mb-4">
                         <label for="password" class="form-label fw-medium" style="color: #8C2D18;">
@@ -91,10 +92,10 @@
                             <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                 <i class="bi bi-key"></i>
                             </span>
-                            <input id="password" type="password" class="form-control border-start-0" 
-                                   style="background-color: #FDF5E5;" name="password" required>
+                            <input id="password" type="password" class="form-control border-start-0"
+                                style="background-color: #FDF5E5;" name="password" required>
                             <button class="btn" type="button" style="background-color: #F5E8D0; color: #8C2D18;"
-                                    onclick="togglePassword('password')">
+                                onclick="togglePassword('password')">
                                 <i class="bi bi-eye"></i>
                             </button>
                         </div>
@@ -104,7 +105,7 @@
                             </div>
                         @enderror
                     </div>
-
+                
                     {{-- Campo Confirmar Contraseña --}}
                     <div class="mb-4">
                         <label for="password_confirmation" class="form-label fw-medium" style="color: #8C2D18;">
@@ -114,59 +115,59 @@
                             <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                 <i class="bi bi-key-fill"></i>
                             </span>
-                            <input id="password_confirmation" type="password" class="form-control border-start-0" 
-                                   style="background-color: #FDF5E5;" name="password_confirmation" required>
+                            <input id="password_confirmation" type="password" class="form-control border-start-0"
+                                style="background-color: #FDF5E5;" name="password_confirmation" required>
                             <button class="btn" type="button" style="background-color: #F5E8D0; color: #8C2D18;"
-                                    onclick="togglePassword('password_confirmation')">
+                                onclick="togglePassword('password_confirmation')">
                                 <i class="bi bi-eye"></i>
                             </button>
                         </div>
                     </div>
-
+                
                     {{-- Sección de Personalización --}}
                     <div class="mb-4 border-top pt-3">
                         <h5 class="fw-medium mb-3" style="color: #8C2D18;">
                             <i class="bi bi-palette me-2"></i>Personalización
                         </h5>
-
+                    
                         {{-- Logo 1 --}}
                         <div class="mb-4">
-                            <label for="logo" class="form-label fw-medium" style="color: #8C2D18;">
+                            <label for="logo_1" class="form-label fw-medium" style="color: #8C2D18;">
                                 <i class="bi bi-image me-1"></i>Logo Principal
                             </label>
                             <div class="input-group">
                                 <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                     <i class="bi bi-upload"></i>
                                 </span>
-                                <input id="logo" type="file" class="form-control border-start-0" 
-                                       style="background-color: #FDF5E5;" name="logo" accept="image/*">
+                                <input id="logo_1" type="file" class="form-control border-start-0"
+                                    style="background-color: #FDF5E5;" name="logo_1" accept="image/*">
                             </div>
-                            @error('logo')
+                            @error('logo_1')
                                 <div class="text-danger small mt-2">
                                     <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
                                 </div>
                             @enderror
                         </div>
-
+                    
                         {{-- Logo 2 --}}
                         <div class="mb-4">
-                            <label for="logo1" class="form-label fw-medium" style="color: #8C2D18;">
+                            <label for="logo_2" class="form-label fw-medium" style="color: #8C2D18;">
                                 <i class="bi bi-images me-1"></i>Logo Secundario
                             </label>
                             <div class="input-group">
                                 <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                     <i class="bi bi-upload"></i>
                                 </span>
-                                <input id="logo1" type="file" class="form-control border-start-0" 
-                                       style="background-color: #FDF5E5;" name="logo1" accept="image/*">
+                                <input id="logo_2" type="file" class="form-control border-start-0"
+                                    style="background-color: #FDF5E5;" name="logo_2" accept="image/*">
                             </div>
-                            @error('logo1')
+                            @error('logo_2')
                                 <div class="text-danger small mt-2">
                                     <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
                                 </div>
                             @enderror
                         </div>
-
+                    
                         {{-- Color de fondo --}}
                         <div class="mb-4">
                             <label for="background_color" class="form-label fw-medium" style="color: #8C2D18;">
@@ -176,10 +177,10 @@
                                 <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                     <i class="bi bi-palette"></i>
                                 </span>
-                                <input id="background_color" type="color" 
-                                       class="form-control form-control-color border-start-0" 
-                                       style="background-color: #FDF5E5; height: 38px;" 
-                                       name="background_color" value="{{ old('background_color', '#ffffff') }}">
+                                <input id="background_color" type="color"
+                                    class="form-control form-control-color border-start-0"
+                                    style="background-color: #FDF5E5; height: 38px;" name="background_color"
+                                    value="{{ old('background_color', '#ffffff') }}">
                             </div>
                             @error('background_color')
                                 <div class="text-danger small mt-2">
@@ -187,7 +188,7 @@
                                 </div>
                             @enderror
                         </div>
-
+                    
                         {{-- Color de navbar --}}
                         <div class="mb-4">
                             <label for="navbar_color" class="form-label fw-medium" style="color: #8C2D18;">
@@ -197,10 +198,10 @@
                                 <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                     <i class="bi bi-palette2"></i>
                                 </span>
-                                <input id="navbar_color" type="color" 
-                                       class="form-control form-control-color border-start-0" 
-                                       style="background-color: #FDF5E5; height: 38px;" 
-                                       name="navbar_color" value="{{ old('navbar_color', '#343a40') }}">
+                                <input id="navbar_color" type="color"
+                                    class="form-control form-control-color border-start-0"
+                                    style="background-color: #FDF5E5; height: 38px;" name="navbar_color"
+                                    value="{{ old('navbar_color', '#343a40') }}">
                             </div>
                             @error('navbar_color')
                                 <div class="text-danger small mt-2">
@@ -208,7 +209,7 @@
                                 </div>
                             @enderror
                         </div>
-
+                    
                         {{-- Tipografía --}}
                         <div class="mb-4">
                             <label for="body_font" class="form-label fw-medium" style="color: #8C2D18;">
@@ -218,12 +219,16 @@
                                 <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                     <i class="bi bi-type"></i>
                                 </span>
-                                <select id="body_font" class="form-select border-start-0" 
-                                        style="background-color: #FDF5E5;" name="body_font">
-                                    <option value="Arial" {{ old('body_font') == 'Arial' ? 'selected' : '' }}>Arial</option>
-                                    <option value="Roboto" {{ old('body_font') == 'Roboto' ? 'selected' : '' }}>Roboto</option>
-                                    <option value="Open Sans" {{ old('body_font') == 'Open Sans' ? 'selected' : '' }}>Open Sans</option>
-                                    <option value="Montserrat" {{ old('body_font') == 'Montserrat' ? 'selected' : '' }}>Montserrat</option>
+                                <select id="body_font" class="form-select border-start-0"
+                                    style="background-color: #FDF5E5;" name="body_font">
+                                    <option value="Arial" {{ old('body_font') == 'Arial' ? 'selected' : '' }}>Arial
+                                    </option>
+                                    <option value="Roboto" {{ old('body_font') == 'Roboto' ? 'selected' : '' }}>Roboto
+                                    </option>
+                                    <option value="Open Sans" {{ old('body_font') == 'Open Sans' ? 'selected' : '' }}>Open
+                                        Sans</option>
+                                    <option value="Montserrat" {{ old('body_font') == 'Montserrat' ? 'selected' : '' }}>
+                                        Montserrat</option>
                                 </select>
                             </div>
                             @error('body_font')
@@ -233,17 +238,17 @@
                             @enderror
                         </div>
                     </div>
-
+                
                     {{-- Botón Guardar --}}
                     <div class="mt-4 pt-3 border-top text-center">
-                        <button type="submit" class="btn fw-medium py-1" 
-                                style="background-color: #8C2D18; color: white; width: 200px;">
+                        <button type="submit" class="btn fw-medium py-1"
+                            style="background-color: #8C2D18; color: white; width: 200px;">
                             <i class="bi bi-save me-2"></i>Guardar Tenant
                         </button>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 
     {{-- Script para mostrar/ocultar contraseña --}}

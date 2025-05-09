@@ -33,6 +33,19 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         'link_font',
     ];
 
+    protected static function booted()
+    {
+        static::deleting(function ($tenant) {
+            if ($tenant->logo_path_1 && file_exists(public_path($tenant->logo_path_1))) {
+                unlink(public_path($tenant->logo_path_1));
+            }
+
+            if ($tenant->logo_path_2 && file_exists(public_path($tenant->logo_path_2))) {
+                unlink(public_path($tenant->logo_path_2));
+            }
+        });
+    }
+
     public static function getCustomColumns(): array
     {
         return [
