@@ -14,11 +14,22 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('roles')->get();
+
+        if (tenant()) {
+            return view(tenantView('users'), ['users' => $users]);
+        }
+
         return view('users.index', ['users' => $users]);
     }
 
+
     public function create()
     {
+
+        if (tenant()) {
+            return view(tenantView('create-users'));
+        }
+
         return view('users.create');
     }
 
@@ -39,8 +50,15 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::get();
+
+        if (tenant()) {
+            return view(tenantView('edit-users'), ['user' => $user, 'roles' => $roles]);
+        }
+
         return view('users.edit', ['user' => $user, 'roles' => $roles]);
     }
+
+
 
     public function update(Request $request, User $user)
     {
