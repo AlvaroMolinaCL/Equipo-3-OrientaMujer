@@ -5,6 +5,8 @@ declare(strict_types=1);
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
+use App\Http\Controllers\App\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +25,9 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
+
+    // Gestión de usuarios
+    Route::resource('users', UserController::class);
 
     Route::get('/dashboard', function () {
         return view(tenantView('dashboard'));

@@ -29,39 +29,57 @@
         <style>
             /* Tipo de letra para la página en general */
             body {
-                font-family: {{ tenantSetting('body_font', '') }}, serif;
+                font-family:
+                    {{ tenantSetting('body_font', '') }}
+                    , serif;
                 margin: 0;
                 padding: 0;
             }
 
             /* Navbar */
             .navbar-light-mode {
-                background-color: {{ tenantSetting('navbar_color_1', '#ffffff') }} !important;
+                background-color:
+                    {{ tenantSetting('navbar_color_1', '#ffffff') }}
+                    !important;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
             }
 
             .navbar-dark-mode {
-                background-color: {{ tenantSetting('navbar_color_2', '#000000') }} !important;
+                background-color:
+                    {{ tenantSetting('navbar_color_2', '#000000') }}
+                    !important;
                 box-shadow: 0 2px 4px rgba(35, 35, 35);
             }
 
             .navbar-light-mode .nav-link {
-                color: {{ tenantSetting('navbar_text_color_1', '#000000') }} !important;
+                color:
+                    {{ tenantSetting('navbar_text_color_1', '#000000') }}
+                    !important;
             }
 
             .navbar-dark-mode .nav-link {
-                color: {{ tenantSetting('navbar_text_color_2', '#ffffff') }} !important;
+                color:
+                    {{ tenantSetting('navbar_text_color_2', '#ffffff') }}
+                    !important;
             }
 
             /* Fondo de la página en general */
             .theme-light {
-                background-color: {{ tenantSetting('background_color_1', '#ffffff') }} !important;
-                color: {{ tenantSetting('text_color_1', '#000000') }};
+                background-color:
+                    {{ tenantSetting('background_color_1', '#ffffff') }}
+                    !important;
+                color:
+                    {{ tenantSetting('text_color_1', '#000000') }}
+                ;
             }
 
             .theme-dark {
-                background-color: {{ tenantSetting('background_color_2', '#000000') }} !important;
-                color: {{ tenantSetting('text_color_2', '#ffffff') }};
+                background-color:
+                    {{ tenantSetting('background_color_2', '#000000') }}
+                    !important;
+                color:
+                    {{ tenantSetting('text_color_2', '#ffffff') }}
+                ;
             }
 
             /* Imagen de banner de la página de Inicio */
@@ -80,8 +98,12 @@
 
             /* Color de fondo y de texto del botón de la página de Inicio */
             .btn-consulta {
-                background-color: {{ tenantSetting('button_banner_color', '#222222') }};
-                color: {{ tenantSetting('button_banner_text_color', '#ffffff') }};
+                background-color:
+                    {{ tenantSetting('button_banner_color', '#222222') }}
+                ;
+                color:
+                    {{ tenantSetting('button_banner_text_color', '#ffffff') }}
+                ;
                 padding: 0.75rem 2rem;
                 border: none;
                 font-weight: bold;
@@ -93,18 +115,22 @@
 </head>
 
 <body class="@yield('body-class', 'theme-light')">
-    <div class="min-h-screen">
+    <div class="d-flex min-h-screen">
 
-        {{-- Aquí insertamos la navbar si la vista desea incluirla --}}
-        @hasSection('navbar')
-            @yield('navbar')
-        @endif
+        <!-- Main Content -->
+        <div class="flex-grow-1">
+            @hasSection('navbar')
+                @yield('navbar')
+            @endif
 
-        {{-- Page Content --}}
-        <main>
-            @yield('content')
-        </main>
+            <main>
+                @yield('content')
+            </main>
+        </div>
     </div>
 </body>
+
+
+
 
 </html>
