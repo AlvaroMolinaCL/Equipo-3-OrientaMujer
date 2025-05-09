@@ -26,7 +26,7 @@ class RegisteredUserController extends Controller
             return view(tenantView('auth.register'));
         }
 
-        return view('auth.register'); // vista central normal
+        return view('auth.register');
     }
 
 
