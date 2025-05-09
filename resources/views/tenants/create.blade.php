@@ -16,13 +16,18 @@
             </a>
         </div>
 
+        {{-- Formulario --}}
         <div class="card shadow border-0" style="background-color: #FDF5E5;">
             <div class="card-body p-4">
                 <form method="POST" action="{{ route('tenants.store') }}" enctype="multipart/form-data"
                     class="bg-white p-4 rounded-3 shadow-sm">
                     @csrf
-            
-                    {{-- Campo Nombre --}}
+
+                    <h5 class="fw-medium mb-3" style="color: #8C2D18;">
+                        <i class="bi bi-info-circle me-2"></i>Información Principal
+                    </h5>
+
+                    {{-- Nombre --}}
                     <div class="mb-4">
                         <label for="name" class="form-label fw-medium" style="color: #8C2D18;">
                             <i class="bi bi-fonts me-1"></i>Nombre del Tenant
@@ -41,8 +46,8 @@
                             </div>
                         @enderror
                     </div>
-                
-                    {{-- Campo Email --}}
+
+                    {{-- Email --}}
                     <div class="mb-4">
                         <label for="email" class="form-label fw-medium" style="color: #8C2D18;">
                             <i class="bi bi-envelope me-1"></i>Correo Electrónico
@@ -60,8 +65,8 @@
                             </div>
                         @enderror
                     </div>
-                
-                    {{-- Campo Dominio --}}
+
+                    {{-- Dominio --}}
                     <div class="mb-4">
                         <label for="domain_name" class="form-label fw-medium" style="color: #8C2D18;">
                             <i class="bi bi-globe me-1"></i>Dominio
@@ -82,8 +87,8 @@
                             </div>
                         @enderror
                     </div>
-                
-                    {{-- Campo Contraseña --}}
+
+                    {{-- Contraseña --}}
                     <div class="mb-4">
                         <label for="password" class="form-label fw-medium" style="color: #8C2D18;">
                             <i class="bi bi-lock me-1"></i>Contraseña
@@ -105,8 +110,8 @@
                             </div>
                         @enderror
                     </div>
-                
-                    {{-- Campo Confirmar Contraseña --}}
+
+                    {{-- Confirmar Contraseña --}}
                     <div class="mb-4">
                         <label for="password_confirmation" class="form-label fw-medium" style="color: #8C2D18;">
                             <i class="bi bi-lock me-1"></i>Confirmar Contraseña
@@ -123,13 +128,13 @@
                             </button>
                         </div>
                     </div>
-                
+
                     {{-- Sección de Personalización --}}
                     <div class="mb-4 border-top pt-3">
                         <h5 class="fw-medium mb-3" style="color: #8C2D18;">
                             <i class="bi bi-palette me-2"></i>Personalización
                         </h5>
-                    
+
                         {{-- Logo 1 --}}
                         <div class="mb-4">
                             <label for="logo_1" class="form-label fw-medium" style="color: #8C2D18;">
@@ -148,7 +153,7 @@
                                 </div>
                             @enderror
                         </div>
-                    
+
                         {{-- Logo 2 --}}
                         <div class="mb-4">
                             <label for="logo_2" class="form-label fw-medium" style="color: #8C2D18;">
@@ -167,50 +172,235 @@
                                 </div>
                             @enderror
                         </div>
-                    
-                        {{-- Color de fondo --}}
+
+                        {{-- Color de Fondo 1 --}}
                         <div class="mb-4">
-                            <label for="background_color" class="form-label fw-medium" style="color: #8C2D18;">
-                                <i class="bi bi-droplet me-1"></i>Color de Fondo
+                            <label for="background_color_1" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-droplet me-1"></i>Color de Fondo Principal
                             </label>
                             <div class="input-group">
                                 <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                     <i class="bi bi-palette"></i>
                                 </span>
-                                <input id="background_color" type="color"
+                                <input id="background_color_1" type="color"
                                     class="form-control form-control-color border-start-0"
-                                    style="background-color: #FDF5E5; height: 38px;" name="background_color"
-                                    value="{{ old('background_color', '#ffffff') }}">
+                                    style="background-color: #FDF5E5; height: 38px;" name="background_color_1"
+                                    value="{{ old('background_color_1', '#ffffff') }}">
                             </div>
-                            @error('background_color')
+                            @error('background_color_1')
                                 <div class="text-danger small mt-2">
                                     <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
                                 </div>
                             @enderror
                         </div>
-                    
-                        {{-- Color de navbar --}}
+
+                        {{-- Color de Texto 1 --}}
                         <div class="mb-4">
-                            <label for="navbar_color" class="form-label fw-medium" style="color: #8C2D18;">
-                                <i class="bi bi-border-width me-1"></i>Color de la Barra de Navegación
+                            <label for="text_color_1" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-fonts me-1"></i>Color de Texto Principal
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                    <i class="bi bi-palette"></i>
+                                </span>
+                                <input id="text_color_1" type="color"
+                                    class="form-control form-control-color border-start-0"
+                                    style="background-color: #FDF5E5; height: 38px;" name="text_color_1"
+                                    value="{{ old('text_color_1', '#ffffff') }}">
+                            </div>
+                            @error('text_color_1')
+                                <div class="text-danger small mt-2">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Color de Fondo 2 --}}
+                        <div class="mb-4">
+                            <label for="background_color_2" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-droplet me-1"></i>Color de Fondo Secundario
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                    <i class="bi bi-palette"></i>
+                                </span>
+                                <input id="background_color_2" type="color"
+                                    class="form-control form-control-color border-start-0"
+                                    style="background-color: #FDF5E5; height: 38px;" name="background_color_2"
+                                    value="{{ old('background_color_2', '#ffffff') }}">
+                            </div>
+                            @error('background_color_2')
+                                <div class="text-danger small mt-2">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Color de Texto 2 --}}
+                        <div class="mb-4">
+                            <label for="text_color_2" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-fonts me-1"></i>Color de Texto Secundario
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                    <i class="bi bi-palette"></i>
+                                </span>
+                                <input id="text_color_2" type="color"
+                                    class="form-control form-control-color border-start-0"
+                                    style="background-color: #FDF5E5; height: 38px;" name="text_color_2"
+                                    value="{{ old('text_color_2', '#ffffff') }}">
+                            </div>
+                            @error('text_color_2')
+                                <div class="text-danger small mt-2">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Color de Navbar 1 --}}
+                        <div class="mb-4">
+                            <label for="navbar_color_1" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-border-width me-1"></i>Color Principal de la Barra de Navegación
                             </label>
                             <div class="input-group">
                                 <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                     <i class="bi bi-palette2"></i>
                                 </span>
-                                <input id="navbar_color" type="color"
+                                <input id="navbar_color_1" type="color"
                                     class="form-control form-control-color border-start-0"
-                                    style="background-color: #FDF5E5; height: 38px;" name="navbar_color"
-                                    value="{{ old('navbar_color', '#343a40') }}">
+                                    style="background-color: #FDF5E5; height: 38px;" name="navbar_color_1"
+                                    value="{{ old('navbar_color_1', '#343a40') }}">
                             </div>
-                            @error('navbar_color')
+                            @error('navbar_color_1')
                                 <div class="text-danger small mt-2">
                                     <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
                                 </div>
                             @enderror
                         </div>
-                    
-                        {{-- Tipografía --}}
+
+                        {{-- Color de Texto de Navbar 1 --}}
+                        <div class="mb-4">
+                            <label for="navbar_text_color_1" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-fonts me-1"></i>Color de Texto Principal de la Barra de Navegación
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                    <i class="bi bi-palette2"></i>
+                                </span>
+                                <input id="navbar_text_color_1" type="color"
+                                    class="form-control form-control-color border-start-0"
+                                    style="background-color: #FDF5E5; height: 38px;" name="navbar_text_color_1"
+                                    value="{{ old('navbar_text_color_1', '#343a40') }}">
+                            </div>
+                            @error('navbar_text_color_1')
+                                <div class="text-danger small mt-2">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Color de Navbar 2 --}}
+                        <div class="mb-4">
+                            <label for="navbar_color_2" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-border-width me-1"></i>Color Secundario de la Barra de Navegación
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                    <i class="bi bi-palette2"></i>
+                                </span>
+                                <input id="navbar_color_2" type="color"
+                                    class="form-control form-control-color border-start-0"
+                                    style="background-color: #FDF5E5; height: 38px;" name="navbar_color_2"
+                                    value="{{ old('navbar_color_2', '#343a40') }}">
+                            </div>
+                            @error('navbar_color_2')
+                                <div class="text-danger small mt-2">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Color de Texto de Navbar 2 --}}
+                        <div class="mb-4">
+                            <label for="navbar_text_color_2" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-fonts me-1"></i>Color de Texto Secundario de la Barra de Navegación
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                    <i class="bi bi-palette2"></i>
+                                </span>
+                                <input id="navbar_text_color_2" type="color"
+                                    class="form-control form-control-color border-start-0"
+                                    style="background-color: #FDF5E5; height: 38px;" name="navbar_text_color_2"
+                                    value="{{ old('navbar_text_color_2', '#343a40') }}">
+                            </div>
+                            @error('navbar_text_color_2')
+                                <div class="text-danger small mt-2">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Tipografía de Navbar --}}
+                        <div class="mb-4">
+                            <label for="navbar_font" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-fonts me-1"></i>Tipografía de Barra de Navegación
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                    <i class="bi bi-type"></i>
+                                </span>
+                                <select id="navbar_font" class="form-select border-start-0"
+                                    style="background-color: #FDF5E5;" name="navbar_font">
+                                    <option value="Arial" {{ old('navbar_font') == 'Arial' ? 'selected' : '' }}>Arial
+                                    </option>
+                                    <option value="Roboto" {{ old('navbar_font') == 'Roboto' ? 'selected' : '' }}>Roboto
+                                    </option>
+                                    <option value="Open Sans" {{ old('navbar_font') == 'Open Sans' ? 'selected' : '' }}>
+                                        Open
+                                        Sans</option>
+                                    <option value="Montserrat" {{ old('navbar_font') == 'Montserrat' ? 'selected' : '' }}>
+                                        Montserrat</option>
+                                </select>
+                            </div>
+                            @error('navbar_font')
+                                <div class="text-danger small mt-2">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Tipografía de Títulos de Página --}}
+                        <div class="mb-4">
+                            <label for="heading_font" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-fonts me-1"></i>Tipografía de Títulos de Página
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                    <i class="bi bi-type"></i>
+                                </span>
+                                <select id="heading_font" class="form-select border-start-0"
+                                    style="background-color: #FDF5E5;" name="heading_font">
+                                    <option value="Arial" {{ old('heading_font') == 'Arial' ? 'selected' : '' }}>Arial
+                                    </option>
+                                    <option value="Roboto" {{ old('heading_font') == 'Roboto' ? 'selected' : '' }}>Roboto
+                                    </option>
+                                    <option value="Open Sans" {{ old('heading_font') == 'Open Sans' ? 'selected' : '' }}>
+                                        Open
+                                        Sans</option>
+                                    <option value="Montserrat"
+                                        {{ old('heading_font') == 'Montserrat' ? 'selected' : '' }}>
+                                        Montserrat</option>
+                                </select>
+                            </div>
+                            @error('heading_font')
+                                <div class="text-danger small mt-2">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Tipografía del Cuerpo --}}
                         <div class="mb-4">
                             <label for="body_font" class="form-label fw-medium" style="color: #8C2D18;">
                                 <i class="bi bi-fonts me-1"></i>Tipografía del Cuerpo
@@ -238,7 +428,7 @@
                             @enderror
                         </div>
                     </div>
-                
+
                     {{-- Botón Guardar --}}
                     <div class="mt-4 pt-3 border-top text-center">
                         <button type="submit" class="btn fw-medium py-1"
@@ -246,9 +436,9 @@
                             <i class="bi bi-save me-2"></i>Guardar Tenant
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 
     {{-- Script para mostrar/ocultar contraseña --}}

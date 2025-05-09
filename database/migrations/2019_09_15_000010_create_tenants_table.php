@@ -42,7 +42,8 @@ class CreateTenantsTable extends Migration
             // Tipografías por defecto
             $table->string('heading_font')->nullable();
             $table->string('body_font')->nullable();
-            $table->string('link_font')->nullable();
+            $table->string('navbar_font')->nullable();
+            $table->string('google_analytics_id')->nullable();
             $table->json('data')->nullable();
         });
     }
