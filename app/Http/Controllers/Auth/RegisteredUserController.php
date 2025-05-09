@@ -22,9 +22,13 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view(tenantView('auth.register'));
+        if (tenant()) {
+            return view(tenantView('auth.register'));
+        }
 
+        return view('auth.register'); // vista central normal
     }
+
 
     /**
      * Handle an incoming registration request.
