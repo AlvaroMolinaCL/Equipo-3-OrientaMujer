@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container">
-        {{-- Encabezado mejorado --}}
+        {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
             <h2 class="h3 mb-0 fw-bold" style="color: #8C2D18;">
                 <i class="bi bi-building me-2"></i>{{ __('Editar Tenant') }}
@@ -16,15 +16,19 @@
             </a>
         </div>
 
-        {{-- Formulario vertical --}}
+        {{-- Formulario --}}
         <div class="card shadow border-0" style="background-color: #FDF5E5;">
             <div class="card-body p-4">
-                <form action="{{ route('tenants.update', $tenant) }}" method="POST"
+                <form method="POST" action="{{ route('tenants.update', $tenant) }}" enctype="multipart/form-data"
                     class="bg-white p-4 rounded-3 shadow-sm">
                     @csrf
                     @method('PUT')
 
-                    {{-- Campo Nombre --}}
+                    <h5 class="fw-medium mb-3" style="color: #8C2D18;">
+                        <i class="bi bi-info-circle me-2"></i>Información Principal
+                    </h5>
+
+                    {{-- Nombre --}}
                     <div class="mb-4">
                         <label for="name" class="form-label fw-medium" style="color: #8C2D18;">
                             <i class="bi bi-fonts me-1"></i>Nombre del Tenant
@@ -43,7 +47,7 @@
                         @enderror
                     </div>
 
-                    {{-- Campo Email --}}
+                    {{-- Email --}}
                     <div class="mb-4">
                         <label for="email" class="form-label fw-medium" style="color: #8C2D18;">
                             <i class="bi bi-envelope me-1"></i>Correo Electrónico
@@ -62,7 +66,7 @@
                         @enderror
                     </div>
 
-                    {{-- Campo Dominio --}}
+                    {{-- Dominio --}}
                     <div class="mb-4">
                         <label for="domain_name" class="form-label fw-medium" style="color: #8C2D18;">
                             <i class="bi bi-globe me-1"></i>Dominio
@@ -73,7 +77,10 @@
                             </span>
                             <input type="text" class="form-control border-start-0" style="background-color: #FDF5E5;"
                                 id="domain_name" name="domain_name"
-                                value="{{ old('domain_name', $tenant->domains->first()->domain ?? '') }}" required>
+                                value="{{ Str::remove('.' . config('app.domain'), old('domain_name', $tenant->domains->first()->domain ?? '')) }}"
+                                required>
+                            <span class="input-group-text" id="basic-addon2"
+                                style="background-color: #F5E8D0; color: #8C2D18;">.{{ config('app.domain') }}</span>
                         </div>
                         @error('domain_name')
                             <div class="text-danger small mt-2">
@@ -82,7 +89,7 @@
                         @enderror
                     </div>
 
-                    {{-- Campo Contraseña --}}
+                    {{-- Contraseña --}}
                     <div class="mb-4">
                         <label for="password" class="form-label fw-medium" style="color: #8C2D18;">
                             <i class="bi bi-lock me-1"></i>Contraseña (opcional)
@@ -105,7 +112,7 @@
                         @enderror
                     </div>
 
-                    {{-- Campo Confirmar Contraseña --}}
+                    {{-- Confirmar Contraseña --}}
                     <div class="mb-4">
                         <label for="password_confirmation" class="form-label fw-medium" style="color: #8C2D18;">
                             <i class="bi bi-lock me-1"></i>Confirmar Contraseña
@@ -129,10 +136,26 @@
                             <i class="bi bi-palette me-2"></i>Personalización
                         </h5>
 
+                        {{-- Logo 1 Actual --}}
+                        <div class="col form-group">
+                            <label for="logo_1" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-image me-1"></i>Logo Principal Actual
+                            </label>
+                            @if ($tenant->logo_path_1)
+                                <p>
+                                    <img src="{{ $tenant->logo_path_1 }}" alt="Logo Principal Actual"
+                                        class="img-thumbnail"
+                                        style="width: 350px; height: 80px; background-color: {{ $tenant->background_color_1 }};">
+                                </p>
+                            @else
+                                <p>No hay logo principal.</p>
+                            @endif
+                        </div>
+
                         {{-- Logo 1 --}}
                         <div class="mb-4">
                             <label for="logo_1" class="form-label fw-medium" style="color: #8C2D18;">
-                                <i class="bi bi-image me-1"></i>Logo Principal
+                                <i class="bi bi-image me-1"></i>Actualizar Logo Principal
                             </label>
                             <div class="input-group">
                                 <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
@@ -148,10 +171,26 @@
                             @enderror
                         </div>
 
+                        {{-- Logo 2 Actual --}}
+                        <div class="col form-group">
+                            <label for="logo_2" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-images me-1"></i>Logo Secundario Actual
+                            </label>
+                            @if ($tenant->logo_path_2)
+                                <p>
+                                    <img src="{{ $tenant->logo_path_2 }}" alt="Logo Principal Actual"
+                                        class="img-thumbnail"
+                                        style="width: 350px; height: 80px; background-color: {{ $tenant->background_color_2 }};">
+                                </p>
+                            @else
+                                <p>No hay logo secundario.</p>
+                            @endif
+                        </div>
+
                         {{-- Logo 2 --}}
                         <div class="mb-4">
                             <label for="logo_2" class="form-label fw-medium" style="color: #8C2D18;">
-                                <i class="bi bi-images me-1"></i>Logo Secundario
+                                <i class="bi bi-images me-1"></i>Actualizar Logo Secundario
                             </label>
                             <div class="input-group">
                                 <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
@@ -167,49 +206,242 @@
                             @enderror
                         </div>
 
-                        {{-- Color de fondo --}}
+                        {{-- Color de Fondo 1 --}}
                         <div class="mb-4">
-                            <label for="background_color" class="form-label fw-medium" style="color: #8C2D18;">
+                            <label for="background_color_1" class="form-label fw-medium" style="color: #8C2D18;">
                                 <i class="bi bi-droplet me-1"></i>Color de Fondo
                             </label>
                             <div class="input-group">
                                 <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                     <i class="bi bi-palette"></i>
                                 </span>
-                                <input id="background_color" type="color"
+                                <input id="background_color_1" type="color"
                                     class="form-control form-control-color border-start-0"
-                                    style="background-color: #FDF5E5; height: 38px;" name="background_color"
-                                    value="{{ old('background_color', '#ffffff') }}">
+                                    style="background-color: #FDF5E5; height: 38px;" name="background_color_1"
+                                    value="{{ old('background_color_1', $tenant->background_color_1) }}">
                             </div>
-                            @error('background_color')
+                            @error('background_color_1')
                                 <div class="text-danger small mt-2">
                                     <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
                                 </div>
                             @enderror
                         </div>
 
-                        {{-- Color de navbar --}}
+                        {{-- Color de Texto 1 --}}
                         <div class="mb-4">
-                            <label for="navbar_color" class="form-label fw-medium" style="color: #8C2D18;">
-                                <i class="bi bi-border-width me-1"></i>Color de la Barra de Navegación
+                            <label for="text_color_1" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-fonts me-1"></i>Color de Texto Principal
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                    <i class="bi bi-palette"></i>
+                                </span>
+                                <input id="text_color_1" type="color"
+                                    class="form-control form-control-color border-start-0"
+                                    style="background-color: #FDF5E5; height: 38px;" name="text_color_1"
+                                    value="{{ old('text_color_1', $tenant->text_color_1) }}">
+                            </div>
+                            @error('text_color_1')
+                                <div class="text-danger small mt-2">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Color de Fondo 2 --}}
+                        <div class="mb-4">
+                            <label for="background_color_2" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-droplet me-1"></i>Color de Fondo Secundario
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                    <i class="bi bi-palette"></i>
+                                </span>
+                                <input id="background_color_2" type="color"
+                                    class="form-control form-control-color border-start-0"
+                                    style="background-color: #FDF5E5; height: 38px;" name="background_color_2"
+                                    value="{{ old('background_color_2', $tenant->background_color_2) }}">
+                            </div>
+                            @error('background_color_2')
+                                <div class="text-danger small mt-2">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Color de Texto 2 --}}
+                        <div class="mb-4">
+                            <label for="text_color_2" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-fonts me-1"></i>Color de Texto Secundario
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                    <i class="bi bi-palette"></i>
+                                </span>
+                                <input id="text_color_2" type="color"
+                                    class="form-control form-control-color border-start-0"
+                                    style="background-color: #FDF5E5; height: 38px;" name="text_color_2"
+                                    value="{{ old('text_color_2', $tenant->text_color_2) }}">
+                            </div>
+                            @error('text_color_2')
+                                <div class="text-danger small mt-2">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Color de Navbar 1 --}}
+                        <div class="mb-4">
+                            <label for="navbar_color_1" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-border-width me-1"></i>Color Principal de la Barra de Navegación
                             </label>
                             <div class="input-group">
                                 <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                     <i class="bi bi-palette2"></i>
                                 </span>
-                                <input id="navbar_color" type="color"
+                                <input id="navbar_color_1" type="color"
                                     class="form-control form-control-color border-start-0"
-                                    style="background-color: #FDF5E5; height: 38px;" name="navbar_color"
-                                    value="{{ old('navbar_color', '#343a40') }}">
+                                    style="background-color: #FDF5E5; height: 38px;" name="navbar_color_1"
+                                    value="{{ old('navbar_color_1', $tenant->navbar_color_1) }}">
                             </div>
-                            @error('navbar_color')
+                            @error('navbar_color_1')
                                 <div class="text-danger small mt-2">
                                     <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
                                 </div>
                             @enderror
                         </div>
 
-                        {{-- Tipografía --}}
+                        {{-- Color de Texto de Navbar 1 --}}
+                        <div class="mb-4">
+                            <label for="navbar_text_color_1" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-fonts me-1"></i>Color de Texto Principal de la Barra de Navegación
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                    <i class="bi bi-palette2"></i>
+                                </span>
+                                <input id="navbar_text_color_1" type="color"
+                                    class="form-control form-control-color border-start-0"
+                                    style="background-color: #FDF5E5; height: 38px;" name="navbar_text_color_1"
+                                    value="{{ old('navbar_text_color_1', $tenant->navbar_text_color_1) }}">
+                            </div>
+                            @error('navbar_text_color_1')
+                                <div class="text-danger small mt-2">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Color de Navbar 2 --}}
+                        <div class="mb-4">
+                            <label for="navbar_color_2" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-border-width me-1"></i>Color Secundario de la Barra de Navegación
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                    <i class="bi bi-palette2"></i>
+                                </span>
+                                <input id="navbar_color_2" type="color"
+                                    class="form-control form-control-color border-start-0"
+                                    style="background-color: #FDF5E5; height: 38px;" name="navbar_color_2"
+                                    value="{{ old('navbar_color_2', $tenant->navbar_color_2) }}">
+                            </div>
+                            @error('navbar_color_2')
+                                <div class="text-danger small mt-2">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Color de Texto de Navbar 2 --}}
+                        <div class="mb-4">
+                            <label for="navbar_text_color_2" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-fonts me-1"></i>Color de Texto Secundario de la Barra de Navegación
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                    <i class="bi bi-palette2"></i>
+                                </span>
+                                <input id="navbar_text_color_2" type="color"
+                                    class="form-control form-control-color border-start-0"
+                                    style="background-color: #FDF5E5; height: 38px;" name="navbar_text_color_2"
+                                    value="{{ old('navbar_text_color_2', $tenant->navbar_text_color_2) }}">
+                            </div>
+                            @error('navbar_text_color_2')
+                                <div class="text-danger small mt-2">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Tipografía de Navbar --}}
+                        <div class="mb-4">
+                            <label for="navbar_font" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-fonts me-1"></i>Tipografía de Barra de Navegación
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                    <i class="bi bi-type"></i>
+                                </span>
+                                <select id="navbar_font" class="form-select border-start-0"
+                                    style="background-color: #FDF5E5;" name="navbar_font">
+                                    <option value="Arial"
+                                        {{ old('navbar_font', $tenant->navbar_font) == 'Arial' ? 'selected' : '' }}>Arial
+                                    </option>
+                                    <option value="Roboto"
+                                        {{ old('navbar_font', $tenant->navbar_font) == 'Roboto' ? 'selected' : '' }}>Roboto
+                                    </option>
+                                    <option value="Open Sans"
+                                        {{ old('navbar_font', $tenant->navbar_font) == 'Open Sans' ? 'selected' : '' }}>
+                                        Open
+                                        Sans</option>
+                                    <option value="Montserrat"
+                                        {{ old('navbar_font', $tenant->navbar_font) == 'Montserrat' ? 'selected' : '' }}>
+                                        Montserrat</option>
+                                </select>
+                            </div>
+                            @error('navbar_font')
+                                <div class="text-danger small mt-2">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Tipografía de Títulos de Página --}}
+                        <div class="mb-4">
+                            <label for="heading_font" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-fonts me-1"></i>Tipografía de Títulos de Página
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                    <i class="bi bi-type"></i>
+                                </span>
+                                <select id="heading_font" class="form-select border-start-0"
+                                    style="background-color: #FDF5E5;" name="heading_font">
+                                    <option value="Arial"
+                                        {{ old('heading_font', $tenant->heading_font) == 'Arial' ? 'selected' : '' }}>Arial
+                                    </option>
+                                    <option value="Roboto"
+                                        {{ old('heading_font', $tenant->heading_font) == 'Roboto' ? 'selected' : '' }}>
+                                        Roboto
+                                    </option>
+                                    <option value="Open Sans"
+                                        {{ old('heading_font', $tenant->heading_font) == 'Open Sans' ? 'selected' : '' }}>
+                                        Open
+                                        Sans</option>
+                                    <option value="Montserrat"
+                                        {{ old('heading_font', $tenant->heading_font) == 'Montserrat' ? 'selected' : '' }}>
+                                        Montserrat</option>
+                                </select>
+                            </div>
+                            @error('heading_font')
+                                <div class="text-danger small mt-2">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Tipografía del Cuerpo --}}
                         <div class="mb-4">
                             <label for="body_font" class="form-label fw-medium" style="color: #8C2D18;">
                                 <i class="bi bi-fonts me-1"></i>Tipografía del Cuerpo
@@ -220,13 +452,17 @@
                                 </span>
                                 <select id="body_font" class="form-select border-start-0"
                                     style="background-color: #FDF5E5;" name="body_font">
-                                    <option value="Arial" {{ old('body_font') == 'Arial' ? 'selected' : '' }}>Arial
+                                    <option value="Arial"
+                                        {{ old('body_font', $tenant->body_font) == 'Arial' ? 'selected' : '' }}>Arial
                                     </option>
-                                    <option value="Roboto" {{ old('body_font') == 'Roboto' ? 'selected' : '' }}>Roboto
+                                    <option value="Roboto"
+                                        {{ old('body_font', $tenant->body_font) == 'Roboto' ? 'selected' : '' }}>Roboto
                                     </option>
-                                    <option value="Open Sans" {{ old('body_font') == 'Open Sans' ? 'selected' : '' }}>Open
+                                    <option value="Open Sans"
+                                        {{ old('body_font', $tenant->body_font) == 'Open Sans' ? 'selected' : '' }}>Open
                                         Sans</option>
-                                    <option value="Montserrat" {{ old('body_font') == 'Montserrat' ? 'selected' : '' }}>
+                                    <option value="Montserrat"
+                                        {{ old('body_font', $tenant->body_font) == 'Montserrat' ? 'selected' : '' }}>
                                         Montserrat</option>
                                 </select>
                             </div>
@@ -238,7 +474,7 @@
                         </div>
                     </div>
 
-                    {{-- Botón de submit --}}
+                    {{-- Botón Guardar --}}
                     <div class="mt-4 pt-3 border-top text-center">
                         <button type="submit" class="btn fw-medium py-1"
                             style="background-color: #8C2D18; color: white; width: 200px;">
@@ -247,20 +483,23 @@
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
 
-            <script>
-                function togglePassword(fieldId) {
-                    const field = document.getElementById(fieldId);
-                    const icon = field.nextElementSibling.querySelector('i');
-                    if (field.type === 'password') {
-                        field.type = 'text';
-                        icon.classList.remove('bi-eye');
-                        icon.classList.add('bi-eye-slash');
-                    } else {
-                        field.type = 'password';
-                        icon.classList.remove('bi-eye-slash');
-                        icon.classList.add('bi-eye');
-                    }
-                }
-            </script>
-        @endsection
+    {{-- Script para mostrar/ocultar contraseña --}}
+    <script>
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            const icon = field.nextElementSibling.querySelector('i');
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                field.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        }
+    </script>
+@endsection
