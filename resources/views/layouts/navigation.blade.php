@@ -78,12 +78,12 @@
         <li class="nav-item">
             <a class="nav-link {{ Route::is('admin.token') ? 'active' : '' }}" href="{{ route('admin.token') }}"
                 style="color: white;">
-                <i class="bi bi-key me-2"></i> Ver Token de acceso
+                <i class="bi bi-key me-2"></i> Ver Token de Acceso
             </a>
         </li>
     </ul>
 
-    <!-- User Info -->
+    <!-- Información de Usuario -->
     <div class="mt-auto border-top pt-3" style="border-color: #BF8A49 !important;">
         <div class="text-left">
             <strong style="color: white;">{{ Auth::user()->name }}</strong><br>
