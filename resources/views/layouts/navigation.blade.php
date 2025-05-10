@@ -32,6 +32,27 @@
             </div>
         </li>
 
+        <!-- Dominios -->
+        <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
+                href="#domainsMenu" style="color: white;">
+                <span><i class="bi bi-globe-americas me-2"></i> Dominios</span>
+                <i class="bi bi-chevron-down small"></i>
+            </a>
+            <div class="collapse ps-3" id="domainsMenu">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('domains.index') ? 'active' : '' }}"
+                            href="{{ route('domains.index') }}" style="color: white;">Ver Dominios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('domains.create') ? 'active' : '' }}"
+                            href="{{ route('domains.create') }}" style="color: white;">Agregar Dominio</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
         <!-- Usuarios -->
         <li class="nav-item">
             <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
@@ -52,6 +73,8 @@
                 </ul>
             </div>
         </li>
+
+        <!-- Token de Acceso -->
         <li class="nav-item">
             <a class="nav-link {{ Route::is('admin.token') ? 'active' : '' }}" href="{{ route('admin.token') }}"
                 style="color: white;">

@@ -71,16 +71,6 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         return $this->hasMany(TenantPage::class);
     }
 
-    public function styles()
-    {
-        return $this->hasMany(TenantStyle::class);
-    }
-
-    public function images()
-    {
-        return $this->hasMany(TenantImage::class);
-    }
-
     public function settings()
     {
         return $this->hasMany(TenantSetting::class);
