@@ -136,74 +136,74 @@
                     </h5>
 
                     @php
-                    $presetStyles = [
-                        'clásico' => [
-                            'label' => 'Clásico',
-                            'background_color_1' => '#f8f9fa',
-                            'background_color_2' => '#e9ecef',
-                            'text_color_1' => '#212529',
-                            'text_color_2' => '#495057',
-                            'navbar_color_1' => '#343a40',
-                            'navbar_color_2' => '#343a40',
-                            'navbar_text_color_1' => '#ffffff',
-                            'navbar_text_color_2' => '#ffffff',
-                        ],
-                        'notarial' => [
-                            'label' => 'Notarial',
-                            'background_color_1' => '#fefcf9',
-                            'background_color_2' => '#f5f2ec',
-                            'text_color_1' => '#3e3e3e',
-                            'text_color_2' => '#5c5c5c',
-                            'navbar_color_1' => '#8c2d18',
-                            'navbar_color_2' => '#8c2d18',
-                            'navbar_text_color_1' => '#ffffff',
-                            'navbar_text_color_2' => '#ffffff',
-                        ],
-                        'corporativo' => [
-                            'label' => 'Corporativo',
-                            'background_color_1' => '#edf2f7',
-                            'background_color_2' => '#e2e8f0',
-                            'text_color_1' => '#1a202c',
-                            'text_color_2' => '#2d3748',
-                            'navbar_color_1' => '#2c5282',
-                            'navbar_color_2' => '#2c5282',
-                            'navbar_text_color_1' => '#ffffff',
-                            'navbar_text_color_2' => '#ffffff',
-                        ],
-                        'jurídico azul' => [
-                            'label' => 'Jurídico Azul',
-                            'background_color_1' => '#f1f5f9',
-                            'background_color_2' => '#dbeafe',
-                            'text_color_1' => '#1e3a8a',
-                            'text_color_2' => '#1e40af',
-                            'navbar_color_1' => '#1e3a8a',
-                            'navbar_color_2' => '#1e3a8a',
-                            'navbar_text_color_1' => '#ffffff',
-                            'navbar_text_color_2' => '#ffffff',
-                        ],
-                        'moderno' => [
-                            'label' => 'Moderno',
-                            'background_color_1' => '#ffffff',
-                            'background_color_2' => '#f0f0f0',
-                            'text_color_1' => '#111827',
-                            'text_color_2' => '#374151',
-                            'navbar_color_1' => '#111827',
-                            'navbar_color_2' => '#111827',
-                            'navbar_text_color_1' => '#f3f4f6',
-                            'navbar_text_color_2' => '#f3f4f6',
-                        ],
-                        'elegante' => [
-                            'label' => 'Elegante',
-                            'background_color_1' => '#f6f5f3',
-                            'background_color_2' => '#e0dad1',
-                            'text_color_1' => '#2b2b2b',
-                            'text_color_2' => '#4b4b4b',
-                            'navbar_color_1' => '#5c4033',
-                            'navbar_color_2' => '#5c4033',
-                            'navbar_text_color_1' => '#ffffff',
-                            'navbar_text_color_2' => '#ffffff',
-                        ],
-                    ];
+                        $presetStyles = [
+                            'clásico' => [
+                                'label' => 'Clásico',
+                                'background_color_1' => '#f8f9fa',
+                                'background_color_2' => '#e9ecef',
+                                'text_color_1' => '#212529',
+                                'text_color_2' => '#495057',
+                                'navbar_color_1' => '#343a40',
+                                'navbar_color_2' => '#343a40',
+                                'navbar_text_color_1' => '#ffffff',
+                                'navbar_text_color_2' => '#ffffff',
+                            ],
+                            'notarial' => [
+                                'label' => 'Notarial',
+                                'background_color_1' => '#fefcf9',
+                                'background_color_2' => '#f5f2ec',
+                                'text_color_1' => '#3e3e3e',
+                                'text_color_2' => '#5c5c5c',
+                                'navbar_color_1' => '#8c2d18',
+                                'navbar_color_2' => '#8c2d18',
+                                'navbar_text_color_1' => '#ffffff',
+                                'navbar_text_color_2' => '#ffffff',
+                            ],
+                            'corporativo' => [
+                                'label' => 'Corporativo',
+                                'background_color_1' => '#edf2f7',
+                                'background_color_2' => '#e2e8f0',
+                                'text_color_1' => '#1a202c',
+                                'text_color_2' => '#2d3748',
+                                'navbar_color_1' => '#2c5282',
+                                'navbar_color_2' => '#2c5282',
+                                'navbar_text_color_1' => '#ffffff',
+                                'navbar_text_color_2' => '#ffffff',
+                            ],
+                            'jurídico azul' => [
+                                'label' => 'Jurídico Azul',
+                                'background_color_1' => '#f1f5f9',
+                                'background_color_2' => '#dbeafe',
+                                'text_color_1' => '#1e3a8a',
+                                'text_color_2' => '#1e40af',
+                                'navbar_color_1' => '#1e3a8a',
+                                'navbar_color_2' => '#1e3a8a',
+                                'navbar_text_color_1' => '#ffffff',
+                                'navbar_text_color_2' => '#ffffff',
+                            ],
+                            'moderno' => [
+                                'label' => 'Moderno',
+                                'background_color_1' => '#ffffff',
+                                'background_color_2' => '#f0f0f0',
+                                'text_color_1' => '#111827',
+                                'text_color_2' => '#374151',
+                                'navbar_color_1' => '#111827',
+                                'navbar_color_2' => '#111827',
+                                'navbar_text_color_1' => '#f3f4f6',
+                                'navbar_text_color_2' => '#f3f4f6',
+                            ],
+                            'elegante' => [
+                                'label' => 'Elegante',
+                                'background_color_1' => '#f6f5f3',
+                                'background_color_2' => '#e0dad1',
+                                'text_color_1' => '#2b2b2b',
+                                'text_color_2' => '#4b4b4b',
+                                'navbar_color_1' => '#5c4033',
+                                'navbar_color_2' => '#5c4033',
+                                'navbar_text_color_1' => '#ffffff',
+                                'navbar_text_color_2' => '#ffffff',
+                            ],
+                        ];
                     @endphp
 
                     <div class="mb-4 d-flex flex-wrap gap-2">
@@ -212,8 +212,7 @@
                                 <input type="radio" name="preset_style" value="{{ $key }}" class="d-none">
                                 <button type="button" class="btn btn-sm border"
                                     style="background-color: {{ $style['background_color_1'] }}; color: {{ $style['text_color_1'] }};"
-                                    data-style='@json($style)'
-                                    onclick="handlePresetClick(this)">
+                                    data-style='@json($style)' onclick="handlePresetClick(this)">
                                     {{ $style['label'] }}
                                 </button>
                             </label>
@@ -593,33 +592,33 @@
         }
 
         function handlePresetClick(button) {
-        try {
-            const style = JSON.parse(button.dataset.style);
-            applyPresetStyle(style);
-        } catch (error) {
-            console.error('Error al aplicar el estilo:', error);
-        }
-    }
-
-    function applyPresetStyle(style) {
-        const fields = [
-            'background_color_1',
-            'background_color_2',
-            'text_color_1',
-            'text_color_2',
-            'navbar_color_1',
-            'navbar_color_2',
-            'navbar_text_color_1',
-            'navbar_text_color_2'
-        ];
-
-        fields.forEach(id => {
-            const input = document.getElementById(id);
-            if (input && style[id]) {
-                input.value = style[id];
-                input.dispatchEvent(new Event('input'));
+            try {
+                const style = JSON.parse(button.dataset.style);
+                applyPresetStyle(style);
+            } catch (error) {
+                console.error('Error al aplicar el estilo:', error);
             }
-        });
-    }
+        }
+
+        function applyPresetStyle(style) {
+            const fields = [
+                'background_color_1',
+                'background_color_2',
+                'text_color_1',
+                'text_color_2',
+                'navbar_color_1',
+                'navbar_color_2',
+                'navbar_text_color_1',
+                'navbar_text_color_2'
+            ];
+
+            fields.forEach(id => {
+                const input = document.getElementById(id);
+                if (input && style[id]) {
+                    input.value = style[id];
+                    input.dispatchEvent(new Event('input'));
+                }
+            });
+        }
     </script>
 @endsection
