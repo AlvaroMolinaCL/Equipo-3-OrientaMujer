@@ -5,6 +5,7 @@ set -e
 # Obtener últimos cambios de la rama main
 echo "Haciendo pull de la última versión desde repositorio..."
 git pull origin main
+chmod +x deploy.sh
 
 # Instalar dependencias PHP
 echo "Instalando dependencias de PHP..."
