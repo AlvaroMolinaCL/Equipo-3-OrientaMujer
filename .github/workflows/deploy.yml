@@ -25,4 +25,5 @@ jobs:
             echo "Abriendo directorio del proyecto..."
             git config --global --add safe.directory /var/www/laravel
             cd /var/www/laravel
+            chmod +x deploy.sh
             ./deploy.sh
