@@ -13,10 +13,9 @@
             <label for="update_password_current_password" class="form-label fw-medium" style="color: #8C2D18;">
                 {{ __('Contraseña actual') }}
             </label>
-            <input id="update_password_current_password" name="current_password" type="password" 
-                   class="form-control border-0 py-2 px-3" 
-                   style="background-color: #F5E8D0; border-radius: 8px;"
-                   autocomplete="current-password">
+            <input id="update_password_current_password" name="current_password" type="password"
+                class="form-control border-0 py-2 px-3" style="background-color: #F5E8D0; border-radius: 8px;"
+                autocomplete="current-password">
             @error('current_password', 'updatePassword')
                 <div class="small mt-2" style="color: #8C2D18;">{{ $message }}</div>
             @enderror
@@ -26,10 +25,8 @@
             <label for="update_password_password" class="form-label fw-medium" style="color: #8C2D18;">
                 {{ __('Nueva contraseña') }}
             </label>
-            <input id="update_password_password" name="password" type="password" 
-                   class="form-control border-0 py-2 px-3" 
-                   style="background-color: #F5E8D0; border-radius: 8px;"
-                   autocomplete="new-password">
+            <input id="update_password_password" name="password" type="password" class="form-control border-0 py-2 px-3"
+                style="background-color: #F5E8D0; border-radius: 8px;" autocomplete="new-password">
             @error('password', 'updatePassword')
                 <div class="small mt-2" style="color: #8C2D18;">{{ $message }}</div>
             @enderror
@@ -40,23 +37,22 @@
                 {{ __('Confirme la nueva contraseña') }}
             </label>
             <input id="update_password_password_confirmation" name="password_confirmation" type="password"
-                   class="form-control border-0 py-2 px-3" 
-                   style="background-color: #F5E8D0; border-radius: 8px;"
-                   autocomplete="new-password">
+                class="form-control border-0 py-2 px-3" style="background-color: #F5E8D0; border-radius: 8px;"
+                autocomplete="new-password">
             @error('password_confirmation', 'updatePassword')
                 <div class="small mt-2" style="color: #8C2D18;">{{ $message }}</div>
             @enderror
         </div>
 
         <div class="mt-4 pt-3 border-top text-center">
-            <button type="submit" class="btn fw-medium py-1" 
-                    style="background-color: #8C2D18; color: white; width: 210px;">
-                <i class="bi bi-save me-2"></i>{{ __('Actualizar contraseña') }}
+            <button type="submit" class="btn fw-medium py-1"
+                style="background-color: #8C2D18; color: white; width: 210px;">
+                <i class="bi bi-save me-2"></i>{{ __('Actualizar Contraseña') }}
             </button>
 
             @if (session('status') === 'password-updated')
-                <div class="mt-3 small" style="color: #BF8A49;" x-data="{ show: true }" x-show="show" 
-                     x-transition x-init="setTimeout(() => show = false, 3000)">
+                <div class="mt-3 small" style="color: #BF8A49;" x-data="{ show: true }" x-show="show" x-transition
+                    x-init="setTimeout(() => show = false, 3000)">
                     <i class="bi bi-check-circle me-1"></i>{{ __('Contraseña actualizada correctamente.') }}
                 </div>
             @endif
