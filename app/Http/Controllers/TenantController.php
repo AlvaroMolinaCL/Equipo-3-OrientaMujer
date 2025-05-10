@@ -103,8 +103,6 @@ class TenantController extends Controller
 
     public function update(Request $request, Tenant $tenant)
     {
-        $tenants = Tenant::select('id', 'logo_path_1', 'logo_path_2')->get();
-
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -125,20 +123,21 @@ class TenantController extends Controller
             'body_font' => 'nullable|string|max:255',
         ]);
 
-        $logoPath1 = null;
-        $logoPath2 = null;
+        $logoPath1 = $tenant->logo_path_1;
+        $logoPath2 = $tenant->logo_path_2;
 
         if ($request->hasFile('logo_1')) {
-            if ($tenants->logo_path_1 && file_exists(public_path($tenants->logo_path_1))) {
-                unlink(public_path($tenants->logo_path_1));
+            if ($tenant->logo_path_1 && file_exists(public_path($tenant->logo_path_1))) {
+                unlink(public_path($tenant->logo_path_1));
             }
             $filename = Str::uuid() . '.' . $request->file('logo_1')->getClientOriginalExtension();
             $request->file('logo_1')->move(public_path('images/logo'), $filename);
             $logoPath1 = 'images/logo/' . $filename;
         }
+
         if ($request->hasFile('logo_2')) {
-            if ($tenants->logo_path_2 && file_exists(public_path($tenants->logo_path_2))) {
-                unlink(public_path($tenants->logo_path_1));
+            if ($tenant->logo_path_2 && file_exists(public_path($tenant->logo_path_2))) {
+                unlink(public_path($tenant->logo_path_2));
             }
             $filename = Str::uuid() . '.' . $request->file('logo_2')->getClientOriginalExtension();
             $request->file('logo_2')->move(public_path('images/logo'), $filename);
@@ -189,7 +188,6 @@ class TenantController extends Controller
 
     public function seedPermissions(Tenant $tenant)
     {
-        // Ejecuta el seeder dentro del contexto del tenant
         $tenant->run(function () {
             Artisan::call('db:seed', [
                 '--class' => 'TenantPermissionSeeder',
@@ -215,7 +213,6 @@ class TenantController extends Controller
         $permisosSeleccionados = $request->input('permisos', []);
 
         $tenant->run(function () use ($permisosSeleccionados) {
-            // Crear o actualizar los permisos
             foreach ($permisosSeleccionados as $permiso) {
                 \Spatie\Permission\Models\Permission::firstOrCreate([
                     'name' => $permiso,
@@ -223,12 +220,10 @@ class TenantController extends Controller
                 ]);
             }
 
-            // Eliminar permisos que ya no están seleccionados
             $todos = \Spatie\Permission\Models\Permission::pluck('name')->toArray();
             $aEliminar = array_diff($todos, $permisosSeleccionados);
             \Spatie\Permission\Models\Permission::whereIn('name', $aEliminar)->delete();
 
-            // Opcional: actualizar rol admin
             $admin = \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'admin']);
             $admin->syncPermissions($permisosSeleccionados);
         });
