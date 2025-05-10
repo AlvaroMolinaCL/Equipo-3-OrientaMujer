@@ -20,8 +20,8 @@ php artisan migrate --force
 
 # Instalar dependencias de Node.js y compilar assets
 echo "Instalando dependencias de Node.js..."
-npm install
+/home/tis2/.nvm/versions/node/v20.19.1/bin/npm install
 echo "Compilando assets..."
-npm run build
+/home/tis2/.nvm/versions/node/v20.19.1/bin/npm run build
 
 echo "Despliegue completado."
