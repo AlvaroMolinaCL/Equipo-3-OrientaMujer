@@ -5,15 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
-use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class RegisteredUserController extends Controller
 {
@@ -28,7 +26,6 @@ class RegisteredUserController extends Controller
 
         return view('auth.register');
     }
-
 
     /**
      * Handle an incoming registration request.
@@ -54,11 +51,17 @@ class RegisteredUserController extends Controller
 
         // Validar token si ya hay usuarios
         if (!$noUsersExist) {
-            $expectedToken = substr(hash_hmac('sha256', now()->format('Y-m-d'), config('app.key')), 0, 6);
+            $submittedToken = $request->access_token;
 
-            if ($request->access_token !== $expectedToken) {
+            // Obtener el token actual desde el cache
+            $currentToken = Cache::get('current_token');
+
+            if ($submittedToken !== $currentToken) {
                 return back()->withErrors(['access_token' => 'El token de acceso es incorrecto.'])->withInput();
             }
+
+            // Cambiar el token después de que alguien lo haya usado
+            $this->changeToken();
         }
 
         $user = User::create([
@@ -74,5 +77,15 @@ class RegisteredUserController extends Controller
         return redirect(RouteServiceProvider::HOME);
     }
 
+    /**
+     * Cambiar el token dinámicamente.
+     */
+    protected function changeToken()
+    {
+        // Generar un nuevo token
+        $newToken = strtoupper(Str::random(4)) . '-' . strtoupper(Str::random(4)) . '-' . rand(1000, 9999);
 
+        // Guardar el nuevo token en el cache
+        Cache::put('current_token', $newToken, now()->endOfDay()); // Expira a las 11:59 PM
+    }
 }

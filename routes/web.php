@@ -13,13 +13,13 @@ use App\Http\Controllers\Admin\TokenController;
 |--------------------------------------------------------------------------
 */
 
+Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');
+
 // Ruta al dashboard accesible por cualquier usuario autenticado y verificado
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
-    Route::get('/', function () {
         return view('dashboard');
     })->name('dashboard');
 
