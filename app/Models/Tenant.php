@@ -24,14 +24,20 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         'favicon_path',
         'background_color_1',
         'background_color_2',
-        'default_locale',
+        'text_color_1',
+        'text_color_2',
         'navbar_color_1',
         'navbar_color_2',
-        'background_color',
+        'navbar_text_color_1',
+        'navbar_text_color_2',
+        'navbar_font',
         'heading_font',
         'body_font',
         'link_font',
+        'default_locale',
+        'background_color', // si aún lo usas
     ];
+
 
     protected static function booted()
     {
@@ -51,20 +57,27 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         return [
             'id',
             'name',
+            'email',
             'logo_path_1',
             'logo_path_2',
             'favicon_path',
             'background_color_1',
             'background_color_2',
-            'default_locale',
+            'text_color_1',
+            'text_color_2',
             'navbar_color_1',
             'navbar_color_2',
-            'background_color',
+            'navbar_text_color_1',
+            'navbar_text_color_2',
+            'navbar_font',
             'heading_font',
             'body_font',
             'link_font',
+            'default_locale',
+            'background_color',
         ];
     }
+
 
     public function pages()
     {
