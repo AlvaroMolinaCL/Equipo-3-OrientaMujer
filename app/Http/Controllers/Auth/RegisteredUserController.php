@@ -76,7 +76,11 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        if (tenant()) {
+            return redirect('/');
+        } else {
+            return redirect(RouteServiceProvider::HOME);
+        }
     }
 
 
