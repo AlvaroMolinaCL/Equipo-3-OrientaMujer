@@ -32,14 +32,20 @@ class SeedTenantJob implements ShouldQueue
     public function handle(): void
     {
         $this->tenant->run(function () {
+            // Crear roles si no existen
+            $adminRole = Role::firstOrCreate(['name' => 'Admin', 'guard_name' => 'web']);
+            $userRole = Role::firstOrCreate(['name' => 'Usuario', 'guard_name' => 'web']);
+
+            // Crear usuario administrador del tenant
             $user = User::create([
                 'name' => $this->tenant->name,
                 'email' => $this->tenant->email,
                 'password' => $this->password,
             ]);
 
-            $adminRole = Role::firstOrCreate(['name' => 'Admin', 'guard_name' => 'web']);
+            // Asignar rol admin al primer usuario
             $user->assignRole($adminRole);
         });
     }
+
 }
