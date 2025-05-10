@@ -9,10 +9,12 @@
         <p class="mb-3" style="color: #8C2D18;">
             {{ __('Una vez eliminada su cuenta, todos sus recursos y datos se eliminarán permanentemente.') }}
         </p>
-        <button class="btn fw-medium py-1" data-bs-toggle="modal" data-bs-target="#confirmUserDeletion"
-                style="background-color: #dc3545; color: white; width: 100%;">
-            <i class="bi bi-exclamation-triangle me-2"></i>{{ __('Eliminar Cuenta') }}
-        </button>
+        <div class="text-center">
+            <button class="btn fw-medium py-1" data-bs-toggle="modal" data-bs-target="#confirmUserDeletion"
+                style="background-color: #dc3545; color: white; width: 210px;">
+                <i class="bi bi-exclamation-triangle me-2"></i>{{ __('Eliminar Cuenta') }}
+            </button>
+        </div>
     </div>
 
     <!-- Modal -->
@@ -25,7 +27,7 @@
 
                 <div class="modal-header border-0">
                     <h5 class="modal-title fw-bold" style="color: #8C2D18;" id="confirmUserDeletionLabel">
-                        <i class="bi bi-exclamation-octagon me-2"></i>{{ __('Confirmar eliminación') }}
+                        <i class="bi bi-exclamation-octagon me-2"></i>{{ __('Confirmar Eliminación') }}
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -39,10 +41,8 @@
                         <label for="password" class="form-label fw-medium" style="color: #8C2D18;">
                             {{ __('Ingrese su contraseña para confirmar') }}
                         </label>
-                        <input type="password" id="password" name="password" 
-                               class="form-control border-0 py-2 px-3" 
-                               style="background-color: #F5E8D0; border-radius: 8px;"
-                               placeholder="{{ __('Contraseña') }}">
+                        <input type="password" id="password" name="password" class="form-control border-0 py-2 px-3"
+                            style="background-color: #F5E8D0; border-radius: 8px;" placeholder="{{ __('Contraseña') }}">
                         @error('password', 'userDeletion')
                             <div class="small mt-2" style="color: #dc3545;">{{ $message }}</div>
                         @enderror
@@ -51,12 +51,11 @@
 
                 <div class="modal-footer border-0">
                     <button type="button" class="btn fw-medium" data-bs-dismiss="modal"
-                            style="background-color: #F5E8D0; color: #8C2D18;">
+                        style="background-color: #F5E8D0; color: #8C2D18;">
                         {{ __('Cancelar') }}
                     </button>
-                    <button type="submit" class="btn fw-medium" 
-                            style="background-color: #dc3545; color: white;">
-                        <i class="bi bi-trash3 me-1"></i>{{ __('Eliminar definitivamente') }}
+                    <button type="submit" class="btn fw-medium" style="background-color: #dc3545; color: white;">
+                        <i class="bi bi-trash3 me-1"></i>{{ __('Eliminar Definitivamente') }}
                     </button>
                 </div>
             </form>
