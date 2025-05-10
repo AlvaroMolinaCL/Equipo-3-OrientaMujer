@@ -42,25 +42,22 @@ class RegisteredUserController extends Controller
             'password' => 'required|string|confirmed|min:8',
         ];
 
-        // Solo pedir access_token si ya hay usuarios
-        if (!$noUsersExist) {
+        // Solo pedir access_token si estamos en el central y ya hay usuarios
+        if (!tenant() && !$noUsersExist) {
             $rules['access_token'] = 'required|string';
         }
 
         $request->validate($rules);
 
-        // Validar token si ya hay usuarios
-        if (!$noUsersExist) {
+        // Validar token si estamos en central y ya hay usuarios
+        if (!tenant() && !$noUsersExist) {
             $submittedToken = $request->access_token;
-
-            // Obtener el token actual desde el cache
             $currentToken = Cache::get('current_token');
 
             if ($submittedToken !== $currentToken) {
                 return back()->withErrors(['access_token' => 'El token de acceso es incorrecto.'])->withInput();
             }
 
-            // Cambiar el token después de que alguien lo haya usado
             $this->changeToken();
         }
 
@@ -70,12 +67,18 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $user->assignRole('Super Admin');
+        if (!tenant()) {
+            $user->assignRole('Super Admin');
+        } else {
+            $user->assignRole('Usuario');
+        }
+
 
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
     }
+
 
     /**
      * Cambiar el token dinámicamente.
