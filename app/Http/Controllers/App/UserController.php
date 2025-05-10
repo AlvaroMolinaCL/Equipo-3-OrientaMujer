@@ -42,7 +42,10 @@ class UserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        User::create($validateData);
+        $user = User::create($validateData);
+
+        // Asignar el rol automáticamente
+        $user->assignRole('Super Admin');
 
         return redirect()->route('users.index');
     }
