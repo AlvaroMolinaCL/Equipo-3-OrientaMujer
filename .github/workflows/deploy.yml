@@ -23,6 +23,7 @@ jobs:
           script: |
             echo "Iniciando despliegue..."
             echo "Abriendo directorio del proyecto..."
+            export PATH="/home/tis2/.nvm/versions/node/v20.19.1/bin:$PATH"
             git config --global --add safe.directory /var/www/laravel
             cd /var/www/laravel
             chmod +x deploy.sh
