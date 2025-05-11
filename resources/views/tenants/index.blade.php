@@ -51,7 +51,7 @@
                                             {{-- Ver --}}
                                             <a href="http://{{ $tenant->domains->first()->domain }}"
                                                 class="btn btn-sm w-100 d-flex align-items-center justify-content-center gap-1"
-                                                style="background-color: #BF8A49; color: white;">
+                                                style="background-color: #BF8A49; color: white;" target="_blank">
                                                 <i class="bi bi-eye"></i> Ver
                                             </a>
 
