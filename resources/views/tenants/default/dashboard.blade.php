@@ -16,14 +16,14 @@
     </div>
 
     <!-- Métricas -->
-    <div class="row mb-4">
+    <div class="row mb-4 justify-content-center">
         <div class="col-xl-3 col-md-6 mb-3">
             <div class="card text-white h-100" style="background-color: {{ tenantSetting('button_banner_color', '#BF8A49') }};">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-start">
                         <div>
                             <h6 class="card-subtitle mb-2 text-light">Usuarios Registrados</h6>
-                            <h3 class="card-title">245</h3>
+                            <h3 class="card-title">{{ $user_count }}</h3>
                         </div>
                         <i class="bi bi-people fs-1 opacity-50"></i>
                     </div>
@@ -37,37 +37,9 @@
                     <div class="d-flex justify-content-between align-items-start">
                         <div>
                             <h6 class="card-subtitle mb-2 text-light">Nuevos Hoy</h6>
-                            <h3 class="card-title">12</h3>
+                            <h3 class="card-title">{{ $user_today }}</h3>
                         </div>
                         <i class="bi bi-person-plus fs-1 opacity-50"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-3 col-md-6 mb-3">
-            <div class="card text-white h-100" style="background-color: {{ tenantSetting('button_banner_color', '#BF8A49') }};">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                            <h6 class="card-subtitle mb-2 text-light">Suscripciones</h6>
-                            <h3 class="card-title">83</h3>
-                        </div>
-                        <i class="bi bi-credit-card fs-1 opacity-50"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-3 col-md-6 mb-3">
-            <div class="card text-white h-100" style="background-color: {{ tenantSetting('button_banner_color', '#BF8A49') }};">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                            <h6 class="card-subtitle mb-2 text-light">Activos Hoy</h6>
-                            <h3 class="card-title">56</h3>
-                        </div>
-                        <i class="bi bi-activity fs-1 opacity-50"></i>
                     </div>
                 </div>
             </div>
