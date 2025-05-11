@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 use App\Http\Controllers\App\UserController;
+use App\Http\Controllers\App\ProfileController;
+
 
 
 /*
@@ -27,7 +29,11 @@ Route::middleware([
 ])->group(function () {
 
     // Gestión de usuarios
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class);    
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/dashboard', function () {
         return view(tenantView('dashboard'));
