@@ -62,11 +62,11 @@
                                                 <i class="bi bi-pencil"></i> Editar
                                             </a>
 
-                                            {{-- Permisos --}}
-                                            <a href="{{ route('tenants.permissions.edit', $tenant) }}"
+                                            {{-- Páginas --}}
+                                            <a href="{{ route('tenants.pages.edit', $tenant) }}"
                                                 class="btn btn-sm w-100 d-flex align-items-center justify-content-center gap-1"
                                                 style="background-color: #28a745; color: white;">
-                                                <i class="bi bi-person-gear"></i> Permisos
+                                                <i class="bi bi-building-gear"></i> Páginas
                                             </a>
 
                                             {{-- Eliminar --}}

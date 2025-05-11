@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DomainController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TenantController;
+use App\Http\Controllers\TenantPageController;
 use App\Http\Controllers\App\UserController;
 use App\Http\Controllers\Admin\TokenController;
 
@@ -48,10 +49,14 @@ Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
     // Gestión de Usuarios
     Route::resource('users', UserController::class);
 
-    // Permisos por tenant
-    Route::get('/tenants/{tenant}/seed-permissions', [TenantController::class, 'seedPermissions'])->name('tenants.seedPermissions');
-    Route::get('/tenants/{tenant}/permissions/edit', [TenantController::class, 'editPermissions'])->name('tenants.permissions.edit');
-    Route::post('/tenants/{tenant}/permissions/update', [TenantController::class, 'updatePermissions'])->name('tenants.permissions.update');
+    // Gestión de Páginas por Tenant
+    Route::get('tenants/{tenant}/pages/edit', [TenantPageController::class, 'edit'])->name('tenants.pages.edit');
+    Route::put('tenants/{tenant}/pages/update', [TenantPageController::class, 'update'])->name('tenants.pages.update');
+
+    // Permisos por Tenant
+    // Route::get('/tenants/{tenant}/seed-permissions', [TenantController::class, 'seedPermissions'])->name('tenants.seedPermissions');
+    // Route::get('/tenants/{tenant}/permissions/edit', [TenantController::class, 'editPermissions'])->name('tenants.permissions.edit');
+    // Route::post('/tenants/{tenant}/permissions/update', [TenantController::class, 'updatePermissions'])->name('tenants.permissions.update');
 });
 
 // Autenticación (login, register, etc.)
