@@ -4,14 +4,14 @@
 
 @section('content')
     <div class="container py-3 d-flex align-items-center justify-content-center" style="min-height: 100vh; margin-top: 40px;">
-        <div class="col-md-8 col-lg-6">
+        <div class="col-md-8 col-10 col-lg-6">
             <div class="shadow-lg rounded-4 overflow-hidden"
                 style="background-color: {{ tenantSetting('background_color_1', '#fdf5e5') }}; border-left: 10px solid {{ tenantSetting('navbar_color_1', '#6B3A2C') }};">
 
                 <!-- Logo arriba del formulario -->
                 <div class="text-center py-3" style="background-color: {{ tenantSetting('background_color_1', '#fdf5e5') }};">
                     <img src="{{ asset(tenantSetting('logo_path_1', 'logo/default1.png')) }}" alt="Logo del despacho"
-                        style="max-width: 350px;" class="img-fluid">
+                        style="height: 100px;" class="img-fluid">
                 </div>
 
                 <div class="p-3 bg-white">
