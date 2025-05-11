@@ -37,7 +37,7 @@
                                         style="background-color: {{ tenantSetting('background_color_1', '#fdf5e5') }}; border-radius: 12px;">
                                         <img class="py-3"
                                             src="{{ asset(tenantSetting('logo_path_1', 'logo/default2.png')) }}"
-                                            alt="Logo móvil" style="max-width: 350px;" class="img-fluid mb-2">
+                                            alt="Logo móvil" style="height: 100px;" class="img-fluid mb-2">
                                     </div>
                                     <div class="p-3 text-center">
                                         <h3

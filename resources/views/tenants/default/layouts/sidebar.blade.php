@@ -1,7 +1,8 @@
 <nav class="navbar navbar-light flex-column p-3 h-100"
     style="background-color: {{ tenantSetting('navbar_color_1', 'rgb(68, 30, 8)') }};">
     <a class="navbar-brand mx-auto d-none d-lg-block p-0 mb-3" href="{{ route('dashboard') }}">
-        <img src="{{ asset(tenantSetting('logo_path_1', 'images/default-logo.png')) }}" alt="Logo">
+        <img src="{{ asset(tenantSetting('logo_path_1', 'images/default-logo.png')) }}" alt="Logo"
+            style="max-width: 100%; height: 60px" class="img-fluid mx-auto d-block">
     </a>
 
     <ul class="navbar-nav flex-column w-100">
