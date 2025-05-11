@@ -5,12 +5,12 @@
 @section('content')
     <section class="py-3" style="margin-top: 80px;">
         <!--
-                    <div class="container">
-                        <h1 class="mb-4" style="font-family: {{ tenantSetting('heading_font', 'serif') }}">
-                            {{ tenantPageName('login', 'Iniciar Sesión') }}
-                        </h1>
-                    </div>
-                -->
+            <div class="container">
+                <h1 class="mb-4" style="font-family: {{ tenantSetting('heading_font', 'serif') }}">
+                    {{ tenantPageName('login', 'Iniciar Sesión') }}
+                </h1>
+            </div>
+        -->
 
         <div class="container">
             <div class="row justify-content-center">

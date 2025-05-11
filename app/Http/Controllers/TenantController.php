@@ -198,36 +198,36 @@ class TenantController extends Controller
         return redirect()->route('tenants.index')->with('success', 'Permisos sembrados en el tenant correctamente.');
     }
 
-    public function editPermissions(Tenant $tenant)
-    {
-        $permisosDisponibles = include resource_path('data/permisos_disponibles.php');
+    // public function editPermissions(Tenant $tenant)
+    // {
+    //     $permisosDisponibles = include resource_path('data/permisos_disponibles.php');
 
-        return view('permissions.edit', [
-            'tenant' => $tenant,
-            'permisos' => $permisosDisponibles,
-        ]);
-    }
+    //     return view('permissions.edit', [
+    //         'tenant' => $tenant,
+    //         'permisos' => $permisosDisponibles,
+    //     ]);
+    // }
 
-    public function updatePermissions(Request $request, Tenant $tenant)
-    {
-        $permisosSeleccionados = $request->input('permisos', []);
+    // public function updatePermissions(Request $request, Tenant $tenant)
+    // {
+    //     $permisosSeleccionados = $request->input('permisos', []);
 
-        $tenant->run(function () use ($permisosSeleccionados) {
-            foreach ($permisosSeleccionados as $permiso) {
-                \Spatie\Permission\Models\Permission::firstOrCreate([
-                    'name' => $permiso,
-                    'guard_name' => 'web',
-                ]);
-            }
+    //     $tenant->run(function () use ($permisosSeleccionados) {
+    //         foreach ($permisosSeleccionados as $permiso) {
+    //             \Spatie\Permission\Models\Permission::firstOrCreate([
+    //                 'name' => $permiso,
+    //                 'guard_name' => 'web',
+    //             ]);
+    //         }
 
-            $todos = \Spatie\Permission\Models\Permission::pluck('name')->toArray();
-            $aEliminar = array_diff($todos, $permisosSeleccionados);
-            \Spatie\Permission\Models\Permission::whereIn('name', $aEliminar)->delete();
+    //         $todos = \Spatie\Permission\Models\Permission::pluck('name')->toArray();
+    //         $aEliminar = array_diff($todos, $permisosSeleccionados);
+    //         \Spatie\Permission\Models\Permission::whereIn('name', $aEliminar)->delete();
 
-            $admin = \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'admin']);
-            $admin->syncPermissions($permisosSeleccionados);
-        });
+    //         $admin = \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'admin']);
+    //         $admin->syncPermissions($permisosSeleccionados);
+    //     });
 
-        return redirect()->route('tenants.index')->with('success', 'Permisos actualizados.');
-    }
+    //     return redirect()->route('tenants.index')->with('success', 'Permisos actualizados.');
+    // }
 }
