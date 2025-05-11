@@ -35,9 +35,7 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         'body_font',
         'link_font',
         'default_locale',
-        'background_color', // si aún lo usas
     ];
-
 
     protected static function booted()
     {
@@ -57,7 +55,6 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         return [
             'id',
             'name',
-            'email',
             'logo_path_1',
             'logo_path_2',
             'favicon_path',
@@ -74,10 +71,8 @@ class Tenant extends BaseTenant implements TenantWithDatabase
             'body_font',
             'link_font',
             'default_locale',
-            'background_color',
         ];
     }
-
 
     public function pages()
     {

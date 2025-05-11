@@ -1,31 +1,25 @@
 @extends('tenants.default.layouts.app')
 
-@section('navbar')
-@section('navbar-class', 'navbar-light-mode')
-    @include('tenants.default.layouts.navigation')
-@endsection
-
 @section('body-class', 'theme-light')
 
 @section('content')
-    <div class="container py-5 d-flex align-items-center justify-content-center"
-        style="min-height: 100vh; margin-top: 80px;">
+    <div class="container py-3 d-flex align-items-center justify-content-center" style="min-height: 100vh; margin-top: 40px;">
         <div class="col-md-8 col-lg-6">
             <div class="shadow-lg rounded-4 overflow-hidden"
                 style="background-color: {{ tenantSetting('background_color_1', '#fdf5e5') }}; border-left: 10px solid {{ tenantSetting('navbar_color_1', '#6B3A2C') }};">
 
                 <!-- Logo arriba del formulario -->
-                <div class="text-center py-2"
-                    style="background-color: {{ tenantSetting('background_color_1', '#fdf5e5') }};">
-                    <img src="{{ asset('images/' . tenantSetting('logo_path_1', 'logo/default1.png')) }}"
-                        alt="Logo del despacho" style="max-width: 250px;" class="img-fluid mb-2">
+                <div class="text-center py-3" style="background-color: {{ tenantSetting('background_color_1', '#fdf5e5') }};">
+                    <img src="{{ asset(tenantSetting('logo_path_1', 'logo/default1.png')) }}" alt="Logo del despacho"
+                        style="max-width: 350px;" class="img-fluid">
                 </div>
 
-                <div class="p-5 bg-white">
+                <div class="p-3 bg-white">
 
                     <!-- Encabezado -->
                     <div class="text-center mb-4">
-                        <h3 style="color: {{ tenantSetting('navbar_color_1', '#4A1D0B') }};">
+                        <h3
+                            style="color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }}; ; font-family: {{ tenantSetting('heading_font', 'serif') }}">
                             <i class="bi bi-person-plus-fill me-2"></i> Crear nueva cuenta
                         </h3>
                         <p class="text-muted">Regístrate para crear una nueva cuenta</p>
@@ -78,23 +72,31 @@
                         <!-- Botón -->
                         <div class="d-grid">
                             <button type="submit" class="btn text-white"
-                                style="background-color: {{ tenantSetting('navbar_color_1', '#4A1D0B') }};">
+                                style="background-color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }};">
                                 <i class="bi bi-check2-circle me-1"></i> Registrarse
                             </button>
                         </div>
 
                         <!-- Link a login -->
                         <div class="mt-4 text-center">
-                            <small class="text-muted">¿Ya tienes una cuenta?</small><br>
-                            <a href="{{ route('login') }}" class="text-decoration-none"
-                                style="color: {{ tenantSetting('navbar_color_1', '#4A1D0B') }};">
-                                Iniciar sesión
-                            </a>
+                            <p class="text-muted">¿Ya tienes una cuenta?
+                                <a href="{{ route('login') }}" class="text-decoration-none"
+                                    style="color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }};">
+                                    Iniciar sesión
+                                </a>
+                            </p>
                         </div>
                     </form>
 
                 </div>
             </div>
+            <div class="mt-3 text-center">
+                <a href="/" class="text-decoration-none"
+                    style="color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }};">Volver a
+                    {{ tenantSetting('name', 'AbogaRed') }}</a>
+            </div>
         </div>
     </div>
+
+    @include('tenants.default.layouts.footer')
 @endsection
