@@ -11,6 +11,7 @@ class TenantPage extends Model
     protected $fillable = [
         'tenant_id',
         'page_key',
+        'title',
         'is_enabled',
         'is_visible',
         'settings',
