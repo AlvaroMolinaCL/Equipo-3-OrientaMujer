@@ -54,7 +54,7 @@
                 style="background-color: {{ tenantSetting('button_banner_color', '#8C2D18') }}; color: white;">
                 <h5 class="mb-0">Últimos Usuarios</h5>
                 <a href="{{ route('users.index') }}" class="btn btn-sm"
-                    style="background-color: {{ tenantSetting('button_banner_text_color', '#FDF5E5') }}; color: {{ tenantSetting('button_banner_text_color', '#8C2D18') }};">
+                    style="background-color: {{ tenantSetting('button_banner_text_color', '#FDF5E5') }}; color: {{ tenantSetting('button_banner_color', '#8C2D18') }};">
                     <i class="bi bi-eye"></i> Ver Usuarios
                 </a>
             </div>
@@ -63,9 +63,9 @@
                     <table class="table table-hover mb-0">
                         <thead style="background-color: {{ tenantSetting('button_banner_text_color', '#FDF5E5') }};">
                             <tr>
-                                <th style="color: {{ tenantSetting('button_banner_text_color', '#8C2D18') }};">Nombre</th>
-                                <th style="color: {{ tenantSetting('button_banner_text_color', '#8C2D18') }};">Email</th>
-                                <th style="color: {{ tenantSetting('button_banner_text_color', '#8C2D18') }};">Registro</th>
+                                <th style="color: {{ tenantSetting('button_banner_color', '#8C2D18') }};">Nombre</th>
+                                <th style="color: {{ tenantSetting('button_banner_color', '#8C2D18') }};">Email</th>
+                                <th style="color: {{ tenantSetting('button_banner_color', '#8C2D18') }};">Registro</th>
                             </tr>
                         </thead>
                         <tbody>

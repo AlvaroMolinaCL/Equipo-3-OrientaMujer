@@ -116,7 +116,7 @@
                             <tr>
                                 <th style="color: #8C2D18;">Nombre</th>
                                 <th style="color: #8C2D18;">Email</th>
-                                <th style="color: #8C2D18;">Dominio</th>
+                                <th style="color: #8C2D18;">Dominio(s)</th>
                                 <th style="color: #8C2D18;">Registro</th>
                             </tr>
                         </thead>

@@ -22,6 +22,10 @@
                 <form method="POST" action="{{ route('domains.store') }}" class="bg-white p-4 rounded-3 shadow-sm">
                     @csrf
 
+                    <h5 class="fw-medium mb-3" style="color: #8C2D18;">
+                        <i class="bi bi-info-circle me-2"></i>Información del Dominio
+                    </h5>
+
                     {{-- Dominio --}}
                     <div class="mb-4">
                         <label for="domain" class="form-label fw-medium" style="color: #8C2D18;">
@@ -32,8 +36,8 @@
                                 <i class="bi bi-fonts"></i>
                             </span>
                             <input id="domain" type="text" class="form-control border-start-0"
-                                style="background-color: #FDF5E5;" name="domain" value="{{ old('domain') }}" required
-                                autofocus>
+                                placeholder="Por ejemplo: midominio.cl" style="background-color: #FDF5E5;" name="domain"
+                                value="{{ old('domain') }}" required autofocus>
                         </div>
                         @error('domain')
                             <div class="text-danger small mt-2">
