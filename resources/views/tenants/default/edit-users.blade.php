@@ -145,7 +145,7 @@
             {{-- Botón de envío --}}
             <div class="mt-4 pt-3 border-top text-center">
                 <button type="submit" class="btn fw-medium py-1"
-                        style="background-color: {{ tenantSetting('button_banner_color', '#8C2D18') }};
+                        style="background-color: {{ tenantSetting('navbar_color_1', '#8C2D18') }};
                                color: white; width: 200px;">
                     <i class="bi bi-save me-2"></i>Actualizar Usuario
                 </button>
