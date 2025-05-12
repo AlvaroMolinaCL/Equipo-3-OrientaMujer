@@ -12,6 +12,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
     <link href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous" rel="stylesheet">
     <link href="{{ asset(tenantSetting('favicon_path', '/favicon.ico')) }}" type="image/ico" rel="shortcut icon">
     <link href="{{ asset(tenantSetting('favicon_path', '/favicon.ico')) }}" sizes="192x192" rel="shortcut icon">
@@ -22,7 +25,7 @@
 
     @php
         $tenant = tenant();
-        $bannerUrl = asset(tenantSetting('banner_path', '/images/banner/Banner_Principal_OrientaMujer.png'));
+        $bannerUrl = asset(tenantSetting('banner_path', '/images/banner/Banner_1_(Predeterminado).png'));
     @endphp
 
     @if ($tenant->google_analytics_id)
