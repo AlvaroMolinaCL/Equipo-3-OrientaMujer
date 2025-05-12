@@ -487,6 +487,9 @@
                                     <option value="Montserrat"
                                         {{ old('navbar_font', $tenant->navbar_font) == 'Montserrat' ? 'selected' : '' }}>
                                         Montserrat</option>
+                                    <option value="Courier Prime"
+                                        {{ old('heading_font', $tenant->heading_font) == 'Courier Prime' ? 'selected' : '' }}>
+                                        Courier Prime</option>
                                 </select>
                             </div>
                             @error('navbar_font')
@@ -521,6 +524,9 @@
                                     <option value="Montserrat"
                                         {{ old('heading_font', $tenant->heading_font) == 'Montserrat' ? 'selected' : '' }}>
                                         Montserrat</option>
+                                    <option value="Courier Prime"
+                                        {{ old('heading_font', $tenant->heading_font) == 'Courier Prime' ? 'selected' : '' }}>
+                                        Courier Prime</option>
                                 </select>
                             </div>
                             @error('heading_font')
@@ -553,6 +559,9 @@
                                     <option value="Montserrat"
                                         {{ old('body_font', $tenant->body_font) == 'Montserrat' ? 'selected' : '' }}>
                                         Montserrat</option>
+                                    <option value="Courier Prime"
+                                        {{ old('heading_font', $tenant->heading_font) == 'Courier Prime' ? 'selected' : '' }}>
+                                        Courier Prime</option>
                                 </select>
                             </div>
                             @error('body_font')
