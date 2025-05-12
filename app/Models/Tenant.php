@@ -14,7 +14,10 @@ class Tenant extends BaseTenant implements TenantWithDatabase
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
-
+    
+    protected $casts = [
+        'about' => 'array',
+    ];
     protected $fillable = [
         'id',
         'name',
@@ -35,6 +38,7 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         'body_font',
         'link_font',
         'default_locale',
+        'about',
     ];
 
     protected static function booted()
