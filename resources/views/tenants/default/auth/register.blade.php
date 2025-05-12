@@ -20,7 +20,7 @@
                     <div class="text-center mb-4">
                         <h3
                             style="color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }}; ; font-family: {{ tenantSetting('heading_font', 'serif') }}">
-                            <i class="bi bi-person-plus-fill me-2"></i> Crear nueva cuenta
+                            <i class="bi bi-person-plus-fill me-2"></i> Crear Nueva Cuenta
                         </h3>
                         <p class="text-muted">Regístrate para crear una nueva cuenta</p>
                     </div>
@@ -35,8 +35,9 @@
                         <!-- Nombre -->
                         <div class="mb-3">
                             <label for="name" class="form-label">Nombre</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                                name="name" value="{{ old('name') }}" required autofocus>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                placeholder="Por ejemplo: Alejandra Pereira" id="name" name="name"
+                                value="{{ old('name') }}" required autofocus>
                             @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -44,9 +45,10 @@
 
                         <!-- Email -->
                         <div class="mb-3">
-                            <label for="email" class="form-label">Correo electrónico</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                                name="email" value="{{ old('email') }}" required>
+                            <label for="email" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                placeholder="Por ejemplo: miemail@gmail.com" id="email" name="email"
+                                value="{{ old('email') }}" required>
                             @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -56,7 +58,7 @@
                         <div class="mb-3">
                             <label for="password" class="form-label">Contraseña</label>
                             <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                id="password" name="password" required>
+                                placeholder="Ingrese una contraseña segura" id="password" name="password" required>
                             @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -65,7 +67,8 @@
                         <!-- Confirmar Contraseña -->
                         <div class="mb-3">
                             <label for="password_confirmation" class="form-label">Confirmar Contraseña</label>
-                            <input type="password" class="form-control" id="password_confirmation"
+                            <input type="password" class="form-control"
+                                placeholder="Confirme la contraseña ingresada anteriormente" id="password_confirmation"
                                 name="password_confirmation" required>
                         </div>
 
@@ -87,7 +90,6 @@
                             </p>
                         </div>
                     </form>
-
                 </div>
             </div>
             <div class="mt-3 text-center">

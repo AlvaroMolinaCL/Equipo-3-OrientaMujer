@@ -4,14 +4,6 @@
 
 @section('content')
     <section class="py-3" style="margin-top: 80px;">
-        <!--
-            <div class="container">
-                <h1 class="mb-4" style="font-family: {{ tenantSetting('heading_font', 'serif') }}">
-                    {{ tenantPageName('login', 'Iniciar Sesión') }}
-                </h1>
-            </div>
-        -->
-
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-10">
@@ -69,9 +61,10 @@
                                     @csrf
 
                                     <div class="mb-3">
-                                        <label for="email" class="form-label">Correo electrónico</label>
+                                        <label for="email" class="form-label">Correo Electrónico</label>
                                         <input id="email" type="email"
-                                            class="form-control @error('email') is-invalid @enderror" name="email"
+                                            class="form-control @error('email') is-invalid @enderror"
+                                            placeholder="Por ejemplo: miemail@gmail.com" name="email"
                                             value="{{ old('email') }}" required autofocus>
                                         @error('email')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -81,8 +74,8 @@
                                     <div class="mb-3">
                                         <label for="password" class="form-label">Contraseña</label>
                                         <input id="password" type="password"
-                                            class="form-control @error('password') is-invalid @enderror" name="password"
-                                            required>
+                                            class="form-control @error('password') is-invalid @enderror"
+                                            placeholder="Ingrese su contraseña" name="password" required>
                                         @error('password')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror

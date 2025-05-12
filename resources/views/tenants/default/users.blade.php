@@ -10,7 +10,8 @@
     <div class="container-fluid">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h3 fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">{{ __('Usuarios') }}</h2>
+            <h2 class="h3 fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">{{ __('Usuarios') }}
+            </h2>
             <a href="{{ route('dashboard') }}" class="btn btn-sm"
                 style="background-color: {{ tenantSetting('button_banner_text_color', '#F5E8D0') }};
                        color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
@@ -35,10 +36,14 @@
                     <table class="table table-hover mb-0">
                         <thead style="background-color: {{ tenantSetting('button_banner_text_color', '#FDF5E5') }};">
                             <tr>
-                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Nombre</th>
-                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Email</th>
-                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Rol</th>
-                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Acciones</th>
+                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                                    Nombre</th>
+                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                                    Email</th>
+                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Rol
+                                </th>
+                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                                    Acciones</th>
                             </tr>
                         </thead>
                         <tbody class="text-center">
