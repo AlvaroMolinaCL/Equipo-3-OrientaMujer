@@ -32,7 +32,7 @@
                             <tr>
                                 <th class="text-center" style="color: #8C2D18;">Nombre</th>
                                 <th class="text-center" style="color: #8C2D18;">Email</th>
-                                <th class="text-center" style="color: #8C2D18;">Dominio</th>
+                                <th class="text-center" style="color: #8C2D18;">Dominio(s)</th>
                                 <th class="text-center" style="color: #8C2D18;">Acciones</th>
                             </tr>
                         </thead>
