@@ -21,4 +21,9 @@ class TenantPage extends Model
     {
         return $this->belongsTo(Tenant::class);
     }
+
+    public function pages()
+    {
+        return $this->hasMany(TenantPage::class);
+    }
 }
