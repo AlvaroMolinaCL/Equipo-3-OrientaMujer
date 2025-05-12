@@ -10,15 +10,32 @@ class TenantPageController extends Controller
 {
     public function edit(Tenant $tenant)
     {
-        $pages = config('tenant.pages');
+        $pageKeys = ['login', 'services', 'contact', 'tips', 'about', 'agenda'];
+
+        $pages = collect($pageKeys)->mapWithKeys(function ($key) use ($tenant) {
+            $page = $tenant->pages()->where('page_key', $key)->first();
+            return [$key => $page?->title ?? ucfirst($key)];
+        });
+
         $tenantPages = TenantPage::where('tenant_id', $tenant->id)->get()->keyBy('page_key');
 
-        return view('tenants.pages', compact('tenant', 'pages', 'tenantPages'));
+        return view('tenants.pages', [
+            'tenant' => $tenant,
+            'pages' => $pages->toArray(),
+            'tenantPages' => $tenantPages,
+        ]);
     }
 
     public function update(Request $request, Tenant $tenant)
     {
-        $pages = config('tenant.pages');
+        $pageKeys = ['login', 'services', 'contact', 'tips', 'about', 'agenda'];
+
+        $pages = collect($pageKeys)->mapWithKeys(function ($key) use ($tenant) {
+            $page = $tenant->pages()->where('page_key', $key)->first();
+            return [$key => $page?->title ?? ucfirst($key)];
+        });
+
+        $titles = $request->input('titles', []);
 
         foreach ($pages as $pageKey => $label) {
             TenantPage::updateOrCreate(
@@ -26,10 +43,11 @@ class TenantPageController extends Controller
                 [
                     'is_enabled' => in_array($pageKey, $request->input('enabled', [])),
                     'is_visible' => in_array($pageKey, $request->input('visible', [])),
+                    'title' => $titles[$pageKey] ?? $label,
                 ]
             );
         }
 
-        return redirect()->route('tenants.pages.edit', $tenant)->with('success', 'Configuración actualizada correctamente.');
+        return redirect()->route('tenants.index', $tenant)->with('success', 'Configuración actualizada correctamente.');
     }
 }
