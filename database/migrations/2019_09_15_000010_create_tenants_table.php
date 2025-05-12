@@ -26,6 +26,10 @@ class CreateTenantsTable extends Migration
             $table->string('logo_path_2')->nullable();
             $table->string('favicon_path')->nullable();
             $table->string('banner_path')->nullable();
+            $table->string('services_path_1')->nullable();
+            $table->string('services_path_2')->nullable();
+            $table->string('services_path_3')->nullable();
+            $table->string('about_path')->nullable();
 
             // Colores generales
             $table->string('button_banner_color')->nullable();
@@ -43,6 +47,12 @@ class CreateTenantsTable extends Migration
             $table->string('heading_font')->nullable();
             $table->string('body_font')->nullable();
             $table->string('navbar_font')->nullable();
+
+            // Configuraciones específicas
+            $table->string('contact_email')->nullable();
+            $table->string('contact_instagram')->nullable();
+            $table->string('contact_linkedin')->nullable();
+
             $table->string('google_analytics_id')->nullable();
             $table->json('data')->nullable();
         });
