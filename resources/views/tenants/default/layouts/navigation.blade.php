@@ -10,9 +10,9 @@
         </button>
 
         <a class="navbar-brand ms-auto" href="/">
-            <img src="{{ tenantSetting('logo_path_1', '') }}" class="logo logo-1 d-none"
+            <img src="{{ tenantSetting('logo_path_1', 'images/logo/Logo_1_(Predeterminado).png') }}" class="logo logo-1 d-none"
                 alt="Logo 1 {{ tenantSetting('name', 'Tenant') }}" width="300" height="50">
-            <img src="{{ tenantSetting('logo_path_2', '') }}" class="logo logo-2 d-none"
+            <img src="{{ tenantSetting('logo_path_2', 'images/logo/Logo_2_(Predeterminado).png') }}" class="logo logo-2 d-none"
                 alt="Logo 2 {{ tenantSetting('name', 'Tenant') }}" width="300" height="50">
         </a>
 
