@@ -38,7 +38,8 @@
                                 <i class="bi bi-building"></i>
                             </span>
                             <input type="text" class="form-control border-start-0" style="background-color: #FDF5E5;"
-                                id="name" name="name" value="{{ old('name', $tenant->name) }}" required autofocus>
+                                placeholder="Por ejemplo: Mi Buffet de Abogados" id="name" name="name"
+                                value="{{ old('name', $tenant->name) }}" required autofocus>
                         </div>
                         @error('name')
                             <div class="text-danger small mt-2">
@@ -57,7 +58,8 @@
                                 <i class="bi bi-at"></i>
                             </span>
                             <input type="email" class="form-control border-start-0" style="background-color: #FDF5E5;"
-                                id="email" name="email" value="{{ old('email', $tenant->email) }}" required>
+                                placeholder="Por ejemplo: mibuffet@abogados.cl" id="email" name="email"
+                                value="{{ old('email', $tenant->email) }}" required>
                         </div>
                         @error('email')
                             <div class="text-danger small mt-2">
@@ -77,6 +79,7 @@
                             </span>
                             <input type="text" class="form-control border-start-0" style="background-color: #FDF5E5;"
                                 id="domain_name" name="domain_name"
+                                placeholder="Por ejemplo: mibuffet (quedará como mibuffet.{{ config('app.domain') }})"
                                 value="{{ Str::remove('.' . config('app.domain'), old('domain_name', $tenant->domains->first()->domain ?? '')) }}"
                                 required>
                             <span class="input-group-text" id="basic-addon2"
@@ -99,7 +102,7 @@
                                 <i class="bi bi-key"></i>
                             </span>
                             <input type="password" class="form-control border-start-0" style="background-color: #FDF5E5;"
-                                id="password" name="password">
+                                placeholder="Ingrese una contraseña segura" id="password" name="password">
                             <button class="btn" type="button" style="background-color: #F5E8D0; color: #8C2D18;"
                                 onclick="togglePassword('password')">
                                 <i class="bi bi-eye"></i>
@@ -122,7 +125,8 @@
                                 <i class="bi bi-key-fill"></i>
                             </span>
                             <input type="password" class="form-control border-start-0" style="background-color: #FDF5E5;"
-                                id="password_confirmation" name="password_confirmation">
+                                placeholder="Confirme la contraseña ingresada anteriormente" id="password_confirmation"
+                                name="password_confirmation">
                             <button class="btn" type="button" style="background-color: #F5E8D0; color: #8C2D18;"
                                 onclick="togglePassword('password_confirmation')">
                                 <i class="bi bi-eye"></i>
@@ -131,8 +135,8 @@
                     </div>
 
                     {{-- Estilos predeterminados --}}
-                    <h5 class="fw-medium mb-3 mt-4" style="color: #8C2D18;">
-                        <i class="bi bi-brush me-2"></i>Aplicar Estilo Predeterminado (opcional)
+                    <h5 class="fw-medium mb-3 mt-5" style="color: #8C2D18;">
+                        <i class="bi bi-brush me-2"></i>Estilos Predeterminados
                     </h5>
 
                     @php
@@ -220,10 +224,7 @@
                     </div>
 
                     {{-- Sección de Personalización --}}
-                    <div class="mb-4 border-top pt-3">
-                        <h5 class="fw-medium mb-3" style="color: #8C2D18;">
-                            <i class="bi bi-palette me-2"></i>Personalización
-                        </h5>
+                    <div class="mb-4 pt-3">
 
                         {{-- Logo 1 Actual --}}
                         <div class="col form-group">

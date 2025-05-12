@@ -37,8 +37,8 @@
                                 <i class="bi bi-building"></i>
                             </span>
                             <input id="name" type="text" class="form-control border-start-0"
-                                style="background-color: #FDF5E5;" name="name" value="{{ old('name') }}" required
-                                autofocus>
+                                placeholder="Por ejemplo: Mi Buffet de Abogados" style="background-color: #FDF5E5;"
+                                name="name" value="{{ old('name') }}" required autofocus>
                         </div>
                         @error('name')
                             <div class="text-danger small mt-2">
@@ -57,7 +57,8 @@
                                 <i class="bi bi-at"></i>
                             </span>
                             <input id="email" type="email" class="form-control border-start-0"
-                                style="background-color: #FDF5E5;" name="email" value="{{ old('email') }}" required>
+                                placeholder="Por ejemplo: mibuffet@abogados.cl" style="background-color: #FDF5E5;"
+                                name="email" value="{{ old('email') }}" required>
                         </div>
                         @error('email')
                             <div class="text-danger small mt-2">
@@ -76,6 +77,7 @@
                                 <i class="bi bi-link-45deg"></i>
                             </span>
                             <input id="domain_name" type="text" class="form-control border-start-0"
+                                placeholder="Por ejemplo: mibuffet (quedará como mibuffet.{{ config('app.domain') }})"
                                 style="background-color: #FDF5E5;" name="domain_name" value="{{ old('domain_name') }}"
                                 required>
                             <span class="input-group-text"
@@ -98,7 +100,8 @@
                                 <i class="bi bi-key"></i>
                             </span>
                             <input id="password" type="password" class="form-control border-start-0"
-                                style="background-color: #FDF5E5;" name="password" required>
+                                placeholder="Ingrese una contraseña segura" style="background-color: #FDF5E5;"
+                                name="password" required>
                             <button class="btn" type="button" style="background-color: #F5E8D0; color: #8C2D18;"
                                 onclick="togglePassword('password')">
                                 <i class="bi bi-eye"></i>
@@ -121,6 +124,7 @@
                                 <i class="bi bi-key-fill"></i>
                             </span>
                             <input id="password_confirmation" type="password" class="form-control border-start-0"
+                                placeholder="Confirme la contraseña ingresada anteriormente"
                                 style="background-color: #FDF5E5;" name="password_confirmation" required>
                             <button class="btn" type="button" style="background-color: #F5E8D0; color: #8C2D18;"
                                 onclick="togglePassword('password_confirmation')">
@@ -406,7 +410,8 @@
                                     Sans</option>
                                 <option value="Montserrat" {{ old('navbar_font') == 'Montserrat' ? 'selected' : '' }}>
                                     Montserrat</option>
-                                <option value="Courier Prime" {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
+                                <option value="Courier Prime"
+                                    {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
                                     Courier Prime</option>
                             </select>
                         </div>
@@ -430,7 +435,8 @@
                                     Sans</option>
                                 <option value="Montserrat" {{ old('heading_font') == 'Montserrat' ? 'selected' : '' }}>
                                     Montserrat</option>
-                                <option value="Courier Prime" {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
+                                <option value="Courier Prime"
+                                    {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
                                     Courier Prime</option>
                             </select>
                         </div>
@@ -454,7 +460,8 @@
                                     Sans</option>
                                 <option value="Montserrat" {{ old('body_font') == 'Montserrat' ? 'selected' : '' }}>
                                     Montserrat</option>
-                                <option value="Courier Prime" {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
+                                <option value="Courier Prime"
+                                    {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
                                     Courier Prime</option>
                             </select>
                         </div>

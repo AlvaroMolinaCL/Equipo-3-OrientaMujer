@@ -38,7 +38,8 @@
                                 @endphp
                                 <div class="p-3 bg-light rounded d-flex flex-column">
                                     <div class="mb-2">
-                                        <label for="title-{{ $pageKey }}" class="form-label fw-bold">Nombre de Página "{{ ucwords($pageKey) }}"</label>
+                                        <label for="title-{{ $pageKey }}" class="form-label fw-bold">Nombre de Página
+                                            "{{ ucwords($pageKey) }}"</label>
                                         <input type="text" class="form-control" name="titles[{{ $pageKey }}]"
                                             id="title-{{ $pageKey }}" value="{{ $label }}">
                                     </div>
