@@ -22,8 +22,8 @@ class TenantDatabaseSeeder extends Seeder
             tenancy()->initialize($tenant);
 
             // Crear los roles dentro de la base de datos del tenant
-            Role::create(['name' => 'Admin']);
-            Role::create(['name' => 'User']);
+            Role::firstOrCreate(['name' => 'Admin', 'guard_name' => 'web']);
+            Role::firstOrCreate(['name' => 'User', 'guard_name' => 'web']);
         }
     }
 }
