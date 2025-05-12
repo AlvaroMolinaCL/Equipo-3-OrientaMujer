@@ -19,11 +19,8 @@ function tenantView(string $view): string
 /**
  * Recupera configuraciones de un tenant desde la base de datos
  */
-function tenantSetting($key, $default = null)
-{
-    $tenant = tenant(); // o como sea que accedas
-
-    return data_get($tenant->data ?? [], $key, $default);
+function tenantSetting($key, $default = null) {
+    return tenant()?->{$key} ?? $default;
 }
 
 /**
