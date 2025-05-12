@@ -29,7 +29,7 @@
                     <table class="table table-hover mb-0">
                         <thead style="background-color: #FDF5E5;">
                             <tr>
-                                <th class="text-center" style="color: #8C2D18;">Dominio</th>
+                                <th class="text-center" style="color: #8C2D18;">Dominio Personalizado</th>
                                 <th class="text-center" style="color: #8C2D18;">Tenant</th>
                                 <th class="text-center" style="color: #8C2D18;">Acciones</th>
                             </tr>
