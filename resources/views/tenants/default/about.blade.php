@@ -16,7 +16,7 @@
                 {{-- Imagen: primer plano en móviles, segundo plano en pantallas grandes --}}
                 <div class="col-md-6 text-center order-1 order-md-2 mb-4 mb-md-0">
                     <img 
-                        src="images/about/Omara_Munoz.png" 
+                        src="{{ tenantSetting('about_path', 'images/about/Omara_Munoz.png') }}" 
                         alt="Omara Muñoz" 
                         class="rounded-circle img-fluid"
                         style="width: 350px; height: 350px; object-fit: cover;">
