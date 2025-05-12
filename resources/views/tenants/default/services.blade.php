@@ -16,7 +16,7 @@
                 {{-- Recuadro 1 --}}
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm fade-in-section">
-                        <img src="/images/services/Servicio_1_OrientaMujer.png" class="card-img-top" alt="Asesoría jurídica integral">
+                        <img src="{{ tenantSetting('services_path_1', '/images/services/Servicio_(Predeterminado).png') }}" class="card-img-top" alt="Asesoría jurídica integral">
                         <div class="card-body">
                             <h5 class="card-title" style="font-weight: bold">Asesoría jurídica integral</h5>
                             <p class="card-text">
@@ -37,7 +37,7 @@
                 {{-- Recuadro 2 --}}
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm fade-in-section">
-                        <img src="/images/services/Servicio_2_OrientaMujer.png" class="card-img-top" alt="Representación judicial">
+                        <img src="{{ tenantSetting('services_path_1', '/images/services/Servicio_(Predeterminado).png') }}" class="card-img-top" alt="Representación judicial">
                         <div class="card-body">
                             <h5 class="card-title" style="font-weight: bold">Representación judicial en causas de derecho penal, familia, u otros</h5>
                             <p class="card-text">
@@ -55,7 +55,7 @@
                 {{-- Recuadro 3 --}}
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm fade-in-section">
-                        <img src="/images/services/Servicio_3_OrientaMujer.png" class="card-img-top" alt="Capacitaciones y charlas">
+                        <img src="{{ tenantSetting('services_path_1', '/images/services/Servicio_(Predeterminado).png') }}" class="card-img-top" alt="Capacitaciones y charlas">
                         <div class="card-body">
                             <h5 class="card-title" style="font-weight: bold">Capacitaciones y charlas</h5>
                             <p class="card-text">

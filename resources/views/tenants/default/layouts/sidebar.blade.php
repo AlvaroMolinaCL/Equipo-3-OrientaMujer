@@ -44,7 +44,7 @@
             <strong
                 style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">{{ Auth::user()->name }}</strong><br>
             <small
-                style="color: {{ tenantSetting('navbar_text_color_2', '#BF8A49') }};">{{ Auth::user()->email }}</small>
+                style="color: {{ tenantSetting('navbar_text_color_1', '#BF8A49') }};">{{ Auth::user()->email }}</small>
         </div>
         <div class="dropup mt-2">
             <button class="btn btn-sm w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown"
