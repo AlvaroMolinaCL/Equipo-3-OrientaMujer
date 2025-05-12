@@ -406,6 +406,8 @@
                                     Sans</option>
                                 <option value="Montserrat" {{ old('navbar_font') == 'Montserrat' ? 'selected' : '' }}>
                                     Montserrat</option>
+                                <option value="Courier Prime" {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
+                                    Courier Prime</option>
                             </select>
                         </div>
                     </div>
@@ -428,6 +430,8 @@
                                     Sans</option>
                                 <option value="Montserrat" {{ old('heading_font') == 'Montserrat' ? 'selected' : '' }}>
                                     Montserrat</option>
+                                <option value="Courier Prime" {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
+                                    Courier Prime</option>
                             </select>
                         </div>
                     </div>
@@ -450,6 +454,8 @@
                                     Sans</option>
                                 <option value="Montserrat" {{ old('body_font') == 'Montserrat' ? 'selected' : '' }}>
                                     Montserrat</option>
+                                <option value="Courier Prime" {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
+                                    Courier Prime</option>
                             </select>
                         </div>
                     </div>
