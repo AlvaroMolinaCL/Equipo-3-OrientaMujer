@@ -8,6 +8,8 @@
 @section('body-class', 'theme-light')
 
 @section('content')
+<pre>{{ print_r(tenantSetting('about_text', []), true) }}</pre>
+
     <section class="py-5" style="margin-top: 80px;">
         <div class="container">
             <h1 class="mb-3" style="font-family: {{ tenantSetting('heading_font', '') }}">{{ tenantPageName('about', '¿Quiénes somos?') }}</h1>
@@ -23,21 +25,23 @@
                 </div>
 
                 {{-- Texto: segundo plano en móviles, primero plano en pantallas grandes --}}
+                {{-- Sección ¿Quiénes somos? --}}
                 <div class="col-md-6 order-2 order-md-1">
-                    <p style="text-align: justify;">Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.</p>
-                    <p style="text-align: justify;">Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.</p>
-                    <p style="text-align: justify;">Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñe en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras,  me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.</p>
-                    <p style="text-align: justify;"><strong>"La información es poder, empodérate"</strong></p>
+                    {{-- ¿Quiénes somos? --}}
+                    @foreach(tenantSetting('about_text', []) as $paragraph)
+                        <p style="text-align: justify;">{!! $paragraph !!}</p>
+                    @endforeach
                 </div>
             </div>
 
             <h1 class="mb-3 mt-5" style="font-family: 'Courier Prime', Courier">Experiencia</h1>
 
             <p style="text-align: justify;">
-                <ul class="fade-in-section">
-                    <li>Abogada títulada por la Universidad de Concepción.</li>
-                    <li>Magíster en Derecho Penal y Derecho Procesal Penal, Universidad Católica del Norte (en curso).</li>
-                    <li>Diplomada en Derechos Humanos y Función Pública, Universidad de Los Lagos e Instituto Nacional de Derechos Humanos.</li>
+                <h1 class="mb-3 mt-5" style="font-family: 'Courier Prime', Courier">Experiencia</h1>
+                <ul class="fade-in-section" style="text-align: justify;">
+                    @foreach(tenantSetting('experience_list', []) as $item)
+                        <li>{!! $item !!}</li>
+                    @endforeach
                 </ul>
             </p>
         </div>
