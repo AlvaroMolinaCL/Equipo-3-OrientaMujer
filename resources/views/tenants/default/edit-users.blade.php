@@ -13,9 +13,9 @@
             <h2 class="h3 mb-0 fw-bold" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                 <i class="bi bi-person-gear me-2"></i>{{ __('Editar Usuario') }}
             </h2>
-            <a href="{{ route('users.index') }}" class="btn btn-sm"
-                style="background-color: {{ tenantSetting('button_banner_text_color', '#F5E8D0') }};
-                      color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+            <a href="{{ route('users.index') }}" class="btn btn-sm" style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
+              color: {{ tenantSetting('text_color_1', '#8C2D18') }};
+              border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
                 <i class="bi bi-arrow-left me-1"></i> Volver
             </a>
         </div>
@@ -33,12 +33,12 @@
                 </label>
                 <div class="input-group">
                     <span class="input-group-text"
-                        style="background-color: {{ tenantSetting('button_banner_text_color', '#F5E8D0') }};
+                        style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
                                  color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                         <i class="bi bi-fonts"></i>
                     </span>
                     <input type="text" class="form-control border-start-0"
-                        style="background-color: {{ tenantSetting('background_color', '#FDF5E5') }};"
+                        style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};"
                         placeholder="Por ejemplo: Alejandra Pereira" id="name" name="name"
                         value="{{ old('name', $user->name) }}" required autofocus>
                 </div>
@@ -57,12 +57,12 @@
                 </label>
                 <div class="input-group">
                     <span class="input-group-text"
-                        style="background-color: {{ tenantSetting('button_banner_text_color', '#F5E8D0') }};
+                        style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
                                  color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                         <i class="bi bi-at"></i>
                     </span>
                     <input type="email" class="form-control border-start-0"
-                        style="background-color: {{ tenantSetting('background_color', '#FDF5E5') }};"
+                        style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};"
                         placeholder="Por ejemplo: miemail@gmail.com" id="email" name="email"
                         value="{{ old('email', $user->email) }}" required>
                 </div>
@@ -81,15 +81,15 @@
                 </label>
                 <div class="input-group">
                     <span class="input-group-text"
-                        style="background-color: {{ tenantSetting('button_banner_text_color', '#F5E8D0') }};
+                        style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
                                  color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                         <i class="bi bi-key"></i>
                     </span>
                     <input type="password" class="form-control border-start-0"
-                        style="background-color: {{ tenantSetting('background_color', '#FDF5E5') }};"
+                        style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};"
                         placeholder="Ingrese una contraseña segura" id="password" name="password">
                     <button class="btn" type="button"
-                        style="background-color: {{ tenantSetting('button_banner_text_color', '#F5E8D0') }};
+                        style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
                                    color: {{ tenantSetting('text_color_1', '#8C2D18') }};"
                         onclick="togglePassword('password')">
                         <i class="bi bi-eye"></i>
@@ -110,16 +110,16 @@
                 </label>
                 <div class="input-group">
                     <span class="input-group-text"
-                        style="background-color: {{ tenantSetting('button_banner_text_color', '#F5E8D0') }};
+                        style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
                                  color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                         <i class="bi bi-key-fill"></i>
                     </span>
                     <input type="password" class="form-control border-start-0"
-                        style="background-color: {{ tenantSetting('background_color', '#FDF5E5') }};"
+                        style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};"
                         placeholder="Confirme la contraseña ingresada anteriormente" id="password_confirmation"
                         name="password_confirmation">
                     <button class="btn" type="button"
-                        style="background-color: {{ tenantSetting('button_banner_text_color', '#F5E8D0') }};
+                        style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
                                    color: {{ tenantSetting('text_color_1', '#8C2D18') }};"
                         onclick="togglePassword('password_confirmation')">
                         <i class="bi bi-eye"></i>
@@ -135,12 +135,12 @@
                 </label>
                 <div class="input-group">
                     <span class="input-group-text"
-                        style="background-color: {{ tenantSetting('button_banner_text_color', '#F5E8D0') }};
+                        style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
                                  color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                         <i class="bi bi-shield-check"></i>
                     </span>
                     <select name="roles[]" id="roles" class="form-select border-start-0"
-                        style="background-color: {{ tenantSetting('background_color', '#FDF5E5') }};">
+                        style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};">
                         @foreach ($roles as $role)
                             <option value="{{ $role->id }}" @if (in_array($role->id, $user->roles->pluck('id')->toArray())) selected @endif>
                                 {{ $role->name }}
@@ -154,7 +154,7 @@
             <div class="mt-4 pt-3 border-top text-center">
                 <button type="submit" class="btn fw-medium py-1"
                     style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};
-                               color: white; width: 200px;">
+                               color: white;">
                     <i class="bi bi-save me-2"></i>Actualizar Usuario
                 </button>
             </div>
