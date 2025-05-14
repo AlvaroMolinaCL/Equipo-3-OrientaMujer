@@ -1,7 +1,17 @@
+{{-- Al inicio de sidebar.blade.php --}}
+<style>
+    .navbar-nav .nav-link.active {
+        background-color:
+            {{ tenantSetting('button_color_sidebar', '#BF8A49') }}
+            !important;
+        border-radius: 0.375rem;
+    }
+</style>
+
 <nav class="navbar navbar-light flex-column p-3 h-100"
     style="background-color: {{ tenantSetting('navbar_color_1', 'rgb(68, 30, 8)') }};">
     <a class="navbar-brand mx-auto d-none d-lg-block p-0 mb-3" href="{{ route('dashboard') }}">
-        <img src="{{ asset(tenantSetting('logo_path_1', 'images/default-logo.png')) }}" alt="Logo"
+        <img src="{{ asset(tenantSetting('logo_path_1', 'images/logo/Logo_1_(Predeterminado).png')) }}" alt="Logo"
             style="max-width: 100%; height: 60px" class="img-fluid mx-auto d-block">
     </a>
 
@@ -39,7 +49,7 @@
 
     <!-- User Info -->
     <div class="mt-auto border-top pt-3"
-        style="border-color: {{ tenantSetting('button_banner_color', '#BF8A49') }} !important;">
+        style="border-color: {{ tenantSetting('navbar_text_color_1', '#BF8A49') }} !important;">
         <div class="text-left">
             <strong
                 style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">{{ Auth::user()->name }}</strong><br>
@@ -47,8 +57,8 @@
                 style="color: {{ tenantSetting('navbar_text_color_1', '#BF8A49') }};">{{ Auth::user()->email }}</small>
         </div>
         <div class="dropup mt-2">
-            <button class="btn btn-sm w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                style="background-color: {{ tenantSetting('button_banner_color', '#BF8A49') }}; color: {{ tenantSetting('button_banner_text_color', 'white') }};">
+            <button class="btn btn-sm w-100 dropdown-toggle border" type="button" data-bs-toggle="dropdown"
+                style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }}; color: {{ tenantSetting('button_banner_text_color', 'white') }};">
                 Cuenta
             </button>
             <ul class="dropdown-menu w-100">

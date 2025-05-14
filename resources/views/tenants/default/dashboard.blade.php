@@ -19,7 +19,7 @@
         <div class="row mb-4 justify-content-center">
             <div class="col-xl-3 col-md-6 mb-3">
                 <div class="card text-white h-100"
-                    style="background-color: {{ tenantSetting('button_banner_color', '#BF8A49') }};">
+                    style="background-color: {{ tenantSetting('color_metrics', '#BF8A49') }};">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
@@ -34,7 +34,7 @@
 
             <div class="col-xl-3 col-md-6 mb-3">
                 <div class="card text-white h-100"
-                    style="background-color: {{ tenantSetting('button_banner_color', '#BF8A49') }};">
+                    style="background-color: {{ tenantSetting('color_metrics', '#BF8A49') }};">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
@@ -51,10 +51,10 @@
         <!-- Tabla de usuarios -->
         <div class="card mb-4 border-0 shadow-sm">
             <div class="card-header d-flex justify-content-between align-items-center"
-                style="background-color: {{ tenantSetting('button_banner_color', '#8C2D18') }}; color: white;">
+                style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }}; color: white;">
                 <h5 class="mb-0">Últimos Usuarios</h5>
                 <a href="{{ route('users.index') }}" class="btn btn-sm"
-                    style="background-color: {{ tenantSetting('button_banner_text_color', '#FDF5E5') }}; color: {{ tenantSetting('button_banner_color', '#8C2D18') }};">
+                    style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                     <i class="bi bi-eye"></i> Ver Usuarios
                 </a>
             </div>
@@ -63,9 +63,9 @@
                     <table class="table table-hover mb-0">
                         <thead style="background-color: {{ tenantSetting('button_banner_text_color', '#FDF5E5') }};">
                             <tr>
-                                <th style="color: {{ tenantSetting('button_banner_color', '#8C2D18') }};">Nombre</th>
-                                <th style="color: {{ tenantSetting('button_banner_color', '#8C2D18') }};">Email</th>
-                                <th style="color: {{ tenantSetting('button_banner_color', '#8C2D18') }};">Registro</th>
+                                <th style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Nombre</th>
+                                <th style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Email</th>
+                                <th style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Registro</th>
                             </tr>
                         </thead>
                         <tbody>
