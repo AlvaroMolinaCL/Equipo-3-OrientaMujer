@@ -151,6 +151,9 @@
                                     'navbar_color_2' => '#343a40',
                                     'navbar_text_color_1' => '#ffffff',
                                     'navbar_text_color_2' => '#ffffff',
+                                    'button_color_sidebar' => '#6c757d',
+                                    'color_metrics' => '#495057',
+                                    'color_tables' => '#343a40',
                                 ],
                                 'notarial' => [
                                     'label' => 'Notarial',
@@ -162,6 +165,9 @@
                                     'navbar_color_2' => '#8c2d18',
                                     'navbar_text_color_1' => '#ffffff',
                                     'navbar_text_color_2' => '#ffffff',
+                                    'button_color_sidebar' => '#BF8A49',
+                                    'color_metrics' => '#8C2D18',
+                                    'color_tables' => '#5f1e10',
                                 ],
                                 'corporativo' => [
                                     'label' => 'Corporativo',
@@ -173,6 +179,9 @@
                                     'navbar_color_2' => '#2c5282',
                                     'navbar_text_color_1' => '#ffffff',
                                     'navbar_text_color_2' => '#ffffff',
+                                    'button_color_sidebar' => '#2b6cb0',
+                                    'color_metrics' => '#2c5282',
+                                    'color_tables' => '#1a365d',
                                 ],
                                 'jurídico azul' => [
                                     'label' => 'Jurídico Azul',
@@ -184,6 +193,9 @@
                                     'navbar_color_2' => '#1e3a8a',
                                     'navbar_text_color_1' => '#ffffff',
                                     'navbar_text_color_2' => '#ffffff',
+                                    'button_color_sidebar' => '#1e40af',
+                                    'color_metrics' => '#1e3a8a',
+                                    'color_tables' => '#1c2f75',
                                 ],
                                 'moderno' => [
                                     'label' => 'Moderno',
@@ -195,6 +207,9 @@
                                     'navbar_color_2' => '#111827',
                                     'navbar_text_color_1' => '#f3f4f6',
                                     'navbar_text_color_2' => '#f3f4f6',
+                                    'button_color_sidebar' => '#374151',
+                                    'color_metrics' => '#1f2937',
+                                    'color_tables' => '#111827',
                                 ],
                                 'elegante' => [
                                     'label' => 'Elegante',
@@ -206,6 +221,9 @@
                                     'navbar_color_2' => '#5c4033',
                                     'navbar_text_color_1' => '#ffffff',
                                     'navbar_text_color_2' => '#ffffff',
+                                    'button_color_sidebar' => '#5c4033',  
+                                    'color_metrics' => '#3e2c22',         
+                                    'color_tables' => '#2b1d17',          
                                 ],
                             ];
                         @endphp
@@ -213,8 +231,7 @@
                         <div class="mb-4 d-flex flex-wrap gap-2">
                             @foreach ($presetStyles as $key => $style)
                                 <label>
-                                    <input type="radio" name="preset_style" value="{{ $key }}"
-                                        class="d-none">
+                                    <input type="radio" name="preset_style" value="{{ $key }}" class="d-none">
                                     <button type="button" class="btn btn-sm border"
                                         style="background-color: {{ $style['background_color_1'] }}; color: {{ $style['text_color_1'] }};"
                                         data-style='@json($style)' onclick="handlePresetClick(this)">
@@ -287,8 +304,7 @@
                             <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                 <i class="bi bi-palette"></i>
                             </span>
-                            <input id="text_color_1" type="color"
-                                class="form-control form-control-color border-start-0"
+                            <input id="text_color_1" type="color" class="form-control form-control-color border-start-0"
                                 style="background-color: #FDF5E5; height: 38px;" name="text_color_1"
                                 value="{{ old('text_color_1', '#000000') }}">
                         </div>
@@ -319,8 +335,7 @@
                             <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                 <i class="bi bi-palette"></i>
                             </span>
-                            <input id="text_color_2" type="color"
-                                class="form-control form-control-color border-start-0"
+                            <input id="text_color_2" type="color" class="form-control form-control-color border-start-0"
                                 style="background-color: #FDF5E5; height: 38px;" name="text_color_2"
                                 value="{{ old('text_color_2', '#000000') }}">
                         </div>
@@ -335,8 +350,7 @@
                             <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                 <i class="bi bi-palette2"></i>
                             </span>
-                            <input id="navbar_color_1" type="color"
-                                class="form-control form-control-color border-start-0"
+                            <input id="navbar_color_1" type="color" class="form-control form-control-color border-start-0"
                                 style="background-color: #FDF5E5; height: 38px;" name="navbar_color_1"
                                 value="{{ old('navbar_color_1', '#343a40') }}">
                         </div>
@@ -367,8 +381,7 @@
                             <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                 <i class="bi bi-palette2"></i>
                             </span>
-                            <input id="navbar_color_2" type="color"
-                                class="form-control form-control-color border-start-0"
+                            <input id="navbar_color_2" type="color" class="form-control form-control-color border-start-0"
                                 style="background-color: #FDF5E5; height: 38px;" name="navbar_color_2"
                                 value="{{ old('navbar_color_2', '#343a40') }}">
                         </div>
@@ -390,6 +403,54 @@
                         </div>
                     </div>
 
+                    {{-- Color de Botón en Sidebar --}}
+                    <div class="mb-4">
+                        <label for="button_color_sidebar" class="form-label fw-medium" style="color: #8C2D18;">
+                            <i class="bi bi-fonts me-1"></i>Color de Botón en Sidebar
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                <i class="bi bi-palette2"></i>
+                            </span>
+                            <input id="button_color_sidebar" type="color"
+                                class="form-control form-control-color border-start-0"
+                                style="background-color: #FDF5E5; height: 38px;" name="button_color_sidebar"
+                                value="{{ old('button_color_sidebar', '#ffffff') }}">
+                        </div>
+                    </div>
+
+                    {{-- Color de Fondo en Métricas --}}
+                    <div class="mb-4">
+                        <label for="color_metrics" class="form-label fw-medium" style="color: #8C2D18;">
+                            <i class="bi bi-fonts me-1"></i>Color de Fondo en Métricas
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                <i class="bi bi-palette2"></i>
+                            </span>
+                            <input id="color_metrics" type="color" class="form-control form-control-color border-start-0"
+                                style="background-color: #FDF5E5; height: 38px;" name="color_metrics"
+                                value="{{ old('color_metrics', '#ffffff') }}">
+                        </div>
+                    </div>
+
+                    {{-- Color de Tablas --}}
+                    <div class="mb-4">
+                        <label for="color_tables" class="form-label fw-medium" style="color: #8C2D18;">
+                            <i class="bi bi-fonts me-1"></i>Color de Tablas
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                <i class="bi bi-palette2"></i>
+                            </span>
+                            <input id="color_tables" type="color" class="form-control form-control-color border-start-0"
+                                style="background-color: #FDF5E5; height: 38px;" name="color_tables"
+                                value="{{ old('color_tables', '#ffffff') }}">
+                        </div>
+                    </div>
+
+
+
 
                     {{-- Tipografía de la Barra de Navegación --}}
                     <div class="mb-4">
@@ -400,8 +461,8 @@
                             <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                 <i class="bi bi-type"></i>
                             </span>
-                            <select id="navbar_font" class="form-select border-start-0"
-                                style="background-color: #FDF5E5;" name="navbar_font">
+                            <select id="navbar_font" class="form-select border-start-0" style="background-color: #FDF5E5;"
+                                name="navbar_font">
                                 <option value="Arial" {{ old('navbar_font') == 'Arial' ? 'selected' : '' }}>Arial
                                 </option>
                                 <option value="Roboto" {{ old('navbar_font') == 'Roboto' ? 'selected' : '' }}>Roboto
@@ -410,8 +471,7 @@
                                     Sans</option>
                                 <option value="Montserrat" {{ old('navbar_font') == 'Montserrat' ? 'selected' : '' }}>
                                     Montserrat</option>
-                                <option value="Courier Prime"
-                                    {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
+                                <option value="Courier Prime" {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
                                     Courier Prime</option>
                             </select>
                         </div>
@@ -425,8 +485,8 @@
                             <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                 <i class="bi bi-type"></i>
                             </span>
-                            <select id="heading_font" class="form-select border-start-0"
-                                style="background-color: #FDF5E5;" name="heading_font">
+                            <select id="heading_font" class="form-select border-start-0" style="background-color: #FDF5E5;"
+                                name="heading_font">
                                 <option value="Arial" {{ old('heading_font') == 'Arial' ? 'selected' : '' }}>Arial
                                 </option>
                                 <option value="Roboto" {{ old('heading_font') == 'Roboto' ? 'selected' : '' }}>Roboto
@@ -435,8 +495,7 @@
                                     Sans</option>
                                 <option value="Montserrat" {{ old('heading_font') == 'Montserrat' ? 'selected' : '' }}>
                                     Montserrat</option>
-                                <option value="Courier Prime"
-                                    {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
+                                <option value="Courier Prime" {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
                                     Courier Prime</option>
                             </select>
                         </div>
@@ -460,8 +519,7 @@
                                     Sans</option>
                                 <option value="Montserrat" {{ old('body_font') == 'Montserrat' ? 'selected' : '' }}>
                                     Montserrat</option>
-                                <option value="Courier Prime"
-                                    {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
+                                <option value="Courier Prime" {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
                                     Courier Prime</option>
                             </select>
                         </div>
@@ -515,7 +573,10 @@
                 'navbar_color_1',
                 'navbar_color_2',
                 'navbar_text_color_1',
-                'navbar_text_color_2'
+                'navbar_text_color_2',
+                'button_color_sidebar',
+                'color_metrics',
+                'color_tables',
             ];
 
             fields.forEach(id => {

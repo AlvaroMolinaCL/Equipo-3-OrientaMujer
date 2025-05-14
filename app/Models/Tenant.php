@@ -35,6 +35,9 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         'body_font',
         'link_font',
         'default_locale',
+        'button_color_sidebar',
+        'color_metrics',
+        'color_tables',
     ];
 
     protected static function booted()
@@ -71,6 +74,9 @@ class Tenant extends BaseTenant implements TenantWithDatabase
             'body_font',
             'link_font',
             'default_locale',
+            'button_color_sidebar',
+            'color_metrics',
+            'color_tables',
         ];
     }
 
