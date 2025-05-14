@@ -700,7 +700,10 @@
                 'navbar_color_1',
                 'navbar_color_2',
                 'navbar_text_color_1',
-                'navbar_text_color_2'
+                'navbar_text_color_2',
+                'button_color_sidebar',
+                'color_metrics',
+                'color_tables',
             ];
 
             fields.forEach(id => {
