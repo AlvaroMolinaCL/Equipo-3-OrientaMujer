@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <!-- Encabezado -->
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h2 mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+            <h2 class="h2 mb-0 fw-bold" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                 {{ __('Panel de Control') }}
             </h2>
         </div>

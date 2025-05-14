@@ -155,8 +155,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <a class="navbar-brand mx-auto" href="{{ route('dashboard') }}">
-                    <img src="{{ asset(tenantSetting('logo_path_1', 'images/default-logo.png')) }}" alt="Logo"
-                        style="height: 44px;">
+                    <img src="{{ asset(tenantSetting('logo_path_1', 'images/logo/Logo_1_(Predeterminado).png')) }}"
+                        alt="Logo" style="height: 44px;">
                 </a>
             </div>
         </nav>
