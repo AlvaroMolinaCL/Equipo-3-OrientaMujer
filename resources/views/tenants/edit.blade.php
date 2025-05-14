@@ -139,76 +139,94 @@
                         <i class="bi bi-brush me-2"></i>Estilos Predeterminados
                     </h5>
 
-                    @php
-                        $presetStyles = [
-                            'clásico' => [
-                                'label' => 'Clásico',
-                                'background_color_1' => '#f8f9fa',
-                                'background_color_2' => '#e9ecef',
-                                'text_color_1' => '#212529',
-                                'text_color_2' => '#495057',
-                                'navbar_color_1' => '#343a40',
-                                'navbar_color_2' => '#343a40',
-                                'navbar_text_color_1' => '#ffffff',
-                                'navbar_text_color_2' => '#ffffff',
-                            ],
-                            'notarial' => [
-                                'label' => 'Notarial',
-                                'background_color_1' => '#fefcf9',
-                                'background_color_2' => '#f5f2ec',
-                                'text_color_1' => '#3e3e3e',
-                                'text_color_2' => '#5c5c5c',
-                                'navbar_color_1' => '#8c2d18',
-                                'navbar_color_2' => '#8c2d18',
-                                'navbar_text_color_1' => '#ffffff',
-                                'navbar_text_color_2' => '#ffffff',
-                            ],
-                            'corporativo' => [
-                                'label' => 'Corporativo',
-                                'background_color_1' => '#edf2f7',
-                                'background_color_2' => '#e2e8f0',
-                                'text_color_1' => '#1a202c',
-                                'text_color_2' => '#2d3748',
-                                'navbar_color_1' => '#2c5282',
-                                'navbar_color_2' => '#2c5282',
-                                'navbar_text_color_1' => '#ffffff',
-                                'navbar_text_color_2' => '#ffffff',
-                            ],
-                            'jurídico azul' => [
-                                'label' => 'Jurídico Azul',
-                                'background_color_1' => '#f1f5f9',
-                                'background_color_2' => '#dbeafe',
-                                'text_color_1' => '#1e3a8a',
-                                'text_color_2' => '#1e40af',
-                                'navbar_color_1' => '#1e3a8a',
-                                'navbar_color_2' => '#1e3a8a',
-                                'navbar_text_color_1' => '#ffffff',
-                                'navbar_text_color_2' => '#ffffff',
-                            ],
-                            'moderno' => [
-                                'label' => 'Moderno',
-                                'background_color_1' => '#ffffff',
-                                'background_color_2' => '#f0f0f0',
-                                'text_color_1' => '#111827',
-                                'text_color_2' => '#374151',
-                                'navbar_color_1' => '#111827',
-                                'navbar_color_2' => '#111827',
-                                'navbar_text_color_1' => '#f3f4f6',
-                                'navbar_text_color_2' => '#f3f4f6',
-                            ],
-                            'elegante' => [
-                                'label' => 'Elegante',
-                                'background_color_1' => '#f6f5f3',
-                                'background_color_2' => '#e0dad1',
-                                'text_color_1' => '#2b2b2b',
-                                'text_color_2' => '#4b4b4b',
-                                'navbar_color_1' => '#5c4033',
-                                'navbar_color_2' => '#5c4033',
-                                'navbar_text_color_1' => '#ffffff',
-                                'navbar_text_color_2' => '#ffffff',
-                            ],
-                        ];
-                    @endphp
+                        @php
+                            $presetStyles = [
+                                'clásico' => [
+                                    'label' => 'Clásico',
+                                    'background_color_1' => '#f8f9fa',
+                                    'background_color_2' => '#e9ecef',
+                                    'text_color_1' => '#212529',
+                                    'text_color_2' => '#495057',
+                                    'navbar_color_1' => '#343a40',
+                                    'navbar_color_2' => '#343a40',
+                                    'navbar_text_color_1' => '#ffffff',
+                                    'navbar_text_color_2' => '#ffffff',
+                                    'button_color_sidebar' => '#6c757d',
+                                    'color_metrics' => '#495057',
+                                    'color_tables' => '#343a40',
+                                ],
+                                'notarial' => [
+                                    'label' => 'Notarial',
+                                    'background_color_1' => '#fefcf9',
+                                    'background_color_2' => '#f5f2ec',
+                                    'text_color_1' => '#3e3e3e',
+                                    'text_color_2' => '#5c5c5c',
+                                    'navbar_color_1' => '#8c2d18',
+                                    'navbar_color_2' => '#8c2d18',
+                                    'navbar_text_color_1' => '#ffffff',
+                                    'navbar_text_color_2' => '#ffffff',
+                                    'button_color_sidebar' => '#BF8A49',
+                                    'color_metrics' => '#8C2D18',
+                                    'color_tables' => '#5f1e10',
+                                ],
+                                'corporativo' => [
+                                    'label' => 'Corporativo',
+                                    'background_color_1' => '#edf2f7',
+                                    'background_color_2' => '#e2e8f0',
+                                    'text_color_1' => '#1a202c',
+                                    'text_color_2' => '#2d3748',
+                                    'navbar_color_1' => '#2c5282',
+                                    'navbar_color_2' => '#2c5282',
+                                    'navbar_text_color_1' => '#ffffff',
+                                    'navbar_text_color_2' => '#ffffff',
+                                    'button_color_sidebar' => '#2b6cb0',
+                                    'color_metrics' => '#2c5282',
+                                    'color_tables' => '#1a365d',
+                                ],
+                                'jurídico azul' => [
+                                    'label' => 'Jurídico Azul',
+                                    'background_color_1' => '#f1f5f9',
+                                    'background_color_2' => '#dbeafe',
+                                    'text_color_1' => '#1e3a8a',
+                                    'text_color_2' => '#1e40af',
+                                    'navbar_color_1' => '#1e3a8a',
+                                    'navbar_color_2' => '#1e3a8a',
+                                    'navbar_text_color_1' => '#ffffff',
+                                    'navbar_text_color_2' => '#ffffff',
+                                    'button_color_sidebar' => '#1e40af',
+                                    'color_metrics' => '#1e3a8a',
+                                    'color_tables' => '#1c2f75',
+                                ],
+                                'moderno' => [
+                                    'label' => 'Moderno',
+                                    'background_color_1' => '#ffffff',
+                                    'background_color_2' => '#f0f0f0',
+                                    'text_color_1' => '#111827',
+                                    'text_color_2' => '#374151',
+                                    'navbar_color_1' => '#111827',
+                                    'navbar_color_2' => '#111827',
+                                    'navbar_text_color_1' => '#f3f4f6',
+                                    'navbar_text_color_2' => '#f3f4f6',
+                                    'button_color_sidebar' => '#374151',
+                                    'color_metrics' => '#1f2937',
+                                    'color_tables' => '#111827',
+                                ],
+                                'elegante' => [
+                                    'label' => 'Elegante',
+                                    'background_color_1' => '#f6f5f3',
+                                    'background_color_2' => '#e0dad1',
+                                    'text_color_1' => '#2b2b2b',
+                                    'text_color_2' => '#4b4b4b',
+                                    'navbar_color_1' => '#5c4033',
+                                    'navbar_color_2' => '#5c4033',
+                                    'navbar_text_color_1' => '#ffffff',
+                                    'navbar_text_color_2' => '#ffffff',
+                                    'button_color_sidebar' => '#5c4033',  
+                                    'color_metrics' => '#3e2c22',         
+                                    'color_tables' => '#2b1d17',          
+                                ],
+                            ];
+                        @endphp
 
                     <div class="mb-4 d-flex flex-wrap gap-2">
                         @foreach ($presetStyles as $key => $style)
@@ -458,6 +476,69 @@
                                     value="{{ old('navbar_text_color_2', $tenant->navbar_text_color_2) }}">
                             </div>
                             @error('navbar_text_color_2')
+                                <div class="text-danger small mt-2">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Color de Botón en Sidebar --}}
+                        <div class="mb-4">
+                            <label for="button_color_sidebar" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-fonts me-1"></i>Color de Botón en Sidebar
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                    <i class="bi bi-palette2"></i>
+                                </span>
+                                <input id="button_color_sidebar" type="color"
+                                    class="form-control form-control-color border-start-0"
+                                    style="background-color: #FDF5E5; height: 38px;" name="button_color_sidebar"
+                                    value="{{ old('button_color_sidebar', $tenant->button_color_sidebar) }}">
+                            </div>
+                            @error('button_color_sidebar')
+                                <div class="text-danger small mt-2">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Color de Fondo en Métricas --}}
+                        <div class="mb-4">
+                            <label for="color_metrics" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-fonts me-1"></i>Color de Fondo en Métricas
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                    <i class="bi bi-palette2"></i>
+                                </span>
+                                <input id="color_metrics" type="color"
+                                    class="form-control form-control-color border-start-0"
+                                    style="background-color: #FDF5E5; height: 38px;" name="color_metrics"
+                                    value="{{ old('color_metrics', $tenant->color_metrics) }}">
+                            </div>
+                            @error('color_metrics')
+                                <div class="text-danger small mt-2">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Color de Tablas --}}
+                        <div class="mb-4">
+                            <label for="color_tables" class="form-label fw-medium" style="color: #8C2D18;">
+                                <i class="bi bi-fonts me-1"></i>Color de Tablas
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                    <i class="bi bi-palette2"></i>
+                                </span>
+                                <input id="color_tables" type="color"
+                                    class="form-control form-control-color border-start-0"
+                                    style="background-color: #FDF5E5; height: 38px;" name="color_tables"
+                                    value="{{ old('color_tables', $tenant->color_tables) }}">
+                            </div>
+                            @error('color_tables')
                                 <div class="text-danger small mt-2">
                                     <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
                                 </div>

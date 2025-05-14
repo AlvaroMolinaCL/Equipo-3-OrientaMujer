@@ -42,6 +42,9 @@ class CreateTenantsTable extends Migration
             $table->string('background_color_2')->nullable();
             $table->string('text_color_1')->nullable();
             $table->string('text_color_2')->nullable();
+            $table->string('button_color_sidebar')->nullable();
+            $table->string('color_metrics')->nullable();
+            $table->string('color_tables')->nullable();
 
             // Tipografías por defecto
             $table->string('heading_font')->nullable();

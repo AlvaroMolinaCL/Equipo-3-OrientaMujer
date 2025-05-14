@@ -44,6 +44,9 @@ class TenantController extends Controller
             'navbar_font' => 'nullable|string|max:255',
             'heading_font' => 'nullable|string|max:255',
             'body_font' => 'nullable|string|max:255',
+            'button_color_sidebar' => 'nullable|string|max:7',
+            'color_metrics' => 'nullable|string|max:7',
+            'color_tables' => 'nullable|string|max:7',
         ]);
 
         $logoPath1 = null;
@@ -77,6 +80,9 @@ class TenantController extends Controller
             'navbar_font' => $request->input('navbar_font'),
             'heading_font' => $request->input('heading_font'),
             'body_font' => $request->input('body_font'),
+            'button_color_sidebar' => $request->input('button_color_sidebar'),
+            'color_metrics' => $request->input('color_metrics'),
+            'color_tables' => $request->input('color_tables'),
         ]);
 
         $tenant->domains()->create([
@@ -121,6 +127,9 @@ class TenantController extends Controller
             'navbar_font' => 'nullable|string|max:255',
             'heading_font' => 'nullable|string|max:255',
             'body_font' => 'nullable|string|max:255',
+            'button_color_sidebar' => 'nullable|string|max:7',
+            'color_metrics' => 'nullable|string|max:7',
+            'color_tables' => 'nullable|string|max:7',
         ]);
 
         $logoPath1 = $tenant->logo_path_1;
@@ -160,6 +169,9 @@ class TenantController extends Controller
             'navbar_font' => $request->input('navbar_font'),
             'heading_font' => $request->input('heading_font'),
             'body_font' => $request->input('body_font'),
+            'button_color_sidebar' => $request->input('button_color_sidebar'),
+            'color_metrics' => $request->input('color_metrics'),
+            'color_tables' => $request->input('color_tables'),
         ]);
 
         $tenant->domains()->update([
