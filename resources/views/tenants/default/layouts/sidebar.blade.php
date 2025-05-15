@@ -22,6 +22,13 @@
                 <i class="bi bi-speedometer2 me-2"></i> Panel de Control
             </a>
         </li>
+        <li class="nav-item">
+    <a class="nav-link {{ Route::is('appearance.index') ? 'active' : '' }}" href="{{ route('appearance') }}"
+        style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
+        <i class="bi bi-palette me-2"></i> Apariencia
+    </a>
+</li>
+
 
         <!-- Usuarios -->
         <li class="nav-item">

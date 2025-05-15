@@ -8,6 +8,8 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 use App\Http\Controllers\App\UserController;
 use App\Http\Controllers\App\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AppearanceController;
+
 
 
 /*
@@ -27,6 +29,14 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
+
+
+
+    Route::get('/appearance', [AppearanceController::class, 'index'])->name('appearance');
+    Route::post('/appearance', [AppearanceController::class, 'update'])->name('appearance.update');
+
+
+
 
     // Gestión de usuarios
     Route::resource('users', UserController::class);
