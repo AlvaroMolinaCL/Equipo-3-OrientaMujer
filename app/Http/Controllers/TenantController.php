@@ -174,9 +174,13 @@ class TenantController extends Controller
             'color_tables' => $request->input('color_tables'),
         ]);
 
-        $tenant->domains()->update([
-            'domain' => $validated['domain_name'] . '.' . config('app.domain')
-        ]);
+        $mainDomain = $tenant->domains()->orderBy('id')->first();
+
+        if ($mainDomain && $mainDomain->domain !== $validated['domain_name'] . '.' . config('app.domain')) {
+            $mainDomain->update([
+                'domain' => $validated['domain_name'] . '.' . config('app.domain'),
+            ]);
+        }
 
         tenancy()->initialize($tenant);
 

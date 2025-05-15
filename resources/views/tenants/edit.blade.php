@@ -570,7 +570,7 @@
                                         {{ old('navbar_font', $tenant->navbar_font) == 'Montserrat' ? 'selected' : '' }}>
                                         Montserrat</option>
                                     <option value="Courier Prime"
-                                        {{ old('heading_font', $tenant->heading_font) == 'Courier Prime' ? 'selected' : '' }}>
+                                        {{ old('navbar_font', $tenant->navbar_font) == 'Courier Prime' ? 'selected' : '' }}>
                                         Courier Prime</option>
                                 </select>
                             </div>
@@ -642,7 +642,7 @@
                                         {{ old('body_font', $tenant->body_font) == 'Montserrat' ? 'selected' : '' }}>
                                         Montserrat</option>
                                     <option value="Courier Prime"
-                                        {{ old('heading_font', $tenant->heading_font) == 'Courier Prime' ? 'selected' : '' }}>
+                                        {{ old('body_font', $tenant->body_font) == 'Courier Prime' ? 'selected' : '' }}>
                                         Courier Prime</option>
                                 </select>
                             </div>
