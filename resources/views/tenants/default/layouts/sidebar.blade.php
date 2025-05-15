@@ -23,11 +23,11 @@
             </a>
         </li>
         <li class="nav-item">
-    <a class="nav-link {{ Route::is('appearance.index') ? 'active' : '' }}" href="{{ route('appearance') }}"
-        style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
-        <i class="bi bi-palette me-2"></i> Apariencia
-    </a>
-</li>
+            <a class="nav-link {{ Route::is('appearance.index') ? 'active' : '' }}" href="{{ route('appearance') }}"
+                style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
+                <i class="bi bi-palette me-2"></i> Apariencia
+            </a>
+        </li>
 
 
         <!-- Usuarios -->
@@ -64,10 +64,12 @@
                 style="color: {{ tenantSetting('navbar_text_color_1', '#BF8A49') }};">{{ Auth::user()->email }}</small>
         </div>
         <div class="dropup mt-2">
-            <button class="btn btn-sm w-100 dropdown-toggle border" type="button" data-bs-toggle="dropdown"
-                style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }}; color: {{ tenantSetting('button_banner_text_color', 'white') }};">
+            <button class="btn btn-sm w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }};
+               color: {{ tenantSetting('navbar_text_color_1', 'white') }};
+               border: 1px solid {{ tenantSetting('navbar_text_color_1', 'white') }};">
                 Cuenta
             </button>
+
             <ul class="dropdown-menu w-100">
                 <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Perfil</a></li>
                 <li>
