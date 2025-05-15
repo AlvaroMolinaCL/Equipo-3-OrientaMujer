@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\SeedTenantJob;
 use App\Models\Tenant;
 use App\Models\User;
+use Database\Seeders\Tenant\TenantInitialSetupSeeder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
@@ -89,7 +89,15 @@ class TenantController extends Controller
             'domain' => $validationData['domain_name'] . '.' . config('app.domain')
         ]);
 
-        SeedTenantJob::dispatch($tenant, Hash::make($validationData['password']));
+        tenancy()->initialize($tenant);
+
+        (new TenantInitialSetupSeeder(
+            name: $tenant->name,
+            email: $tenant->email,
+            password: $validationData['password'],
+        ))->run();
+
+        tenancy()->end();
 
         return redirect()->route('tenants.index');
     }
