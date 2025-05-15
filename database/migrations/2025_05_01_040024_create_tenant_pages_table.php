@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('tenant_id');
             $table->string('page_key');
+            $table->string('title');
             $table->boolean('is_enabled')->default(true);
             $table->boolean('is_visible')->default(true);
             $table->json('settings')->nullable();
