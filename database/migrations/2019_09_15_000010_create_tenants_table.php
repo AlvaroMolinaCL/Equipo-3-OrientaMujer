@@ -55,7 +55,6 @@ class CreateTenantsTable extends Migration
             $table->string('contact_email')->nullable();
             $table->string('contact_instagram')->nullable();
             $table->string('contact_linkedin')->nullable();
-
             $table->string('google_analytics_id')->nullable();
             $table->json('data')->nullable();
         });
