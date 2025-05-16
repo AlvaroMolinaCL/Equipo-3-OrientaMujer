@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="p-3 text-center">
                                         <h3
-                                            style="color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }}; font-family: {{ tenantSetting('heading_font', 'serif') }}">
+                                            style="color: {{ tenantSetting('navbar_color_1', '#4A1D0B') }}; font-family: {{ tenantSetting('heading_font', 'serif') }}">
                                             <i class="bi bi-person-circle me-2"></i>
                                             {{ tenantPageName('login', 'Iniciar Sesión') }}
                                         </h3>
@@ -44,7 +44,7 @@
                                 <!-- Título para pantallas grandes -->
                                 <div class="text-center mb-4 d-none d-md-block">
                                     <h3
-                                        style="color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }}; font-family: {{ tenantSetting('heading_font', 'serif') }}">
+                                        style="color: {{ tenantSetting('navbar_color_1', '#4A1D0B') }}; font-family: {{ tenantSetting('heading_font', 'serif') }}">
                                         <i class="bi bi-person-circle me-2"></i>
                                         {{ tenantPageName('login', 'Iniciar Sesión') }}
                                     </h3>
@@ -89,7 +89,7 @@
 
                                     <div class="d-grid">
                                         <button type="submit" class="btn text-white"
-                                            style="background-color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }};">
+                                            style="background-color: {{ tenantSetting('navbar_color_1', '#4A1D0B') }};">
                                             <i class="bi bi-box-arrow-in-right me-1"></i> Ingresar
                                         </button>
                                     </div>
@@ -97,7 +97,7 @@
                                     @if (Route::has('password.request'))
                                         <div class="mt-3 text-center">
                                             <a href="{{ route('password.request') }}" class="text-decoration-none"
-                                                style="color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }};">¿Olvidaste
+                                                style="color: {{ tenantSetting('navbar_color_1', '#4A1D0B') }};">¿Olvidaste
                                                 tu contraseña?</a>
                                         </div>
                                     @endif
@@ -105,7 +105,7 @@
                                         <div class="mt-3 text-center">
                                             <p class="text-muted">¿No tienes una cuenta?
                                                 <a href="{{ route('register') }}" class="text-decoration-none"
-                                                    style="color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }};">Registrate
+                                                    style="color: {{ tenantSetting('navbar_color_1', '#4A1D0B') }};">Registrate
                                                     aquí</a>
                                             </p>
                                         </div>
@@ -117,7 +117,7 @@
                 </div>
                 <div class="mt-3 text-center">
                     <a href="/" class="text-decoration-none"
-                        style="color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }};">Volver a
+                        style="color: {{ tenantSetting('navbar_color_1', '#4A1D0B') }};">Volver a
                         {{ tenantSetting('name', 'AbogaRed') }}</a>
                 </div>
             </div>
