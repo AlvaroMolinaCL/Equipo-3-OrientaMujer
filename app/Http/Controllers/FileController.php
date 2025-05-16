@@ -72,4 +72,41 @@ class FileController extends Controller
         return back()->with('success', 'Archivo compartido correctamente.');
     }
 
+    public function preview(File $file)
+    {
+        $user = Auth::user();
+
+        if (
+            $file->uploaded_by === $user->id ||
+            in_array($user->id, $file->shared_with ?? []) ||
+            $user->hasRole('Admin')
+        ) {
+            $mimeType = Storage::mimeType($file->path);
+            $contents = Storage::get($file->path);
+
+            return response($contents)->header('Content-Type', $mimeType);
+        }
+
+        abort(403, 'No tienes permiso para ver este archivo.');
+    }
+
+public function destroy(File $file)
+{
+    $user = auth()->user();
+
+    // Solo el Admin o el propietario del archivo pueden eliminar
+    if ($user->hasRole('Admin') || $file->uploaded_by === $user->id) {
+        Storage::delete($file->path);
+        $file->delete();
+
+        return redirect()->route('files.index')->with('success', 'Archivo eliminado correctamente.');
+    }
+
+    abort(403, 'No tienes permiso para eliminar este archivo.');
+}
+
+
+
+
+
 }
