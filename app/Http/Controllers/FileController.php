@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 
 
 class FileController extends Controller
@@ -112,6 +114,22 @@ class FileController extends Controller
         abort(403, 'No tienes permiso para eliminar este archivo.');
     }
 
+    public function sharedFolders()
+    {
+        // Mostrar todos los usuarios "normales" que han subido archivos, sin depender de shared_with
+        $users = User::role('Usuario')
+            ->whereHas('files') // Solo los que tienen archivos subidos
+            ->get();
+
+        return view('tenants.default.shared-folders.index', compact('users'));
+    }
+
+    public function sharedByUser(User $user)
+    {
+        $files = File::where('uploaded_by', $user->id)->get();
+
+        return view('tenants.default.shared-folders.user-files', compact('files', 'user'));
+    }
 
 
 
