@@ -266,7 +266,6 @@
                                                value="{{ old('navbar_text_color_1', $tenant->navbar_text_color_1) }}">
                                     </div>
                                 </div>
-                                
                                 <!-- Botón Sidebar -->
                                 <div class="col-md-6 col-lg-4">
                                     <label for="button_color_sidebar" class="form-label">Botón Sidebar</label>
@@ -275,6 +274,28 @@
                                         <input type="color" class="form-control form-control-color" 
                                                id="button_color_sidebar" name="button_color_sidebar" 
                                                value="{{ old('button_color_sidebar', $tenant->button_color_sidebar) }}">
+                                    </div>
+                                </div>
+
+                                <!-- Color Métricas -->
+                                <div class="col-md-6 col-lg-4">
+                                    <label for="color_metrics" class="form-label">Color Métricas</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-toggle-on"></i></span>
+                                        <input type="color" class="form-control form-control-color" 
+                                               id="color_metrics" name="color_metrics" 
+                                               value="{{ old('color_metrics', $tenant->color_metrics) }}">
+                                    </div>
+                                </div>
+
+                                <!-- Color Tablas -->
+                                <div class="col-md-6 col-lg-4">
+                                    <label for="color_tables" class="form-label">Color Tablas</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-toggle-on"></i></span>
+                                        <input type="color" class="form-control form-control-color" 
+                                               id="color_tables" name="color_tables" 
+                                               value="{{ old('color_tables', $tenant->color_tables) }}">
                                     </div>
                                 </div>
                             </div>
@@ -404,6 +425,8 @@
                 document.getElementById('navbar_color_1').value = palette.navbar_color_1;
                 document.getElementById('navbar_text_color_1').value = palette.navbar_text_color_1;
                 document.getElementById('button_color_sidebar').value = palette.button_color_sidebar;
+                document.getElementById('color_metrics').value = palette.color_metrics;
+                document.getElementById('color_tables').value = palette.color_tables;
             }
 
             function showAlert(type, message) {
