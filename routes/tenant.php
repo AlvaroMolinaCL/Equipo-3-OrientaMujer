@@ -34,14 +34,17 @@ Route::middleware([
 
 
 
-    Route::middleware(['auth'])->group(function () {
-        Route::resource('files', FileController::class);
-        Route::get('files/{file}/download', [FileController::class, 'download'])->name('files.download');
+    Route::resource('files', FileController::class);
+    Route::get('files/{file}/download', [FileController::class, 'download'])->name('files.download');
+    Route::get('/files/{file}/preview', [FileController::class, 'preview'])->name('files.preview');
+    Route::delete('/files/{file}', [FileController::class, 'destroy'])->name('files.destroy');
 
-        Route::middleware(['role:Admin'])->group(function () {
-            Route::post('files/{file}/share', [FileController::class, 'share'])->name('files.share');
-        });
+
+
+    Route::middleware(['role:Admin'])->group(function () {
+        Route::post('files/{file}/share', [FileController::class, 'share'])->name('files.share');
     });
+
 
 
     Route::get('/appearance', [AppearanceController::class, 'index'])->name('appearance');
