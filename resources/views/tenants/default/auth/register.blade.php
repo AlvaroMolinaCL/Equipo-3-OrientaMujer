@@ -19,7 +19,7 @@
                     <!-- Encabezado -->
                     <div class="text-center mb-4">
                         <h3
-                            style="color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }}; ; font-family: {{ tenantSetting('heading_font', 'serif') }}">
+                            style="color: {{ tenantSetting('navbar_color_1', '#4A1D0B') }}; ; font-family: {{ tenantSetting('heading_font', 'serif') }}">
                             <i class="bi bi-person-plus-fill me-2"></i> Crear Nueva Cuenta
                         </h3>
                         <p class="text-muted">Regístrate para crear una nueva cuenta</p>
@@ -75,7 +75,7 @@
                         <!-- Botón -->
                         <div class="d-grid">
                             <button type="submit" class="btn text-white"
-                                style="background-color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }};">
+                                style="background-color: {{ tenantSetting('navbar_color_1', '#4A1D0B') }};">
                                 <i class="bi bi-check2-circle me-1"></i> Registrarse
                             </button>
                         </div>
@@ -84,7 +84,7 @@
                         <div class="mt-4 text-center">
                             <p class="text-muted">¿Ya tienes una cuenta?
                                 <a href="{{ route('login') }}" class="text-decoration-none"
-                                    style="color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }};">
+                                    style="color: {{ tenantSetting('navbar_color_1', '#4A1D0B') }};">
                                     Iniciar sesión
                                 </a>
                             </p>
@@ -94,7 +94,7 @@
             </div>
             <div class="mt-3 text-center">
                 <a href="/" class="text-decoration-none"
-                    style="color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }};">Volver a
+                    style="color: {{ tenantSetting('navbar_color_1', '#4A1D0B') }};">Volver a
                     {{ tenantSetting('name', 'AbogaRed') }}</a>
             </div>
         </div>
