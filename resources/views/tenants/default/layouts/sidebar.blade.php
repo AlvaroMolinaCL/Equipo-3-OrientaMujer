@@ -30,6 +30,31 @@
         </li>
 
 
+
+        <!-- Archivos -->
+        <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
+                href="#usersMenu" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
+                <span><i class="bi bi-file-text me-2"></i> Archivos</span>
+                <i class="bi bi-chevron-down small"></i>
+            </a>
+            <div class="collapse ps-3" id="usersMenu">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('files.index') ? 'active' : '' }}"
+                            href="{{ route('files.index') }}"
+                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Ver Archivos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('files.create') ? 'active' : '' }}"
+                            href="{{ route('files.create') }}"
+                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Agregar Archivos</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+
         <!-- Usuarios -->
         <li class="nav-item">
             <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
