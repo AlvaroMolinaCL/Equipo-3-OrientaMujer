@@ -2,8 +2,7 @@
 <style>
     .navbar-nav .nav-link.active {
         background-color:
-            {{ tenantSetting('button_color_sidebar', '#BF8A49') }}
-            !important;
+            {{ tenantSetting('button_color_sidebar', '#BF8A49') }} !important;
         border-radius: 0.375rem;
     }
 </style>
@@ -34,11 +33,11 @@
         <!-- Archivos -->
         <li class="nav-item">
             <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-                href="#usersMenu" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
+                href="#filesMenu" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
                 <span><i class="bi bi-file-text me-2"></i> Archivos</span>
                 <i class="bi bi-chevron-down small"></i>
             </a>
-            <div class="collapse ps-3" id="usersMenu">
+            <div class="collapse ps-3" id="filesMenu">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('files.index') ? 'active' : '' }}"
@@ -89,7 +88,8 @@
                 style="color: {{ tenantSetting('navbar_text_color_1', '#BF8A49') }};">{{ Auth::user()->email }}</small>
         </div>
         <div class="dropup mt-2">
-            <button class="btn btn-sm w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }};
+            <button class="btn btn-sm w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }};
                color: {{ tenantSetting('navbar_text_color_1', 'white') }};
                border: 1px solid {{ tenantSetting('navbar_text_color_1', 'white') }};">
                 Cuenta
