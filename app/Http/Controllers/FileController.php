@@ -61,15 +61,22 @@ class FileController extends Controller
 
     public function share(Request $request, File $file)
     {
-        $request->validate(['user_ids' => 'array']);
+        $request->validate(['user_ids' => 'nullable|array']);
 
-        $sharedWith = $file->shared_with ?? [];
-        $sharedWith = array_unique(array_merge($sharedWith, $request->user_ids));
+        $currentlyShared = $file->shared_with ?: [];
+        $selectedUserIds = $request->user_ids ?: [];
+        $newSharedWith = array_filter($currentlyShared, function ($id) use ($selectedUserIds) {
+            return in_array($id, $selectedUserIds);
+        });
+        foreach ($selectedUserIds as $id) {
+            if (!in_array($id, $newSharedWith)) {
+                $newSharedWith[] = $id;
+            }
+        }
 
-        $file->shared_with = $sharedWith;
+        $file->shared_with = array_values($newSharedWith);
         $file->save();
-
-        return back()->with('success', 'Archivo compartido correctamente.');
+        return back()->with('success', 'Configuración de compartido actualizada correctamente.');
     }
 
     public function preview(File $file)
@@ -90,20 +97,20 @@ class FileController extends Controller
         abort(403, 'No tienes permiso para ver este archivo.');
     }
 
-public function destroy(File $file)
-{
-    $user = auth()->user();
+    public function destroy(File $file)
+    {
+        $user = auth()->user();
 
-    // Solo el Admin o el propietario del archivo pueden eliminar
-    if ($user->hasRole('Admin') || $file->uploaded_by === $user->id) {
-        Storage::delete($file->path);
-        $file->delete();
+        // Solo el Admin o el propietario del archivo pueden eliminar
+        if ($user->hasRole('Admin') || $file->uploaded_by === $user->id) {
+            Storage::delete($file->path);
+            $file->delete();
 
-        return redirect()->route('files.index')->with('success', 'Archivo eliminado correctamente.');
+            return redirect()->route('files.index')->with('success', 'Archivo eliminado correctamente.');
+        }
+
+        abort(403, 'No tienes permiso para eliminar este archivo.');
     }
-
-    abort(403, 'No tienes permiso para eliminar este archivo.');
-}
 
 
 

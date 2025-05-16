@@ -7,57 +7,176 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <h2>Gestor de Archivos</h2>
+    <div class="container-fluid">
+        {{-- Encabezado --}}
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="h3 fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Gestor de Archivos
+            </h2>
+            <a href="{{ route('files.create') }}" class="btn btn-sm" style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};
+                      color: {{ tenantSetting('text_color_1', '#8C2D18') }};
+                      border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
+                <i class="bi bi-plus-circle me-1"></i> Subir nuevo archivo
+            </a>
+        </div>
 
-        <a href="{{ route('files.create') }}" class="btn btn-primary mb-3">Subir nuevo archivo</a>
+        {{-- Tabla de archivos --}}
+        <div class="card mb-4 border-0 shadow-sm">
+            <div class="card-header d-flex justify-content-between align-items-center" style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }};
+                                       color: {{ tenantSetting('button_banner_text_color', 'white') }};">
+                <h5 class="mb-0">Listado de Archivos</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead style="background-color: {{ tenantSetting('button_banner_text_color', '#FDF5E5') }};">
+                            <tr>
+                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                                    Nombre</th>
+                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                                    Subido por</th>
+                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Fecha
+                                </th>
+                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                                    Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            @foreach($files as $file)
+                                <tr>
+                                    <td>{{ $file->name }}</td>
+                                    <td>{{ $file->uploader->name ?? 'Desconocido' }}</td>
+                                    <td>{{ $file->created_at->format('d/m/Y H:i') }}</td>
+                                    <td>
+                                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                                            <a href="{{ route('files.preview', $file) }}" target="_blank"
+                                                class="btn btn-sm d-flex align-items-center justify-content-center gap-1"
+                                                style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }}; color: white; width: 120px;">
+                                                <i class="bi bi-eye"></i> Ver
+                                            </a>
+                                            <a href="{{ route('files.download', $file) }}"
+                                                class="btn btn-sm d-flex align-items-center justify-content-center gap-1"
+                                                style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }}; color: white; width: 120px;">
+                                                <i class="bi bi-download"></i> Descargar
+                                            </a>
+                                            @if(auth()->user()->hasRole('Admin') && $file->uploaded_by == auth()->id())
+                                                <!-- Botón para abrir el modal -->
+                                                <button type="button"
+                                                    class="btn btn-sm d-flex align-items-center justify-content-center gap-1"
+                                                    style="background-color: #ffc107; color: black; width: 120px;"
+                                                    data-bs-toggle="modal" data-bs-target="#shareModal-{{ $file->id }}">
+                                                    <i class="bi bi-share"></i> Compartir
+                                                </button>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Subido por</th>
-                    <th>Fecha</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($files as $file)
-                    <tr>
-                        <td>{{ $file->name }}</td>
-                        <td>{{ $file->uploader->name ?? 'Desconocido' }}</td>
-                        <td>{{ $file->created_at->format('d/m/Y H:i') }}</td>
-                        <td>
-                            <a href="{{ route('files.download', $file) }}" class="btn btn-sm btn-success">Descargar</a>
-                            <a href="{{ route('files.preview', $file) }}" target="_blank" class="btn btn-sm btn-info">Ver</a>
+                                                <!-- Modal de compartir -->
+                                                <div class="modal fade" id="shareModal-{{ $file->id }}" tabindex="-1"
+                                                    aria-labelledby="shareModalLabel-{{ $file->id }}" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <form action="{{ route('files.share', $file) }}" method="POST">
+                                                            @csrf
+                                                            <div class="modal-content">
+                                                                <div class="modal-header" style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }};
+                                                   color: {{ tenantSetting('button_banner_text_color', 'white') }};">
+                                                                    <h5 class="modal-title" id="shareModalLabel-{{ $file->id }}">
+                                                                        Compartir: {{ $file->name }}
+                                                                    </h5>
+                                                                    <button type="button" class="btn-close btn-close-white"
+                                                                        data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p class="mb-3">Selecciona los usuarios con los que deseas
+                                                                        compartir este archivo:</p>
+                                                                    <div class="user-list-container">
+                                                                        @foreach(\App\Models\User::where('id', '!=', auth()->id())->get() as $user)
+                                                                            <div class="user-item mb-2 p-2 border-bottom">
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input" type="checkbox"
+                                                                                        name="user_ids[]" value="{{ $user->id }}"
+                                                                                        id="userCheck-{{ $file->id }}-{{ $user->id }}"
+                                                                                        {{ in_array($user->id, $file->shared_with ?? []) ? 'checked' : '' }}>
+                                                                                    <label
+                                                                                        class="form-check-label d-flex justify-content-between align-items-center"
+                                                                                        for="userCheck-{{ $file->id }}-{{ $user->id }}">
+                                                                                        <span>{{ $user->name }}</span>
+                                                                                        @if(in_array($user->id, $file->shared_with ?? []))
+                                                                                            <span class="badge bg-success">Compartido</span>
+                                                                                        @endif
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-outline-secondary"
+                                                                        data-bs-dismiss="modal">Cancelar</button>
+                                                                    <button type="submit" class="btn" style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; color: white;">
+                                                                        Guardar cambios
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            @endif
 
-                            @if(auth()->user()->hasRole('Admin') && $file->uploaded_by == auth()->id())
-                                {{-- Compartir solo si es Admin y es el dueño --}}
-                                <form action="{{ route('files.share', $file) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    <select name="user_ids[]" multiple class="form-select form-select-sm">
-                                        @foreach(\App\Models\User::where('id', '!=', auth()->id())->get() as $user)
-                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <button class="btn btn-sm btn-warning mt-1">Compartir</button>
-                                </form>
-                            @endif
+                                            @if(auth()->user()->hasRole('Admin') || $file->uploaded_by == auth()->id())
+                                                <form action="{{ route('files.destroy', $file) }}" method="POST" class="d-flex"
+                                                    style="width: 120px;"
+                                                    onsubmit="return confirm('¿Estás seguro de que deseas eliminar este archivo?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button
+                                                        class="btn btn-sm d-flex align-items-center justify-content-center gap-1 w-100"
+                                                        style="background-color: #dc3545; color: white;">
+                                                        <i class="bi bi-trash"></i> Eliminar
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    </td>
 
-                            {{-- Eliminar: si es Admin o dueño del archivo --}}
-                            @if(auth()->user()->hasRole('Admin') || $file->uploaded_by == auth()->id())
-                                <form action="{{ route('files.destroy', $file) }}" method="POST" class="d-inline"
-                                    onsubmit="return confirm('¿Estás seguro de que deseas eliminar este archivo?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-danger">Eliminar</button>
-                                </form>
-                            @endif
-                        </td>
-
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <style>
+        .user-list-container {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .user-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .user-list-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .user-list-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .user-list-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        .user-list-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        @media (max-width: 576px) {
+            .modal-dialog {
+                margin: 0.5rem auto;
+            }
+        }
+    </style>
 @endsection
