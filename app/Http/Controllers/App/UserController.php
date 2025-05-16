@@ -43,8 +43,19 @@ class UserController extends Controller
 
         $user = User::create($validateData);
 
-        // Asignar el rol automáticamente
-        $user->assignRole('Super Admin');
+        // Detecta si estamos en un tenant
+        if (tenancy()->initialized) {
+            // Contar usuarios existentes en este tenant
+            $userCount = User::count();
+
+            if ($userCount === 1) {
+                $user->assignRole('Admin');
+            } else {
+                $user->assignRole('Usuario');
+            }
+        } else {
+            $user->assignRole('Super Admin');
+        }
 
         return redirect()->route('users.index');
     }

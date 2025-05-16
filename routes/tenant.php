@@ -9,6 +9,8 @@ use App\Http\Controllers\App\UserController;
 use App\Http\Controllers\App\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AppearanceController;
+use App\Http\Controllers\FileController;
+
 
 
 
@@ -32,11 +34,18 @@ Route::middleware([
 
 
 
+    Route::middleware(['auth'])->group(function () {
+        Route::resource('files', FileController::class);
+        Route::get('files/{file}/download', [FileController::class, 'download'])->name('files.download');
+
+        Route::middleware(['role:Admin'])->group(function () {
+            Route::post('files/{file}/share', [FileController::class, 'share'])->name('files.share');
+        });
+    });
+
+
     Route::get('/appearance', [AppearanceController::class, 'index'])->name('appearance');
     Route::post('/appearance', [AppearanceController::class, 'update'])->name('appearance.update');
-
-
-
 
     // Gestión de usuarios
     Route::resource('users', UserController::class);
