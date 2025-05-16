@@ -12,10 +12,10 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="h3 fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Gestor de Archivos
             </h2>
-            <a href="{{ route('files.create') }}" class="btn btn-sm" style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};
-                      color: {{ tenantSetting('text_color_1', '#8C2D18') }};
-                      border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
-                <i class="bi bi-plus-circle me-1"></i> Subir nuevo archivo
+            <a href="{{ route('dashboard') }}" class="btn btn-sm" style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
+              color: {{ tenantSetting('text_color_1', '#8C2D18') }};
+              border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
+                <i class="bi bi-arrow-left me-1"></i> Volver
             </a>
         </div>
 
