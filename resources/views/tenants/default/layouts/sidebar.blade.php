@@ -50,21 +50,16 @@
                             href="{{ route('files.create') }}"
                             style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Agregar Archivos</a>
                     </li>
+                    @role('Admin')
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('files.shared.folders') ? 'active' : '' }}"
+                            href="{{ route('files.shared.folders') }}"
+                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Compartidos Conmigo</a>
+                    </li>
+                    @endrole
                 </ul>
             </div>
         </li>
-
-        @role('Admin')
-        <li class="nav-item">
-            <a class="nav-link {{ Route::is('files.shared.folders') ? 'active' : '' }}"
-                href="{{ route('files.shared.folders') }}"
-                style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
-                <i class="bi bi-folder2-open me-2"></i> Compartidos
-            </a>
-        </li>
-        @endrole
-
-
 
         <!-- Usuarios -->
         <li class="nav-item">

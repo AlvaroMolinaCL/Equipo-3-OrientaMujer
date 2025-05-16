@@ -51,7 +51,9 @@ class FileController extends Controller
     public function download(File $file)
     {
         $user = Auth::user();
+
         if (
+            $user->hasRole('Admin') ||
             $file->uploaded_by === $user->id ||
             in_array($user->id, $file->shared_with ?? [])
         ) {
@@ -60,6 +62,7 @@ class FileController extends Controller
 
         abort(403, 'No tienes permiso para descargar este archivo.');
     }
+
 
     public function share(Request $request, File $file)
     {
