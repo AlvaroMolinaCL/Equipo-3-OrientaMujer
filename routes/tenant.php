@@ -33,17 +33,24 @@ Route::middleware([
 ])->group(function () {
 
 
-
+    // Rutas para acciones de archivos
     Route::resource('files', FileController::class);
     Route::get('files/{file}/download', [FileController::class, 'download'])->name('files.download');
     Route::get('/files/{file}/preview', [FileController::class, 'preview'])->name('files.preview');
     Route::delete('/files/{file}', [FileController::class, 'destroy'])->name('files.destroy');
 
 
-
+    // Rutas para compartir archivos
     Route::middleware(['role:Admin'])->group(function () {
         Route::post('files/{file}/share', [FileController::class, 'share'])->name('files.share');
     });
+
+    // Rutas para ver archivos compartidos
+    Route::middleware(['role:Admin'])->group(function () {
+        Route::get('/shared-folders', [FileController::class, 'sharedFolders'])->name('files.shared.folders');
+        Route::get('/shared-folders/{user}', [FileController::class, 'sharedByUser'])->name('files.shared.byUser');
+    });
+
 
 
 
