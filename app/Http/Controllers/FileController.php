@@ -14,17 +14,17 @@ class FileController extends Controller
     {
         $user = Auth::user();
 
-        // Admin ve todos los archivos de su tenantP
         if ($user->hasRole('Admin')) {
             $files = File::all();
         } else {
-            // Usuarios ven archivos propios o compartidos con ellos
             $files = File::where('uploaded_by', $user->id)
-                ->orWhereJsonContains('shared_with', $user->id)
+                ->orWhereJsonContains('shared_with', (string) $user->id)
                 ->get();
         }
+
         return view('tenants.default.file-index', compact('files'));
     }
+
 
     public function create()
     {
@@ -62,9 +62,14 @@ class FileController extends Controller
     public function share(Request $request, File $file)
     {
         $request->validate(['user_ids' => 'array']);
-        $file->shared_with = $request->user_ids;
+
+        $sharedWith = $file->shared_with ?? [];
+        $sharedWith = array_unique(array_merge($sharedWith, $request->user_ids));
+
+        $file->shared_with = $sharedWith;
         $file->save();
 
         return back()->with('success', 'Archivo compartido correctamente.');
     }
+
 }
