@@ -138,392 +138,459 @@
                         <i class="bi bi-brush me-2"></i>Estilos Predeterminados
                     </h5>
 
-                    <div class="mb-4 d-flex flex-wrap gap-2">
-                        @php
-                            $presetStyles = [
-                                'clásico' => [
-                                    'label' => 'Clásico',
-                                    'background_color_1' => '#f8f9fa',
-                                    'background_color_2' => '#e9ecef',
-                                    'text_color_1' => '#212529',
-                                    'text_color_2' => '#495057',
-                                    'navbar_color_1' => '#343a40',
-                                    'navbar_color_2' => '#343a40',
-                                    'navbar_text_color_1' => '#ffffff',
-                                    'navbar_text_color_2' => '#ffffff',
-                                    'button_color_sidebar' => '#6c757d',
-                                    'color_metrics' => '#495057',
-                                    'color_tables' => '#343a40',
-                                ],
-                                'notarial' => [
-                                    'label' => 'Notarial',
-                                    'background_color_1' => '#fefcf9',
-                                    'background_color_2' => '#f5f2ec',
-                                    'text_color_1' => '#3e3e3e',
-                                    'text_color_2' => '#5c5c5c',
-                                    'navbar_color_1' => '#8c2d18',
-                                    'navbar_color_2' => '#8c2d18',
-                                    'navbar_text_color_1' => '#ffffff',
-                                    'navbar_text_color_2' => '#ffffff',
-                                    'button_color_sidebar' => '#BF8A49',
-                                    'color_metrics' => '#8C2D18',
-                                    'color_tables' => '#5f1e10',
-                                ],
-                                'corporativo' => [
-                                    'label' => 'Corporativo',
-                                    'background_color_1' => '#edf2f7',
-                                    'background_color_2' => '#e2e8f0',
-                                    'text_color_1' => '#1a202c',
-                                    'text_color_2' => '#2d3748',
-                                    'navbar_color_1' => '#2c5282',
-                                    'navbar_color_2' => '#2c5282',
-                                    'navbar_text_color_1' => '#ffffff',
-                                    'navbar_text_color_2' => '#ffffff',
-                                    'button_color_sidebar' => '#2b6cb0',
-                                    'color_metrics' => '#2c5282',
-                                    'color_tables' => '#1a365d',
-                                ],
-                                'jurídico azul' => [
-                                    'label' => 'Jurídico Azul',
-                                    'background_color_1' => '#f1f5f9',
-                                    'background_color_2' => '#dbeafe',
-                                    'text_color_1' => '#1e3a8a',
-                                    'text_color_2' => '#1e40af',
-                                    'navbar_color_1' => '#1e3a8a',
-                                    'navbar_color_2' => '#1e3a8a',
-                                    'navbar_text_color_1' => '#ffffff',
-                                    'navbar_text_color_2' => '#ffffff',
-                                    'button_color_sidebar' => '#1e40af',
-                                    'color_metrics' => '#1e3a8a',
-                                    'color_tables' => '#1c2f75',
-                                ],
-                                'moderno' => [
-                                    'label' => 'Moderno',
-                                    'background_color_1' => '#ffffff',
-                                    'background_color_2' => '#f0f0f0',
-                                    'text_color_1' => '#111827',
-                                    'text_color_2' => '#374151',
-                                    'navbar_color_1' => '#111827',
-                                    'navbar_color_2' => '#111827',
-                                    'navbar_text_color_1' => '#f3f4f6',
-                                    'navbar_text_color_2' => '#f3f4f6',
-                                    'button_color_sidebar' => '#374151',
-                                    'color_metrics' => '#1f2937',
-                                    'color_tables' => '#111827',
-                                ],
-                                'elegante' => [
-                                    'label' => 'Elegante',
-                                    'background_color_1' => '#f6f5f3',
-                                    'background_color_2' => '#e0dad1',
-                                    'text_color_1' => '#2b2b2b',
-                                    'text_color_2' => '#4b4b4b',
-                                    'navbar_color_1' => '#5c4033',
-                                    'navbar_color_2' => '#5c4033',
-                                    'navbar_text_color_1' => '#ffffff',
-                                    'navbar_text_color_2' => '#ffffff',
-                                    'button_color_sidebar' => '#5c4033',  
-                                    'color_metrics' => '#3e2c22',         
-                                    'color_tables' => '#2b1d17',          
-                                ],
-                            ];
-                        @endphp
+                    @php
+                        $presetStyles = [
+                            'clásico' => [
+                                'label' => 'Clásico',
+                                'background_color_1' => '#f8f9fa',
+                                'background_color_2' => '#e9ecef',
+                                'text_color_1' => '#212529',
+                                'text_color_2' => '#495057',
+                                'navbar_color_1' => '#343a40',
+                                'navbar_color_2' => '#343a40',
+                                'navbar_text_color_1' => '#ffffff',
+                                'navbar_text_color_2' => '#ffffff',
+                                'button_color_sidebar' => '#6c757d',
+                                'color_metrics' => '#495057',
+                                'color_tables' => '#343a40',
+                            ],
+                            'notarial' => [
+                                'label' => 'Notarial',
+                                'background_color_1' => '#fefcf9',
+                                'background_color_2' => '#f5f2ec',
+                                'text_color_1' => '#3e3e3e',
+                                'text_color_2' => '#5c5c5c',
+                                'navbar_color_1' => '#8c2d18',
+                                'navbar_color_2' => '#8c2d18',
+                                'navbar_text_color_1' => '#ffffff',
+                                'navbar_text_color_2' => '#ffffff',
+                                'button_color_sidebar' => '#BF8A49',
+                                'color_metrics' => '#8C2D18',
+                                'color_tables' => '#5f1e10',
+                            ],
+                            'corporativo' => [
+                                'label' => 'Corporativo',
+                                'background_color_1' => '#edf2f7',
+                                'background_color_2' => '#e2e8f0',
+                                'text_color_1' => '#1a202c',
+                                'text_color_2' => '#2d3748',
+                                'navbar_color_1' => '#2c5282',
+                                'navbar_color_2' => '#2c5282',
+                                'navbar_text_color_1' => '#ffffff',
+                                'navbar_text_color_2' => '#ffffff',
+                                'button_color_sidebar' => '#2b6cb0',
+                                'color_metrics' => '#2c5282',
+                                'color_tables' => '#1a365d',
+                            ],
+                            'jurídico azul' => [
+                                'label' => 'Jurídico Azul',
+                                'background_color_1' => '#f1f5f9',
+                                'background_color_2' => '#dbeafe',
+                                'text_color_1' => '#1e3a8a',
+                                'text_color_2' => '#1e40af',
+                                'navbar_color_1' => '#1e3a8a',
+                                'navbar_color_2' => '#1e3a8a',
+                                'navbar_text_color_1' => '#ffffff',
+                                'navbar_text_color_2' => '#ffffff',
+                                'button_color_sidebar' => '#1e40af',
+                                'color_metrics' => '#1e3a8a',
+                                'color_tables' => '#1c2f75',
+                            ],
+                            'moderno' => [
+                                'label' => 'Moderno',
+                                'background_color_1' => '#ffffff',
+                                'background_color_2' => '#f0f0f0',
+                                'text_color_1' => '#111827',
+                                'text_color_2' => '#374151',
+                                'navbar_color_1' => '#111827',
+                                'navbar_color_2' => '#111827',
+                                'navbar_text_color_1' => '#f3f4f6',
+                                'navbar_text_color_2' => '#f3f4f6',
+                                'button_color_sidebar' => '#374151',
+                                'color_metrics' => '#1f2937',
+                                'color_tables' => '#111827',
+                            ],
+                            'elegante' => [
+                                'label' => 'Elegante',
+                                'background_color_1' => '#f6f5f3',
+                                'background_color_2' => '#e0dad1',
+                                'text_color_1' => '#2b2b2b',
+                                'text_color_2' => '#4b4b4b',
+                                'navbar_color_1' => '#5c4033',
+                                'navbar_color_2' => '#5c4033',
+                                'navbar_text_color_1' => '#ffffff',
+                                'navbar_text_color_2' => '#ffffff',
+                                'button_color_sidebar' => '#5c4033',
+                                'color_metrics' => '#3e2c22',
+                                'color_tables' => '#2b1d17',
+                            ],
+                        ];
+                    @endphp
 
-                        <div class="mb-4 d-flex flex-wrap gap-2">
-                            @foreach ($presetStyles as $key => $style)
-                                <label>
-                                    <input type="radio" name="preset_style" value="{{ $key }}" class="d-none">
-                                    <button type="button" class="btn btn-sm border"
-                                        style="background-color: {{ $style['background_color_1'] }}; color: {{ $style['text_color_1'] }};"
-                                        data-style='@json($style)' onclick="handlePresetClick(this)">
-                                        {{ $style['label'] }}
-                                    </button>
-                                </label>
-                            @endforeach
-                        </div>
-                    </div>
-
-                    {{-- Logo Principal --}}
-                    <div class="mb-4">
-                        <label for="logo_1" class="form-label fw-medium" style="color: #8C2D18;">
-                            <i class="bi bi-image me-1"></i>Logo Principal
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
-                                <i class="bi bi-upload"></i>
-                            </span>
-                            <input id="logo_1" type="file" class="form-control border-start-0"
-                                style="background-color: #FDF5E5;" name="logo_1" accept="image/*">
-                        </div>
-                        @error('logo_1')
-                            <div class="text-danger small mt-2">
-                                <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4" id="palettes-container">
+                        @foreach($presetStyles as $key => $palette)
+                            <div class="col">
+                                <div class="palette-card card h-100 border-0 shadow-sm hover-shadow transition-all"
+                                    style="cursor: pointer;" data-key="{{ $key }}" data-palette='@json($palette)'
+                                    title="Seleccionar paleta {{ $palette['label'] }}">
+                                    <div class="card-header py-2"
+                                        style="background-color: {{ $palette['navbar_color_1'] }}; color: {{ $palette['navbar_text_color_1'] }};">
+                                        <h5 class="mb-0 text-center">{{ $palette['label'] }}</h5>
+                                    </div>
+                                    <div class="card-body p-3"
+                                        style="background-color: {{ $palette['background_color_1'] }}; color: {{ $palette['text_color_1'] }};">
+                                        <div class="d-flex flex-wrap gap-1 mb-2">
+                                            @foreach(['navbar_color_1', 'button_color_sidebar', 'color_metrics', 'color_tables'] as $colorKey)
+                                                <div style="width: 40px; height: 40px; background-color: {{ $palette[$colorKey] }}; border: 1px solid rgba(0,0,0,0.1); border-radius: 4px;"
+                                                    class="shadow-sm" title="{{ $colorKey }}: {{ $palette[$colorKey] }}"></div>
+                                            @endforeach
+                                        </div>
+                                        <div class="d-flex justify-content-between small">
+                                            <span>Texto: <span style="color: {{ $palette['text_color_1'] }}">Aa</span></span>
+                                            <span>Fondo: <span class="badge"
+                                                    style="background-color: {{ $palette['background_color_1'] }}; color: {{ $palette['text_color_1'] }}">Ejemplo</span></span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        @enderror
+                        @endforeach
                     </div>
 
-                    {{-- Logo Secundario --}}
-                    <div class="mb-4">
-                        <label for="logo_2" class="form-label fw-medium" style="color: #8C2D18;">
-                            <i class="bi bi-images me-1"></i>Logo Secundario
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
-                                <i class="bi bi-upload"></i>
-                            </span>
-                            <input id="logo_2" type="file" class="form-control border-start-0"
-                                style="background-color: #FDF5E5;" name="logo_2" accept="image/*">
-                        </div>
-                        @error('logo_2')
-                            <div class="text-danger small mt-2">
-                                <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                    <!-- Campo oculto para la paleta seleccionada -->
+                    <input type="hidden" id="selected_palette" name="selected_palette" value="">
+
+                    {{-- Sección de Personalización Avanzada --}}
+                    <div class="mt-5 pt-4 border-top">
+                        <h5 class="fw-medium mb-3 border-bottom pb-2" style="color: #8C2D18;">
+                            <i class="bi bi-sliders me-2"></i>Personalización Avanzada
+                        </h5>
+                        <p class="text-muted mb-4">Ajusta cada aspecto de tu diseño manualmente</p>
+
+                        {{-- Logos --}}
+                        <div class="mb-4">
+                            <h6 class="fw-medium mb-3" style="color: #8C2D18;">
+                                <i class="bi bi-images me-2"></i>Logos
+                            </h6>
+
+                            <div class="row g-3">
+                                {{-- Logo Principal --}}
+                                <div class="col-md-6">
+                                    <label for="logo_1" class="form-label fw-medium" style="color: #8C2D18;">Logo
+                                        Principal</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                            <i class="bi bi-upload"></i>
+                                        </span>
+                                        <input type="file" class="form-control border-start-0"
+                                            style="background-color: #FDF5E5;" id="logo_1" name="logo_1" accept="image/*">
+                                    </div>
+                                    @error('logo_1')
+                                        <div class="text-danger small mt-2">
+                                            <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                {{-- Logo Secundario --}}
+                                <div class="col-md-6">
+                                    <label for="logo_2" class="form-label fw-medium" style="color: #8C2D18;">Logo
+                                        Secundario</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                            <i class="bi bi-upload"></i>
+                                        </span>
+                                        <input type="file" class="form-control border-start-0"
+                                            style="background-color: #FDF5E5;" id="logo_2" name="logo_2" accept="image/*">
+                                    </div>
+                                    @error('logo_2')
+                                        <div class="text-danger small mt-2">
+                                            <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
-                        @enderror
-                    </div>
-                    {{-- Color de Fondo Principal --}}
-                    <div class="mb-4">
-                        <label for="background_color_1" class="form-label fw-medium" style="color: #8C2D18;">
-                            <i class="bi bi-droplet me-1"></i>Color de Fondo Principal
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
-                                <i class="bi bi-palette"></i>
-                            </span>
-                            <input id="background_color_1" type="color"
-                                class="form-control form-control-color border-start-0"
-                                style="background-color: #FDF5E5; height: 38px;" name="background_color_1"
-                                value="{{ old('background_color_1', '#ffffff') }}">
+                        </div>
+
+                        {{-- Colores --}}
+                        <div class="mb-4">
+                            <h6 class="fw-medium mb-3" style="color: #8C2D18;">
+                                <i class="bi bi-palette me-2"></i>Colores
+                            </h6>
+
+                            <div class="row g-3">
+                                {{-- Fondo 1 --}}
+                                <div class="col-md-6 col-lg-4">
+                                    <label for="background_color_1" class="form-label fw-medium"
+                                        style="color: #8C2D18;">Fondo Principal</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                            <i class="bi bi-droplet"></i>
+                                        </span>
+                                        <input type="color" class="form-control form-control-color border-start-0"
+                                            style="background-color: #FDF5E5; height: 38px;" id="background_color_1"
+                                            name="background_color_1" value="{{ old('background_color_1', '#ffffff') }}">
+                                    </div>
+                                    @error('background_color_1')
+                                        <div class="text-danger small mt-2">
+                                            <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                {{-- Texto 1 --}}
+                                <div class="col-md-6 col-lg-4">
+                                    <label for="text_color_1" class="form-label fw-medium" style="color: #8C2D18;">Texto
+                                        Principal</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                            <i class="bi bi-fonts"></i>
+                                        </span>
+                                        <input type="color" class="form-control form-control-color border-start-0"
+                                            style="background-color: #FDF5E5; height: 38px;" id="text_color_1"
+                                            name="text_color_1" value="{{ old('text_color_1', '#000000') }}">
+                                    </div>
+                                    @error('text_color_1')
+                                        <div class="text-danger small mt-2">
+                                            <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                {{-- Fondo 2 --}}
+                                <div class="col-md-6 col-lg-4">
+                                    <label for="background_color_2" class="form-label fw-medium"
+                                        style="color: #8C2D18;">Fondo Secundario</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                            <i class="bi bi-droplet"></i>
+                                        </span>
+                                        <input type="color" class="form-control form-control-color border-start-0"
+                                            style="background-color: #FDF5E5; height: 38px;" id="background_color_2"
+                                            name="background_color_2" value="{{ old('background_color_2', '#ffffff') }}">
+                                    </div>
+                                    @error('background_color_2')
+                                        <div class="text-danger small mt-2">
+                                            <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                {{-- Texto 2 --}}
+                                <div class="col-md-6 col-lg-4">
+                                    <label for="text_color_2" class="form-label fw-medium" style="color: #8C2D18;">Texto
+                                        Secundario</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                            <i class="bi bi-fonts"></i>
+                                        </span>
+                                        <input type="color" class="form-control form-control-color border-start-0"
+                                            style="background-color: #FDF5E5; height: 38px;" id="text_color_2"
+                                            name="text_color_2" value="{{ old('text_color_2', '#000000') }}">
+                                    </div>
+                                    @error('text_color_2')
+                                        <div class="text-danger small mt-2">
+                                            <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                {{-- Navbar --}}
+                                <div class="col-md-6 col-lg-4">
+                                    <label for="navbar_color_1" class="form-label fw-medium" style="color: #8C2D18;">Color
+                                        de Navbar</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                            <i class="bi bi-border-width"></i>
+                                        </span>
+                                        <input type="color" class="form-control form-control-color border-start-0"
+                                            style="background-color: #FDF5E5; height: 38px;" id="navbar_color_1"
+                                            name="navbar_color_1" value="{{ old('navbar_color_1', '#343a40') }}">
+                                    </div>
+                                    @error('navbar_color_1')
+                                        <div class="text-danger small mt-2">
+                                            <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                {{-- Texto Navbar --}}
+                                <div class="col-md-6 col-lg-4">
+                                    <label for="navbar_text_color_1" class="form-label fw-medium"
+                                        style="color: #8C2D18;">Texto de Navbar</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                            <i class="bi bi-type"></i>
+                                        </span>
+                                        <input type="color" class="form-control form-control-color border-start-0"
+                                            style="background-color: #FDF5E5; height: 38px;" id="navbar_text_color_1"
+                                            name="navbar_text_color_1" value="{{ old('navbar_text_color_1', '#ffffff') }}">
+                                    </div>
+                                    @error('navbar_text_color_1')
+                                        <div class="text-danger small mt-2">
+                                            <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                {{-- Botón Sidebar --}}
+                                <div class="col-md-6 col-lg-4">
+                                    <label for="button_color_sidebar" class="form-label fw-medium"
+                                        style="color: #8C2D18;">Botón Sidebar</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                            <i class="bi bi-toggle-on"></i>
+                                        </span>
+                                        <input type="color" class="form-control form-control-color border-start-0"
+                                            style="background-color: #FDF5E5; height: 38px;" id="button_color_sidebar"
+                                            name="button_color_sidebar"
+                                            value="{{ old('button_color_sidebar', '#ffffff') }}">
+                                    </div>
+                                    @error('button_color_sidebar')
+                                        <div class="text-danger small mt-2">
+                                            <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                {{-- Color Métricas --}}
+                                <div class="col-md-6 col-lg-4">
+                                    <label for="color_metrics" class="form-label fw-medium" style="color: #8C2D18;">Color
+                                        Métricas</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                            <i class="bi bi-graph-up"></i>
+                                        </span>
+                                        <input type="color" class="form-control form-control-color border-start-0"
+                                            style="background-color: #FDF5E5; height: 38px;" id="color_metrics"
+                                            name="color_metrics" value="{{ old('color_metrics', '#ffffff') }}">
+                                    </div>
+                                    @error('color_metrics')
+                                        <div class="text-danger small mt-2">
+                                            <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                {{-- Color Tablas --}}
+                                <div class="col-md-6 col-lg-4">
+                                    <label for="color_tables" class="form-label fw-medium" style="color: #8C2D18;">Color
+                                        Tablas</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                            <i class="bi bi-table"></i>
+                                        </span>
+                                        <input type="color" class="form-control form-control-color border-start-0"
+                                            style="background-color: #FDF5E5; height: 38px;" id="color_tables"
+                                            name="color_tables" value="{{ old('color_tables', '#ffffff') }}">
+                                    </div>
+                                    @error('color_tables')
+                                        <div class="text-danger small mt-2">
+                                            <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Tipografías --}}
+                        <div class="mb-4">
+                            <h6 class="fw-medium mb-3" style="color: #8C2D18;">
+                                <i class="bi bi-fonts me-2"></i>Tipografías
+                            </h6>
+
+                            <div class="row g-3">
+                                {{-- Navbar --}}
+                                <div class="col-md-4">
+                                    <label for="navbar_font" class="form-label fw-medium"
+                                        style="color: #8C2D18;">Navbar</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                            <i class="bi bi-type"></i>
+                                        </span>
+                                        <select id="navbar_font" class="form-select border-start-0"
+                                            style="background-color: #FDF5E5;" name="navbar_font">
+                                            <option value="Arial" {{ old('navbar_font') == 'Arial' ? 'selected' : '' }}>Arial
+                                            </option>
+                                            <option value="Roboto" {{ old('navbar_font') == 'Roboto' ? 'selected' : '' }}>
+                                                Roboto
+                                            </option>
+                                            <option value="Open Sans" {{ old('navbar_font') == 'Open Sans' ? 'selected' : '' }}>
+                                                Open Sans</option>
+                                            <option value="Montserrat" {{ old('navbar_font') == 'Montserrat' ? 'selected' : '' }}>
+                                                Montserrat</option>
+                                            <option value="Courier Prime" {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
+                                                Courier Prime</option>
+                                        </select>
+                                    </div>
+                                    @error('navbar_font')
+                                        <div class="text-danger small mt-2">
+                                            <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                {{-- Títulos --}}
+                                <div class="col-md-4">
+                                    <label for="heading_font" class="form-label fw-medium"
+                                        style="color: #8C2D18;">Títulos</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                            <i class="bi bi-type-h1"></i>
+                                        </span>
+                                        <select id="heading_font" class="form-select border-start-0"
+                                            style="background-color: #FDF5E5;" name="heading_font">
+                                            <option value="Arial" {{ old('heading_font') == 'Arial' ? 'selected' : '' }}>Arial
+                                            </option>
+                                            <option value="Roboto" {{ old('heading_font') == 'Roboto' ? 'selected' : '' }}>
+                                                Roboto
+                                            </option>
+                                            <option value="Open Sans" {{ old('heading_font') == 'Open Sans' ? 'selected' : '' }}>
+                                                Open Sans</option>
+                                            <option value="Montserrat" {{ old('heading_font') == 'Montserrat' ? 'selected' : '' }}>
+                                                Montserrat</option>
+                                            <option value="Courier Prime" {{ old('heading_font') == 'Courier Prime' ? 'selected' : '' }}>
+                                                Courier Prime</option>
+                                        </select>
+                                    </div>
+                                    @error('heading_font')
+                                        <div class="text-danger small mt-2">
+                                            <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                {{-- Cuerpo --}}
+                                <div class="col-md-4">
+                                    <label for="body_font" class="form-label fw-medium"
+                                        style="color: #8C2D18;">Cuerpo</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                        <select id="body_font" class="form-select border-start-0"
+                                            style="background-color: #FDF5E5;" name="body_font">
+                                            <option value="Arial" {{ old('body_font') == 'Arial' ? 'selected' : '' }}>Arial
+                                            </option>
+                                            <option value="Roboto" {{ old('body_font') == 'Roboto' ? 'selected' : '' }}>Roboto
+                                            </option>
+                                            <option value="Open Sans" {{ old('body_font') == 'Open Sans' ? 'selected' : '' }}>
+                                                Open Sans</option>
+                                            <option value="Montserrat" {{ old('body_font') == 'Montserrat' ? 'selected' : '' }}>
+                                                Montserrat</option>
+                                            <option value="Courier Prime" {{ old('body_font') == 'Courier Prime' ? 'selected' : '' }}>
+                                                Courier Prime</option>
+                                        </select>
+                                    </div>
+                                    @error('body_font')
+                                        <div class="text-danger small mt-2">
+                                            <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    {{-- Color de Texto Principal --}}
-                    <div class="mb-4">
-                        <label for="text_color_1" class="form-label fw-medium" style="color: #8C2D18;">
-                            <i class="bi bi-fonts me-1"></i>Color de Texto Principal
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
-                                <i class="bi bi-palette"></i>
-                            </span>
-                            <input id="text_color_1" type="color" class="form-control form-control-color border-start-0"
-                                style="background-color: #FDF5E5; height: 38px;" name="text_color_1"
-                                value="{{ old('text_color_1', '#000000') }}">
-                        </div>
-                    </div>
-
-                    {{-- Color de Fondo Secundario --}}
-                    <div class="mb-4">
-                        <label for="background_color_2" class="form-label fw-medium" style="color: #8C2D18;">
-                            <i class="bi bi-droplet me-1"></i>Color de Fondo Secundario
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
-                                <i class="bi bi-palette"></i>
-                            </span>
-                            <input id="background_color_2" type="color"
-                                class="form-control form-control-color border-start-0"
-                                style="background-color: #FDF5E5; height: 38px;" name="background_color_2"
-                                value="{{ old('background_color_2', '#ffffff') }}">
-                        </div>
-                    </div>
-
-                    {{-- Color de Texto Secundario --}}
-                    <div class="mb-4">
-                        <label for="text_color_2" class="form-label fw-medium" style="color: #8C2D18;">
-                            <i class="bi bi-fonts me-1"></i>Color de Texto Secundario
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
-                                <i class="bi bi-palette"></i>
-                            </span>
-                            <input id="text_color_2" type="color" class="form-control form-control-color border-start-0"
-                                style="background-color: #FDF5E5; height: 38px;" name="text_color_2"
-                                value="{{ old('text_color_2', '#000000') }}">
-                        </div>
-                    </div>
-
-                    {{-- Color de Navbar Principal --}}
-                    <div class="mb-4">
-                        <label for="navbar_color_1" class="form-label fw-medium" style="color: #8C2D18;">
-                            <i class="bi bi-border-width me-1"></i>Color Principal de la Barra de Navegación
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
-                                <i class="bi bi-palette2"></i>
-                            </span>
-                            <input id="navbar_color_1" type="color" class="form-control form-control-color border-start-0"
-                                style="background-color: #FDF5E5; height: 38px;" name="navbar_color_1"
-                                value="{{ old('navbar_color_1', '#343a40') }}">
-                        </div>
-                    </div>
-
-                    {{-- Color de Texto Navbar Principal --}}
-                    <div class="mb-4">
-                        <label for="navbar_text_color_1" class="form-label fw-medium" style="color: #8C2D18;">
-                            <i class="bi bi-fonts me-1"></i>Color de Texto Principal de la Barra de Navegación
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
-                                <i class="bi bi-palette2"></i>
-                            </span>
-                            <input id="navbar_text_color_1" type="color"
-                                class="form-control form-control-color border-start-0"
-                                style="background-color: #FDF5E5; height: 38px;" name="navbar_text_color_1"
-                                value="{{ old('navbar_text_color_1', '#ffffff') }}">
-                        </div>
-                    </div>
-
-                    {{-- Color Secundario de la Barra de Navegación --}}
-                    <div class="mb-4">
-                        <label for="navbar_color_2" class="form-label fw-medium" style="color: #8C2D18;">
-                            <i class="bi bi-border-width me-1"></i>Color Secundario de la Barra de Navegación
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
-                                <i class="bi bi-palette2"></i>
-                            </span>
-                            <input id="navbar_color_2" type="color" class="form-control form-control-color border-start-0"
-                                style="background-color: #FDF5E5; height: 38px;" name="navbar_color_2"
-                                value="{{ old('navbar_color_2', '#343a40') }}">
-                        </div>
-                    </div>
-
-                    {{-- Color de Texto Secundario de la Barra de Navegación --}}
-                    <div class="mb-4">
-                        <label for="navbar_text_color_2" class="form-label fw-medium" style="color: #8C2D18;">
-                            <i class="bi bi-fonts me-1"></i>Color de Texto Secundario de la Barra de Navegación
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
-                                <i class="bi bi-palette2"></i>
-                            </span>
-                            <input id="navbar_text_color_2" type="color"
-                                class="form-control form-control-color border-start-0"
-                                style="background-color: #FDF5E5; height: 38px;" name="navbar_text_color_2"
-                                value="{{ old('navbar_text_color_2', '#ffffff') }}">
-                        </div>
-                    </div>
-
-                    {{-- Color de Botón en Sidebar --}}
-                    <div class="mb-4">
-                        <label for="button_color_sidebar" class="form-label fw-medium" style="color: #8C2D18;">
-                            <i class="bi bi-fonts me-1"></i>Color de Botón en Sidebar
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
-                                <i class="bi bi-palette2"></i>
-                            </span>
-                            <input id="button_color_sidebar" type="color"
-                                class="form-control form-control-color border-start-0"
-                                style="background-color: #FDF5E5; height: 38px;" name="button_color_sidebar"
-                                value="{{ old('button_color_sidebar', '#ffffff') }}">
-                        </div>
-                    </div>
-
-                    {{-- Color de Fondo en Métricas --}}
-                    <div class="mb-4">
-                        <label for="color_metrics" class="form-label fw-medium" style="color: #8C2D18;">
-                            <i class="bi bi-fonts me-1"></i>Color de Fondo en Métricas
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
-                                <i class="bi bi-palette2"></i>
-                            </span>
-                            <input id="color_metrics" type="color" class="form-control form-control-color border-start-0"
-                                style="background-color: #FDF5E5; height: 38px;" name="color_metrics"
-                                value="{{ old('color_metrics', '#ffffff') }}">
-                        </div>
-                    </div>
-
-                    {{-- Color de Tablas --}}
-                    <div class="mb-4">
-                        <label for="color_tables" class="form-label fw-medium" style="color: #8C2D18;">
-                            <i class="bi bi-fonts me-1"></i>Color de Tablas
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
-                                <i class="bi bi-palette2"></i>
-                            </span>
-                            <input id="color_tables" type="color" class="form-control form-control-color border-start-0"
-                                style="background-color: #FDF5E5; height: 38px;" name="color_tables"
-                                value="{{ old('color_tables', '#ffffff') }}">
-                        </div>
-                    </div>
-
-
-
-
-                    {{-- Tipografía de la Barra de Navegación --}}
-                    <div class="mb-4">
-                        <label for="navbar_font" class="form-label fw-medium" style="color: #8C2D18;">
-                            <i class="bi bi-fonts me-1"></i>Tipografía de Barra de Navegación
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
-                                <i class="bi bi-type"></i>
-                            </span>
-                            <select id="navbar_font" class="form-select border-start-0" style="background-color: #FDF5E5;"
-                                name="navbar_font">
-                                <option value="Arial" {{ old('navbar_font') == 'Arial' ? 'selected' : '' }}>Arial
-                                </option>
-                                <option value="Roboto" {{ old('navbar_font') == 'Roboto' ? 'selected' : '' }}>Roboto
-                                </option>
-                                <option value="Open Sans" {{ old('navbar_font') == 'Open Sans' ? 'selected' : '' }}>Open
-                                    Sans</option>
-                                <option value="Montserrat" {{ old('navbar_font') == 'Montserrat' ? 'selected' : '' }}>
-                                    Montserrat</option>
-                                <option value="Courier Prime" {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
-                                    Courier Prime</option>
-                            </select>
-                        </div>
-                    </div>
-                    {{-- Tipografía de Títulos de Página --}}
-                    <div class="mb-4">
-                        <label for="heading_font" class="form-label fw-medium" style="color: #8C2D18;">
-                            <i class="bi bi-fonts me-1"></i>Tipografía de Títulos de Página
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
-                                <i class="bi bi-type"></i>
-                            </span>
-                            <select id="heading_font" class="form-select border-start-0" style="background-color: #FDF5E5;"
-                                name="heading_font">
-                                <option value="Arial" {{ old('heading_font') == 'Arial' ? 'selected' : '' }}>Arial
-                                </option>
-                                <option value="Roboto" {{ old('heading_font') == 'Roboto' ? 'selected' : '' }}>Roboto
-                                </option>
-                                <option value="Open Sans" {{ old('heading_font') == 'Open Sans' ? 'selected' : '' }}>Open
-                                    Sans</option>
-                                <option value="Montserrat" {{ old('heading_font') == 'Montserrat' ? 'selected' : '' }}>
-                                    Montserrat</option>
-                                <option value="Courier Prime" {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
-                                    Courier Prime</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    {{-- Tipografía del Cuerpo --}}
-                    <div class="mb-4">
-                        <label for="body_font" class="form-label fw-medium" style="color: #8C2D18;">
-                            <i class="bi bi-fonts me-1"></i>Tipografía del Cuerpo
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
-                                <i class="bi bi-type"></i>
-                            </span>
-                            <select id="body_font" class="form-select border-start-0" style="background-color: #FDF5E5;"
-                                name="body_font">
-                                <option value="Arial" {{ old('body_font') == 'Arial' ? 'selected' : '' }}>Arial</option>
-                                <option value="Roboto" {{ old('body_font') == 'Roboto' ? 'selected' : '' }}>Roboto
-                                </option>
-                                <option value="Open Sans" {{ old('body_font') == 'Open Sans' ? 'selected' : '' }}>Open
-                                    Sans</option>
-                                <option value="Montserrat" {{ old('body_font') == 'Montserrat' ? 'selected' : '' }}>
-                                    Montserrat</option>
-                                <option value="Courier Prime" {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
-                                    Courier Prime</option>
-                            </select>
-                        </div>
-                    </div>
                     {{-- Botón Guardar --}}
                     <div class="mt-4 pt-3 border-top text-center">
                         <button type="submit" class="btn fw-medium py-1"
@@ -536,56 +603,118 @@
         </div>
     </div>
 
+    <style>
+        .palette-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .palette-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .palette-card.selected {
+            border: 2px solid var(--bs-primary) !important;
+            box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.25) !important;
+        }
+    </style>
+
     {{-- Scripts --}}
     <script>
-        function togglePassword(fieldId) {
-            const field = document.getElementById(fieldId);
-            if (!field) return;
-            const icon = field.nextElementSibling?.querySelector('i');
-            if (!icon) return;
+        document.addEventListener('DOMContentLoaded', function () {
+            // Manejo de paletas de colores
+            const palettesContainer = document.getElementById('palettes-container');
+            const selectedPaletteInput = document.getElementById('selected_palette');
+            let selectedPaletteData = null;
 
-            if (field.type === 'password') {
-                field.type = 'text';
-                icon.classList.remove('bi-eye');
-                icon.classList.add('bi-eye-slash');
-            } else {
-                field.type = 'password';
-                icon.classList.remove('bi-eye-slash');
-                icon.classList.add('bi-eye');
+            function clearSelection() {
+                document.querySelectorAll('.palette-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
             }
-        }
 
-        function handlePresetClick(button) {
-            try {
-                const style = JSON.parse(button.dataset.style);
-                applyPresetStyle(style);
-            } catch (error) {
-                console.error('Error al aplicar el estilo:', error);
-            }
-        }
+            palettesContainer.addEventListener('click', (e) => {
+                let card = e.target.closest('.palette-card');
+                if (!card) return;
 
-        function applyPresetStyle(style) {
-            const fields = [
-                'background_color_1',
-                'background_color_2',
-                'text_color_1',
-                'text_color_2',
-                'navbar_color_1',
-                'navbar_color_2',
-                'navbar_text_color_1',
-                'navbar_text_color_2',
-                'button_color_sidebar',
-                'color_metrics',
-                'color_tables',
-            ];
+                clearSelection();
+                card.classList.add('selected');
 
-            fields.forEach(id => {
-                const input = document.getElementById(id);
-                if (input && style[id]) {
-                    input.value = style[id];
-                    input.dispatchEvent(new Event('input'));
+                const paletteKey = card.getAttribute('data-key');
+                selectedPaletteInput.value = paletteKey;
+
+                try {
+                    selectedPaletteData = JSON.parse(card.getAttribute('data-palette'));
+                    console.log('Paleta seleccionada:', selectedPaletteData);
+
+                    // Actualizar los campos de personalización con los valores de la paleta
+                    updateCustomizationForm(selectedPaletteData);
+                } catch (error) {
+                    console.error('Error al parsear JSON:', error);
+                    showAlert('error', 'Error al seleccionar la paleta');
                 }
             });
-        }
+
+            function updateCustomizationForm(palette) {
+                const fields = [
+                    'background_color_1', 'text_color_1', 'background_color_2',
+                    'text_color_2', 'navbar_color_1', 'navbar_text_color_1',
+                    'navbar_color_2', 'navbar_text_color_2', 'button_color_sidebar',
+                    'color_metrics', 'color_tables'
+                ];
+
+                fields.forEach(field => {
+                    const input = document.getElementById(field);
+                    if (input) {
+                        input.value = palette[field];
+                        // Marcar que fue actualizado por paleta (no manualmente)
+                        input.dataset.paletteUpdate = 'true';
+                    }
+                });
+            }
+
+            // Marcar campos cuando son editados manualmente
+            document.querySelectorAll('input[type="color"], select').forEach(input => {
+                input.addEventListener('change', function () {
+                    if (this.dataset.paletteUpdate === 'true') {
+                        delete this.dataset.paletteUpdate;
+                    } else {
+                        // Si el usuario edita manualmente, deseleccionar paleta
+                        selectedPaletteInput.value = '';
+                        clearSelection();
+                    }
+                });
+            });
+
+            function showAlert(type, message) {
+                const alertBox = document.createElement('div');
+                alertBox.className = `alert alert-${type} alert-dismissible fade show position-fixed top-0 end-0 m-3`;
+                alertBox.style.zIndex = '9999';
+                alertBox.innerHTML = `
+                        ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    `;
+                document.body.appendChild(alertBox);
+
+                setTimeout(() => {
+                    alertBox.classList.remove('show');
+                    setTimeout(() => alertBox.remove(), 150);
+                }, 5000);
+            }
+
+            // Función para mostrar/ocultar contraseña
+            function togglePassword(fieldId) {
+                const field = document.getElementById(fieldId);
+                const icon = field.nextElementSibling.querySelector('i');
+                if (field.type === 'password') {
+                    field.type = 'text';
+                    icon.classList.remove('bi-eye');
+                    icon.classList.add('bi-eye-slash');
+                } else {
+                    field.type = 'password';
+                    icon.classList.remove('bi-eye-slash');
+                    icon.classList.add('bi-eye');
+                }
+            }
+        });
     </script>
 @endsection
