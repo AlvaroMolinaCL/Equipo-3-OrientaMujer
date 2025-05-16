@@ -44,10 +44,15 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // En el modelo User
     public function tenant()
     {
         return $this->belongsTo(Tenant::class);
     }
+
+    public function files()
+    {
+        return $this->hasMany(File::class, 'uploaded_by');
+    }
+
 
 }
