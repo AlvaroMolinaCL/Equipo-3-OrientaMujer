@@ -69,8 +69,12 @@ class TenantInitialSetupSeeder extends Seeder
             ]
         );
 
-        if (!$user->hasRole('Admin')) {
+        $userCount = User::count();
+
+        if ($userCount === 1) {
             $user->assignRole('Admin');
+        } else {
+            $user->assignRole('Usuario');
         }
     }
 }

@@ -47,27 +47,36 @@
                                         @endforeach
                                     </td>
                                     <td>
-                                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                                        @if ($user->email == Auth::user()->email)
                                             {{-- Editar --}}
-                                            <a href="{{ route('users.edit', $user) }}"
+                                            <a href="{{ route('profile.edit', $user) }}"
                                                 class="btn btn-sm d-flex align-items-center justify-content-center gap-1 flex-grow-1"
                                                 style="background-color: #8C2D18; color: white; min-width: 100px;">
                                                 <i class="bi bi-pencil"></i> Editar
                                             </a>
+                                        @else
+                                            <div class="d-flex flex-wrap justify-content-center gap-2">
+                                                {{-- Editar --}}
+                                                <a href="{{ route('users.edit', $user) }}"
+                                                    class="btn btn-sm d-flex align-items-center justify-content-center gap-1 flex-grow-1"
+                                                    style="background-color: #8C2D18; color: white; min-width: 100px;">
+                                                    <i class="bi bi-pencil"></i> Editar
+                                                </a>
 
-                                            {{-- Eliminar --}}
-                                            <form action="{{ route('users.destroy', $user) }}" method="POST"
-                                                onsubmit="return confirm('¿Estás seguro de eliminar este usuario?')"
-                                                class="flex-grow-1">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                    class="btn btn-sm d-flex align-items-center justify-content-center gap-1 w-100"
-                                                    style="background-color: #dc3545; color: white; min-width: 100px;">
-                                                    <i class="bi bi-trash"></i> Eliminar
-                                                </button>
-                                            </form>
-                                        </div>
+                                                {{-- Eliminar --}}
+                                                <form action="{{ route('users.destroy', $user) }}" method="POST"
+                                                    onsubmit="return confirm('¿Estás seguro de eliminar este usuario?')"
+                                                    class="flex-grow-1">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="btn btn-sm d-flex align-items-center justify-content-center gap-1 w-100"
+                                                        style="background-color: #dc3545; color: white; min-width: 100px;">
+                                                        <i class="bi bi-trash"></i> Eliminar
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
