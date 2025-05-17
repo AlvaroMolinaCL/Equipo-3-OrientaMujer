@@ -4,7 +4,9 @@
     <div class="container-fluid">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h2 mb-0 fw-bold" style="color: #8C2D18;">{{ __('Panel de Control') }}</h2>
+            <h2 class="h2 mb-0 fw-bold" style="color: #8C2D18;">
+                <i class="bi bi-speedometer2 me-2"></i>{{ __('Panel de Control') }}
+            </h2>
         </div>
 
         {{-- Métricas --}}

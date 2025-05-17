@@ -15,7 +15,7 @@ class UserController extends Controller
         $users = User::with('roles')->get();
 
         if (tenant()) {
-            return view(tenantView('users'), ['users' => $users]);
+            return view(tenantView('users.index'), ['users' => $users]);
         }
 
         return view('users.index', ['users' => $users]);
@@ -26,7 +26,7 @@ class UserController extends Controller
         $roles = Role::get();
 
         if (tenant()) {
-            return view(tenantView('create-users'), ['user' => $user, 'roles' => $roles]);
+            return view(tenantView('users.create'), ['user' => $user, 'roles' => $roles]);
         }
 
         return view('users.create', ['user' => $user, 'roles' => $roles]);
@@ -52,7 +52,7 @@ class UserController extends Controller
         $roles = Role::get();
 
         if (tenant()) {
-            return view(tenantView('edit-users'), ['user' => $user, 'roles' => $roles]);
+            return view(tenantView('users.edit'), ['user' => $user, 'roles' => $roles]);
         }
 
         return view('users.edit', ['user' => $user, 'roles' => $roles]);
