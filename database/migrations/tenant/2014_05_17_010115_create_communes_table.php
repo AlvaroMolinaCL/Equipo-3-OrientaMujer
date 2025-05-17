@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('communes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('region_id');
+            $table->foreignId('region_id')->constrained('regions')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
