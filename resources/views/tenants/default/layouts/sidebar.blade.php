@@ -53,7 +53,7 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('files.shared.folders') ? 'active' : '' }}"
                             href="{{ route('files.shared.folders') }}"
-                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Compartidos Conmigo</a>
+                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Archivos Compartidos</a>
                     </li>
                 </ul>
             </div>
