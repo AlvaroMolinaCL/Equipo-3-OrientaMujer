@@ -1,13 +1,11 @@
 <section class="bg-white p-4 rounded-3 shadow-sm">
-    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-        <h2 class="h3 mb-0 fw-bold" style="color: #8C2D18;">
-            <i class="bi bi-trash3 me-2"></i>{{ __('Eliminar Cuenta') }}
-        </h2>
-    </div>
+    <h5 class="fw-medium mb-3" style="color: #8C2D18;">
+        <i class="bi bi-trash3 me-2"></i>{{ __('Eliminar Cuenta') }}
+    </h5>
 
-    <div class="p-3 mb-4" style="background-color: #FDF5E5; border-radius: 8px;">
+    <div class="p-3 mb-4 text-center" style="background-color: #FDF5E5; border-radius: 8px;">
         <p class="mb-3" style="color: #8C2D18;">
-            {{ __('Una vez eliminada su cuenta, todos sus recursos y datos se eliminarán permanentemente.') }}
+            {{ __('Una vez eliminada su cuenta, todos sus datos se eliminarán permanentemente.') }}
         </p>
         <div class="text-center">
             <button class="btn fw-medium py-1" data-bs-toggle="modal" data-bs-target="#confirmUserDeletion"
@@ -34,17 +32,29 @@
 
                 <div class="modal-body">
                     <p style="color: #8C2D18;">
-                        {{ __('Esta acción no se puede deshacer. Todos sus datos serán eliminados permanentemente.') }}
+                        {{ __('Esta acción no se puede deshacer. Todos sus datos serán eliminados permanentemente. Para confirmar, ingrese su contraseña.') }}
                     </p>
 
                     <div class="mb-4">
                         <label for="password" class="form-label fw-medium" style="color: #8C2D18;">
-                            {{ __('Ingrese su contraseña para confirmar') }}
+                            <i class="bi bi-lock me-1"></i>{{ __('Contraseña') }}
                         </label>
-                        <input type="password" id="password" name="password" class="form-control border-0 py-2 px-3"
-                            style="background-color: #F5E8D0; border-radius: 8px;" placeholder="{{ __('Contraseña') }}">
+                        <div class="input-group">
+                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                <i class="bi bi-key"></i>
+                            </span>
+                            <input type="password" class="form-control border-start-0"
+                                style="background-color: #FDF5E5;" placeholder="Ingrese su contraseña" id="password"
+                                name="password" required>
+                            <button class="btn" type="button" style="background-color: #F5E8D0; color: #8C2D18;"
+                                onclick="togglePassword('password')">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
                         @error('password', 'userDeletion')
-                            <div class="small mt-2" style="color: #dc3545;">{{ $message }}</div>
+                            <div class="text-danger small mt-2">
+                                <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                            </div>
                         @enderror
                     </div>
                 </div>
@@ -61,4 +71,20 @@
             </form>
         </div>
     </div>
+
+    <script>
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            const icon = field.nextElementSibling.querySelector('i');
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                field.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        }
+    </script>
 </section>

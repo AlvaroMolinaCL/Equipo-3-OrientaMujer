@@ -1,9 +1,7 @@
-<section class="bg-white p-4 rounded-3 shadow-sm mb-4">
-    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-        <h2 class="h3 mb-0 fw-bold" style="color: #8C2D18;">
-            <i class="bi bi-shield-lock me-2"></i>{{ __('Actualizar Contraseña') }}
-        </h2>
-    </div>
+<section class="bg-white p-4 rounded-3 shadow-sm mb-1">
+    <h5 class="fw-medium mb-3" style="color: #8C2D18;">
+        <i class="bi bi-shield-lock me-2"></i>{{ __('Actualizar Contraseña') }}
+    </h5>
 
     <form method="post" action="{{ route('password.update') }}">
         @csrf
@@ -11,42 +9,76 @@
 
         <div class="mb-4">
             <label for="update_password_current_password" class="form-label fw-medium" style="color: #8C2D18;">
-                {{ __('Contraseña actual') }}
+                <i class="bi bi-lock me-1"></i>{{ __('Contraseña Actual') }}
             </label>
-            <input id="update_password_current_password" name="current_password" type="password"
-                class="form-control border-0 py-2 px-3" style="background-color: #F5E8D0; border-radius: 8px;"
-                autocomplete="current-password">
+            <div class="input-group">
+                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                    <i class="bi bi-key"></i>
+                </span>
+                <input type="password" class="form-control border-start-0" style="background-color: #FDF5E5;"
+                    placeholder="Ingrese su contraseña actual" id="update_password_current_password"
+                    name="current_password" autocomplete="current-password">
+                <button class="btn" type="button" style="background-color: #F5E8D0; color: #8C2D18;"
+                    onclick="togglePassword('update_password_current_password')">
+                    <i class="bi bi-eye"></i>
+                </button>
+            </div>
             @error('current_password', 'updatePassword')
-                <div class="small mt-2" style="color: #8C2D18;">{{ $message }}</div>
+                <div class="text-danger small mt-2">
+                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                </div>
             @enderror
         </div>
 
         <div class="mb-4">
             <label for="update_password_password" class="form-label fw-medium" style="color: #8C2D18;">
-                {{ __('Nueva contraseña') }}
+                <i class="bi bi-lock me-1"></i>{{ __('Nueva Contraseña') }}
             </label>
-            <input id="update_password_password" name="password" type="password" class="form-control border-0 py-2 px-3"
-                style="background-color: #F5E8D0; border-radius: 8px;" autocomplete="new-password">
+            <div class="input-group">
+                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                    <i class="bi bi-key"></i>
+                </span>
+                <input type="password" class="form-control border-start-0" style="background-color: #FDF5E5;"
+                    placeholder="Ingrese una contraseña segura" id="update_password_password" name="password"
+                    autocomplete="new-password">
+                <button class="btn" type="button" style="background-color: #F5E8D0; color: #8C2D18;"
+                    onclick="togglePassword('update_password_password')">
+                    <i class="bi bi-eye"></i>
+                </button>
+            </div>
             @error('password', 'updatePassword')
-                <div class="small mt-2" style="color: #8C2D18;">{{ $message }}</div>
+                <div class="text-danger small mt-2">
+                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                </div>
             @enderror
         </div>
 
         <div class="mb-4">
             <label for="update_password_password_confirmation" class="form-label fw-medium" style="color: #8C2D18;">
-                {{ __('Confirme la nueva contraseña') }}
+                <i class="bi bi-lock me-1"></i>{{ __('Confirmar Nueva Contraseña') }}
             </label>
-            <input id="update_password_password_confirmation" name="password_confirmation" type="password"
-                class="form-control border-0 py-2 px-3" style="background-color: #F5E8D0; border-radius: 8px;"
-                autocomplete="new-password">
+            <div class="input-group">
+                <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                    <i class="bi bi-key-fill"></i>
+                </span>
+                <input type="password" class="form-control border-start-0" style="background-color: #FDF5E5;"
+                    placeholder="Confirme la contraseña ingresada anteriormente"
+                    id="update_password_password_confirmation" name="password_confirmation" autocomplete="new-password">
+                <button class="btn" type="button" style="background-color: #F5E8D0; color: #8C2D18;"
+                    onclick="togglePassword('update_password_password_confirmation')">
+                    <i class="bi bi-eye"></i>
+                </button>
+            </div>
             @error('password_confirmation', 'updatePassword')
-                <div class="small mt-2" style="color: #8C2D18;">{{ $message }}</div>
+                <div class="text-danger small mt-2">
+                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                </div>
             @enderror
         </div>
 
         <div class="mt-4 pt-3 border-top text-center">
             <button type="submit" class="btn fw-medium py-1"
-                style="background-color: #8C2D18; color: white; width: 210px;">
+                style="background-color: #8C2D18; color: white; width: 250px;">
                 <i class="bi bi-save me-2"></i>{{ __('Actualizar Contraseña') }}
             </button>
 
@@ -58,4 +90,20 @@
             @endif
         </div>
     </form>
+
+    <script>
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            const icon = field.nextElementSibling.querySelector('i');
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                field.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        }
+    </script>
 </section>

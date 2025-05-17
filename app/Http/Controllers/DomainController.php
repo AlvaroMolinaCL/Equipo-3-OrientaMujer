@@ -23,12 +23,12 @@ class DomainController extends Controller
     public function store(Request $request)
     {
         $validationData = $request->validate([
-            'domain' => 'required|string|max:255|unique:domains,domain',
+            'domain_name' => 'required|string|max:255|unique:domains,domain',
             'tenant' => 'required|string|max:255',
         ]);
 
         Domain::create([
-            'domain' => $validationData['domain'],
+            'domain' => $validationData['domain_name'],
             'tenant_id' => $request->input('tenant'),
         ]);
 
@@ -51,12 +51,12 @@ class DomainController extends Controller
     public function update(Request $request, Domain $domain)
     {
         $validationData = $request->validate([
-            'domain' => 'required|string|max:255',
+            'domain_name' => 'required|string|max:255',
             'tenant' => 'required|string|max:255',
         ]);
 
         $domain->update([
-            'domain' => $validationData['domain'],
+            'domain' => $validationData['domain_name'],
             'tenant_id' => $request->input('tenant'),
         ]);
 

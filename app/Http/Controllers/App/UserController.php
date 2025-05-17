@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\App;
 
+use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
-use App\Models\User;
-use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
-
 
 class UserController extends Controller
 {
@@ -22,40 +21,28 @@ class UserController extends Controller
         return view('users.index', ['users' => $users]);
     }
 
-    public function create()
+    public function create(User $user)
     {
+        $roles = Role::get();
 
         if (tenant()) {
-            return view(tenantView('create-users'));
+            return view(tenantView('create-users'), ['user' => $user, 'roles' => $roles]);
         }
 
-        return view('users.create');
+        return view('users.create', ['user' => $user, 'roles' => $roles]);
     }
 
     public function store(Request $request)
     {
-
         $validateData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'roles' => 'required|array'
         ]);
 
         $user = User::create($validateData);
-
-        // Detecta si estamos en un tenant
-        if (tenancy()->initialized) {
-            // Contar usuarios existentes en este tenant
-            $userCount = User::count();
-
-            if ($userCount === 1) {
-                $user->assignRole('Admin');
-            } else {
-                $user->assignRole('Usuario');
-            }
-        } else {
-            $user->assignRole('Super Admin');
-        }
+        $user->roles()->sync($request->input('roles'));
 
         return redirect()->route('users.index');
     }
@@ -70,8 +57,6 @@ class UserController extends Controller
 
         return view('users.edit', ['user' => $user, 'roles' => $roles]);
     }
-
-
 
     public function update(Request $request, User $user)
     {

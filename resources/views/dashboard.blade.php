@@ -2,13 +2,13 @@
 
 @section('content')
     <div class="container-fluid">
-        <!-- Encabezado -->
+        {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h2 mb-0" style="color: #8C2D18;">{{ __('Panel de Control') }}</h2>
+            <h2 class="h2 mb-0 fw-bold" style="color: #8C2D18;">{{ __('Panel de Control') }}</h2>
         </div>
 
-        <!-- Métricas -->
-        <div class="row mb-4">
+        {{-- Métricas --}}
+        <div class="row mb-4 justify-content-center">
             <div class="col-xl-3 col-md-6 mb-3">
                 <div class="card text-white h-100" style="background-color: #BF8A49;">
                     <div class="card-body">
@@ -66,7 +66,7 @@
             </div>
         </div>
 
-        <!-- Tabla de Usuarios -->
+        {{-- Tabla de Usuarios --}}
         <div class="card mb-4 border-0 shadow-sm">
             <div class="card-header d-flex justify-content-between align-items-center"
                 style="background-color: #8C2D18; color: white;">
@@ -99,7 +99,7 @@
             </div>
         </div>
 
-        <!-- Tabla de Tenants -->
+        {{-- Tabla de Tenants --}}
         <div class="card mb-4 border-0 shadow-sm">
             <div class="card-header d-flex justify-content-between align-items-center"
                 style="background-color: #8C2D18; color: white;">

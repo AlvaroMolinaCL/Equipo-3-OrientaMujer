@@ -2,32 +2,31 @@
 
 namespace App\Http\Controllers\App;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-use App\Http\Controllers\Controller;
 
 class ProfileController extends Controller
 {
     /**
      * Display the user's profile form.
      */
-public function edit(Request $request): View
-{
-    if (tenant()) {
-        return view(tenantView('profile.edit'), [
-            'user' => $request->user(),
-        ]);
-    } else {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+    public function edit(Request $request): View
+    {
+        if (tenant()) {
+            return view(tenantView('profile.edit'), [
+                'user' => $request->user(),
+            ]);
+        } else {
+            return view('profile.edit', [
+                'user' => $request->user(),
+            ]);
+        }
     }
-}
-
 
     /**
      * Update the user's profile information.
