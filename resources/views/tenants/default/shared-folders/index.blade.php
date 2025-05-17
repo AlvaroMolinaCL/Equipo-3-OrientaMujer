@@ -60,7 +60,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <span class="badge bg-light text-dark rounded-pill">
+                                        <span class="badge rounded-pill" style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                                             <i class="bi bi-person-check me-1"></i> {{ $user->email }}
                                         </span>
                                         <span class="badge rounded-pill"
@@ -86,10 +86,6 @@
                             <h4 class="mb-3" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">No tienes archivos
                                 compartidos</h4>
                             <p class="text-muted mb-4">Cuando otros usuarios compartan archivos contigo, aparecerán aquí.</p>
-                            <a href="{{ route('dashboard') }}" class="btn btn-sm"
-                                style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
-                                <i class="bi bi-arrow-left me-1"></i> Volver al inicio
-                            </a>
                         </div>
                     </div>
                 </div>
