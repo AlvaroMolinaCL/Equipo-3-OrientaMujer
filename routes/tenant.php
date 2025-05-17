@@ -2,17 +2,15 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\App\ProfileController;
+use App\Http\Controllers\App\UserController;
+use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\AppearanceController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
-use App\Http\Controllers\App\UserController;
-use App\Http\Controllers\App\ProfileController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\AppearanceController;
-use App\Http\Controllers\FileController;
-
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -31,14 +29,17 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
-
+    // Sistema de Agendamiento
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/agenda', [AgendaController::class, 'index'])->name('tenant.agenda.index');
+        Route::post('/agenda', [AgendaController::class, 'store'])->name('tenant.agenda.store');
+    });
 
     // Rutas para acciones de archivos
     Route::resource('files', FileController::class);
     Route::get('files/{file}/download', [FileController::class, 'download'])->name('files.download');
     Route::get('/files/{file}/preview', [FileController::class, 'preview'])->name('files.preview');
     Route::delete('/files/{file}', [FileController::class, 'destroy'])->name('files.destroy');
-
 
     // Rutas para compartir archivos
     Route::middleware(['role:Admin'])->group(function () {
@@ -48,11 +49,6 @@ Route::middleware([
     // Rutas para archivos compartidos
     Route::get('/shared-folders', [FileController::class, 'sharedFolders'])->name('files.shared.folders');
     Route::get('/shared-folders/{user}', [FileController::class, 'sharedByUser'])->name('files.shared.byUser');
-    
-
-
-
-
 
     Route::get('/appearance', [AppearanceController::class, 'index'])->name('appearance');
     Route::post('/appearance', [AppearanceController::class, 'update'])->name('appearance.update');

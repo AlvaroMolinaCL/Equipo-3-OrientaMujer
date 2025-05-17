@@ -10,13 +10,34 @@
 @section('content')
     <section class="py-5" style="margin-top: 80px;">
         <div class="container">
-            <h1 class="mb-4" style="font-family: {{ tenantSetting('heading_font', '') }}">{{ tenantPageName('agenda', 'Agenda') }}</h1>
-        </div>
+            <h1 class="mb-4" style="font-family: {{ tenantSetting('heading_font', '') }}">
+                {{ tenantPageName('agenda', 'Agenda') }}
+            </h1>
         
-        <div class="container">
-            <p class="mb-5">
-                En construcción.
-            </p>
+            @if(session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+        
+            <form method="POST" action="{{ route('tenant.agenda.store') }}" class="mb-5">
+                @csrf
+            
+                <div class="mb-3">
+                    <label for="date" class="form-label">Fecha:</label>
+                    <input type="date" id="date" name="date" class="form-control" required min="{{ now()->toDateString() }}">
+                    @error('date') <div class="text-danger">{{ $message }}</div> @enderror
+                </div>
+            
+                <div class="mb-3">
+                    <label for="time" class="form-label">Hora:</label>
+                    <input type="time" id="time" name="time" class="form-control" required>
+                    @error('time') <div class="text-danger">{{ $message }}</div> @enderror
+                </div>
+            
+                <button type="submit" class="btn text-white"
+                    style="background-color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }};">
+                    <i class="bi bi-box-arrow-in-right me-1"></i> Agendar cita
+                </button>
+            </form>
         </div>
     </section>
 
