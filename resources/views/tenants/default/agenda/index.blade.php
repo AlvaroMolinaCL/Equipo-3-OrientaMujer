@@ -35,7 +35,7 @@
             
                 <button type="submit" class="btn text-white"
                     style="background-color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }};">
-                    <i class="bi bi-box-arrow-in-right me-1"></i> Agendar cita
+                    <i class="bi bi-box-arrow-in-right me-1"></i> Agendar Cita
                 </button>
             </form>
         </div>

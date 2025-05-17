@@ -9,8 +9,33 @@ use Illuminate\Support\Facades\Auth;
 
 class AgendaController extends Controller
 {
+    public function showQuestionnaire()
+    {
+        return view('tenants.default.agenda.questionnaire');
+    }
+
+    public function processQuestionnaire(Request $request)
+    {
+        $validated = $request->validate([
+            'q1' => 'required|in:yes,no',
+            'q2' => 'required|in:yes,no',
+            'q3' => 'required|in:yes,no',
+        ]);
+
+        if ($validated['q1'] === 'yes' && $validated['q2'] === 'yes' && $validated['q3'] === 'no') {
+            session(['cuestionario_aprobado' => true]);
+            return redirect()->route('tenant.agenda.index');
+        }
+
+        return back()->with('error', 'No cumples con los requisitos para agendar una cita en este momento.');
+    }
+
     public function index()
     {
+        if (!session('cuestionario_aprobado')) {
+            return redirect()->route('tenant.agenda.questionnaire');
+        }
+
         return view('tenants.default.agenda.index');
     }
 

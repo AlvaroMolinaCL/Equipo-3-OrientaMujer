@@ -31,6 +31,9 @@ Route::middleware([
 ])->group(function () {
     // Sistema de Agendamiento
     Route::middleware(['auth'])->group(function () {
+        Route::get('/agenda/cuestionario', [AgendaController::class, 'showQuestionnaire'])->name('tenant.agenda.questionnaire');
+        Route::post('/agenda/cuestionario', [AgendaController::class, 'processQuestionnaire'])->name('tenant.agenda.questionnaire.process');
+
         Route::get('/agenda', [AgendaController::class, 'index'])->name('tenant.agenda.index');
         Route::post('/agenda', [AgendaController::class, 'store'])->name('tenant.agenda.store');
     });
