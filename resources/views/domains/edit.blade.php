@@ -26,18 +26,18 @@
 
                     {{-- Dominio --}}
                     <div class="mb-4">
-                        <label for="domain" class="form-label fw-medium" style="color: #8C2D18;">
+                        <label for="domain_name" class="form-label fw-medium" style="color: #8C2D18;">
                             <i class="bi bi-globe me-1"></i>Dominio
                         </label>
                         <div class="input-group">
                             <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
                                 <i class="bi bi-fonts"></i>
                             </span>
-                            <input id="domain" type="text" class="form-control border-start-0"
-                                style="background-color: #FDF5E5;" name="domain"
-                                value="{{ old('domain', $domain->domain) }}" required autofocus>
+                            <input id="domain_name" type="text" class="form-control border-start-0"
+                                style="background-color: #FDF5E5;" name="domain_name"
+                                value="{{ old('domain_name', $domain->domain) }}" required autofocus>
                         </div>
-                        @error('domain')
+                        @error('domain_name')
                             <div class="text-danger small mt-2">
                                 <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
                             </div>
