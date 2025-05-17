@@ -22,5 +22,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         User::observe(UserObserver::class);
+
+        if (tenancy()->initialized) {
+            config(['session.cookie' => 'tenant_' . tenant('id')]);
+        }
     }
 }

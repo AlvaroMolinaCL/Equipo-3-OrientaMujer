@@ -89,10 +89,5 @@ Route::middleware([
         return view(tenantView('about'));
     })->middleware('check.tenant.page.enabled:about');
 
-    // Página para Agendar Asesorías
-    Route::get('/agenda', function () {
-        return view(tenantView('agenda.index'));
-    })->middleware('check.tenant.page.enabled:agenda');
-
     require __DIR__ . '/tenant-auth.php';
 });
