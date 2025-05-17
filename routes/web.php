@@ -13,6 +13,11 @@ use App\Http\Controllers\Admin\TokenController;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
 */
 
 // Página principal
@@ -52,12 +57,6 @@ Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
     // Gestión de Páginas por Tenant
     Route::get('tenants/{tenant}/pages/edit', [TenantPageController::class, 'edit'])->name('tenants.pages.edit');
     Route::put('tenants/{tenant}/pages/update', [TenantPageController::class, 'update'])->name('tenants.pages.update');
-
-    // Permisos por Tenant
-    // Route::get('/tenants/{tenant}/seed-permissions', [TenantController::class, 'seedPermissions'])->name('tenants.seedPermissions');
-    // Route::get('/tenants/{tenant}/permissions/edit', [TenantController::class, 'editPermissions'])->name('tenants.permissions.edit');
-    // Route::post('/tenants/{tenant}/permissions/update', [TenantController::class, 'updatePermissions'])->name('tenants.permissions.update');
 });
 
-// Autenticación (login, register, etc.)
 require __DIR__ . '/auth.php';
