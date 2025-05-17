@@ -10,7 +10,9 @@
     <div class="container-fluid">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h3 fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Gestor de Archivos
+            <h2 class="h3 fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+            <span><i class="bi bi-file-text me-2"></i>    
+            Mis archivos
             </h2>
             <a href="{{ route('dashboard') }}" class="btn btn-sm" style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
               color: {{ tenantSetting('text_color_1', '#8C2D18') }};
@@ -32,8 +34,6 @@
                             <tr>
                                 <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                                     Nombre</th>
-                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
-                                    Subido por</th>
                                 <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Fecha
                                 </th>
                                 <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
@@ -44,7 +44,6 @@
                             @foreach($files as $file)
                                 <tr>
                                     <td>{{ $file->name }}</td>
-                                    <td>{{ $file->uploader->name ?? 'Desconocido' }}</td>
                                     <td>{{ $file->created_at->format('d/m/Y H:i') }}</td>
                                     <td>
                                         <div class="d-flex flex-wrap justify-content-center gap-2">

@@ -14,19 +14,11 @@ class FileController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
-
-        if ($user->hasRole('Admin')) {
-            $files = File::all();
-        } else {
-            $files = File::where('uploaded_by', $user->id)
-                ->orWhereJsonContains('shared_with', (string) $user->id)
-                ->get();
-        }
+        $user = auth()->user();
+        $files = File::where('uploaded_by', $user->id)->get();
 
         return view('tenants.default.file-index', compact('files'));
     }
-
 
     public function create()
     {
@@ -43,10 +35,12 @@ class FileController extends Controller
             'name' => $request->file('file')->getClientOriginalName(),
             'path' => $path,
             'uploaded_by' => $user->id,
+            'shared_with' => [$user->hasRole('Admin') ? null : 1],
         ]);
 
         return redirect()->route('files.index')->with('success', 'Archivo subido con éxito.');
     }
+
 
     public function download(File $file)
     {
@@ -69,9 +63,9 @@ class FileController extends Controller
         $request->validate(['user_ids' => 'nullable|array']);
 
         $currentlyShared = $file->shared_with ?: [];
-        $selectedUserIds = $request->user_ids ?: [];
+        $selectedUserIds = array_map('intval', $request->user_ids ?: []);
         $newSharedWith = array_filter($currentlyShared, function ($id) use ($selectedUserIds) {
-            return in_array($id, $selectedUserIds);
+            return in_array((int) $id, $selectedUserIds);
         });
         foreach ($selectedUserIds as $id) {
             if (!in_array($id, $newSharedWith)) {
@@ -117,22 +111,82 @@ class FileController extends Controller
         abort(403, 'No tienes permiso para eliminar este archivo.');
     }
 
-    public function sharedFolders()
-    {
-        // Mostrar todos los usuarios "normales" que han subido archivos, sin depender de shared_with
-        $users = User::role('Usuario')
-            ->whereHas('files') // Solo los que tienen archivos subidos
-            ->get();
+public function sharedFolders(Request $request)
+{
+    $user = auth()->user();
+    $usuarioLogueadoId = $user->id;
+    $search = $request->input('search');
+
+    if ($user->hasRole('Admin')) {
+        $users = User::where('id', '!=', $usuarioLogueadoId)
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', '%' . $search . '%')
+                      ->orWhere('email', 'like', '%' . $search . '%');
+                });
+            })
+            ->get()
+            ->map(function ($user) use ($usuarioLogueadoId) {
+                $user->sharedFilesCount = File::whereJsonContains('shared_with', $usuarioLogueadoId)
+                    ->where('uploaded_by', $user->id)
+                    ->count();
+                return $user;
+            });
 
         return view('tenants.default.shared-folders.index', compact('users'));
     }
 
+    // Si es un usuario no Admin
+    $filesSharedWithUser = File::whereJsonContains('shared_with', $usuarioLogueadoId)->get();
+
+    $adminIds = $filesSharedWithUser
+        ->pluck('uploaded_by')
+        ->unique()
+        ->filter(function ($id) {
+            return User::find($id)?->hasRole('Admin');
+        });
+
+    $usersQuery = User::whereIn('id', $adminIds);
+
+    if ($search) {
+        $usersQuery->where(function ($q) use ($search) {
+            $q->where('name', 'like', '%' . $search . '%')
+              ->orWhere('email', 'like', '%' . $search . '%');
+        });
+    }
+
+    $users = $usersQuery->get()->map(function ($user) use ($usuarioLogueadoId) {
+        $user->sharedFilesCount = File::whereJsonContains('shared_with', $usuarioLogueadoId)
+            ->where('uploaded_by', $user->id)
+            ->count();
+        return $user;
+    });
+
+    return view('tenants.default.shared-folders.index', compact('users'));
+}
+
+
+
+
+
+
     public function sharedByUser(User $user)
     {
-        $files = File::where('uploaded_by', $user->id)->get();
+        $authUser = auth()->user();
+
+        if ($authUser->hasRole('Admin')) {
+            // Admin ve todos los archivos del usuario
+            $files = File::where('uploaded_by', $user->id)->get();
+        } else {
+            // Usuario solo ve los archivos compartidos con él
+            $files = File::where('uploaded_by', $user->id)
+                ->whereJsonContains('shared_with', $authUser->id)
+                ->get();
+        }
 
         return view('tenants.default.shared-folders.user-files', compact('files', 'user'));
     }
+
 
 
 

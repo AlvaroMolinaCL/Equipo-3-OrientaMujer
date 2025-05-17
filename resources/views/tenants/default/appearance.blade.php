@@ -97,7 +97,8 @@
     @endphp
         <div class="d-flex justify-content-between align-items-center mb-1">
             <h2 class="h2 mb-0 fw-bold" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
-                {{ __('Personalización de Apariencia') }}
+                <i class="bi bi-palette me-2"></i>
+                {{ __('Editar Apariencia') }}
             </h2>
                         <a href="{{ route('dashboard') }}" class="btn btn-sm" style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
               color: {{ tenantSetting('text_color_1', '#8C2D18') }};
