@@ -18,11 +18,11 @@ php artisan optimize:clear
 # Ejecutar migraciones (solo si es necesario)
 echo "Ejecutando migraciones..."
 php artisan migrate --force
+php artisan tenants:migrate --force
 
 # Instalar dependencias de Node.js y compilar assets
 echo "Instalando dependencias de Node.js..."
 /home/tis2/.nvm/versions/node/v20.19.1/bin/npm install
-git restore .
 echo "Compilando assets..."
 /home/tis2/.nvm/versions/node/v20.19.1/bin/npm run build
 
