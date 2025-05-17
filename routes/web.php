@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Página principal
+// Página Principal
 Route::get('/', function () {
     return view('index');
 })->name('index');
@@ -43,7 +43,10 @@ Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
     Route::delete('tenants/{tenant}', [TenantController::class, 'destroy'])->name('tenants.destroy');
     Route::get('tenants/{tenant}/edit', [TenantController::class, 'edit'])->name('tenants.edit');
     Route::put('tenants/{tenant}', [TenantController::class, 'update'])->name('tenants.update');
-    Route::get('/admin/token', [TokenController::class, 'show'])->name('admin.token');
+
+    // Gestión de Páginas por Tenant
+    Route::get('tenants/{tenant}/pages/edit', [TenantPageController::class, 'edit'])->name('tenants.pages.edit');
+    Route::put('tenants/{tenant}/pages/update', [TenantPageController::class, 'update'])->name('tenants.pages.update');
 
     // Gestión de Dominios
     Route::resource('domains', DomainController::class);
@@ -54,9 +57,8 @@ Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
     // Gestión de Usuarios
     Route::resource('users', UserController::class);
 
-    // Gestión de Páginas por Tenant
-    Route::get('tenants/{tenant}/pages/edit', [TenantPageController::class, 'edit'])->name('tenants.pages.edit');
-    Route::put('tenants/{tenant}/pages/update', [TenantPageController::class, 'update'])->name('tenants.pages.update');
+    // Token de Acceso
+    Route::get('/admin/token', [TokenController::class, 'show'])->name('admin.token');
 });
 
 require __DIR__ . '/auth.php';
