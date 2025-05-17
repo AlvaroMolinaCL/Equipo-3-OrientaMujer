@@ -16,10 +16,9 @@
             </a>
         </div>
 
-        {{-- Card principal con fondo #FDF5E5 --}}
+        {{-- Formulario --}}
         <div class="card shadow border-0" style="background-color: #FDF5E5;">
             <div class="card-body p-4">
-                {{-- Formulario interno con fondo blanco y sombra --}}
                 <form method="POST" action="{{ route('users.store') }}" class="bg-white p-4 rounded-3 shadow-sm">
                     @csrf
 
@@ -110,7 +109,35 @@
                         </div>
                     </div>
 
-                    {{-- Botón de submit --}}
+                    {{-- Roles --}}
+                    <div class="mb-4">
+                        <label for="roles" class="form-label fw-medium" style="color: #8C2D18;">
+                            <i class="bi bi-person-gear me-1"></i>Rol
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                <i class="bi bi-shield-check"></i>
+                            </span>
+                            <select name="roles[]" id="roles" class="form-select border-start-0"
+                                style="background-color: #FDF5E5;">
+                                <option value="role_default" selected disabled>
+                                    Seleccione un rol
+                                </option>
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}">
+                                        {{ $role->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @error('roles')
+                            <div class="text-danger small mt-2">
+                                <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+                    {{-- Botón de Guardar --}}
                     <div class="mt-4 pt-3 border-top text-center">
                         <button type="submit" class="btn fw-medium py-1"
                             style="background-color: #8C2D18; color: white; width: 200px;">
