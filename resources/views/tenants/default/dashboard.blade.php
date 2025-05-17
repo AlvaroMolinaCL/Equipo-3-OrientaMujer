@@ -24,12 +24,12 @@
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
                                 <h6 class="card-subtitle mb-2"
-                                    style="color: {{ tenantSetting('text_color_2', '#8C2D18') }};">Usuarios Registrados</h6>
-                                <h3 class="card-title" style="color: {{ tenantSetting('text_color_2', '#8C2D18') }};">
+                                    style="color: {{ tenantSetting('navbar_text_color_1', '#8C2D18') }};">Usuarios Registrados</h6>
+                                <h3 class="card-title" style="color: {{ tenantSetting('navbar_text_color_1', '#8C2D18') }};">
                                     {{ $user_count }}</h3>
                             </div>
                             <i class="bi bi-people fs-1 opacity-50"
-                                style="color: {{ tenantSetting('text_color_2', '#8C2D18') }};"></i>
+                                style="color: {{ tenantSetting('navbar_text_color_1', '#8C2D18') }};"></i>
                         </div>
                     </div>
                 </div>
@@ -41,13 +41,13 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
-                                <h6 class="card-subtitle mb-2 text-light"
-                                    style="color: {{ tenantSetting('text_color_2', '#8C2D18') }};">Nuevos Hoy</h6>
-                                <h3 class="card-title" style="color: {{ tenantSetting('text_color_2', '#8C2D18') }};">
+                                <h6 class="card-subtitle mb-2"
+                                    style="color: {{ tenantSetting('navbar_text_color_1', '#8C2D18') }};">Nuevos Hoy</h6>
+                                <h3 class="card-title" style="color: {{ tenantSetting('navbar_text_color_1', '#8C2D18') }};">
                                     {{ $user_today }}</h3>
                             </div>
                             <i class="bi bi-person-plus fs-1 opacity-50"
-                                style="color: {{ tenantSetting('text_color_2', '#8C2D18') }};"></i>
+                                style="color: {{ tenantSetting('navbar_text_color_1', '#8C2D18') }};"></i>
                         </div>
                     </div>
                 </div>
