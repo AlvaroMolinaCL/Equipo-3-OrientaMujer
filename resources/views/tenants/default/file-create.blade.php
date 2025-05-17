@@ -10,11 +10,13 @@
     <div class="container">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h3 fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Subir Nuevo Archivo
+            <h2 class="h3 fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                <i class="bi bi-file-earmark-plus me-2"></i>
+                Subir Nuevo Archivo
             </h2>
             <a href="{{ route('dashboard') }}" class="btn btn-sm" style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
-                  color: {{ tenantSetting('text_color_1', '#8C2D18') }};
-                  border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
+                      color: {{ tenantSetting('text_color_1', '#8C2D18') }};
+                      border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
                 <i class="bi bi-arrow-left me-1"></i> Volver
             </a>
         </div>

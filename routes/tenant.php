@@ -45,11 +45,11 @@ Route::middleware([
         Route::post('files/{file}/share', [FileController::class, 'share'])->name('files.share');
     });
 
-    // Rutas para ver archivos compartidos
-    Route::middleware(['role:Admin'])->group(function () {
-        Route::get('/shared-folders', [FileController::class, 'sharedFolders'])->name('files.shared.folders');
-        Route::get('/shared-folders/{user}', [FileController::class, 'sharedByUser'])->name('files.shared.byUser');
-    });
+    // Rutas para archivos compartidos
+    Route::get('/shared-folders', [FileController::class, 'sharedFolders'])->name('files.shared.folders');
+    Route::get('/shared-folders/{user}', [FileController::class, 'sharedByUser'])->name('files.shared.byUser');
+    
+
 
 
 
