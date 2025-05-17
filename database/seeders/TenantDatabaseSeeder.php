@@ -18,6 +18,11 @@ class TenantDatabaseSeeder extends Seeder
         foreach ($tenants as $tenant) {
             tenancy()->initialize($tenant);
 
+            $this->call([
+                GenreSeeder::class,
+                ChileanTableSeeder::class,
+            ]);
+
             (new TenantInitialSetupSeeder(
                 name: $tenant->name,
                 email: $tenant->email,
