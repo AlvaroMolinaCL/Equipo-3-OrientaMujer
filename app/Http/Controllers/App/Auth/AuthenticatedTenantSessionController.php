@@ -4,7 +4,6 @@ namespace App\Http\Controllers\App\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,10 +25,20 @@ class AuthenticatedTenantSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $user = Auth::user();
+
+        if ($user->hasRole('Admin')) {
+            return redirect()->route('dashboard');
+        }
+
+        if ($user->hasRole('Usuario')) {
+            return redirect()->to('/'); 
+        }
+
+        Auth::logout();
+        return redirect()->route('login')->with('error', 'No tienes un rol asignado.');
     }
 
     /**
