@@ -1,6 +1,6 @@
 @extends('tenants.default.layouts.panel')
 
-@section('title', 'Mi Agenda')
+@section('title', 'Disponibilidad')
 
 @section('sidebar')
     @include('tenants.default.layouts.sidebar')
@@ -54,8 +54,16 @@
                         @enderror
                     </div>
 
+                    {{-- Botón de Agregar Bloque Horario --}}
+                    <div class="text-center mb-3">
+                        <button type="button" id="add-slot" class="btn fw-medium py-1"
+                            style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }}; color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }}; width: 250px;">
+                            <i class="bi bi-plus-circle me-2"></i>Agregar Bloque Horario</button><br>
+                    </div>
+
                     <div id="slots-container">
                         <div class="slot-row row align-items-end g-2 mb-3">
+                            {{-- Hora Inicio --}}
                             <div class="col-md-4">
                                 <label for="start-time" class="form-label fw-medium"
                                     style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
@@ -76,6 +84,8 @@
                                     </div>
                                 @enderror
                             </div>
+
+                            {{-- Hora Fin --}}
                             <div class="col-md-4">
                                 <label for="end-time" class="form-label fw-medium"
                                     style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
@@ -96,6 +106,8 @@
                                     </div>
                                 @enderror
                             </div>
+
+                            {{-- Máx. Reservas --}}
                             <div class="col-md-3">
                                 <label for="max-bookings" class="form-label fw-medium"
                                     style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
@@ -118,17 +130,12 @@
                                 @enderror
                             </div>
                             <div class="col-md-1">
-                                <button type="button" class="btn btn-danger btn-sm remove-slot d-none">✖</button>
+                                <button type="button" class="btn btn-danger btn-sm remove-slot d-none"
+                                    style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }}; color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }};">✖</button>
                             </div>
                         </div>
                     </div>
 
-                    {{-- Botón de Agregar Bloque Horario --}}
-                    <div class="text-center">
-                        <button type="button" id="add-slot" class="btn fw-medium py-1"
-                            style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }}; color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }}; width: 250px;">
-                            <i class="bi bi-plus-circle me-2"></i>Agregar Bloque Horario</button><br>
-                    </div>
                     {{-- Botón de Guardar --}}
                     <div class="mt-4 pt-3 border-top text-center">
                         <button type="submit" class="btn fw-medium py-1"
@@ -154,7 +161,7 @@
                                     <div class="input-group">
                                         <span class="input-group-text"
                                             style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
-                                            <i class="bi bi-calendar3"></i>
+                                            <i class="bi bi-clock-history"></i>
                                         </span>
                                         <input id="start-time" type="time" class="form-control border-start-0"
                                             style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};"
