@@ -3,7 +3,7 @@
         <img src="{{ asset('images/abogared3.png') }}" alt="Logo" style="height: 60px;">
     </a>
 
-    <ul class="navbar-nav flex-column w-100">
+    <ul class="navbar-nav flex-column w-100" id="sidebarAccordion">
         <li class="nav-item">
             <a class="nav-link {{ Route::is('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}"
                 style="color: white">
@@ -18,7 +18,7 @@
                 <span><i class="bi bi-building me-2"></i> Tenants</span>
                 <i class="bi bi-chevron-down small"></i>
             </a>
-            <div class="collapse ps-3" id="tenantsMenu">
+            <div class="collapse ps-3 {{ Route::is('tenants.*') ? 'show' : '' }}" id="tenantsMenu" data-bs-parent="#sidebarAccordion">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('tenants.index') ? 'active' : '' }}"
@@ -39,7 +39,7 @@
                 <span><i class="bi bi-globe-americas me-2"></i> Dominios</span>
                 <i class="bi bi-chevron-down small"></i>
             </a>
-            <div class="collapse ps-3" id="domainsMenu">
+            <div class="collapse ps-3 {{ Route::is('domains.*') ? 'show' : '' }}" id="domainsMenu" data-bs-parent="#sidebarAccordion">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('domains.index') ? 'active' : '' }}"
@@ -60,7 +60,7 @@
                 <span><i class="bi bi-people me-2"></i> Usuarios</span>
                 <i class="bi bi-chevron-down small"></i>
             </a>
-            <div class="collapse ps-3" id="usersMenu">
+            <div class="collapse ps-3 {{ Route::is('users.*') ? 'show' : '' }}" id="usersMenu" data-bs-parent="#sidebarAccordion">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('users.index') ? 'active' : '' }}"

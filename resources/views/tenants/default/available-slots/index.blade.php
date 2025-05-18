@@ -1,6 +1,6 @@
 @extends('tenants.default.layouts.panel')
 
-@section('title', 'Mi Agenda')
+@section('title', 'Disponibilidad')
 
 @section('sidebar')
     @include('tenants.default.layouts.sidebar')
@@ -10,7 +10,7 @@
     <div class="container-fluid">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h3 fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">{{ __('Mi Agenda') }}
+            <h2 class="h3 fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">{{ __('Disponibilidad') }}
             </h2>
             <a href="{{ route('dashboard') }}" class="btn btn-sm"
                 style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
@@ -25,7 +25,7 @@
             <div class="card-header d-flex justify-content-between align-items-center"
                 style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }};
                                color: {{ tenantSetting('button_banner_text_color', 'white') }};">
-                <h5 class="mb-0">Listado de Horarios</h5>
+                <h5 class="mb-0">Listado de Bloques Horarios</h5>
                 <a href="{{ route('available-slots.create') }}" class="btn btn-sm"
                     style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};
                                    color: {{ tenantSetting('text_color_1', '#8C2D18') }};">

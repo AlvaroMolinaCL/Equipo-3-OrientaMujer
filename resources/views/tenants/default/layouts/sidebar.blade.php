@@ -13,7 +13,7 @@
             style="max-width: 100%; height: 60px" class="img-fluid mx-auto d-block">
     </a>
 
-    <ul class="navbar-nav flex-column w-100">
+    <ul class="navbar-nav flex-column w-100" id="sidebarAccordion">
         <!-- Panel de Control -->
         <li class="nav-item">
             <a class="nav-link {{ Route::is('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}"
@@ -33,11 +33,12 @@
         <!-- Mi Agenda -->
         <li class="nav-item">
             <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-                href="#availableSlotsMenu" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
+                href="#availableSlotsMenu" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};"
+                aria-expanded="false">
                 <span><i class="bi bi-calendar me-2"></i> Mi Agenda</span>
                 <i class="bi bi-chevron-down small"></i>
             </a>
-            <div class="collapse ps-3" id="availableSlotsMenu">
+            <div class="collapse ps-3 {{ Route::is('available-slots.*') ? 'show' : '' }}" id="availableSlotsMenu" data-bs-parent="#sidebarAccordion">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('available-slots.index') ? 'active' : '' }}"
@@ -47,7 +48,8 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('available-slots.create') ? 'active' : '' }}"
                             href="{{ route('available-slots.create') }}"
-                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Agregar Disponibilidad</a>
+                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Agregar
+                            Disponibilidad</a>
                     </li>
                 </ul>
             </div>
@@ -56,11 +58,12 @@
         <!-- Archivos -->
         <li class="nav-item">
             <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-                href="#filesMenu" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
+                href="#filesMenu" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};"
+                aria-expanded="false">
                 <span><i class="bi bi-file-text me-2"></i> Archivos</span>
                 <i class="bi bi-chevron-down small"></i>
             </a>
-            <div class="collapse ps-3" id="filesMenu">
+            <div class="collapse ps-3 {{ Route::is('files.*') ? 'show' : '' }}" id="filesMenu" data-bs-parent="#sidebarAccordion">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('files.index') ? 'active' : '' }}"
@@ -85,11 +88,12 @@
         <!-- Usuarios -->
         <li class="nav-item">
             <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-                href="#usersMenu" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
+                href="#usersMenu" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};"
+                aria-expanded="false">
                 <span><i class="bi bi-people me-2"></i> Usuarios</span>
                 <i class="bi bi-chevron-down small"></i>
             </a>
-            <div class="collapse ps-3" id="usersMenu">
+            <div class="collapse ps-3 {{ Route::is('users.*') ? 'show' : '' }}" id="usersMenu" data-bs-parent="#sidebarAccordion">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('users.index') ? 'active' : '' }}"
@@ -106,7 +110,7 @@
         </li>
     </ul>
 
-    <!-- User Info -->
+    <!-- Información de Usuario -->
     <div class="mt-auto border-top pt-3"
         style="border-color: {{ tenantSetting('navbar_text_color_1', '#BF8A49') }} !important;">
         <div class="text-left">
