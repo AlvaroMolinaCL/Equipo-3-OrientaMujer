@@ -1,9 +1,7 @@
-{{-- Al inicio de sidebar.blade.php --}}
 <style>
     .navbar-nav .nav-link.active {
         background-color:
-            {{ tenantSetting('button_color_sidebar', '#BF8A49') }}
-            !important;
+            {{ tenantSetting('button_color_sidebar', '#BF8A49') }} !important;
         border-radius: 0.375rem;
     }
 </style>
@@ -16,12 +14,15 @@
     </a>
 
     <ul class="navbar-nav flex-column w-100">
+        <!-- Panel de Control -->
         <li class="nav-item">
             <a class="nav-link {{ Route::is('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}"
                 style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
                 <i class="bi bi-speedometer2 me-2"></i> Panel de Control
             </a>
         </li>
+
+        <!-- Apariencia -->
         <li class="nav-item">
             <a class="nav-link {{ Route::is('appearance.index') ? 'active' : '' }}" href="{{ route('appearance') }}"
                 style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
@@ -29,7 +30,28 @@
             </a>
         </li>
 
-
+        <!-- Mi Agenda -->
+        <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
+                href="#availableSlotsMenu" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
+                <span><i class="bi bi-calendar me-2"></i> Mi Agenda</span>
+                <i class="bi bi-chevron-down small"></i>
+            </a>
+            <div class="collapse ps-3" id="availableSlotsMenu">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('available-slots.index') ? 'active' : '' }}"
+                            href="{{ route('available-slots.index') }}"
+                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Ver Disponibilidad</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('available-slots.create') ? 'active' : '' }}"
+                            href="{{ route('available-slots.create') }}"
+                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Agregar Disponibilidad</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
 
         <!-- Archivos -->
         <li class="nav-item">
@@ -53,7 +75,8 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('files.shared.folders') ? 'active' : '' }}"
                             href="{{ route('files.shared.folders') }}"
-                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Archivos Compartidos</a>
+                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Archivos
+                            Compartidos</a>
                     </li>
                 </ul>
             </div>
@@ -93,7 +116,8 @@
                 style="color: {{ tenantSetting('navbar_text_color_1', '#BF8A49') }};">{{ Auth::user()->email }}</small>
         </div>
         <div class="dropup mt-2">
-            <button class="btn btn-sm w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }};
+            <button class="btn btn-sm w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }};
                color: {{ tenantSetting('navbar_text_color_1', 'white') }};
                border: 1px solid {{ tenantSetting('navbar_text_color_1', 'white') }};">
                 Cuenta

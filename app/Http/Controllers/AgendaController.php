@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use App\Models\AvailableSlot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,14 +43,24 @@ class AgendaController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'date' => 'required|date|after_or_equal:today',
-            'time' => 'required|date_format:H:i',
+            'available_slot_id' => 'required|exists:available_slots,id',
         ]);
+
+        $slot = AvailableSlot::findOrFail($validated['available_slot_id']);
+
+        if ($slot->date < now()->toDateString()) {
+            return back()->withErrors(['available_slot_id' => 'La hora seleccionada ya no es válida.'])->withInput();
+        }
+
+        if ($slot->appointments()->count() >= $slot->max_bookings) {
+            return back()->withErrors(['available_slot_id' => 'Esta hora ya no tiene cupo disponible.'])->withInput();
+        }
 
         Appointment::create([
             'user_id' => Auth::id(),
-            'date' => $validated['date'],
-            'time' => $validated['time'],
+            'available_slot_id' => $slot->id,
+            'date' => $slot->date,
+            'time' => $slot->start_time,
         ]);
 
         return back()->with('success', 'Cita agendada con éxito.');

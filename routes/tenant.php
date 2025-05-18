@@ -6,6 +6,7 @@ use App\Http\Controllers\App\ProfileController;
 use App\Http\Controllers\App\UserController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AppearanceController;
+use App\Http\Controllers\AvailableSlotController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
@@ -74,6 +75,9 @@ Route::middleware([
     Route::middleware(['auth', 'role:Admin'])->group(function () {
         // Dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        // Gestión de Agenda
+        Route::resource('available-slots', AvailableSlotController::class)->only(['index', 'create', 'store']);
 
         // Gestión de Apariencia
         Route::get('/appearance', [AppearanceController::class, 'index'])->name('appearance');
