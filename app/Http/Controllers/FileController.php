@@ -111,59 +111,63 @@ class FileController extends Controller
         abort(403, 'No tienes permiso para eliminar este archivo.');
     }
 
-public function sharedFolders(Request $request)
-{
-    $user = auth()->user();
-    $usuarioLogueadoId = $user->id;
-    $search = $request->input('search');
+    public function sharedFolders(Request $request)
+    {
+        $user = auth()->user();
+        $usuarioLogueadoId = $user->id;
+        $search = $request->input('search');
 
-    if ($user->hasRole('Admin')) {
-        $users = User::where('id', '!=', $usuarioLogueadoId)
-            ->when($search, function ($query) use ($search) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('name', 'like', '%' . $search . '%')
-                      ->orWhere('email', 'like', '%' . $search . '%');
-                });
-            })
-            ->get()
+        if ($user->hasRole('Admin')) {
+            $users = User::where('id', '!=', $usuarioLogueadoId)
+                ->when($search, function ($query) use ($search) {
+                    $query->where(function ($q) use ($search) {
+                        $q->where('name', 'like', '%' . $search . '%')
+                            ->orWhere('email', 'like', '%' . $search . '%');
+                    });
+                })
+                ->get()
+                ->map(function ($user) use ($usuarioLogueadoId) {
+                    $user->sharedFilesCount = File::whereJsonContains('shared_with', $usuarioLogueadoId)
+                        ->where('uploaded_by', $user->id)
+                        ->count();
+                    return $user;
+                })
+                ->filter(fn($user) => $user->sharedFilesCount > 0); // Solo usuarios que han compartido archivos
+
+            return view('tenants.default.shared-folders.index', compact('users'));
+        }
+
+        // Si es un usuario NO Admin
+        $filesSharedWithUser = File::whereJsonContains('shared_with', $usuarioLogueadoId)->get();
+
+        $adminIds = $filesSharedWithUser
+            ->pluck('uploaded_by')
+            ->unique()
+            ->filter(function ($id) {
+                return User::find($id)?->hasRole('Admin');
+            });
+
+        $usersQuery = User::whereIn('id', $adminIds);
+
+        if ($search) {
+            $usersQuery->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%');
+            });
+        }
+
+        $users = $usersQuery->get()
             ->map(function ($user) use ($usuarioLogueadoId) {
                 $user->sharedFilesCount = File::whereJsonContains('shared_with', $usuarioLogueadoId)
                     ->where('uploaded_by', $user->id)
                     ->count();
                 return $user;
-            });
+            })
+            ->filter(fn($user) => $user->sharedFilesCount > 0); // Solo Admins que compartieron algo
 
         return view('tenants.default.shared-folders.index', compact('users'));
     }
 
-    // Si es un usuario no Admin
-    $filesSharedWithUser = File::whereJsonContains('shared_with', $usuarioLogueadoId)->get();
-
-    $adminIds = $filesSharedWithUser
-        ->pluck('uploaded_by')
-        ->unique()
-        ->filter(function ($id) {
-            return User::find($id)?->hasRole('Admin');
-        });
-
-    $usersQuery = User::whereIn('id', $adminIds);
-
-    if ($search) {
-        $usersQuery->where(function ($q) use ($search) {
-            $q->where('name', 'like', '%' . $search . '%')
-              ->orWhere('email', 'like', '%' . $search . '%');
-        });
-    }
-
-    $users = $usersQuery->get()->map(function ($user) use ($usuarioLogueadoId) {
-        $user->sharedFilesCount = File::whereJsonContains('shared_with', $usuarioLogueadoId)
-            ->where('uploaded_by', $user->id)
-            ->count();
-        return $user;
-    });
-
-    return view('tenants.default.shared-folders.index', compact('users'));
-}
 
 
 

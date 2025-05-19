@@ -63,10 +63,6 @@
                                         <span class="badge rounded-pill" style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                                             <i class="bi bi-person-check me-1"></i> {{ $user->email }}
                                         </span>
-                                        <span class="badge rounded-pill"
-                                            style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
-                                            <i class="bi bi-folder2-open me-1"></i> Ver archivos
-                                        </span>
                                     </div>
                                 </div>
                             </a>
