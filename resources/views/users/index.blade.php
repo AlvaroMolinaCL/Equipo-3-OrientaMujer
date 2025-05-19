@@ -8,13 +8,15 @@
     <div class="container-fluid">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h3 fw-bold mb-0" style="color: #8C2D18;">{{ __('Usuarios') }}</h2>
+            <h3 class="fw-bold mb-0" style="color: #8C2D18;">
+                <i class="bi bi-people me-2"></i>{{ __('Usuarios') }}
+            </h3>
             <a href="{{ route('dashboard') }}" class="btn btn-sm" style="background-color: #F5E8D0; color: #8C2D18;">
-                <i class="bi bi-arrow-left me-1"></i> Volver
+                <i class="bi bi-arrow-left me-2"></i>Volver
             </a>
         </div>
 
-        {{-- Tabla de usuarios --}}
+        {{-- Tabla de Usuarios --}}
         <div class="card mb-4 border-0 shadow-sm">
             <div class="card-header d-flex justify-content-between align-items-center"
                 style="background-color: #8C2D18; color: white;">

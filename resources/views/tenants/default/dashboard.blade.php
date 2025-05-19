@@ -10,22 +10,25 @@
     <div class="container-fluid">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h2 mb-0 fw-bold" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+            <h3 class="fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                 <i class="bi bi-speedometer2 me-2"></i>
                 {{ __('Panel de Control') }}
-            </h2>
+            </h3>
         </div>
 
         {{-- Métricas --}}
         <div class="row mb-4 justify-content-center">
+            {{-- Usuarios Registrados --}}
             <div class="col-xl-3 col-md-6 mb-3">
                 <div class="card text-white h-100" style="background-color: {{ tenantSetting('color_metrics', '#BF8A49') }};">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
                                 <h6 class="card-subtitle mb-2"
-                                    style="color: {{ tenantSetting('navbar_text_color_1', '#8C2D18') }};">Usuarios Registrados</h6>
-                                <h3 class="card-title" style="color: {{ tenantSetting('navbar_text_color_1', '#8C2D18') }};">
+                                    style="color: {{ tenantSetting('navbar_text_color_1', '#8C2D18') }};">Usuarios
+                                    Registrados</h6>
+                                <h3 class="card-title"
+                                    style="color: {{ tenantSetting('navbar_text_color_1', '#8C2D18') }};">
                                     {{ $user_count }}</h3>
                             </div>
                             <i class="bi bi-people fs-1 opacity-50"
@@ -35,6 +38,7 @@
                 </div>
             </div>
 
+            {{-- Usuarios Nuevos Hoy --}}
             <div class="col-xl-3 col-md-6 mb-3">
                 <div class="card text-white h-100"
                     style="background-color: {{ tenantSetting('color_metrics', '#BF8A49') }};">
@@ -43,7 +47,8 @@
                             <div>
                                 <h6 class="card-subtitle mb-2"
                                     style="color: {{ tenantSetting('navbar_text_color_1', '#8C2D18') }};">Nuevos Hoy</h6>
-                                <h3 class="card-title" style="color: {{ tenantSetting('navbar_text_color_1', '#8C2D18') }};">
+                                <h3 class="card-title"
+                                    style="color: {{ tenantSetting('navbar_text_color_1', '#8C2D18') }};">
                                     {{ $user_today }}</h3>
                             </div>
                             <i class="bi bi-person-plus fs-1 opacity-50"

@@ -1,16 +1,21 @@
 @extends('layouts.app')
 
+@section('navbar')
+    @include('layouts.navigation')
+@endsection
+
 @section('content')
     <div class="container-fluid">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h2 mb-0 fw-bold" style="color: #8C2D18;">
+            <h3 class="fw-bold mb-0" style="color: #8C2D18;">
                 <i class="bi bi-speedometer2 me-2"></i>{{ __('Panel de Control') }}
-            </h2>
+            </h3>
         </div>
 
         {{-- Métricas --}}
         <div class="row mb-4 justify-content-center">
+            {{-- Usuarios Registrados --}}
             <div class="col-xl-3 col-md-6 mb-3">
                 <div class="card text-white h-100" style="background-color: #BF8A49;">
                     <div class="card-body">
@@ -25,6 +30,7 @@
                 </div>
             </div>
 
+            {{-- Usuarios Nuevos Hoy --}}
             <div class="col-xl-3 col-md-6 mb-3">
                 <div class="card text-white h-100" style="background-color: #BF8A49;">
                     <div class="card-body">
@@ -39,12 +45,13 @@
                 </div>
             </div>
 
+            {{-- Tenants Activos --}}
             <div class="col-xl-3 col-md-6 mb-3">
                 <div class="card text-white h-100" style="background-color: #BF8A49;">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
-                                <h6 class="card-subtitle mb-2 text-light">Tenants</h6>
+                                <h6 class="card-subtitle mb-2 text-light">Tenants Activos</h6>
                                 <h3 class="card-title">{{ $tenant_count }}</h3>
                             </div>
                             <i class="bi bi-building fs-1 opacity-50"></i>
@@ -53,6 +60,7 @@
                 </div>
             </div>
 
+            {{-- Tenants Nuevos Hoy --}}
             <div class="col-xl-3 col-md-6 mb-3">
                 <div class="card text-white h-100" style="background-color: #BF8A49;">
                     <div class="card-body">

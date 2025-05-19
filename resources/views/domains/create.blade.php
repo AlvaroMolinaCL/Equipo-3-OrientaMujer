@@ -5,14 +5,14 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-            <h2 class="h3 mb-0 fw-bold" style="color: #8C2D18;">
-                <i class="bi bi-person-plus me-2"></i>{{ __('Nuevo Dominio') }}
-            </h2>
+            <h3 class="fw-bold mb-0" style="color: #8C2D18;">
+                <i class="bi bi-globe-americas me-2"></i>{{ __('Nuevo Dominio') }}
+            </h3>
             <a href="{{ route('domains.index') }}" class="btn btn-sm" style="background-color: #F5E8D0; color: #8C2D18;">
-                <i class="bi bi-arrow-left me-1"></i> Volver
+                <i class="bi bi-arrow-left me-2"></i>Volver
             </a>
         </div>
 
@@ -36,8 +36,8 @@
                                 <i class="bi bi-fonts"></i>
                             </span>
                             <input id="domain_name" type="text" class="form-control border-start-0"
-                                placeholder="Por ejemplo: midominio.cl" style="background-color: #FDF5E5;" name="domain_name"
-                                value="{{ old('domain_name') }}" required autofocus>
+                                placeholder="Por ejemplo: midominio.cl" style="background-color: #FDF5E5;"
+                                name="domain_name" value="{{ old('domain_name') }}" required autofocus>
                         </div>
                         @error('domain_name')
                             <div class="text-danger small mt-2">

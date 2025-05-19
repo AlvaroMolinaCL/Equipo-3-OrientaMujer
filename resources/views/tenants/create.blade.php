@@ -5,14 +5,14 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-            <h2 class="h3 mb-0 fw-bold" style="color: #8C2D18;">
-                <i class="bi bi-building me-2"></i>{{ __('Nuevo Tenant') }}
-            </h2>
+            <h3 class="fw-bold mb-0" style="color: #8C2D18;">
+                <i class="bi bi-building-add me-2"></i>{{ __('Nuevo Tenant') }}
+            </h3>
             <a href="{{ route('tenants.index') }}" class="btn btn-sm" style="background-color: #F5E8D0; color: #8C2D18;">
-                <i class="bi bi-arrow-left me-1"></i> Volver
+                <i class="bi bi-arrow-left me-2"></i>Volver
             </a>
         </div>
 
@@ -133,7 +133,7 @@
                         </div>
                     </div>
 
-                    {{-- Estilos predeterminados --}}
+                    {{-- Estilos Predeterminados --}}
                     <h5 class="fw-medium mb-3 mt-5" style="color: #8C2D18;">
                         <i class="bi bi-brush me-2"></i>Estilos Predeterminados
                     </h5>
@@ -228,10 +228,11 @@
                     @endphp
 
                     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4" id="palettes-container">
-                        @foreach($presetStyles as $key => $palette)
+                        @foreach ($presetStyles as $key => $palette)
                             <div class="col">
                                 <div class="palette-card card h-100 border-0 shadow-sm hover-shadow transition-all"
-                                    style="cursor: pointer;" data-key="{{ $key }}" data-palette='@json($palette)'
+                                    style="cursor: pointer;" data-key="{{ $key }}"
+                                    data-palette='@json($palette)'
                                     title="Seleccionar paleta {{ $palette['label'] }}">
                                     <div class="card-header py-2"
                                         style="background-color: {{ $palette['navbar_color_1'] }}; color: {{ $palette['navbar_text_color_1'] }};">
@@ -240,13 +241,15 @@
                                     <div class="card-body p-3"
                                         style="background-color: {{ $palette['background_color_1'] }}; color: {{ $palette['text_color_1'] }};">
                                         <div class="d-flex flex-wrap gap-1 mb-2">
-                                            @foreach(['navbar_color_1', 'button_color_sidebar', 'color_metrics', 'color_tables'] as $colorKey)
+                                            @foreach (['navbar_color_1', 'button_color_sidebar', 'color_metrics', 'color_tables'] as $colorKey)
                                                 <div style="width: 40px; height: 40px; background-color: {{ $palette[$colorKey] }}; border: 1px solid rgba(0,0,0,0.1); border-radius: 4px;"
-                                                    class="shadow-sm" title="{{ $colorKey }}: {{ $palette[$colorKey] }}"></div>
+                                                    class="shadow-sm"
+                                                    title="{{ $colorKey }}: {{ $palette[$colorKey] }}"></div>
                                             @endforeach
                                         </div>
                                         <div class="d-flex justify-content-between small">
-                                            <span>Texto: <span style="color: {{ $palette['text_color_1'] }}">Aa</span></span>
+                                            <span>Texto: <span
+                                                    style="color: {{ $palette['text_color_1'] }}">Aa</span></span>
                                             <span>Fondo: <span class="badge"
                                                     style="background-color: {{ $palette['background_color_1'] }}; color: {{ $palette['text_color_1'] }}">Ejemplo</span></span>
                                         </div>
@@ -256,7 +259,7 @@
                         @endforeach
                     </div>
 
-                    <!-- Campo oculto para la paleta seleccionada -->
+                    {{-- Campo oculto para la paleta seleccionada --}}
                     <input type="hidden" id="selected_palette" name="selected_palette" value="">
 
                     {{-- Sección de Personalización Avanzada --}}
@@ -282,7 +285,8 @@
                                             <i class="bi bi-upload"></i>
                                         </span>
                                         <input type="file" class="form-control border-start-0"
-                                            style="background-color: #FDF5E5;" id="logo_1" name="logo_1" accept="image/*">
+                                            style="background-color: #FDF5E5;" id="logo_1" name="logo_1"
+                                            accept="image/*">
                                     </div>
                                     @error('logo_1')
                                         <div class="text-danger small mt-2">
@@ -300,7 +304,8 @@
                                             <i class="bi bi-upload"></i>
                                         </span>
                                         <input type="file" class="form-control border-start-0"
-                                            style="background-color: #FDF5E5;" id="logo_2" name="logo_2" accept="image/*">
+                                            style="background-color: #FDF5E5;" id="logo_2" name="logo_2"
+                                            accept="image/*">
                                     </div>
                                     @error('logo_2')
                                         <div class="text-danger small mt-2">
@@ -396,7 +401,8 @@
 
                                 {{-- Navbar --}}
                                 <div class="col-md-6 col-lg-4">
-                                    <label for="navbar_color_1" class="form-label fw-medium" style="color: #8C2D18;">Color
+                                    <label for="navbar_color_1" class="form-label fw-medium"
+                                        style="color: #8C2D18;">Color
                                         de Navbar</label>
                                     <div class="input-group">
                                         <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
@@ -423,7 +429,8 @@
                                         </span>
                                         <input type="color" class="form-control form-control-color border-start-0"
                                             style="background-color: #FDF5E5; height: 38px;" id="navbar_text_color_1"
-                                            name="navbar_text_color_1" value="{{ old('navbar_text_color_1', '#ffffff') }}">
+                                            name="navbar_text_color_1"
+                                            value="{{ old('navbar_text_color_1', '#ffffff') }}">
                                     </div>
                                     @error('navbar_text_color_1')
                                         <div class="text-danger small mt-2">
@@ -509,16 +516,20 @@
                                         </span>
                                         <select id="navbar_font" class="form-select border-start-0"
                                             style="background-color: #FDF5E5;" name="navbar_font">
-                                            <option value="Arial" {{ old('navbar_font') == 'Arial' ? 'selected' : '' }}>Arial
+                                            <option value="Arial" {{ old('navbar_font') == 'Arial' ? 'selected' : '' }}>
+                                                Arial
                                             </option>
                                             <option value="Roboto" {{ old('navbar_font') == 'Roboto' ? 'selected' : '' }}>
                                                 Roboto
                                             </option>
-                                            <option value="Open Sans" {{ old('navbar_font') == 'Open Sans' ? 'selected' : '' }}>
+                                            <option value="Open Sans"
+                                                {{ old('navbar_font') == 'Open Sans' ? 'selected' : '' }}>
                                                 Open Sans</option>
-                                            <option value="Montserrat" {{ old('navbar_font') == 'Montserrat' ? 'selected' : '' }}>
+                                            <option value="Montserrat"
+                                                {{ old('navbar_font') == 'Montserrat' ? 'selected' : '' }}>
                                                 Montserrat</option>
-                                            <option value="Courier Prime" {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
+                                            <option value="Courier Prime"
+                                                {{ old('navbar_font') == 'Courier Prime' ? 'selected' : '' }}>
                                                 Courier Prime</option>
                                         </select>
                                     </div>
@@ -539,16 +550,21 @@
                                         </span>
                                         <select id="heading_font" class="form-select border-start-0"
                                             style="background-color: #FDF5E5;" name="heading_font">
-                                            <option value="Arial" {{ old('heading_font') == 'Arial' ? 'selected' : '' }}>Arial
+                                            <option value="Arial" {{ old('heading_font') == 'Arial' ? 'selected' : '' }}>
+                                                Arial
                                             </option>
-                                            <option value="Roboto" {{ old('heading_font') == 'Roboto' ? 'selected' : '' }}>
+                                            <option value="Roboto"
+                                                {{ old('heading_font') == 'Roboto' ? 'selected' : '' }}>
                                                 Roboto
                                             </option>
-                                            <option value="Open Sans" {{ old('heading_font') == 'Open Sans' ? 'selected' : '' }}>
+                                            <option value="Open Sans"
+                                                {{ old('heading_font') == 'Open Sans' ? 'selected' : '' }}>
                                                 Open Sans</option>
-                                            <option value="Montserrat" {{ old('heading_font') == 'Montserrat' ? 'selected' : '' }}>
+                                            <option value="Montserrat"
+                                                {{ old('heading_font') == 'Montserrat' ? 'selected' : '' }}>
                                                 Montserrat</option>
-                                            <option value="Courier Prime" {{ old('heading_font') == 'Courier Prime' ? 'selected' : '' }}>
+                                            <option value="Courier Prime"
+                                                {{ old('heading_font') == 'Courier Prime' ? 'selected' : '' }}>
                                                 Courier Prime</option>
                                         </select>
                                     </div>
@@ -569,15 +585,20 @@
                                         </span>
                                         <select id="body_font" class="form-select border-start-0"
                                             style="background-color: #FDF5E5;" name="body_font">
-                                            <option value="Arial" {{ old('body_font') == 'Arial' ? 'selected' : '' }}>Arial
+                                            <option value="Arial" {{ old('body_font') == 'Arial' ? 'selected' : '' }}>
+                                                Arial
                                             </option>
-                                            <option value="Roboto" {{ old('body_font') == 'Roboto' ? 'selected' : '' }}>Roboto
+                                            <option value="Roboto" {{ old('body_font') == 'Roboto' ? 'selected' : '' }}>
+                                                Roboto
                                             </option>
-                                            <option value="Open Sans" {{ old('body_font') == 'Open Sans' ? 'selected' : '' }}>
+                                            <option value="Open Sans"
+                                                {{ old('body_font') == 'Open Sans' ? 'selected' : '' }}>
                                                 Open Sans</option>
-                                            <option value="Montserrat" {{ old('body_font') == 'Montserrat' ? 'selected' : '' }}>
+                                            <option value="Montserrat"
+                                                {{ old('body_font') == 'Montserrat' ? 'selected' : '' }}>
                                                 Montserrat</option>
-                                            <option value="Courier Prime" {{ old('body_font') == 'Courier Prime' ? 'selected' : '' }}>
+                                            <option value="Courier Prime"
+                                                {{ old('body_font') == 'Courier Prime' ? 'selected' : '' }}>
                                                 Courier Prime</option>
                                         </select>
                                     </div>
@@ -618,10 +639,8 @@
         }
     </style>
 
-    {{-- Scripts --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Manejo de paletas de colores
+        document.addEventListener('DOMContentLoaded', function() {
             const palettesContainer = document.getElementById('palettes-container');
             const selectedPaletteInput = document.getElementById('selected_palette');
             let selectedPaletteData = null;
@@ -645,8 +664,6 @@
                 try {
                     selectedPaletteData = JSON.parse(card.getAttribute('data-palette'));
                     console.log('Paleta seleccionada:', selectedPaletteData);
-
-                    // Actualizar los campos de personalización con los valores de la paleta
                     updateCustomizationForm(selectedPaletteData);
                 } catch (error) {
                     console.error('Error al parsear JSON:', error);
@@ -666,19 +683,16 @@
                     const input = document.getElementById(field);
                     if (input) {
                         input.value = palette[field];
-                        // Marcar que fue actualizado por paleta (no manualmente)
                         input.dataset.paletteUpdate = 'true';
                     }
                 });
             }
 
-            // Marcar campos cuando son editados manualmente
             document.querySelectorAll('input[type="color"], select').forEach(input => {
-                input.addEventListener('change', function () {
+                input.addEventListener('change', function() {
                     if (this.dataset.paletteUpdate === 'true') {
                         delete this.dataset.paletteUpdate;
                     } else {
-                        // Si el usuario edita manualmente, deseleccionar paleta
                         selectedPaletteInput.value = '';
                         clearSelection();
                     }
@@ -687,7 +701,8 @@
 
             function showAlert(type, message) {
                 const alertBox = document.createElement('div');
-                alertBox.className = `alert alert-${type} alert-dismissible fade show position-fixed top-0 end-0 m-3`;
+                alertBox.className =
+                    `alert alert-${type} alert-dismissible fade show position-fixed top-0 end-0 m-3`;
                 alertBox.style.zIndex = '9999';
                 alertBox.innerHTML = `
                         ${message}
@@ -701,7 +716,6 @@
                 }, 5000);
             }
 
-            // Función para mostrar/ocultar contraseña
             function togglePassword(fieldId) {
                 const field = document.getElementById(fieldId);
                 const icon = field.nextElementSibling.querySelector('i');

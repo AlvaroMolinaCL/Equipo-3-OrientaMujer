@@ -8,9 +8,11 @@
     <div class="container-fluid">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h3 fw-bold mb-0" style="color: #8C2D18;">{{ __('Dominios') }}</h2>
+            <h3 class="fw-bold mb-0" style="color: #8C2D18;">
+                <i class="bi bi-globe-americas me-2"></i>{{ __('Dominios') }}
+            </h3>
             <a href="{{ route('dashboard') }}" class="btn btn-sm" style="background-color: #F5E8D0; color: #8C2D18;">
-                <i class="bi bi-arrow-left me-1"></i> Volver
+                <i class="bi bi-arrow-left me-2"></i>Volver
             </a>
         </div>
 
@@ -60,7 +62,6 @@
                                                     <i class="bi bi-trash"></i> Eliminar
                                                 </button>
                                             </form>
-
                                         </div>
                                     </td>
                                 </tr>

@@ -10,14 +10,14 @@
     <div class="container-fluid">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h3 fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
-                {{ __('Disponibilidad') }}
-            </h2>
+            <h3 class="fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                <i class="bi bi-calendar me-2"></i>{{ __('Disponibilidad') }}
+            </h3>
             <a href="{{ route('dashboard') }}" class="btn btn-sm"
                 style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
               color: {{ tenantSetting('text_color_1', '#8C2D18') }};
               border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
-                <i class="bi bi-arrow-left me-1"></i> Volver
+                <i class="bi bi-arrow-left me-2"></i>Volver
             </a>
         </div>
 

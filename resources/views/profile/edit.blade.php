@@ -8,9 +8,11 @@
     <div class="container">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-            <h3 class="h3 mb-0 fw-bold" style="color: #8C2D18;"><i class="bi bi-person me-2"></i>{{ __('Perfil') }}</h3>
+            <h3 class="fw-bold mb-0" style="color: #8C2D18;">
+                <i class="bi bi-person me-2"></i>{{ __('Perfil') }}
+            </h3>
             <a href="{{ route('dashboard') }}" class="btn btn-sm" style="background-color: #F5E8D0; color: #8C2D18;">
-                <i class="bi bi-arrow-left me-1"></i> Volver
+                <i class="bi bi-arrow-left me-2"></i>Volver
             </a>
         </div>
 

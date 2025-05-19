@@ -8,14 +8,15 @@
     <div class="container-fluid">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h3 fw-bold mb-0" style="color: #8C2D18;">{{ __('Tenants') }}</h2>
+            <h3 class="fw-bold mb-0" style="color: #8C2D18;">
+                <i class="bi bi-building me-2"></i>{{ __('Tenants') }}
+            </h3>
             <a href="{{ route('dashboard') }}" class="btn btn-sm" style="background-color: #F5E8D0; color: #8C2D18;">
-                <i class="bi bi-arrow-left me-1"></i> Volver
+                <i class="bi bi-arrow-left me-2"></i>Volver
             </a>
         </div>
 
-
-        {{-- Tabla de tenants --}}
+        {{-- Tabla de Tenants --}}
         <div class="card mb-4 border-0 shadow-sm">
             <div class="card-header d-flex justify-content-between align-items-center"
                 style="background-color: #8C2D18; color: white;">
@@ -65,7 +66,7 @@
                                             {{-- Páginas --}}
                                             <a href="{{ route('tenants.pages.edit', $tenant) }}"
                                                 class="btn btn-sm w-100 d-flex align-items-center justify-content-center gap-1"
-                                                style="background-color: #28a745; color: white;">
+                                                style="background-color: #BF8A49; color: white;">
                                                 <i class="bi bi-building-gear"></i> Páginas
                                             </a>
 
@@ -81,7 +82,6 @@
                                                     <i class="bi bi-trash"></i> Eliminar
                                                 </button>
                                             </form>
-
                                         </div>
                                     </td>
                                 </tr>
