@@ -77,7 +77,10 @@ Route::middleware([
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // Gestión de Agenda
-        Route::resource('available-slots', AvailableSlotController::class)->only(['index', 'create', 'store']);
+        Route::resource('available-slots', AvailableSlotController::class)->only(['index', 'create', 'store', 'destroy']);
+        Route::get('/available-slots/{id}/reservations', [AvailableSlotController::class, 'reservations'])->name('available-slots.reservations');
+        Route::get('/available-slots/{slot}/edit', [AvailableSlotController::class, 'edit'])->name('available-slots.edit');
+        Route::put('/available-slots/{slot}', [AvailableSlotController::class, 'update'])->name('available-slots.update');
 
         // Gestión de Apariencia
         Route::get('/appearance', [AppearanceController::class, 'index'])->name('appearance');
@@ -85,9 +88,9 @@ Route::middleware([
 
         // Gestión de Archivos
         Route::resource('files', FileController::class);
-        Route::get('files/{file}/download', [FileController::class, 'download'])->name('files.download');
+        Route::get('/files/{file}/download', [FileController::class, 'download'])->name('files.download');
         Route::get('/files/{file}/preview', [FileController::class, 'preview'])->name('files.preview');
-        Route::post('files/{file}/share', [FileController::class, 'share'])->name('files.share');
+        Route::post('/files/{file}/share', [FileController::class, 'share'])->name('files.share');
         Route::delete('/files/{file}', [FileController::class, 'destroy'])->name('files.destroy');
 
         // Archivos Compartidos

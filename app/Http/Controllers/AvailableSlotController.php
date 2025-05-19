@@ -49,6 +49,56 @@ class AvailableSlotController extends Controller
         return redirect()->route('available-slots.index')->with('success', 'Disponibilidad agregada correctamente.');
     }
 
+    public function edit(AvailableSlot $slot)
+    {
+        return view('tenants.default.available-slots.edit', compact('slot'));
+    }
+
+    public function update(Request $request, AvailableSlot $slot)
+    {
+        $request->merge([
+            'slots' => [
+                [
+                    'start-time' => date('H:i', strtotime($request->input('slots.0.start-time'))),
+                    'end-time' => date('H:i', strtotime($request->input('slots.0.end-time'))),
+                    'max-bookings' => $request->input('slots.0.max-bookings')
+                ]
+            ]
+        ]);
+
+        $validated = $request->validate([
+            'date' => 'required|date',
+            'slots.0.start-time' => 'required|date_format:H:i',
+            'slots.0.end-time' => 'required|date_format:H:i',
+            'slots.0.max-bookings' => 'required|integer|min:1',
+        ]);
+
+        $slotData = $validated['slots'][0];
+
+        if (strtotime($slotData['end-time']) <= strtotime($slotData['start-time'])) {
+            return back()->withErrors([
+                'slots.0.end-time' => 'La hora de fin debe ser posterior a la de inicio.'
+            ])->withInput();
+        }
+
+        $slot->update([
+            'user_id' => Auth::id(),
+            'date' => $validated['date'],
+            'start_time' => $slotData['start-time'],
+            'end_time' => $slotData['end-time'],
+            'max_bookings' => $slotData['max-bookings'],
+        ]);
+
+        return redirect()->route('available-slots.index')->with('success', 'Bloque actualizado correctamente.');
+    }
+
+    public function destroy(AvailableSlot $availableSlot)
+    {
+        $availableSlot->delete();
+
+        return redirect()->route('available-slots.index')->with('success', 'Disponibilidad eliminada correctamente.');
+    }
+
     public function getAvailableHours(Request $request)
     {
         $date = $request->input('date');
@@ -65,5 +115,22 @@ class AvailableSlotController extends Controller
         });
 
         return response()->json($slots);
+    }
+
+    public function reservations($slotId)
+    {
+        $slot = AvailableSlot::with(['appointments.user'])->findOrFail($slotId);
+
+        $reservations = $slot->appointments->map(function ($appointment) {
+            return [
+                'id' => $appointment->id,
+                'user_name' => $appointment->user->name,
+                'created_at' => $appointment->created_at->format('d/m/Y H:i'),
+                'email' => $appointment->user->email,
+                'phone' => $appointment->user->phone_number,
+            ];
+        });
+
+        return response()->json($reservations);
     }
 }
