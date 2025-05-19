@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('available_slot_id')->constrained('available_slots')->onUpdate('cascade')->onDelete('cascade');;
+            $table->foreignId('available_slot_id')->constrained('available_slots')->onUpdate('cascade')->onDelete('cascade');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
