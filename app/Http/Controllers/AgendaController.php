@@ -44,25 +44,25 @@ class AgendaController extends Controller
     {
         $validated = $request->validate([
             'available_slot_id' => 'required|exists:available_slots,id',
+            'description' => 'required|string|max:500',
         ]);
 
         $slot = AvailableSlot::findOrFail($validated['available_slot_id']);
 
         if ($slot->date < now()->toDateString()) {
-            return back()->withErrors(['available_slot_id' => 'La hora seleccionada ya no es válida.'])->withInput();
+            return back()->withErrors(['available_slot_id' => 'La hora seleccionada ya no es válida.']);
         }
 
         if ($slot->appointments()->count() >= $slot->max_bookings) {
-            return back()->withErrors(['available_slot_id' => 'Esta hora ya no tiene cupo disponible.'])->withInput();
+            return back()->withErrors(['available_slot_id' => 'Esta hora ya no tiene cupo disponible.']);
         }
 
         Appointment::create([
             'user_id' => Auth::id(),
             'available_slot_id' => $slot->id,
-            'date' => $slot->date,
-            'time' => $slot->start_time,
+            'description' => $validated['description'],
         ]);
 
-        return back()->with('success', 'Cita agendada con éxito.');
+        return redirect()->route('tenant.agenda.index')->with('success', 'Cita agendada con éxito.');
     }
 }

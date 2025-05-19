@@ -101,18 +101,20 @@ class AvailableSlotController extends Controller
 
     public function getAvailableHours(Request $request)
     {
-        $date = $request->input('date');
+        $date = $request->query('date');
 
-        $slots = AvailableSlot::where('date', $date)->get()->map(function ($slot) {
-            $used = $slot->appointments()->count();
-
-            return [
-                'slot_id' => $slot->id,
-                'start_time' => $slot->start_time,
-                'end_time' => $slot->end_time,
-                'available' => $used < $slot->max_bookings,
-            ];
-        });
+        $slots = AvailableSlot::with(['appointments', 'user'])
+            ->where('date', $date)
+            ->get()
+            ->map(function ($slot) {
+                return [
+                    'slot_id' => $slot->id,
+                    'start_time' => $slot->start_time,
+                    'end_time' => $slot->end_time,
+                    'available' => $slot->appointments->count() < $slot->max_bookings,
+                    'lawyer_name' => $slot->user->name ?? 'Abogado',
+                ];
+            });
 
         return response()->json($slots);
     }
