@@ -164,17 +164,15 @@
 
         <div class="d-flex flex-grow-1">
             <!-- Sidebar -->
-            @hasSection('sidebar')
-                <div class="sidebar d-flex flex-column" id="sidebar">
-                    <div class="sidebar-header p-3 d-flex d-lg-none justify-content-between align-items-center">
-                        <h5 class="mb-0">Menú</h5>
-                        <button type="button" class="btn-close" onclick="toggleSidebar()"></button>
-                    </div>
-                    <div class="flex-grow-1 overflow-auto">
-                        @include('tenants.default.layouts.sidebar')
-                    </div>
+            <div class="sidebar d-flex flex-column" id="sidebar">
+                <div class="sidebar-header p-3 d-flex d-lg-none justify-content-between align-items-center">
+                    <h5 class="mb-0">Menú</h5>
+                    <button type="button" class="btn-close" onclick="toggleSidebar()"></button>
                 </div>
-            @endif
+                <div class="flex-grow-1 overflow-auto">
+                    @include('tenants.default.layouts.sidebar')
+                </div>
+            </div>
 
             <!-- Contenido principal -->
             <main class="main-content flex-grow-1 p-3">
