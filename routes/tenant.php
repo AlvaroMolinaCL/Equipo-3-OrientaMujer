@@ -12,7 +12,7 @@ use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
-
+use App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | Tenant Routes
@@ -69,6 +69,11 @@ Route::middleware([
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+        //Carrito
+        Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+        Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+        Route::delete('/cart/remove/{itemId}', [CartController::class, 'remove'])->name('cart.remove');
     });
 
     // Rutas exclusivas para Administrador
