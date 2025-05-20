@@ -22,6 +22,8 @@ class PublicSuperAdminRequestController extends Controller
 
         SuperAdminRequest::create($request->only('name', 'email', 'reason'));
 
-        return redirect()->back()->with('success', 'Tu solicitud fue enviada. Un administrador la revisará.');
+        // Redirigir con ancla para que baje al formulario automáticamente
+        return redirect(url()->previous() . '#form-container')->with('success', 'Tu solicitud fue enviada. Un administrador la revisará.');
     }
+
 }

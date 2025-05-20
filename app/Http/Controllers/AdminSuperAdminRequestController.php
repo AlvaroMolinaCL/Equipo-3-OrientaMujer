@@ -33,7 +33,7 @@ class AdminSuperAdminRequestController extends Controller
         ]);
 
         // Enviar correo
-        Mail::to($solicitud->email)->send(new SuperAdminInvitationMail($token));
+        Mail::to($solicitud->email)->send(new SuperAdminInvitationMail($token, $solicitud));
 
         return back()->with('success', 'Solicitud aprobada y correo de invitación enviado.');
     }
