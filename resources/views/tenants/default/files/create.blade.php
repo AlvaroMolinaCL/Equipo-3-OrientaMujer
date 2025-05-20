@@ -1,19 +1,29 @@
-@extends('tenants.default.layouts.panel')
+@php
+    $isUser = auth()->user()->hasRole('Usuario');
+@endphp
 
-@section('title', 'Dashboard')
+@extends($isUser ? 'tenants.default.layouts.app' : 'tenants.default.layouts.panel')
 
-@section('sidebar')
-    @include('tenants.default.layouts.sidebar')
-@endsection
+@if ($isUser)
+    @section('navbar')
+    @section('navbar-class', 'navbar-dark-mode')
+        @include('tenants.default.layouts.navigation')
+    @endsection
+    
+    @section('body-class', 'theme-dark')
+@endif
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid" style="padding-top: {{ $isUser ? '100px' : '0' }};">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
             <h3 class="fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                 <i class="bi bi-file-earmark-plus me-2"></i>{{ __('Nuevo Archivo') }}
             </h3>
-            <a href="{{ route('files.index') }}" class="btn btn-sm"
+            @php
+                $redirectRoute = auth()->user()->hasRole('Admin') ? route('dashboard') : route('files.index');
+            @endphp
+            <a href="{{ $redirectRoute }}" class="btn btn-sm"
                 style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
                        color: {{ tenantSetting('text_color_1', '#8C2D18') }};
                        border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
@@ -34,7 +44,7 @@
                         </p>
                         <p id="file-name" class="fw-bold text-secondary small mt-2"></p>
                         <button type="button" id="remove-file" class="btn btn-sm btn-outline-danger mt-2 d-none">
-                            <i class="bi bi-x-circle me-1"></i> Quitar archivo
+                            <i class="bi bi-x-circle me-1"></i> Quitar Archivo
                         </button>
                         <input type="file" name="file" class="d-none" id="fileInput" required>
                     </div>
