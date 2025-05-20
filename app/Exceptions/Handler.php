@@ -35,8 +35,8 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof AuthorizationException) {
-            // Muestra la vista personalizada de error 403
-            return response()->view('errors.403', [], 403);
+            view()->replaceNamespace('errors', $this->getErrorViewPath());
+            return response()->view('errors::403', [], 403);
         }
 
         \Log::info('Redirigiendo a login', [
@@ -45,7 +45,16 @@ class Handler extends ExceptionHandler
             'url' => $request->fullUrl(),
             'user' => auth()->check() ? auth()->user()->email : 'no autenticado',
         ]);
-        
+
         return parent::render($request, $exception);
+    }
+
+    protected function getErrorViewPath()
+    {
+        if (tenancy()->initialized) {
+            return resource_path('views/tenants/default/errors');
+        }
+
+        return resource_path('views/errors');
     }
 }
