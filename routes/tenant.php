@@ -12,7 +12,7 @@ use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
-
+use App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | Tenant Routes
@@ -80,6 +80,10 @@ Route::middleware([
         // Archivos Compartidos
         Route::get('/shared-folders', [FileController::class, 'sharedFolders'])->name('files.shared.folders');
         Route::get('/shared-folders/{user}', [FileController::class, 'sharedByUser'])->name('files.shared.byUser');
+        //Carrito
+        Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+        Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+        Route::delete('/cart/remove/{itemId}', [CartController::class, 'remove'])->name('cart.remove');
     });
 
     // Rutas exclusivas para Administrador

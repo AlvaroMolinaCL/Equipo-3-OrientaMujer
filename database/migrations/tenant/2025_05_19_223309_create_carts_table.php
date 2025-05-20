@@ -4,17 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('super_admin_invitations', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->unique();
-            $table->string('token')->unique();
-            $table->boolean('used')->default(false);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('status')->default('active'); // active, completed, canceled
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('super_admin_invitations');
+        Schema::dropIfExists('carts');
     }
 };
