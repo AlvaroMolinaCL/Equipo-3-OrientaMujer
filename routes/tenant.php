@@ -33,7 +33,7 @@ Route::middleware([
     // Página "Inicio"
     Route::get('/', function () {
         return view(tenantView('index'));
-    });
+    })->name('tenants.default.index');
 
     // Página "Services"
     Route::get('/services', function () {
@@ -70,6 +70,16 @@ Route::middleware([
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+        // Gestión de Archivos
+        Route::resource('files', FileController::class);
+        Route::get('/files/{file}/download', [FileController::class, 'download'])->name('files.download');
+        Route::get('/files/{file}/preview', [FileController::class, 'preview'])->name('files.preview');
+        Route::post('/files/{file}/share', [FileController::class, 'share'])->name('files.share');
+        Route::delete('/files/{file}', [FileController::class, 'destroy'])->name('files.destroy');
+
+        // Archivos Compartidos
+        Route::get('/shared-folders', [FileController::class, 'sharedFolders'])->name('files.shared.folders');
+        Route::get('/shared-folders/{user}', [FileController::class, 'sharedByUser'])->name('files.shared.byUser');
         //Carrito
         Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
         Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
@@ -90,17 +100,6 @@ Route::middleware([
         // Gestión de Apariencia
         Route::get('/appearance', [AppearanceController::class, 'index'])->name('appearance');
         Route::post('/appearance', [AppearanceController::class, 'update'])->name('appearance.update');
-
-        // Gestión de Archivos
-        Route::resource('files', FileController::class);
-        Route::get('/files/{file}/download', [FileController::class, 'download'])->name('files.download');
-        Route::get('/files/{file}/preview', [FileController::class, 'preview'])->name('files.preview');
-        Route::post('/files/{file}/share', [FileController::class, 'share'])->name('files.share');
-        Route::delete('/files/{file}', [FileController::class, 'destroy'])->name('files.destroy');
-
-        // Archivos Compartidos
-        Route::get('/shared-folders', [FileController::class, 'sharedFolders'])->name('files.shared.folders');
-        Route::get('/shared-folders/{user}', [FileController::class, 'sharedByUser'])->name('files.shared.byUser');
 
         // Gestión de Usuarios
         Route::resource('users', UserController::class);

@@ -1,19 +1,80 @@
-@extends('tenants.default.layouts.panel')
+@php
+    $isUser = auth()->user()->hasRole('Usuario');
+@endphp
 
-@section('title', 'Dashboard')
+@extends($isUser ? 'tenants.default.layouts.app' : 'tenants.default.layouts.panel')
 
-@section('sidebar')
-    @include('tenants.default.layouts.sidebar')
-@endsection
+@if ($isUser)
+    @section('navbar')
+    @section('navbar-class', 'navbar-dark-mode')
+        @include('tenants.default.layouts.navigation')
+    @endsection
+    
+    @section('body-class', 'theme-dark')
+@endif
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid" style="padding-top: {{ $isUser ? '100px' : '0' }};">
         {{-- Encabezado --}}
+        @if ($isUser)
+            <div class="d-flex justify-content-between mb-4" style="gap: 30px;">
+                <a href="{{ route('files.create') }}" 
+                class="cube-block flex-fill d-flex flex-column align-items-center justify-content-center text-decoration-none"
+                style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
+                        color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                    <i class="bi bi-plus-circle mb-3" style="font-size: 3.5rem;"></i>
+                    <span style="font-size: 1.5rem; font-weight: 600;">Agregar archivos</span>
+                </a>
+
+                <a href="{{ route('files.shared.folders') }}" 
+                class="cube-block flex-fill d-flex flex-column align-items-center justify-content-center text-decoration-none"
+                style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
+                        color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                    <i class="bi bi-share-fill mb-3" style="font-size: 3.5rem;"></i>
+                    <span style="font-size: 1.5rem; font-weight: 600;">Compartidos conmigo</span>
+                </a>
+            </div>
+
+            <style>
+                .cube-block {
+                    height: 150px;
+                    border-radius: 20px;
+                    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    cursor: pointer;
+                    user-select: none;
+                }
+
+                .cube-block:hover {
+                    transform: translateY(-8px);
+                    box-shadow: 0 16px 32px rgba(0,0,0,0.25);
+                    text-decoration: none;
+                }
+
+                .cube-block i {
+                    pointer-events: none; 
+                }
+
+                @media (max-width: 768px) {
+                    .d-flex {
+                        flex-direction: column !important;
+                    }
+
+                    .cube-block {
+                        width: 100% !important;
+                        margin-bottom: 20px;
+                    }
+                }
+            </style>
+        @endif
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h3 class="fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                 <i class="bi bi-file-text me-2"></i>{{ __('Mis Archivos') }}
             </h3>
-            <a href="{{ route('dashboard') }}" class="btn btn-sm"
+            @php
+                $redirectRoute = auth()->user()->hasRole('Admin') ? route('dashboard') : route('tenants.default.index');
+            @endphp
+            <a href="{{ $redirectRoute }}" class="btn btn-sm"
                 style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
                        color: {{ tenantSetting('text_color_1', '#8C2D18') }};
                        border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
