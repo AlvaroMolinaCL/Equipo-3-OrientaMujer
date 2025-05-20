@@ -15,8 +15,8 @@
             </h3>
             <a href="{{ route('dashboard') }}" class="btn btn-sm"
                 style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
-              color: {{ tenantSetting('text_color_1', '#8C2D18') }};
-              border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
+                       color: {{ tenantSetting('text_color_1', '#8C2D18') }};
+                       border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
                 <i class="bi bi-arrow-left me-2"></i>Volver
             </a>
         </div>
@@ -93,7 +93,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="3">No has definido horarios aún.</td>
+                                    <td colspan="4">No has definido horarios aún.</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -103,7 +103,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    {{-- Modal --}}
     <div class="modal fade" id="slotModal" tabindex="-1" aria-labelledby="slotModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

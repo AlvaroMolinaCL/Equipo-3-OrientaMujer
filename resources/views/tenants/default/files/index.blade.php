@@ -10,71 +10,80 @@
     <div class="container-fluid">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h3 fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
-            <span><i class="bi bi-file-text me-2"></i>    
-            Mis archivos
-            </h2>
-            <a href="{{ route('dashboard') }}" class="btn btn-sm" style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
-              color: {{ tenantSetting('text_color_1', '#8C2D18') }};
-              border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
-                <i class="bi bi-arrow-left me-1"></i> Volver
+            <h3 class="fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                <i class="bi bi-file-text me-2"></i>{{ __('Mis Archivos') }}
+            </h3>
+            <a href="{{ route('dashboard') }}" class="btn btn-sm"
+                style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
+                       color: {{ tenantSetting('text_color_1', '#8C2D18') }};
+                       border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
+                <i class="bi bi-arrow-left me-2"></i>Volver
             </a>
         </div>
 
-        {{-- Tabla de archivos --}}
+        {{-- Tabla de Archivos --}}
         <div class="card mb-4 border-0 shadow-sm">
-            <div class="card-header d-flex justify-content-between align-items-center" style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }};
-                                       color: {{ tenantSetting('button_banner_text_color', 'white') }};">
+            <div class="card-header d-flex justify-content-between align-items-center"
+                style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }};
+                       color: {{ tenantSetting('button_banner_text_color', 'white') }};">
                 <h5 class="mb-0">Listado de Archivos</h5>
+                <a href="{{ route('files.create') }}" class="btn btn-sm"
+                    style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};
+                                   color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                    <i class="bi bi-plus-circle"></i> Nuevo Archivo
+                </a>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover mb-0">
                         <thead style="background-color: {{ tenantSetting('button_banner_text_color', '#FDF5E5') }};">
                             <tr>
-                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
-                                    Nombre</th>
-                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Fecha
-                                </th>
-                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
-                                    Acciones</th>
+                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Nombre</th>
+                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Fecha</th>
+                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Acciones</th>
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            @foreach($files as $file)
+                            @foreach ($files as $file)
                                 <tr>
                                     <td>{{ $file->name }}</td>
                                     <td>{{ $file->created_at->format('d/m/Y H:i') }}</td>
                                     <td>
-                                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                                        <div class="d-flex flex-column flex-md-row justify-content-center gap-2">
                                             <a href="{{ route('files.preview', $file) }}" target="_blank"
                                                 class="btn btn-sm d-flex align-items-center justify-content-center gap-1"
-                                                style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }}; color: white; width: 120px;">
+                                                style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }};
+                                                       color: white; width: 120px;">
                                                 <i class="bi bi-eye"></i> Ver
                                             </a>
+
                                             <a href="{{ route('files.download', $file) }}"
                                                 class="btn btn-sm d-flex align-items-center justify-content-center gap-1"
-                                                style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }}; color: white; width: 120px;">
+                                                style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }};
+                                                       color: white; width: 120px;">
                                                 <i class="bi bi-download"></i> Descargar
                                             </a>
-                                            @if(auth()->user()->hasRole('Admin') && $file->uploaded_by == auth()->id())
-                                                <!-- Botón para abrir el modal -->
+
+                                            @if (auth()->user()->hasRole('Admin') && $file->uploaded_by == auth()->id())
+                                                {{-- Botón para abrir el modal --}}
                                                 <button type="button"
                                                     class="btn btn-sm d-flex align-items-center justify-content-center gap-1"
                                                     style="background-color: #ffc107; color: black; width: 120px;"
-                                                    data-bs-toggle="modal" data-bs-target="#shareModal-{{ $file->id }}">
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#shareModal-{{ $file->id }}">
                                                     <i class="bi bi-share"></i> Compartir
                                                 </button>
 
-                                                <!-- Modal de compartir -->
+                                                {{-- Modal de compartir --}}
                                                 <div class="modal fade" id="shareModal-{{ $file->id }}" tabindex="-1"
                                                     aria-labelledby="shareModalLabel-{{ $file->id }}" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered">
                                                         <form action="{{ route('files.share', $file) }}" method="POST">
                                                             @csrf
                                                             <div class="modal-content">
-                                                                <div class="modal-header" style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }};
-                                                   color: {{ tenantSetting('button_banner_text_color', 'white') }};">
+                                                                <div class="modal-header"
+                                                                    style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }};
+                                                                           color: {{ tenantSetting('button_banner_text_color', 'white') }};">
                                                                     <h5 class="modal-title" id="shareModalLabel-{{ $file->id }}">
                                                                         Compartir: {{ $file->name }}
                                                                     </h5>
@@ -82,21 +91,19 @@
                                                                         data-bs-dismiss="modal" aria-label="Cerrar"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <p class="mb-3">Selecciona los usuarios con los que deseas
-                                                                        compartir este archivo:</p>
+                                                                    <p class="mb-3">Selecciona los usuarios con los que deseas compartir este archivo:</p>
                                                                     <div class="user-list-container">
-                                                                        @foreach(\App\Models\User::where('id', '!=', auth()->id())->get() as $user)
+                                                                        @foreach (\App\Models\User::where('id', '!=', auth()->id())->get() as $user)
                                                                             <div class="user-item mb-2 p-2 border-bottom">
                                                                                 <div class="form-check">
                                                                                     <input class="form-check-input" type="checkbox"
                                                                                         name="user_ids[]" value="{{ $user->id }}"
                                                                                         id="userCheck-{{ $file->id }}-{{ $user->id }}"
                                                                                         {{ in_array($user->id, $file->shared_with ?? []) ? 'checked' : '' }}>
-                                                                                    <label
-                                                                                        class="form-check-label d-flex justify-content-between align-items-center"
+                                                                                    <label class="form-check-label d-flex justify-content-between align-items-center"
                                                                                         for="userCheck-{{ $file->id }}-{{ $user->id }}">
                                                                                         <span>{{ $user->name }}</span>
-                                                                                        @if(in_array($user->id, $file->shared_with ?? []))
+                                                                                        @if (in_array($user->id, $file->shared_with ?? []))
                                                                                             <span class="badge bg-success">Compartido</span>
                                                                                         @endif
                                                                                     </label>
@@ -106,9 +113,9 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-outline-secondary"
-                                                                        data-bs-dismiss="modal">Cancelar</button>
-                                                                    <button type="submit" class="btn" style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; color: white;">
+                                                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                                    <button type="submit" class="btn"
+                                                                        style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; color: white;">
                                                                         Guardar cambios
                                                                     </button>
                                                                 </div>
@@ -118,14 +125,13 @@
                                                 </div>
                                             @endif
 
-                                            @if(auth()->user()->hasRole('Admin') || $file->uploaded_by == auth()->id())
+                                            @if (auth()->user()->hasRole('Admin') || $file->uploaded_by == auth()->id())
                                                 <form action="{{ route('files.destroy', $file) }}" method="POST" class="d-flex"
                                                     style="width: 120px;"
                                                     onsubmit="return confirm('¿Estás seguro de que deseas eliminar este archivo?')">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button
-                                                        class="btn btn-sm d-flex align-items-center justify-content-center gap-1 w-100"
+                                                    <button class="btn btn-sm d-flex align-items-center justify-content-center gap-1 w-100"
                                                         style="background-color: #dc3545; color: white;">
                                                         <i class="bi bi-trash"></i> Eliminar
                                                     </button>
@@ -133,7 +139,6 @@
                                             @endif
                                         </div>
                                     </td>
-
                                 </tr>
                             @endforeach
                         </tbody>
