@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\File;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
@@ -17,12 +15,12 @@ class FileController extends Controller
         $user = auth()->user();
         $files = File::where('uploaded_by', $user->id)->get();
 
-        return view('tenants.default.file-index', compact('files'));
+        return view('tenants.default.files.index', compact('files'));
     }
 
     public function create()
     {
-        return view('tenants.default.file-create');
+        return view('tenants.default.files.create');
     }
 
     public function store(Request $request)
@@ -41,7 +39,6 @@ class FileController extends Controller
         return redirect()->route('files.index')->with('success', 'Archivo subido con éxito.');
     }
 
-
     public function download(File $file)
     {
         $user = Auth::user();
@@ -56,7 +53,6 @@ class FileController extends Controller
 
         abort(403, 'No tienes permiso para descargar este archivo.');
     }
-
 
     public function share(Request $request, File $file)
     {
@@ -100,7 +96,6 @@ class FileController extends Controller
     {
         $user = auth()->user();
 
-        // Solo el Admin o el propietario del archivo pueden eliminar
         if ($user->hasRole('Admin') || $file->uploaded_by === $user->id) {
             Storage::delete($file->path);
             $file->delete();
@@ -132,12 +127,11 @@ class FileController extends Controller
                         ->count();
                     return $user;
                 })
-                ->filter(fn($user) => $user->sharedFilesCount > 0); // Solo usuarios que han compartido archivos
+                ->filter(fn($user) => $user->sharedFilesCount > 0);
 
             return view('tenants.default.shared-folders.index', compact('users'));
         }
 
-        // Si es un usuario NO Admin
         $filesSharedWithUser = File::whereJsonContains('shared_with', $usuarioLogueadoId)->get();
 
         $adminIds = $filesSharedWithUser
@@ -163,26 +157,18 @@ class FileController extends Controller
                     ->count();
                 return $user;
             })
-            ->filter(fn($user) => $user->sharedFilesCount > 0); // Solo Admins que compartieron algo
+            ->filter(fn($user) => $user->sharedFilesCount > 0);
 
         return view('tenants.default.shared-folders.index', compact('users'));
     }
-
-
-
-
-
-
 
     public function sharedByUser(User $user)
     {
         $authUser = auth()->user();
 
         if ($authUser->hasRole('Admin')) {
-            // Admin ve todos los archivos del usuario
             $files = File::where('uploaded_by', $user->id)->get();
         } else {
-            // Usuario solo ve los archivos compartidos con él
             $files = File::where('uploaded_by', $user->id)
                 ->whereJsonContains('shared_with', $authUser->id)
                 ->get();
@@ -190,9 +176,4 @@ class FileController extends Controller
 
         return view('tenants.default.shared-folders.user-files', compact('files', 'user'));
     }
-
-
-
-
-
 }
