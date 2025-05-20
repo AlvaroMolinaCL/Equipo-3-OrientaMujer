@@ -46,6 +46,9 @@
                                 <li><a class="dropdown-item" href="{{ route('dashboard') }}">Panel de administración</a></li>
                             @endif
                             <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Mi perfil</a></li>
+                            @if(Auth::user()->hasRole('Usuario'))
+                                <li><a class="dropdown-item" href="{{ route('files.index') }}">Mis archivos</a></li>
+                            @endif
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
