@@ -14,7 +14,7 @@
 @endif
 
 @section('content')
-    <div class="container-fluid" style="padding-top: {{ $isUser ? '100px' : '0' }};">
+    <div class="container" style="padding-top: {{ $isUser ? '100px' : '0' }};">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
             <h3 class="fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">

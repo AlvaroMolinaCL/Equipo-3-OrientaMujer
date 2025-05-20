@@ -1,13 +1,20 @@
-@extends('tenants.default.layouts.panel')
+@php
+    $isUser = auth()->user()->hasRole('Usuario');
+@endphp
 
-@section('title', 'Dashboard')
+@extends($isUser ? 'tenants.default.layouts.app' : 'tenants.default.layouts.panel')
 
-@section('sidebar')
-    @include('tenants.default.layouts.sidebar')
-@endsection
+@if ($isUser)
+    @section('navbar')
+    @section('navbar-class', 'navbar-dark-mode')
+        @include('tenants.default.layouts.navigation')
+    @endsection
+    
+    @section('body-class', 'theme-dark')
+@endif
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container" style="padding-top: {{ $isUser ? '100px' : '0' }};">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="h3 fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">

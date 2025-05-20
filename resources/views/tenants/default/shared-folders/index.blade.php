@@ -1,23 +1,34 @@
-@extends('tenants.default.layouts.panel')
+@php
+    $isUser = auth()->user()->hasRole('Usuario');
+@endphp
 
-@section('title', 'Dashboard')
+@extends($isUser ? 'tenants.default.layouts.app' : 'tenants.default.layouts.panel')
 
-@section('sidebar')
-    @include('tenants.default.layouts.sidebar')
+@if ($isUser)
+@section('navbar')
+@section('navbar-class', 'navbar-dark-mode')
+    @include('tenants.default.layouts.navigation')
 @endsection
 
+@section('body-class', 'theme-dark')
+@endif
+
 @section('content')
-    <div class="container-fluid py-4">
+    <div class="container" style="padding-top: {{ $isUser ? '100px' : '0' }};">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="h3 fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                 <i class="bi bi-share-fill fs-4"></i>
                 Archivos Compartidos
             </h2>
-            <a href="{{ route('dashboard') }}" class="btn btn-sm" style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
-                                      color: {{ tenantSetting('text_color_1', '#8C2D18') }};
-                                      border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
-                <i class="bi bi-arrow-left me-1"></i> Volver
+            @php
+                $redirectRoute = auth()->user()->hasRole('Admin') ? route('dashboard') : route('files.index');
+            @endphp
+            <a href="{{ $redirectRoute }}" class="btn btn-sm"
+                style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
+                       color: {{ tenantSetting('text_color_1', '#8C2D18') }};
+                       border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
+                <i class="bi bi-arrow-left me-2"></i>Volver
             </a>
         </div>
 
@@ -43,12 +54,17 @@
                     <div class="col-xl-3 col-lg-4 col-md-6">
                         <div class="card border-0 h-100 shadow-sm user-card">
                             <a href="{{ route('files.shared.byUser', $user) }}" class="text-decoration-none">
-                                <div class="card-body p-4"
-                                    style="background-color: {{ tenantSetting('background_color_2', '#F5E8D0') }};">
+                                @php
+                                    $bgColor = $isUser
+                                        ? tenantSetting('background_color_1', '#FDF5E5')
+                                        : tenantSetting('background_color_2', '#F5E8D0');
+                                @endphp
+                                <div class="card-body p-4" style="background-color: {{ $bgColor }};">
                                     <div class="d-flex align-items-center mb-3">
                                         <div class="avatar-container me-3">
-                                            <div class="avatar-initials"
-                                                style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                                            <div class="avatar-initials" style="background-color: {{ $isUser ? tenantSetting('background_color_2', '#FDF5E5') : tenantSetting('background_color_1', '#F5E8D0') }};
+                                    color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+
                                                 {{ strtoupper(substr($user->name, 0, 1)) }}
                                             </div>
                                         </div>
@@ -60,7 +76,8 @@
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <span class="badge rounded-pill" style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                                        <span class="badge rounded-pill"
+                                            style="background-color: {{ $isUser ? tenantSetting('background_color_2', '#FDF5E5') : tenantSetting('background_color_1', '#F5E8D0') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                                             <i class="bi bi-person-check me-1"></i> {{ $user->email }}
                                         </span>
                                     </div>

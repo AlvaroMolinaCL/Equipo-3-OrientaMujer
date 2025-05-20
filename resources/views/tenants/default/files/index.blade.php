@@ -14,7 +14,7 @@
 @endif
 
 @section('content')
-    <div class="container-fluid" style="padding-top: {{ $isUser ? '100px' : '0' }};">
+    <div class="container" style="padding-top: {{ $isUser ? '100px' : '0' }};">
         {{-- Encabezado --}}
         @if ($isUser)
             <div class="d-flex justify-content-between mb-4" style="gap: 30px;">
@@ -88,11 +88,14 @@
                 style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }};
                        color: {{ tenantSetting('button_banner_text_color', 'white') }};">
                 <h5 class="mb-0">Listado de Archivos</h5>
+            @role('Admin')
                 <a href="{{ route('files.create') }}" class="btn btn-sm"
                     style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};
-                                   color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                        color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                     <i class="bi bi-plus-circle"></i> Nuevo Archivo
                 </a>
+            @endrole
+
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
