@@ -32,7 +32,6 @@ Route::post('/solicitar-superadmin', [PublicSuperAdminRequestController::class, 
 Route::get('/registro-superadmin/{token}', [SuperAdminInvitationController::class, 'form']);
 Route::post('/registro-superadmin/{token}', [SuperAdminInvitationController::class, 'register']);
 
-
 // Página Principal
 Route::get('/', function () {
     return view('index');
@@ -54,7 +53,7 @@ Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
 
 
     Route::get('solicitudes-superadmin', [AdminSuperAdminRequestController::class, 'index']);
-    Route::post('solicitudes-superadmin/{id}/aprobar', [AdminSuperAdminRequestController::class, 'approve']);
+    Route::post('solicitudes-superadmin/{id}/aprobar', [AdminSuperAdminRequestController::class, 'approve'])->name('admin.solicitudes.aprobar');
 
 
     // Gestión de Tenants

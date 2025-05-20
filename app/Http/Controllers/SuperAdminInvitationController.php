@@ -31,7 +31,7 @@ class SuperAdminInvitationController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $user->assignRole('super-admin');
+        $user->assignRole('Super Admin');
 
         $invitacion->update(['used' => true]);
 

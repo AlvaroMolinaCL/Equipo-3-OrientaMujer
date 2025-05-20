@@ -10,16 +10,19 @@ class SuperAdminInvitationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $token;
+    public $link;
 
     public function __construct($token)
     {
-        $this->token = $token;
+        $this->link = url("/registro-superadmin/{$token}");
     }
 
     public function build()
     {
-        return $this->subject('Invitación a ser Super Administrador')
-            ->view('emails.superadmin-invitation');
+        return $this->subject('Invitación para registrarte como Super Admin')
+            ->view('emails.superadmin-invitation')
+            ->with([
+                'link' => $this->link,
+            ]);
     }
 }
