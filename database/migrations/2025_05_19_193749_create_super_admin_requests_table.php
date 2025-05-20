@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->boolean('approved')->default(false);
             $table->timestamps();
         });
-
     }
 
     /**

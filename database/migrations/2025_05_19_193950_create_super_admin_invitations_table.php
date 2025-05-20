@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->boolean('used')->default(false);
             $table->timestamps();
         });
-
     }
 
     /**
