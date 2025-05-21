@@ -11,7 +11,7 @@
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
             <h3 class="fw-bold mb-0" style="color: #8C2D18;">
-                <i class="bi bi-building-gear me-2"></i>{{ __('Configuración de Páginas para ') }} {{ $tenant->name }}
+                <i class="bi bi-building-gear me-2"></i>{{ __('Configurar Páginas para ') }} {{ $tenant->name }}
             </h3>
             <a href="{{ route('tenants.index') }}" class="btn btn-sm" style="background-color: #F5E8D0; color: #8C2D18;">
                 <i class="bi bi-arrow-left me-2"></i>Volver
@@ -28,45 +28,104 @@
 
                     <div class="mb-4">
                         <h5 class="fw-medium mb-3" style="color: #8C2D18;">
-                            <i class="bi bi-list-check me-2"></i>Configurar y Personalizar Páginas
+                            <i class="bi bi-list-check me-2"></i>Gestionar Páginas
                         </h5>
+                        @foreach ($pagesByCategory as $categoryName => $categoryPages)
+                            <h5 class="fw-medium mb-3 mt-4" style="color: #8C2D18;">
+                                <i class="bi bi-folder me-2"></i>{{ $categoryName }}
+                            </h5>
 
-                        <div class="d-flex flex-column gap-3">
-                            @foreach ($pages as $pageKey => $label)
+                            @foreach ($categoryPages as $pageKey)
                                 @php
+                                    $label = $pages[$pageKey];
                                     $page = $tenantPages[$pageKey] ?? null;
                                     $isEnabled = $page?->is_enabled ?? false;
                                     $isVisible = $page?->is_visible ?? false;
+                                    $agendaEnabled = $tenantPages['agenda']->is_enabled ?? false;
                                 @endphp
-                                <div class="p-3 bg-light rounded d-flex flex-column">
-                                    <div class="mb-2">
-                                        <label for="title-{{ $pageKey }}" class="form-label fw-bold">Nombre de Página
-                                            "{{ ucwords($pageKey) }}"</label>
-                                        <input type="text" class="form-control" name="titles[{{ $pageKey }}]"
-                                            id="title-{{ $pageKey }}" value="{{ $label }}">
-                                    </div>
-                                    <div class="d-flex flex-row gap-4 align-items-center">
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input enabled-toggle" type="checkbox" name="enabled[]"
-                                                value="{{ $pageKey }}" id="enabled-{{ $pageKey }}"
-                                                data-key="{{ $pageKey }}" {{ $isEnabled ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="enabled-{{ $pageKey }}">
-                                                Habilitado
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input visible-toggle" type="checkbox" name="visible[]"
-                                                value="{{ $pageKey }}" id="visible-{{ $pageKey }}"
-                                                data-key="{{ $pageKey }}" {{ $isVisible ? 'checked' : '' }}
-                                                {{ !$isEnabled ? 'disabled' : '' }}>
-                                            <label class="form-check-label" for="visible-{{ $pageKey }}">
-                                                Visible en Barra de Navegación
-                                            </label>
+
+                                {{-- Acordeón --}}
+                                <div class="accordion" id="accordionPages">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading-{{ $pageKey }}">
+                                            <button class="accordion-button collapsed fw-semibold" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapse-{{ $pageKey }}"
+                                                aria-expanded="false" aria-controls="collapse-{{ $pageKey }}">
+                                                {{ $pages[$pageKey] ?? ucwords($pageKey) }} (<i>{{ $pageKey }}</i>)
+                                            </button>
+                                        </h2>
+                                        <div id="collapse-{{ $pageKey }}" class="accordion-collapse collapse"
+                                            aria-labelledby="heading-{{ $pageKey }}" data-bs-parent="#accordionPages">
+                                            <div class="accordion-body">
+                                                <div class="mb-3">
+                                                    <label for="title-{{ $pageKey }}" class="form-label fw-bold">
+                                                        Nombre Personalizado
+                                                    </label>
+                                                    <input type="text" class="form-control"
+                                                        name="titles[{{ $pageKey }}]" id="title-{{ $pageKey }}"
+                                                        value="{{ $label }}"
+                                                        placeholder="Escribe un nombre personalizado para esta página">
+                                                </div>
+                                                <div class="d-flex flex-row gap-4 align-items-center">
+                                                    <div class="form-check form-switch">
+                                                        @if ($pageKey == 'login')
+                                                            <input type="hidden" name="enabled[]"
+                                                                value="{{ $pageKey }}">
+                                                            <input class="form-check-input enabled-toggle" type="checkbox"
+                                                                value="{{ $pageKey }}"
+                                                                id="enabled-{{ $pageKey }}"
+                                                                data-key="{{ $pageKey }}"
+                                                                {{ $isEnabled ? 'checked' : '' }} disabled>
+                                                            <label class="form-check-label"
+                                                                for="enabled-{{ $pageKey }}">
+                                                                Habilitado
+                                                            </label>
+                                                        @elseif ($pageKey == 'questionnaire' && !$agendaEnabled)
+                                                            <input class="form-check-input enabled-toggle" type="checkbox"
+                                                                name="enabled[]" value="{{ $pageKey }}"
+                                                                id="enabled-{{ $pageKey }}"
+                                                                data-key="{{ $pageKey }}"
+                                                                {{ $isEnabled ? 'checked' : '' }} disabled>
+                                                            <label class="form-check-label"
+                                                                for="enabled-{{ $pageKey }}">
+                                                                Habilitado
+                                                            </label>
+                                                            <div class="text-muted small mt-1 ms-1">
+                                                                Debes habilitar primero la página <strong>Agenda</strong>.
+                                                            </div>
+                                                        @else
+                                                            <input class="form-check-input enabled-toggle" type="checkbox"
+                                                                name="enabled[]" value="{{ $pageKey }}"
+                                                                id="enabled-{{ $pageKey }}"
+                                                                data-key="{{ $pageKey }}"
+                                                                {{ $isEnabled ? 'checked' : '' }}>
+                                                            <label class="form-check-label"
+                                                                for="enabled-{{ $pageKey }}">
+                                                                Habilitado
+                                                            </label>
+                                                        @endif
+                                                    </div>
+                                                    @if ($pageKey != 'forgot-password' && $pageKey != 'questionnaire')
+                                                        <div class="form-check form-switch">
+                                                            <input class="form-check-input visible-toggle" type="checkbox"
+                                                                name="visible[]" value="{{ $pageKey }}"
+                                                                id="visible-{{ $pageKey }}"
+                                                                data-key="{{ $pageKey }}"
+                                                                {{ $isVisible ? 'checked' : '' }}
+                                                                {{ !$isEnabled ? 'disabled' : '' }}>
+                                                            <label class="form-check-label"
+                                                                for="visible-{{ $pageKey }}">
+                                                                Visible en Barra de Navegación
+                                                            </label>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
-                        </div>
+                        @endforeach
                     </div>
 
                     <div class="mt-4 pt-3 border-top text-center">

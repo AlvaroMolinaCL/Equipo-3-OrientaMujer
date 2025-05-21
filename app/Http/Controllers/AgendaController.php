@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\AvailableSlot;
+use App\Models\TenantPage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,7 +34,13 @@ class AgendaController extends Controller
 
     public function index()
     {
-        if (!session('cuestionario_aprobado')) {
+        $tenantId = tenant('id');
+        $cuestionarioHabilitado = TenantPage::where('tenant_id', $tenantId)
+            ->where('page_key', 'questionnaire')
+            ->where('is_enabled', true)
+            ->exists();
+
+        if ($cuestionarioHabilitado && !session('cuestionario_aprobado')) {
             return redirect()->route('tenant.agenda.questionnaire');
         }
 

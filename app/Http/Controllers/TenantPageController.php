@@ -10,11 +10,27 @@ class TenantPageController extends Controller
 {
     public function edit(Tenant $tenant)
     {
-        $pageKeys = ['login', 'services', 'contact', 'tips', 'about', 'agenda'];
+        $defaultTitles = [
+            'login' => 'Iniciar Sesión',
+            'register' => 'Registrarse',
+            'forgot-password' => 'Restablecer Contraseña',
+            'services' => 'Servicios',
+            'contact' => 'Contacto',
+            'tips' => 'Tips',
+            'about' => 'Nosotros',
+            'agenda' => 'Agenda',
+            'questionnaire' => 'Cuestionario Pre-Agendamiento',
+        ];
 
-        $pages = collect($pageKeys)->mapWithKeys(function ($key) use ($tenant) {
+        $pagesByCategory = [
+            'Autenticación' => ['login', 'register', 'forgot-password'],
+            'Páginas Básicas' => ['services', 'contact', 'tips', 'about'],
+            'Sistema de Agendamiento' => ['agenda', 'questionnaire'],
+        ];
+
+        $pages = collect($defaultTitles)->mapWithKeys(function ($defaultTitle, $key) use ($tenant) {
             $page = $tenant->pages()->where('page_key', $key)->first();
-            return [$key => $page?->title ?? ucfirst($key)];
+            return [$key => $page?->title ?? $defaultTitle];
         });
 
         $tenantPages = TenantPage::where('tenant_id', $tenant->id)->get()->keyBy('page_key');
@@ -23,27 +39,44 @@ class TenantPageController extends Controller
             'tenant' => $tenant,
             'pages' => $pages->toArray(),
             'tenantPages' => $tenantPages,
+            'pagesByCategory' => $pagesByCategory,
         ]);
     }
 
     public function update(Request $request, Tenant $tenant)
     {
-        $pageKeys = ['login', 'services', 'contact', 'tips', 'about', 'agenda'];
+        $defaultTitles = [
+            'login' => 'Iniciar Sesión',
+            'register' => 'Registrarse',
+            'forgot-password' => '¿Olvidaste Tu Contraseña?',
+            'services' => 'Servicios',
+            'contact' => 'Contacto',
+            'tips' => 'Tips',
+            'about' => 'Nosotros',
+            'agenda' => 'Agenda',
+            'questionnaire' => 'Cuestionario Pre-Agendamiento',
+        ];
 
-        $pages = collect($pageKeys)->mapWithKeys(function ($key) use ($tenant) {
-            $page = $tenant->pages()->where('page_key', $key)->first();
-            return [$key => $page?->title ?? ucfirst($key)];
-        });
-
+        $pages = collect($defaultTitles);
         $titles = $request->input('titles', []);
 
-        foreach ($pages as $pageKey => $label) {
+        $enabled = $request->input('enabled', []);
+
+        if (in_array('questionnaire', $enabled) && !in_array('agenda', $enabled)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'No puedes habilitar el Cuestionario Pre-Agendamiento sin habilitar primero la Agenda.');
+        }
+
+        foreach ($pages as $pageKey => $defaultTitle) {
+            $isLogin = in_array($pageKey, ['login']);
+
             TenantPage::updateOrCreate(
                 ['tenant_id' => $tenant->id, 'page_key' => $pageKey],
                 [
-                    'is_enabled' => in_array($pageKey, $request->input('enabled', [])),
+                    'is_enabled' => $isLogin ? true : in_array($pageKey, $request->input('enabled', [])),
                     'is_visible' => in_array($pageKey, $request->input('visible', [])),
-                    'title' => $titles[$pageKey] ?? $label,
+                    'title' => $titles[$pageKey] ?? $defaultTitle,
                 ]
             );
         }

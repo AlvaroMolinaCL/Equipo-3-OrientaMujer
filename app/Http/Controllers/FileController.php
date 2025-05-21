@@ -106,7 +106,7 @@ class FileController extends Controller
         abort(403, 'No tienes permiso para eliminar este archivo.');
     }
 
-    public function sharedFolders(Request $request)
+    public function sharedFiles(Request $request)
     {
         $user = auth()->user();
         $usuarioLogueadoId = $user->id;
@@ -129,7 +129,7 @@ class FileController extends Controller
                 })
                 ->filter(fn($user) => $user->sharedFilesCount > 0);
 
-            return view('tenants.default.shared-folders.index', compact('users'));
+            return view('tenants.default.shared-files.index', compact('users'));
         }
 
         $filesSharedWithUser = File::whereJsonContains('shared_with', $usuarioLogueadoId)->get();
@@ -159,7 +159,7 @@ class FileController extends Controller
             })
             ->filter(fn($user) => $user->sharedFilesCount > 0);
 
-        return view('tenants.default.shared-folders.index', compact('users'));
+        return view('tenants.default.shared-files.index', compact('users'));
     }
 
     public function sharedByUser(User $user)
@@ -174,6 +174,6 @@ class FileController extends Controller
                 ->get();
         }
 
-        return view('tenants.default.shared-folders.user-files', compact('files', 'user'));
+        return view('tenants.default.shared-files.user-files', compact('files', 'user'));
     }
 }
