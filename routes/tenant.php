@@ -78,8 +78,8 @@ Route::middleware([
         Route::delete('/files/{file}', [FileController::class, 'destroy'])->name('files.destroy');
 
         // Archivos Compartidos
-        Route::get('/shared-folders', [FileController::class, 'sharedFolders'])->name('files.shared.folders');
-        Route::get('/shared-folders/{user}', [FileController::class, 'sharedByUser'])->name('files.shared.byUser');
+        Route::get('/shared-files', [FileController::class, 'sharedFiles'])->name('files.shared.files');
+        Route::get('/shared-files/{user}', [FileController::class, 'sharedByUser'])->name('files.shared.byUser');
 
         // Carrito
         Route::get('/cart', [CartController::class, 'index'])->name('cart.index');

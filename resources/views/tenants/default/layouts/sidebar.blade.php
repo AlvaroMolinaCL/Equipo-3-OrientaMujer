@@ -76,8 +76,8 @@
                             style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Agregar Archivos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::is('files.shared.folders') ? 'active' : '' }}"
-                            href="{{ route('files.shared.folders') }}"
+                        <a class="nav-link {{ Route::is('files.shared.files') ? 'active' : '' }}"
+                            href="{{ route('files.shared.files') }}"
                             style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Archivos
                             Compartidos</a>
                     </li>

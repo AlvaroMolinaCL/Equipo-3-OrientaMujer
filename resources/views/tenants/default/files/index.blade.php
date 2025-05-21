@@ -33,7 +33,7 @@
                     <span style="font-size: 1.5rem; font-weight: 600;">Agregar archivos</span>
                 </a>
 
-                <a href="{{ route('files.shared.folders') }}" 
+                <a href="{{ route('files.shared.files') }}" 
                 class="cube-block flex-fill d-flex flex-column align-items-center justify-content-center text-decoration-none"
                 style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
                         color: {{ tenantSetting('text_color_1', '#8C2D18') }};">

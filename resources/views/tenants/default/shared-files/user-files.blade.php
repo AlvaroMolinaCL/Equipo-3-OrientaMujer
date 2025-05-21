@@ -9,7 +9,7 @@
     @section('navbar-class', 'navbar-dark-mode')
         @include('tenants.default.layouts.navigation')
     @endsection
-    
+
     @section('body-class', 'theme-dark')
 @endif
 
@@ -21,22 +21,24 @@
                 <i class="bi bi-folder-symlink me-2"></i>
                 Archivos compartidos por {{ $user->name }}
             </h2>
-            <a href="{{ route('files.shared.folders') }}" class="btn btn-sm" style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
-                      color: {{ tenantSetting('text_color_1', '#8C2D18') }};
-                      border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
+            <a href="{{ route('files.shared.folders') }}" class="btn btn-sm"
+                style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
+                          color: {{ tenantSetting('text_color_1', '#8C2D18') }};
+                          border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
                 <i class="bi bi-arrow-left me-1"></i> Volver
             </a>
         </div>
 
-        @if($files->isEmpty())
+        @if ($files->isEmpty())
             <div class="alert alert-info">
                 No hay archivos compartidos por este usuario.
             </div>
         @else
-            {{-- Tabla de archivos --}}
+            {{-- Tabla de Archivos --}}
             <div class="card mb-4 border-0 shadow-sm">
-                <div class="card-header d-flex justify-content-between align-items-center" style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }};
-                                                   color: {{ tenantSetting('button_banner_text_color', 'white') }};">
+                <div class="card-header d-flex justify-content-between align-items-center"
+                    style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }};
+                                                       color: {{ tenantSetting('button_banner_text_color', 'white') }};">
                     <h5 class="mb-0">Listado de Archivos Compartidos</h5>
                 </div>
                 <div class="card-body p-0">
@@ -53,7 +55,7 @@
                                 </tr>
                             </thead>
                             <tbody class="text-center">
-                                @foreach($files as $file)
+                                @foreach ($files as $file)
                                     <tr>
                                         <td>{{ $file->name }}</td>
                                         <td>{{ $file->created_at->format('d/m/Y H:i') }}</td>
@@ -70,9 +72,9 @@
                                                     <i class="bi bi-download"></i> Descargar
                                                 </a>
 
-                                                @if(auth()->user()->hasRole('Admin') || $file->uploaded_by == auth()->id())
-                                                    <form action="{{ route('files.destroy', $file) }}" method="POST" class="d-flex"
-                                                        style="width: 120px;"
+                                                @if (auth()->user()->hasRole('Admin') || $file->uploaded_by == auth()->id())
+                                                    <form action="{{ route('files.destroy', $file) }}" method="POST"
+                                                        class="d-flex" style="width: 120px;"
                                                         onsubmit="return confirm('¿Estás seguro de que deseas eliminar este archivo?')">
                                                         @csrf
                                                         @method('DELETE')
