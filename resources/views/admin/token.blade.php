@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Ver Token de Acceso - ' . config('app.name', 'Laravel'))
+
 @section('navbar')
     @include('layouts.navigation')
 @endsection

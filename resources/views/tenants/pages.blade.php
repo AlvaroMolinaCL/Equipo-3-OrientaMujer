@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Configurar Páginas de ' . $tenant->name . ' - ' . config('app.name', 'Laravel'))
+
 @section('navbar')
     @include('layouts.navigation')
 @endsection

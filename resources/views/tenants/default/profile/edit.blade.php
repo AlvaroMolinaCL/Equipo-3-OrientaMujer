@@ -4,13 +4,15 @@
 
 @extends($isUser ? 'tenants.default.layouts.app' : 'tenants.default.layouts.panel')
 
-@if($isUser)
-@section('navbar')
-@section('navbar-class', 'navbar-dark-mode')
-    @include('tenants.default.layouts.navigation')
-@endsection
+@section('title', 'Mi Perfil - ' . tenantSetting('name', 'Tenant'))
 
-@section('body-class', 'theme-dark')
+@if ($isUser)
+    @section('navbar')
+        @section('navbar-class', 'navbar-dark-mode')
+        @include('tenants.default.layouts.navigation')
+    @endsection
+
+    @section('body-class', 'theme-dark')
 @endif
 
 @section('content')
@@ -20,7 +22,7 @@
             <h3 class="fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                 <i class="bi bi-person me-2"></i>{{ __('Perfil') }}
             </h3>
-            @unless(auth()->user()->hasRole('Usuario'))
+            @unless (auth()->user()->hasRole('Usuario'))
                 <a href="{{ route('dashboard') }}" class="btn btn-sm"
                     style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                     <i class="bi bi-arrow-left me-2"></i>Volver
@@ -51,7 +53,7 @@
         </div>
     </div>
 
-    @if($isUser)
+    @if ($isUser)
         @include('tenants.default.layouts.footer')
     @endif
 @endsection

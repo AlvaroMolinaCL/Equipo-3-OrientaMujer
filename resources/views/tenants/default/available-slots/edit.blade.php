@@ -1,6 +1,6 @@
 @extends('tenants.default.layouts.panel')
 
-@section('title', 'Disponibilidad')
+@section('title', 'Editar Disponibilidad - ' . tenantSetting('name', 'Tenant'))
 
 @section('sidebar')
     @include('tenants.default.layouts.sidebar')

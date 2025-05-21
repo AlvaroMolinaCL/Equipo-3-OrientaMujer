@@ -1,5 +1,7 @@
 @extends('layouts.guest')
 
+@section('title', 'Iniciar Sesión - ' . config('app.name', 'Laravel'))
+
 @section('content')
     <div class="container py-5 min-vh-100 d-flex flex-column justify-content-center">
 

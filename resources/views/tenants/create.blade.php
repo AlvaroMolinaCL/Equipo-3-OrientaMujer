@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Nuevo Tenant - ' . config('app.name', 'Laravel'))
+
 @section('navbar')
     @include('layouts.navigation')
 @endsection

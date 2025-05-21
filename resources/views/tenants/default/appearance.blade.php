@@ -1,6 +1,6 @@
 @extends('tenants.default.layouts.panel')
 
-@section('title', 'Dashboard')
+@section('title', 'Editar Apariencia - ' . tenantSetting('name', 'Tenant'))
 
 @section('sidebar')
     @include('tenants.default.layouts.sidebar')

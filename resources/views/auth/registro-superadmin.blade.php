@@ -1,5 +1,7 @@
 @extends('layouts.guest')
 
+@section('title', 'Activar Cuenta - ' . config('app.name', 'Laravel'))
+
 @section('content')
     <div class="container py-5 d-flex align-items-center justify-content-center" style="min-height: 100vh;">
         <div class="col-md-8 col-lg-6">

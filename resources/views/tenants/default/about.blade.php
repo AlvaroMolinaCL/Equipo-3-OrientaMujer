@@ -1,5 +1,7 @@
 @extends('tenants.default.layouts.app')
 
+@section('title', tenantPageName('about', 'Quiénes Somos') . ' - ' . tenantSetting('name', 'Tenant'))
+
 @section('navbar')
     @section('navbar-class', 'navbar-light-mode')
     @include('tenants.default.layouts.navigation')

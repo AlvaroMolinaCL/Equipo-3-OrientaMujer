@@ -1,16 +1,23 @@
 @php
     $isUser = auth()->user()->hasRole('Usuario');
+    $isAdmin = auth()->user()->hasRole('Admin');
 @endphp
 
 @extends($isUser ? 'tenants.default.layouts.app' : 'tenants.default.layouts.panel')
 
 @if ($isUser)
+    @section('title', 'Mis Archivos - ' . tenantSetting('name', 'Tenant'))
+
     @section('navbar')
     @section('navbar-class', 'navbar-dark-mode')
         @include('tenants.default.layouts.navigation')
     @endsection
     
     @section('body-class', 'theme-dark')
+@endif
+
+@if ($isAdmin)
+    @section('title', 'Gestión de Archivos - ' . tenantSetting('name', 'Tenant'))
 @endif
 
 @section('content')

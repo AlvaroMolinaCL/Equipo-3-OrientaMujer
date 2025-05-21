@@ -1,5 +1,7 @@
 @extends('layouts.guest')
 
+@section('title', config('app.name', 'Laravel'))
+
 @section('content')
     <!-- Hero Section -->
     <section class="hero-section" style="background-color: #fdf5e5; border-bottom: 10px solid #6B3A2C;">
