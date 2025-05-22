@@ -14,12 +14,25 @@ class UserController extends Controller
     {
         $users = User::with('roles')->get();
 
+        $firstSuperAdmin = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Super Admin');
+        })->orderBy('id')->first();
+
+        $firstSuperAdminId = $firstSuperAdmin?->id;
+
         if (tenant()) {
-            return view(tenantView('users.index'), ['users' => $users]);
+            return view(tenantView('users.index'), [
+                'users' => $users,
+                'firstSuperAdminId' => $firstSuperAdminId,
+            ]);
         }
 
-        return view('users.index', ['users' => $users]);
+        return view('users.index', [
+            'users' => $users,
+            'firstSuperAdminId' => $firstSuperAdminId,
+        ]);
     }
+
 
     public function create(User $user)
     {
