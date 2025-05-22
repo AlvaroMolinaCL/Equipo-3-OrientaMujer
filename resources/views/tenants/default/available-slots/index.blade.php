@@ -7,176 +7,125 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
-        {{-- Encabezado --}}
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3 class="fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
-                <i class="bi bi-calendar me-2"></i>{{ __('Disponibilidad') }}
-            </h3>
-            <a href="{{ route('dashboard') }}" class="btn btn-sm"
-                style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
-                       color: {{ tenantSetting('text_color_1', '#8C2D18') }};
-                       border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
-                <i class="bi bi-arrow-left me-2"></i>Volver
-            </a>
-        </div>
+@extends('tenants.default.layouts.panel')
 
-        {{-- Tabla de Disponibilidad --}}
-        <div class="card mb-4 border-0 shadow-sm">
-            <div class="card-header d-flex justify-content-between align-items-center"
-                style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }};
-                               color: {{ tenantSetting('button_banner_text_color', 'white') }};">
-                <h5 class="mb-0">Listado de Bloques Horarios</h5>
-                <a href="{{ route('available-slots.create') }}" class="btn btn-sm"
-                    style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};
-                                   color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
-                    <i class="bi bi-plus-circle"></i> Nueva Disponibilidad
-                </a>
+@section('title', 'Disponibilidad')
+
+@section('sidebar')
+    @include('tenants.default.layouts.sidebar')
+@endsection
+
+@section('content')
+<div class="container">
+    <h3 class="mb-4" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Calendario de Disponibilidad</h3>
+
+    <div id="calendar"></div>
+</div>
+
+{{-- Modal --}}
+<div class="modal fade" id="dayModal" tabindex="-1" aria-labelledby="dayModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dayModalLabel">Horarios del día</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead style="background-color: {{ tenantSetting('button_banner_text_color', '#FDF5E5') }};">
-                            <tr>
-                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
-                                    Fecha</th>
-                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
-                                    Horario</th>
-                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
-                                    Máx. Reservas</th>
-                                <th class="text-center" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
-                                    Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-center">
-                            @forelse ($slots as $slot)
-                                <tr>
-                                    <td>{{ $slot->date }}</td>
-                                    <td>{{ substr($slot->start_time, 0, 5) }} - {{ substr($slot->end_time, 0, 5) }}</td>
-                                    <td>{{ $slot->max_bookings }}</td>
-                                    <td>
-                                        <div class="d-flex flex-column flex-md-row justify-content-center gap-2">
-                                            {{-- Ver Reservas --}}
-                                            <button
-                                                class="btn btn-sm w-100 d-flex align-items-center justify-content-center gap-1"
-                                                style="background-color: {{ tenantSetting('background_color_2', '#FDF5E5') }};
-                                                   color: {{ tenantSetting('text_color_2', '#8C2D18') }};"
-                                                data-bs-toggle="modal" data-bs-target="#slotModal"
-                                                data-slot-id="{{ $slot->id }}" data-slot-date="{{ $slot->date }}"
-                                                data-slot-start="{{ substr($slot->start_time, 0, 5) }}"
-                                                data-slot-end="{{ substr($slot->end_time, 0, 5) }}">
-                                                <i class="bi bi-eye"></i> Ver Reservas
-                                            </button>
+            <div class="modal-body">
+                <input type="hidden" id="modal-date-input" name="date">
+                <div id="slots-list-modal"></div>
+            </div>
 
-                                            {{-- Editar --}}
-                                            <a href="{{ route('available-slots.edit', $slot) }}"
-                                                class="btn btn-sm w-100 d-flex align-items-center justify-content-center gap-1"
-                                                style="background-color: {{ tenantSetting('background_color_2', '#FDF5E5') }};
-                                                   color: {{ tenantSetting('text_color_2', '#8C2D18') }};">
-                                                <i class="bi bi-pencil"></i> Editar
-                                            </a>
+        </div>
+    </div>
+</div>
 
-                                            {{-- Eliminar --}}
-                                            <form action="{{ route('available-slots.destroy', $slot) }}" method="POST"
-                                                onsubmit="return confirm('¿Estás seguro de eliminar esta disponibilidad?')"
-                                                class="w-100">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                    class="btn btn-sm w-100 d-flex align-items-center justify-content-center gap-1"
-                                                    style="background-color: #dc3545; color: white;">
-                                                    <i class="bi bi-trash"></i> Eliminar
-                                                </button>
+{{-- FullCalendar + Bootstrap Modal --}}
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const calendarEl = document.getElementById('calendar');
+        const modal = new bootstrap.Modal(document.getElementById('dayModal'));
+        const modalDateInput = document.getElementById('modal-date-input');
+        const modalDateTitle = document.getElementById('dayModalLabel');
+        const slotsList = document.getElementById('slots-list-modal');
+
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            locale: 'es',
+            height: 600,
+            dayMaxEvents: true,
+            selectable: true,
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: ''
+            },
+            events: '/api/available-slots',
+            dateClick: function (info) {
+                const date = info.dateStr;
+                modalDateTitle.textContent = `Horarios para el ${date}`;
+                modalDateInput.value = date;
+                slotsList.innerHTML = `<p class="text-muted">Cargando horarios...</p>`;
+                modal.show();
+
+                fetch(`/api/available-slots?date=${date}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        slotsList.innerHTML = '';
+
+                        if (data.length === 0) {
+                            slotsList.innerHTML = '<p class="text-muted">No se registran horarios disponibles.</p>';
+                        } else {
+                            data.forEach(slot => {
+                                slotsList.innerHTML += `
+                                    <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                                        <div><strong>${slot.start_time} - ${slot.end_time}</strong></div>
+                                        <div>
+                                            <a href="/available-slots/${slot.id}/edit" class="btn btn-sm btn-outline-secondary me-2">Editar</a>
+                                            <form method="POST" action="/available-slots/${slot.id}" style="display:inline;">
+                                                <input type="hidden" name="_token" value="${document.querySelector('meta[name=csrf-token]').content}">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
                                             </form>
                                         </div>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="4">No has definido horarios aún.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{-- Modal --}}
-    <div class="modal fade" id="slotModal" tabindex="-1" aria-labelledby="slotModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header"
-                    style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }};
-                        color: {{ tenantSetting('button_banner_text_color', 'white') }};">
-                    <h5 class="modal-title" id="slotModalLabel">Detalle de Reservas</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="reservations-container">
-                        <p class="text-center">Cargando reservas...</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const modal = document.getElementById('slotModal');
-
-            modal.addEventListener('show.bs.modal', function(event) {
-                const button = event.relatedTarget;
-                const slotId = button.getAttribute('data-slot-id');
-
-                const container = document.getElementById('reservations-container');
-                container.innerHTML = '<p class="text-center">Cargando reservas...</p>';
-
-                fetch(`/available-slots/${slotId}/reservations`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.length === 0) {
-                            container.innerHTML =
-                                '<p class="text-center">No hay reservas para este bloque.</p>';
-                            return;
+                                    </div>
+                                `;
+                            });
                         }
 
-                        let content = `<div class="accordion" id="reservationsAccordion">`;
-
-                        data.forEach((res, index) => {
-                            content += `
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="heading${index}">
-                                    <button class="accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapse${index}"
-                                        aria-expanded="false" aria-controls="collapse${index}">
-                                        ${res.user_name} - ${res.created_at}
-                                    </button>
-                                </h2>
-                                <div id="collapse${index}" class="accordion-collapse collapse"
-                                     aria-labelledby="heading${index}" data-bs-parent="#reservationsAccordion">
-                                    <div class="accordion-body">
-                                        <p><strong>Email:</strong> ${res.email}</p>
-                                        <p><strong>Teléfono:</strong> ${res.phone || 'No registrado'}</p>
-                                        <div class="d-flex gap-2 mt-3">
-                                            <button class="btn btn-success btn-sm">Confirmar</button>
-                                            <button class="btn btn-danger btn-sm">Anular</button>
-                                        </div>
-                                    </div>
+                        // Solo ahora, agrega el formulario al final
+                        slotsList.innerHTML += `
+                            <hr class="my-4">
+                            <h6 class="mb-3"><i class="bi bi-plus-circle me-1"></i> Agregar nuevo horario</h6>
+                            <form method="POST" action="/available-slots" class="row g-2 align-items-center">
+                                <input type="hidden" name="_token" value="${document.querySelector('meta[name=csrf-token]').content}">
+                                <input type="hidden" name="mode" value="puntual">
+                                <input type="hidden" name="date" value="${date}">
+                                <div class="col-md-4">
+                                    <input type="time" name="start_time" class="form-control" required>
                                 </div>
-                            </div>`;
-                        });
-
-                        content += `</div>`;
-                        container.innerHTML = content;
-                    })
-                    .catch(err => {
-                        container.innerHTML =
-                            '<p class="text-danger">Error al cargar las reservas.</p>';
-                        console.error(err);
+                                <div class="col-md-4">
+                                    <input type="time" name="end_time" class="form-control" required>
+                                </div>
+                                <div class="col-md-4 d-grid">
+                                    <button type="submit" class="btn fw-bold"
+                                        style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};
+                                            color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }};">
+                                        + Agregar Horario
+                                    </button>
+                                </div>
+                            </form>
+                        `;
                     });
-            });
+
+            }
         });
-    </script>
+
+        calendar.render();
+    });
+</script>
 @endsection
