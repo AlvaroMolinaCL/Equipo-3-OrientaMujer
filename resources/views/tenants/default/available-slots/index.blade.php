@@ -7,18 +7,8 @@
 @endsection
 
 @section('content')
-@extends('tenants.default.layouts.panel')
-
-@section('title', 'Disponibilidad')
-
-@section('sidebar')
-    @include('tenants.default.layouts.sidebar')
-@endsection
-
-@section('content')
 <div class="container">
     <h3 class="mb-4" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Calendario de Disponibilidad</h3>
-
     <div id="calendar"></div>
 </div>
 
@@ -64,7 +54,7 @@
                 center: 'title',
                 right: ''
             },
-            events: '/api/available-slots',
+            events: '/api/slots',   
             dateClick: function (info) {
                 const date = info.dateStr;
                 modalDateTitle.textContent = `Horarios para el ${date}`;
@@ -72,7 +62,7 @@
                 slotsList.innerHTML = `<p class="text-muted">Cargando horarios...</p>`;
                 modal.show();
 
-                fetch(`/api/available-slots?date=${date}`)
+                fetch(`/api/slots?date=${date}`)
                     .then(res => res.json())
                     .then(data => {
                         slotsList.innerHTML = '';

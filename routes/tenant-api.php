@@ -10,9 +10,8 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 | Tenant API Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
+| Estas rutas API son exclusivas para los tenants.
+| Se aplican automáticamente en dominios como gestiondecitas.localhost.
 |
 */
 
@@ -21,5 +20,9 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
+    // ✅ Ruta para obtener horarios disponibles para agendamiento (usada por FullCalendar)
+    Route::get('/slots', [AvailableSlotController::class, 'apiIndex']);
+
+    // 🧭 Ruta que ya tenías (para obtener horarios válidos para clientes)
     Route::get('/available-hours', [AvailableSlotController::class, 'getAvailableHours']);
 });

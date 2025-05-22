@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminSuperAdminRequestController;
 use App\Http\Controllers\PublicSuperAdminRequestController;
 use App\Http\Controllers\SuperAdminInvitationController;
-use App\Http\Controllers\AvailableSlotController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,9 +48,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/disponibilidad/calendario', function () {
         return view('tenants.default.available-slots.calendar');
     })->middleware('role:Admin')->name('admin.disponibilidad.calendario');
-
-    // Ruta necesaria para FullCalendar en contexto tenant
-    Route::get('/available-slots', [AvailableSlotController::class, 'apiIndex']);
 });
 
 // Rutas exclusivas para Super Administrador
