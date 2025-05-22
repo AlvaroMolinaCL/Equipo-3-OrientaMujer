@@ -14,7 +14,7 @@
     </a>
 
     <ul class="navbar-nav flex-column w-100" id="sidebarAccordion">
-        <!-- Panel de Control -->
+        {{-- Panel de Control --}}
         <li class="nav-item">
             <a class="nav-link {{ Route::is('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}"
                 style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
@@ -22,7 +22,7 @@
             </a>
         </li>
 
-        <!-- Apariencia -->
+        {{-- Apariencia --}}
         <li class="nav-item">
             <a class="nav-link {{ Route::is('appearance.index') ? 'active' : '' }}" href="{{ route('appearance') }}"
                 style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
@@ -30,7 +30,7 @@
             </a>
         </li>
 
-        <!-- Mi Agenda -->
+        {{-- Mi Agenda --}}
         <li class="nav-item">
             <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
                 href="#availableSlotsMenu" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};"
@@ -55,7 +55,7 @@
             </div>
         </li>
 
-        <!-- Archivos -->
+        {{-- Archivos --}}
         <li class="nav-item">
             <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
                 href="#filesMenu" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};"
@@ -85,7 +85,7 @@
             </div>
         </li>
 
-        <!-- Usuarios -->
+        {{-- Usuarios --}}
         <li class="nav-item">
             <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
                 href="#usersMenu" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};"
@@ -108,9 +108,30 @@
                 </ul>
             </div>
         </li>
+
+        {{-- Roles --}}
+        <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
+                href="#rolesMenu" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
+                <span><i class="bi bi-person-check me-2"></i> Roles</span>
+                <i class="bi bi-chevron-down small"></i>
+            </a>
+            <div class="collapse ps-3 {{ Route::is('roles.*') ? 'show' : '' }}" id="rolesMenu" data-bs-parent="#sidebarAccordion">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('roles.index') ? 'active' : '' }}"
+                            href="{{ route('roles.index') }}" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Ver Roles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('roles.create') ? 'active' : '' }}"
+                            href="{{ route('roles.create') }}" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Agregar Rol</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
     </ul>
 
-    <!-- Información de Usuario -->
+    {{-- Información de Usuario --}}
     <div class="mt-auto border-top pt-3"
         style="border-color: {{ tenantSetting('navbar_text_color_1', '#BF8A49') }} !important;">
         <div class="text-left">

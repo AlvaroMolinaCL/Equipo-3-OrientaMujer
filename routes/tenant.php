@@ -7,12 +7,14 @@ use App\Http\Controllers\App\UserController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AppearanceController;
 use App\Http\Controllers\AvailableSlotController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\Tenant\RoleController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
-use App\Http\Controllers\CartController;
+
 /*
 |--------------------------------------------------------------------------
 | Tenant Routes
@@ -35,12 +37,12 @@ Route::middleware([
         return view(tenantView('index'));
     })->name('tenants.default.index');
 
-    // Página "Services"
+    // Página "Servicios"
     Route::get('/services', function () {
         return view(tenantView('services'));
     })->middleware('check.tenant.page.enabled:services');
 
-    // Página "Contact"
+    // Página "Contacto"
     Route::get('/contact', function () {
         return view(tenantView('contact'));
     })->middleware('check.tenant.page.enabled:contact');
@@ -50,7 +52,7 @@ Route::middleware([
         return view(tenantView('tips'));
     })->middleware('check.tenant.page.enabled:tips');
 
-    // Página "About"
+    // Página "Nosotros"
     Route::get('/about', function () {
         return view(tenantView('about'));
     })->middleware('check.tenant.page.enabled:about');
@@ -61,6 +63,8 @@ Route::middleware([
         Route::middleware(['check.tenant.page.enabled:agenda'])->group(function () {
             Route::get('/agenda', [AgendaController::class, 'index'])->name('tenant.agenda.index');
             Route::post('/agenda', [AgendaController::class, 'store'])->name('tenant.agenda.store');
+
+            // Cuestionario Pre-Agendamiento
             Route::middleware(['check.tenant.page.enabled:questionnaire'])->group(function () {
                 Route::get('/agenda/cuestionario', [AgendaController::class, 'showQuestionnaire'])->name('tenant.agenda.questionnaire');
                 Route::post('/agenda/cuestionario', [AgendaController::class, 'processQuestionnaire'])->name('tenant.agenda.questionnaire.process');
@@ -106,6 +110,9 @@ Route::middleware([
 
         // Gestión de Usuarios
         Route::resource('users', UserController::class);
+
+        // Gestión de Roles
+        Route::resource('roles', RoleController::class);
     });
 
     require __DIR__ . '/tenant-auth.php';
