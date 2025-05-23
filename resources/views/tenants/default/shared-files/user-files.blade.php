@@ -21,7 +21,7 @@
                 <i class="bi bi-folder-symlink me-2"></i>
                 Archivos compartidos por {{ $user->name }}
             </h2>
-            <a href="{{ route('files.shared.folders') }}" class="btn btn-sm"
+            <a href="{{ route('files.shared.files') }}" class="btn btn-sm"
                 style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
                           color: {{ tenantSetting('text_color_1', '#8C2D18') }};
                           border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
