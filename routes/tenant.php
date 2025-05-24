@@ -95,7 +95,7 @@ Route::middleware([
 
     // Rutas exclusivas para Administrador
     Route::middleware(['auth', 'role:Admin'])->group(function () {
-        // Dashboard
+        // Panel de Control
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // Gestión de Agenda
@@ -113,6 +113,11 @@ Route::middleware([
 
         // Gestión de Roles
         Route::resource('roles', RoleController::class);
+
+        // Calendario de Disponibilidad
+        Route::get('/admin/disponibilidad/calendario', function () {
+            return view('tenants.default.available-slots.calendar');
+        })->middleware('role:Admin')->name('admin.disponibilidad.calendario');
     });
 
     require __DIR__ . '/tenant-auth.php';

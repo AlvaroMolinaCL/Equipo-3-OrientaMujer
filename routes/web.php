@@ -1,68 +1,62 @@
 <?php
 
+use App\Http\Controllers\AdminSuperAdminRequestController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DomainController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicSuperAdminRequestController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SuperAdminInvitationController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\TenantPageController;
 use App\Http\Controllers\Admin\TokenController;
 use App\Http\Controllers\App\UserController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminSuperAdminRequestController;
-use App\Http\Controllers\PublicSuperAdminRequestController;
-use App\Http\Controllers\SuperAdminInvitationController;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Aquí se registran las rutas web de la aplicación.
-| Estas rutas están agrupadas por middleware y permisos según el rol.
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
 |
 */
 
-// Solicitud de Super Admin (público)
-Route::get('/solicitar-superadmin', [PublicSuperAdminRequestController::class, 'form']);
-Route::post('/solicitar-superadmin', [PublicSuperAdminRequestController::class, 'submit']);
-
-// Registro desde invitación
-Route::get('/registro-superadmin/{token}', [SuperAdminInvitationController::class, 'form']);
-Route::post('/registro-superadmin/{token}', [SuperAdminInvitationController::class, 'register']);
-
-// Página de inicio
+// Página Principal
 Route::get('/', function () {
     return view('index');
 })->name('index');
 
-// Rutas para cualquier usuario autenticado
-Route::middleware(['auth', 'verified'])->group(function () {
+// Formulario de Solicitud de Super Administrador
+Route::get('/solicitar-superadmin', [PublicSuperAdminRequestController::class, 'form']);
+Route::post('/solicitar-superadmin', [PublicSuperAdminRequestController::class, 'submit']);
 
-    // Dashboard y perfil
+// Formulario de Registro de Super Administrador (con Token)
+Route::get('/registro-superadmin/{token}', [SuperAdminInvitationController::class, 'form']);
+Route::post('/registro-superadmin/{token}', [SuperAdminInvitationController::class, 'register']);
+
+// Rutas solo para usuarios que han iniciado sesión
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Panel de Control
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Perfil de Usuario
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    // Calendario del abogado
-    Route::get('/admin/disponibilidad/calendario', function () {
-        return view('tenants.default.available-slots.calendar');
-    })->middleware('role:Admin')->name('admin.disponibilidad.calendario');
 });
 
 // Rutas exclusivas para Super Administrador
 Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
-
-    Route::get('solicitudes-superadmin', [AdminSuperAdminRequestController::class, 'index']);
-    Route::post('solicitudes-superadmin/{id}/aprobar', [AdminSuperAdminRequestController::class, 'approve']);
-
     // Gestión de Tenants
     Route::resource('tenants', TenantController::class);
     Route::delete('tenants/{tenant}', [TenantController::class, 'destroy'])->name('tenants.destroy');
     Route::get('tenants/{tenant}/edit', [TenantController::class, 'edit'])->name('tenants.edit');
     Route::put('tenants/{tenant}', [TenantController::class, 'update'])->name('tenants.update');
 
-    // Páginas de tenant
+    // Gestión de Páginas por Tenant
     Route::get('tenants/{tenant}/pages/edit', [TenantPageController::class, 'edit'])->name('tenants.pages.edit');
     Route::put('tenants/{tenant}/pages/update', [TenantPageController::class, 'update'])->name('tenants.pages.update');
 
@@ -75,7 +69,14 @@ Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
     // Gestión de Usuarios
     Route::resource('users', UserController::class);
 
-    // Visualización de token
+    // Gestión de Roles
+    Route::resource('roles', RoleController::class);
+
+    // Gestión de Solicitudes de Super Administrador
+    Route::get('solicitudes-superadmin', [AdminSuperAdminRequestController::class, 'index']);
+    Route::post('solicitudes-superadmin/{id}/aprobar', [AdminSuperAdminRequestController::class, 'approve'])->name('admin.solicitudes.aprobar');
+
+    // Token de Acceso
     Route::get('/admin/token', [TokenController::class, 'show'])->name('admin.token');
 });
 
