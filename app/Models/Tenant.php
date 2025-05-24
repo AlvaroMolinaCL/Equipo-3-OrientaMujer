@@ -116,4 +116,10 @@ class Tenant extends BaseTenant implements TenantWithDatabase
     {
         return $this->hasMany(User::class);
     }
+
+    public function texts()
+    {
+        return $this->hasMany(TenantText::class);
+    }
+
 }

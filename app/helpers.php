@@ -33,3 +33,14 @@ function tenantPageName(string $pageKey, string $fallback = '')
             ->where('page_key', $pageKey)
             ->value('title') ?? $fallback;
     }
+
+/**
+ * Recupera el texto de un tenant desde la base de datos
+ */   
+function tenantText(string $key, string $default = ''): string
+{
+    return \App\Models\TenantText::on('central')
+        ->where('tenant_id', tenant()?->id)
+        ->where('key', $key)
+        ->value('value') ?? $default;
+}
