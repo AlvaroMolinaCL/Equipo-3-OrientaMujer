@@ -129,6 +129,14 @@
                 </ul>
             </div>
         </li>
+         {{-- Productos --}}
+        <li class="nav-item">
+            <a class="nav-link {{ Route::is('products.index') ? 'active' : '' }}" href="{{ route('products.index') }}"
+                style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
+                <i class="bi bi-palette me-2"></i> Productos
+            </a>
+        </li>
+
     </ul>
 
     {{-- Información de Usuario --}}
@@ -159,4 +167,5 @@
             </ul>
         </div>
     </div>
+    
 </nav>
