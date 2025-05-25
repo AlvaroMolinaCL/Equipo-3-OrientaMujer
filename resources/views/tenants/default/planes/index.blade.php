@@ -17,9 +17,8 @@
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow">
                     @if($product->image)
-                    <img src="{{ asset($product->image) }}" alt="Imagen del producto" class="card-img-top" style="object-fit: cover; height: 200px;">
+                    <img src="{{ asset(path: $product->image) }}" alt="Imagen del producto" class="card-img-top" style="object-fit: cover; height: 200px;">
                     @endif
-
                     <div class="card-body">
                         <h5 class="card-title">{{ $product->name }}</h5>
                         <p class="text-muted">{{ $product->category }}</p>
