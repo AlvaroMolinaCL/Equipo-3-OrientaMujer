@@ -40,11 +40,17 @@ class TenantTextController extends Controller
             'services_path_3' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'about_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'banner_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'title_service_1' => 'required|string',
+            'title_service_2' => 'required|string',
+            'title_service_3' => 'required|string',
+            'body_service_1' => 'required|string',
+            'body_service_2' => 'required|string',
+            'body_service_3' => 'required|string',
 
         ]);
 
         // Guardar textos normales en tenant_texts
-        $keys = ['slogan_text', 'slogan_body', 'about_text', 'service1_title', 'service1_body', 'service2_title', 'service2_body', 'service3_title', 'service3_body'];
+        $keys = ['slogan_text', 'slogan_body', 'about_text', 'service1_title', 'service1_body', 'service2_title', 'service2_body', 'service3_title', 'service3_body', 'title_service_1', 'title_service_2', 'title_service_3', 'body_service_1', 'body_service_2', 'body_service_3'];
 
         foreach ($keys as $key) {
             $value = $request->input($key, '');
