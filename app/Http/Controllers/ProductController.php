@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 
 class ProductController extends Controller
 {
@@ -34,9 +36,11 @@ class ProductController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('products', 'public');
-            $data['image'] = $path;
+            $filename = Str::uuid() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(public_path('images/products'), $filename);
+            $data['image'] = 'images/products/' . $filename;
         }
+
 
         Product::create($data);
 
@@ -70,11 +74,12 @@ class ProductController extends Controller
 
         if ($request->hasFile('image')) {
             // Elimina la imagen anterior si existe
-            if ($product->image && Storage::disk('public')->exists($product->image)) {
-                Storage::disk('public')->delete($product->image);
+            if ($product->image && file_exists(public_path($product->image))) {
+                unlink(public_path($product->image));
             }
-
-            $data['image'] = $request->file('image')->store('products', 'public');
+            $filename = Str::uuid() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(public_path('images/products'), $filename);
+            $data['image'] = 'images/products/' . $filename;
         }
 
         $product->update($data);
@@ -85,17 +90,18 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         // Borra la imagen si existe
-        if ($product->image && Storage::disk('public')->exists($product->image)) {
-            Storage::disk('public')->delete($product->image);
+        if ($product->image && file_exists(public_path($product->image))) {
+            unlink(public_path($product->image));
         }
+
+
 
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Producto eliminado');
     }
-        public function planes()
+    public function planes()
     {
         $products = Product::all(); // o los productos filtrados por tipo = "plan"
         return view('tenants.default.planes.index', compact('products'));
     }
-
 }
