@@ -25,8 +25,13 @@
                         <p class="fw-bold">${{ number_format($product->price, 0, ',', '.') }}</p>
                     </div>
                     <div class="card-footer text-center">
-                        <a href="#" class="btn btn-primary">Escoger Plan</a>
-                    </div>
+                    <form action="{{ route('cart.add') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit" class="btn btn-primary">Agregar al carrito</button>
+                    </form>
+                </div>
                 </div>
             </div>
         @endforeach
