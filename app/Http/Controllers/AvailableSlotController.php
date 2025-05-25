@@ -18,6 +18,28 @@ class AvailableSlotController extends Controller
         return view('tenants.default.available-slots.index', compact('slots'));
     }
 
+    public function apiIndex(Request $request)
+    {
+        $query = AvailableSlot::with('appointments');
+
+        if ($request->has('date')) {
+            $query->where('date', $request->query('date'));
+        }
+
+        return response()->json(
+            $query->get()->map(function ($slot) {
+                return [
+                    'id' => $slot->id,
+                    'title' => $slot->start_time . ' - ' . $slot->end_time,
+                    'start' => $slot->date,
+                    'start_time' => $slot->start_time,
+                    'end_time' => $slot->end_time,
+                    'available' => $slot->appointments->isEmpty(),
+                ];
+            })
+        );
+    }
+
     public function create()
     {
         return view('tenants.default.available-slots.create');
@@ -25,29 +47,68 @@ class AvailableSlotController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'date' => 'required|date',
-            'slots.*.start-time' => 'required|date_format:H:i',
-            'slots.*.end-time' => 'required|date_format:H:i',
-            'slots.*.max-bookings' => 'required|integer|min:1',
-        ]);
-
-        foreach ($validated['slots'] as $index => $slot) {
-            if (strtotime($slot['end-time']) <= strtotime($slot['start-time'])) {
-                return back()->withErrors(["slots.$index.end-time" => 'La hora de fin debe ser posterior a la de inicio.'])->withInput();
-            }
+        if ($request->mode === 'puntual') {
+            $request->validate([
+                'date' => 'required|date',
+                'start_time' => 'required|date_format:H:i',
+                'end_time' => 'required|date_format:H:i|after:start_time',
+            ]);
 
             AvailableSlot::create([
                 'user_id' => Auth::id(),
-                'date' => $validated['date'],
-                'start_time' => $slot['start-time'],
-                'end_time' => $slot['end-time'],
-                'max_bookings' => $slot['max-bookings'],
+                'date' => $request->date,
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
             ]);
+
+            return redirect()->route('available-slots.index')->with('success', 'Horario puntual agregado.');
         }
 
-        return redirect()->route('available-slots.index')->with('success', 'Disponibilidad agregada correctamente.');
+        if ($request->mode === 'recurrente') {
+            $request->validate([
+                'start_date' => 'required|date',
+                'end_date' => 'required|date|after_or_equal:start_date',
+                'start_time' => 'required|date_format:H:i',
+                'end_time' => 'required|date_format:H:i|after:start_time',
+                'duration' => 'required|numeric|min:5',
+                'weekdays' => 'required|array|min:1',
+            ]);
+
+            $startDate = \Carbon\Carbon::parse($request->start_date);
+            $endDate = \Carbon\Carbon::parse($request->end_date);
+            $weekdays = array_map('intval', $request->weekdays);
+            $duration = intval($request->duration);
+
+            $period = \Carbon\CarbonPeriod::create($startDate, $endDate);
+
+            foreach ($period as $date) {
+                if (!in_array($date->dayOfWeek, $weekdays)) {
+                    continue;
+                }
+
+                $start = \Carbon\Carbon::createFromFormat('Y-m-d H:i', $date->format('Y-m-d') . ' ' . $request->start_time);
+                $end = \Carbon\Carbon::createFromFormat('Y-m-d H:i', $date->format('Y-m-d') . ' ' . $request->end_time);
+
+                while ($start->lt($end)) {
+                    $next = $start->copy()->addMinutes($duration);
+
+                    AvailableSlot::create([
+                        'user_id' => Auth::id(),
+                        'date' => $date->format('Y-m-d'),
+                        'start_time' => $start->format('H:i'),
+                        'end_time' => $next->format('H:i'),
+                    ]);
+
+                    $start = $next;
+                }
+            }
+
+            return redirect()->route('available-slots.index')->with('success', 'Disponibilidad recurrente agregada.');
+        }
+
+        return back()->with('error', 'Modo de disponibilidad no válido.');
     }
+
 
     public function edit(AvailableSlot $slot)
     {
@@ -56,41 +117,27 @@ class AvailableSlotController extends Controller
 
     public function update(Request $request, AvailableSlot $slot)
     {
-        $request->merge([
-            'slots' => [
-                [
-                    'start-time' => date('H:i', strtotime($request->input('slots.0.start-time'))),
-                    'end-time' => date('H:i', strtotime($request->input('slots.0.end-time'))),
-                    'max-bookings' => $request->input('slots.0.max-bookings')
-                ]
-            ]
-        ]);
-
         $validated = $request->validate([
             'date' => 'required|date',
-            'slots.0.start-time' => 'required|date_format:H:i',
-            'slots.0.end-time' => 'required|date_format:H:i',
-            'slots.0.max-bookings' => 'required|integer|min:1',
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i|after:start_time',
         ]);
 
-        $slotData = $validated['slots'][0];
-
-        if (strtotime($slotData['end-time']) <= strtotime($slotData['start-time'])) {
-            return back()->withErrors([
-                'slots.0.end-time' => 'La hora de fin debe ser posterior a la de inicio.'
-            ])->withInput();
+        // Protección: no permitir editar si ya hay una cita
+        if ($slot->appointments()->exists()) {
+            return back()->with('error', 'No se puede modificar este horario, ya ha sido reservado.');
         }
 
         $slot->update([
             'user_id' => Auth::id(),
             'date' => $validated['date'],
-            'start_time' => $slotData['start-time'],
-            'end_time' => $slotData['end-time'],
-            'max_bookings' => $slotData['max-bookings'],
+            'start_time' => $validated['start_time'],
+            'end_time' => $validated['end_time'],
         ]);
 
         return redirect()->route('available-slots.index')->with('success', 'Bloque actualizado correctamente.');
     }
+
 
     public function destroy(AvailableSlot $availableSlot)
     {
@@ -111,7 +158,7 @@ class AvailableSlotController extends Controller
                     'slot_id' => $slot->id,
                     'start_time' => $slot->start_time,
                     'end_time' => $slot->end_time,
-                    'available' => $slot->appointments->count() < $slot->max_bookings,
+                    'available' => $slot->appointments->isEmpty(),
                     'lawyer_name' => $slot->user->name ?? 'Abogado',
                 ];
             });

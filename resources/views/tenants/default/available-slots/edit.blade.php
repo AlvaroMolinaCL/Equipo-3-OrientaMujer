@@ -71,10 +71,10 @@
                                     </span>
                                     <input id="start-time" type="time" class="form-control border-start-0"
                                         style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};"
-                                        name="slots[0][start-time]"
-                                        value="{{ old('slots.0.start-time', $slot->start_time) }}" required>
+                                        name="start_time"
+                                        value="{{ old('start_time', $slot->start_time) }}" required>
                                 </div>
-                                @error('slots[0][start-time]')
+                                @error('start_time')
                                     <div class="text-danger small mt-2">
                                         <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
                                     </div>
@@ -94,34 +94,10 @@
                                     </span>
                                     <input id="end-time" type="time" class="form-control border-start-0"
                                         style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};"
-                                        name="slots[0][end-time]" value="{{ old('slots.0.end-time', $slot->end_time) }}"
-                                        required>
+                                        name="end_time"
+                                        value="{{ old('end_time', $slot->end_time) }}" required>
                                 </div>
-                                @error('slots[0][end-time]')
-                                    <div class="text-danger small mt-2">
-                                        <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            {{-- Máx. Reservas --}}
-                            <div class="col-md-3">
-                                <label for="max-bookings" class="form-label fw-medium"
-                                    style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
-                                    <i class="bi bi-calendar-check me-1"></i>Máx. Reservas
-                                </label>
-                                <div class="input-group">
-                                    <span class="input-group-text"
-                                        style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
-                                        <i class="bi bi-123"></i>
-                                    </span>
-                                    <input id="max-bookings" type="number" class="form-control border-start-0"
-                                        style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};"
-                                        placeholder="Ejemplo: 1" name="slots[0][max-bookings]"
-                                        value="{{ old('slots.0.max-bookings', $slot->max_bookings) }}" min="1"
-                                        required>
-                                </div>
-                                @error('slots[0][max-bookings]')
+                                @error('end_time')
                                     <div class="text-danger small mt-2">
                                         <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
                                     </div>

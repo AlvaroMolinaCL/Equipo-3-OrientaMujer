@@ -22,4 +22,5 @@ Route::middleware([
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
     Route::get('/available-hours', [AvailableSlotController::class, 'getAvailableHours']);
+    Route::get('/slots', [AvailableSlotController::class, 'apiIndex']);
 });

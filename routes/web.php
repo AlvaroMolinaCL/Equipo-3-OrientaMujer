@@ -39,7 +39,7 @@ Route::post('/registro-superadmin/{token}', [SuperAdminInvitationController::cla
 
 // Rutas solo para usuarios que han iniciado sesión
 Route::middleware(['auth', 'verified'])->group(function () {
-    // Dashboard
+    // Panel de Control
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Perfil de Usuario
