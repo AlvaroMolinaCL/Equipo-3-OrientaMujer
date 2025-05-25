@@ -44,6 +44,10 @@
                     </tbody>
                 </table>
             @endif
+            <div class="text-end mt-3">
+                <a href="{{ route('products.planes') }}" class="btn btn-outline-primary">Ver más planes</a>
+            </div>
+
         </div>
     </section>
 @endsection
