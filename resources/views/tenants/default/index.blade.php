@@ -14,8 +14,9 @@
         <div class="hero-overlay">
             <div class="hero-text fade-in-section">
                 <h1>{!! tenantText('slogan_text', 'La información es poder, <strong>¡empodérate!</strong>') !!}</h1>
-                <p class="mt-3">{!! tenantText('slogan_body', 'Una representación judicial con perspectiva de género, exige un acompañamiento empático e
-                                                                    informado para alivianar las cargas del proceso.') !!}
+                <p class="mt-3">
+                    {!! tenantText('slogan_body', 'Una representación judicial con perspectiva de género, exige un acompañamiento empático e
+                                                                            informado para alivianar las cargas del proceso.') !!}
                 </p>
                 <a href="/contact" class="btn btn-consulta" role="button">Agenda tu asesoría</a>
                 <br>
@@ -28,7 +29,7 @@
             <div class="row align-items-center">
                 {{-- Imagen: primer plano en móviles, segundo plano en pantallas grandes --}}
                 <div class="col-md-6 text-center order-1 order-md-2 mb-4 mb-md-0 fade-in-section">
-                    <img src="{{ tenantSetting('about_path', '/images/about/About_(Predeterminado).png') }}"
+                    <img src="{{ asset('images/about/' . tenantSetting('about_path', 'About_(Predeterminado).png')) }}"
                         alt="{{ tenantSetting('name', 'Tenant') }}" class="rounded-circle img-fluid"
                         style="width: 350px; height: 350px; object-fit: cover;">
                 </div>
@@ -37,22 +38,22 @@
                 <h1 class="mb-5 text-center">Sobre {{ tenantSetting('id', 'Orienta Mujer') }}</h1>
                 <div class="col-md-6 order-2 order-md-1 fade-in-section">
                     {!! tenantText('about_text', '
-                                                <p style="text-align: justify;">
-                                                    Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos
-                                                    humanos y litigación con perspectiva de género.
-                                                </p>
-                                                <p style="text-align: justify;">
-                                                    Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras,
-                                                    asesoría accesible y representación comprometida.
-                                                </p>
-                                                <p style="text-align: justify;">
-                                                    Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé
-                                                    en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su
-                                                    quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a
-                                                    mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar
-                                                    soluciones dentro de las reales posibilidades que brinda el sistema.
-                                                </p>
-                                            ') !!}
+                                                        <p style="text-align: justify;">
+                                                            Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos
+                                                            humanos y litigación con perspectiva de género.
+                                                        </p>
+                                                        <p style="text-align: justify;">
+                                                            Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras,
+                                                            asesoría accesible y representación comprometida.
+                                                        </p>
+                                                        <p style="text-align: justify;">
+                                                            Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé
+                                                            en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su
+                                                            quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a
+                                                            mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar
+                                                            soluciones dentro de las reales posibilidades que brinda el sistema.
+                                                        </p>
+                                                    ') !!}
                     <div class="text-center">
                         <a href="/about" class="btn btn-consulta" style="background-color: #ffffff54; !important"
                             role="button">Conoce más</a>
@@ -69,8 +70,9 @@
                 {{-- Recuadro 1 --}}
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm border-0 fade-in-section">
-                        <img src="{{ tenantSetting('services_path_1', '/images/services/Servicio_(Predeterminado).png') }}"
+                        <img src="{{ asset('images/services/' . (tenant()->services_path_1 ?? 'Servicio_(Predeterminado).png')) }}"
                             class="card-img-top" alt="Asesoría jurídica integral">
+
                         <div class="card-body">
                             <h5 class="card-title" style="font-weight: bold;">
                                 {!! tenantText('service1_title', 'Asesoría jurídica integral') !!}
@@ -83,8 +85,9 @@
                 {{-- Recuadro 2 --}}
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm border-0 fade-in-section">
-                        <img src="{{ tenantSetting('services_path_2', '/images/services/Servicio_(Predeterminado).png') }}"
+                        <img src="{{ asset('images/services/' . (tenantSetting('services_path_2', 'Servicio_(Predeterminado).png'))) }}"
                             class="card-img-top" alt="Representación judicial">
+
                         <div class="card-body">
                             <h5 class="card-title" style="font-weight: bold;">
                                 {!! tenantText('service2_title', 'Asesoría jurídica integral') !!}
@@ -98,7 +101,7 @@
                 {{-- Recuadro 3 --}}
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm border-0 fade-in-section">
-                        <img src="{{ tenantSetting('services_path_3', '/images/services/Servicio_(Predeterminado).png') }}"
+                        <img src="{{ asset('images/services/' . tenantSetting('services_path_3', 'Servicio_(Predeterminado).png')) }}"
                             class="card-img-top" alt="Capacitaciones y charlas">
                         <div class="card-body">
                             <h5 class="card-title" style="font-weight: bold;">

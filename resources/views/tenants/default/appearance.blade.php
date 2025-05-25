@@ -101,8 +101,8 @@
         </h3>
         <a href="{{ route('dashboard') }}" class="btn btn-sm"
             style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
-                                                                                                                                          color: {{ tenantSetting('text_color_1', '#8C2D18') }};
-                                                                                                                                          border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
+                                                                                                                                                              color: {{ tenantSetting('text_color_1', '#8C2D18') }};
+                                                                                                                                                              border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
             <i class="bi bi-arrow-left me-2"></i>Volver
         </a>
     </div>
@@ -157,8 +157,8 @@
                             <div class="text-center">
                                 <button id="savePaletteBtn" class="btn"
                                     style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; 
-                                                                                                                                                                   color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                                                                                                                                                   transition: all 0.3s ease;">
+                                                                                                                                                                                       color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                                                                                       transition: all 0.3s ease;">
                                     <i class="fas fa-save me-2"></i>Aplicar Paleta Seleccionada
                                 </button>
                             </div>
@@ -435,8 +435,8 @@
                                     <div class="text-center mt-4">
                                         <button type="submit" class="btn"
                                             style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; 
-                                                                                                                                                   color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                                                                                                                                   transition: all 0.3s ease;">
+                                                                                                                                                                       color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                                                                       transition: all 0.3s ease;">
                                             <i class="fas fa-save me-2"></i>Guardar Personalización
                                         </button>
                                     </div>
@@ -445,22 +445,22 @@
                         </div>
                     </div>
 
-                    {{-- Sección de Textos Personalizados --}}
-                    {{-- Sección de Textos Personalizados --}}
+                    {{-- Sección de Contenido Personalizados --}}
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseTexts" aria-expanded="false" aria-controls="collapseTexts">
-                                <i class="bi bi-text-paragraph me-2"></i>Textos Personalizados
+                                <i class="bi bi-text-paragraph me-2"></i>Contenido Personalizado
                             </button>
                         </h2>
                         <div id="collapseTexts" class="accordion-collapse collapse" data-bs-parent="#mainAccordion">
                             <div class="accordion-body">
-                                <form method="POST" action="{{ route('tenant.texts.update') }}" class="mt-3">
+                                <form method="POST" action="{{ route('tenant.texts.update') }}"
+                                    enctype="multipart/form-data" class="mt-3">
                                     @csrf
                                     @method('PUT')
 
-                                    <h4 class="h6 mb-3"><i class="bi bi-card-heading me-2"></i>Textos Principales</h4>
+                                    <h4 class="h6 mb-3"><i class="bi bi-card-heading me-2"></i>Textos e Imágenes Principales</h4>
 
                                     <!-- Nav Tabs -->
                                     <ul class="nav nav-tabs mb-4" id="homeTextsTab" role="tablist">
@@ -500,22 +500,44 @@
                                                     placeholder="Ej: Más de 20 años brindando soluciones">{{ old('slogan_body', tenantText('slogan_body', 'Una representación judicial con perspectiva de género, exige un acompañamiento empático e informado para alivianar las cargas del proceso.')) }}</textarea>
                                             </div>
 
+                                            <div class="mb-3">
+                                                <label for="banner_path" class="form-label"><strong>Imagen
+                                                        Banner</strong></label>
+                                                <input type="file" class="form-control" name="banner_path" id="banner_path"
+                                                    accept="image/*" onchange="previewImage(this, 'previewBanner')">
+                                                <img id="previewBanner"
+                                                    src="{{ asset('images/banner/' . tenantSetting('banner_path', 'Banner_1_(Predeterminado).png')) }}"
+                                                    alt="Vista previa Banner" class="img-fluid mt-2"
+                                                    style="max-height: 200px;">
+                                            </div>
+
                                             <!-- Sobre Nosotros -->
                                             <div class="mb-3">
                                                 <label for="about_text" class="form-label"><strong>Sobre
                                                         Nosotros</strong></label>
                                                 <textarea class="form-control summernote" name="about_text" id="about_text"
                                                     rows="6" placeholder="Escribe tu contenido aquí...">{{ old('about_text', tenantText('about_text', '
-                                <p style="text-align: justify;">
-                                    Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.
-                                </p>
-                                <p style="text-align: justify;">
-                                    Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.
-                                </p>
-                                <p style="text-align: justify;">
-                                    Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.
-                                </p>
-                                ')) }}</textarea>
+                                                    <p style="text-align: justify;">
+                                                        Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.
+                                                    </p>
+                                                    <p style="text-align: justify;">
+                                                        Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.
+                                                    </p>
+                                                    <p style="text-align: justify;">
+                                                        Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.
+                                                    </p>
+                                                    ')) }}</textarea>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="about_path" class="form-label"><strong>Imagen Sobre
+                                                        Nosotros</strong></label>
+                                                <input type="file" class="form-control" name="about_path" id="about_path"
+                                                    accept="image/*" onchange="previewImage(this, 'preview_about')">
+                                                <img id="preview_about"
+                                                    src="{{ asset('images/about/' . tenantSetting('about_path', 'about_(Predeterminado).png')) }}"
+                                                    alt="Vista previa Sobre Nosotros" class="img-fluid mt-2"
+                                                    style="max-height: 200px;">
                                             </div>
 
                                             <!-- Servicios -->
@@ -576,6 +598,42 @@
                                                     placeholder="Descripción del servicio 3">{!! old('service3_body', tenantText('service3_body', '<p style="text-align: justify;">Realizo talleres, charlas y capacitaciones para grupos en contextos académicos, laborales o comunitarios.</p>')) !!}</textarea>
                                             </div>
 
+                                            <div class="mb-3">
+                                                <label for="services_path_1" class="form-label"><strong>Imagen Servicio
+                                                        1</strong></label>
+                                                <input type="file" class="form-control" name="services_path_1"
+                                                    id="services_path_1" accept="image/*"
+                                                    onchange="previewImage(this, 'preview1')">
+                                                <img id="preview1"
+                                                    src="{{ asset('images/services/' . tenantSetting('services_path_1', 'Servicio_(Predeterminado).png')) }}"
+                                                    alt="Vista previa Servicio 1" class="img-fluid mt-2"
+                                                    style="max-height: 200px;">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="services_path_2" class="form-label"><strong>Imagen Servicio
+                                                        2</strong></label>
+                                                <input type="file" class="form-control" name="services_path_2"
+                                                    id="services_path_2" accept="image/*"
+                                                    onchange="previewImage(this, 'preview2')">
+                                                <img id="preview2"
+                                                    src="{{ asset('images/services/' . tenantSetting('services_path_2', 'Servicio_(Predeterminado).png')) }}"
+                                                    alt="Vista previa Servicio 2" class="img-fluid mt-2"
+                                                    style="max-height: 200px;">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="services_path_3" class="form-label"><strong>Imagen Servicio
+                                                        3</strong></label>
+                                                <input type="file" class="form-control" name="services_path_3"
+                                                    id="services_path_3" accept="image/*"
+                                                    onchange="previewImage(this, 'preview3')">
+                                                <img id="preview3"
+                                                    src="{{ asset('images/services/' . tenantSetting('services_path_3', 'Servicio_(Predeterminado).png')) }}"
+                                                    alt="Vista previa Servicio 3" class="img-fluid mt-2"
+                                                    style="max-height: 200px;">
+                                            </div>
+
                                         </div>
 
                                         <!-- SERVICIOS -->
@@ -593,9 +651,9 @@
                                     <div class="text-center mt-4">
                                         <button type="submit" class="btn"
                                             style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }};
-                                                                                                                    color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                                                                                                    transition: all 0.3s ease;">
-                                            <i class="fas fa-save me-2"></i>Guardar Textos
+                                                                                                                                        color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                                        transition: all 0.3s ease;">
+                                            <i class="fas fa-save me-2"></i>Guardar Contenido
                                         </button>
                                     </div>
                                 </form>
@@ -696,9 +754,9 @@
                     `alert alert-${type} alert-dismissible fade show position-fixed top-0 end-0 m-3`;
                 alertBox.style.zIndex = '9999';
                 alertBox.innerHTML = `
-                                                                                                                                                ${message}
-                                                                                                                                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                                                                                                                            `;
+                                                                                                                                                                    ${message}
+                                                                                                                                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                                                                                                                                                `;
                 document.body.appendChild(alertBox);
 
                 setTimeout(() => {
