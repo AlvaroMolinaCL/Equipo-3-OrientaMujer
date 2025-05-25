@@ -6,10 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class TenantText extends Model
 {
-    protected $fillable = ['tenant_id', 'key', 'value'];
+    protected $connection = 'central'; 
+    protected $table = 'tenant_texts';
 
-    public function tenant()
-    {
-        return $this->belongsTo(Tenant::class);
-    }
+    protected $fillable = ['tenant_id', 'key', 'value'];
 }

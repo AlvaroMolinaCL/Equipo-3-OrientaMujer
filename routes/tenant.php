@@ -14,6 +14,8 @@ use App\Http\Controllers\Tenant\RoleController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
+use App\Http\Controllers\TenantTextController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +97,11 @@ Route::middleware([
 
     // Rutas exclusivas para Administrador
     Route::middleware(['auth', 'role:Admin'])->group(function () {
+
+        // Rutas para la gestión de textos
+        Route::put('/tenant/texts/update', [TenantTextController::class, 'update'])->name('tenant.texts.update');
+
+
         // Dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
