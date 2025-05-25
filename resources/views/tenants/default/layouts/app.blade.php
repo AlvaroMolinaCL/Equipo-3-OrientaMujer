@@ -28,7 +28,9 @@
 
     @php
         $tenant = tenant();
-        $bannerUrl = asset(tenantSetting('banner_path', '/images/banner/Banner_1_(Predeterminado).png'));
+        $bannerUrl = tenantSetting('banner_path')
+            ? asset('images/banner/' . tenantSetting('banner_path'))
+            : asset('images/banner/Banner_1_(Predeterminado).png');
     @endphp
 
     @if ($tenant->google_analytics_id)
