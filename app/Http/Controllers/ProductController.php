@@ -92,4 +92,10 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Producto eliminado');
     }
+        public function planes()
+    {
+        $products = Product::all(); // o los productos filtrados por tipo = "plan"
+        return view('tenants.default.planes.index', compact('products'));
+    }
+
 }
