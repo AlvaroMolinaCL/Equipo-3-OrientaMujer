@@ -101,8 +101,8 @@
         </h3>
         <a href="{{ route('dashboard') }}" class="btn btn-sm"
             style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
-                                                                                                                                                              color: {{ tenantSetting('text_color_1', '#8C2D18') }};
-                                                                                                                                                              border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
+                                                                                                                                                                                  color: {{ tenantSetting('text_color_1', '#8C2D18') }};
+                                                                                                                                                                                  border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
             <i class="bi bi-arrow-left me-2"></i>Volver
         </a>
     </div>
@@ -157,8 +157,8 @@
                             <div class="text-center">
                                 <button id="savePaletteBtn" class="btn"
                                     style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; 
-                                                                                                                                                                                       color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                                                                                                                                                                       transition: all 0.3s ease;">
+                                                                                                                                                                                                           color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                                                                                                           transition: all 0.3s ease;">
                                     <i class="fas fa-save me-2"></i>Aplicar Paleta Seleccionada
                                 </button>
                             </div>
@@ -435,8 +435,8 @@
                                     <div class="text-center mt-4">
                                         <button type="submit" class="btn"
                                             style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; 
-                                                                                                                                                                       color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                                                                                                                                                       transition: all 0.3s ease;">
+                                                                                                                                                                                           color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                                                                                           transition: all 0.3s ease;">
                                             <i class="fas fa-save me-2"></i>Guardar Personalización
                                         </button>
                                     </div>
@@ -460,7 +460,8 @@
                                     @csrf
                                     @method('PUT')
 
-                                    <h4 class="h6 mb-3"><i class="bi bi-card-heading me-2"></i>Textos e Imágenes Principales</h4>
+                                    <h4 class="h6 mb-3"><i class="bi bi-card-heading me-2"></i>Textos e Imágenes Principales
+                                    </h4>
 
                                     <!-- Nav Tabs -->
                                     <ul class="nav nav-tabs mb-4" id="homeTextsTab" role="tablist">
@@ -517,16 +518,16 @@
                                                         Nosotros</strong></label>
                                                 <textarea class="form-control summernote" name="about_text" id="about_text"
                                                     rows="6" placeholder="Escribe tu contenido aquí...">{{ old('about_text', tenantText('about_text', '
-                                                    <p style="text-align: justify;">
-                                                        Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.
-                                                    </p>
-                                                    <p style="text-align: justify;">
-                                                        Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.
-                                                    </p>
-                                                    <p style="text-align: justify;">
-                                                        Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.
-                                                    </p>
-                                                    ')) }}</textarea>
+                                                                        <p style="text-align: justify;">
+                                                                            Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.
+                                                                        </p>
+                                                                        <p style="text-align: justify;">
+                                                                            Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.
+                                                                        </p>
+                                                                        <p style="text-align: justify;">
+                                                                            Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.
+                                                                        </p>
+                                                                        ')) }}</textarea>
                                             </div>
 
                                             <div class="mb-3">
@@ -638,6 +639,139 @@
 
                                         <!-- SERVICIOS -->
                                         <div class="tab-pane fade" id="servicios" role="tabpanel">
+                                            <!-- Títulos y Descripciones de Servicio 1 -->
+                                            <div class="mb-3">
+                                                <label for="title_service_1" class="form-label">
+                                                    <strong>Título Servicio 1</strong>
+                                                </label>
+                                                <input type="text" class="form-control" name="title_service_1"
+                                                    id="title_service_1"
+                                                    value="{{ old('title_service_1', tenantText('title_service_1', 'Asesoría jurídica integral')) }}"
+                                                    placeholder="Título del servicio 1">
+                                            </div>
+
+                                            <div class="mb-4">
+                                                <label for="body_service_1" class="form-label">
+                                                    <strong>Descripción Servicio 1</strong>
+                                                </label>
+                                                <textarea class="form-control summernote" name="body_service_1"
+                                                    id="body_service_1" rows="6" placeholder="Descripción del servicio 1">{!! old('body_service_1', tenantText('body_service_1', '
+                                                                    <p style="text-align: justify;">Te ofrezco un servicio de orientación legal para identificar el escenario jurídico que enfrentas.</p>
+                                                                    <p style="text-align: justify;">Conocerás:</p>
+                                                                    <ul>
+                                                                        <li style="text-align: justify;">La procedencia de acciones judiciales en materias de violencia contra la mujer.</li>
+                                                                        <li style="text-align: justify;">Pasos a seguir para iniciar procedimientos judiciales.</li>
+                                                                        <li style="text-align: justify;">Análisis de la necesidad de representación privada o derivación a organismos públicos.</li>
+                                                                        <li style="text-align: justify;">Explicación clara de la dinámica de los procesos en derecho penal, familia y otras áreas.</li>
+                                                                        <li style="text-align: justify;">Derivación segura a abogadas especializadas si así lo requieres.</li>
+                                                                    </ul>')) !!}</textarea>
+                                            </div>
+
+                                            <!-- Títulos y Descripciones de Servicio 2 -->
+                                            <div class="mb-3">
+                                                <label for="title_service_2" class="form-label">
+                                                    <strong>Título Servicio 2</strong>
+                                                </label>
+                                                <input type="text" class="form-control" name="title_service_2"
+                                                    id="title_service_2"
+                                                    value="{{ old('title_service_2', tenantText('title_service_2', 'Representación judicial en causas de derecho penal, familia, u otros')) }}"
+                                                    placeholder="Título del servicio 2">
+                                            </div>
+
+                                            <div class="mb-4">
+                                                <label for="body_service_2" class="form-label">
+                                                    <strong>Descripción Servicio 2</strong>
+                                                </label>
+                                                <textarea class="form-control summernote" name="body_service_2"
+                                                    id="body_service_2" rows="6" placeholder="Descripción del servicio 2">{!! old('body_service_2', tenantText('body_service_2', '
+                                                                <p style="text-align: justify;">Te represento en procesos judiciales penales, de familia u otras materias, comprometiéndome a:</p>
+                                                                <ul>
+                                                                    <li style="text-align: justify;">Diseñar contigo la estrategia de defensa o acción.</li>
+                                                                    <li style="text-align: justify;">Representar tus intereses bajo perspectiva de género, territorio, interculturalidad, derechos humanos, según corresponda.</li>
+                                                                    <li style="text-align: justify;">Informarte en cada etapa, asegurando tu participación activa en la toma de decisiones.</li>
+                                                                </ul>
+                                                            ')) !!}</textarea>
+                                            </div>
+
+                                            <!-- Títulos y Descripciones de Servicio 3 -->
+                                            <div class="mb-3">
+                                                <label for="title_service_3" class="form-label">
+                                                    <strong>Título Servicio 3</strong>
+                                                </label>
+                                                <input type="text" class="form-control" name="title_service_3"
+                                                    id="title_service_3"
+                                                    value="{{ old('title_service_3', tenantText('title_service_3', 'Capacitaciones y charlas')) }}"
+                                                    placeholder="Título del servicio 3">
+                                            </div>
+
+                                            <div class="mb-4">
+                                                <label for="body_service_3" class="form-label">
+                                                    <strong>Descripción Servicio 3</strong>
+                                                </label>
+                                                <textarea class="form-control summernote" name="body_service_3"
+                                                    id="body_service_3" rows="6" placeholder="Descripción del servicio 3">{!! old('body_service_3', tenantText('body_service_3', '
+                                                                <p style="text-align: justify;">Realizo talleres, charlas y capacitaciones para grupos en contextos académicos, laborales o comunitarios.</p>
+                                                                <p style="text-align: justify;">Temáticas abordadas:</p>
+                                                                <ul>
+                                                                    <li style="text-align: justify;">Sensibilización en género.</li>
+                                                                    <li style="text-align: justify;">Normativa nacional e internacional sobre derechos humanos, género y otras materias.</li>
+                                                                    <li style="text-align: justify;">Funcionamiento práctico de los procedimientos judiciales.</li>
+                                                                </ul>
+                                                            ')) !!}</textarea>
+                                            </div>
+
+                                            <!-- Imágenes de Servicios -->
+                                            <p class="text-muted small mb-4">
+                                                ⚠️ Estas imágenes también se muestran en la página de inicio. Si las cambias
+                                                aquí, se actualizarán automáticamente allá.
+                                            </p>
+
+                                            <div class="mb-3">
+                                                <label for="services_path_1" class="form-label">
+                                                    <strong>Imagen Servicio 1</strong>
+                                                </label>
+                                                <small class="text-muted d-block mb-1">Esta imagen también se usa en la
+                                                    sección de inicio.</small>
+                                                <input type="file" class="form-control" name="services_path_1"
+                                                    id="services_path_1" accept="image/*"
+                                                    onchange="previewImage(this, 'preview1')">
+                                                <img id="preview1"
+                                                    src="{{ asset('images/services/' . tenantSetting('services_path_1', 'Servicio_(Predeterminado).png')) }}"
+                                                    alt="Vista previa Servicio 1" class="img-fluid mt-2"
+                                                    style="max-height: 200px;">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="services_path_2" class="form-label">
+                                                    <strong>Imagen Servicio 2</strong>
+                                                </label>
+                                                <small class="text-muted d-block mb-1">Esta imagen también se usa en la
+                                                    sección de inicio.</small>
+                                                <input type="file" class="form-control" name="services_path_2"
+                                                    id="services_path_2" accept="image/*"
+                                                    onchange="previewImage(this, 'preview2')">
+                                                <img id="preview2"
+                                                    src="{{ asset('images/services/' . tenantSetting('services_path_2', 'Servicio_(Predeterminado).png')) }}"
+                                                    alt="Vista previa Servicio 2" class="img-fluid mt-2"
+                                                    style="max-height: 200px;">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="services_path_3" class="form-label">
+                                                    <strong>Imagen Servicio 3</strong>
+                                                </label>
+                                                <small class="text-muted d-block mb-1">Esta imagen también se usa en la
+                                                    sección de inicio.</small>
+                                                <input type="file" class="form-control" name="services_path_3"
+                                                    id="services_path_3" accept="image/*"
+                                                    onchange="previewImage(this, 'preview3')">
+                                                <img id="preview3"
+                                                    src="{{ asset('images/services/' . tenantSetting('services_path_3', 'Servicio_(Predeterminado).png')) }}"
+                                                    alt="Vista previa Servicio 3" class="img-fluid mt-2"
+                                                    style="max-height: 200px;">
+                                            </div>
+
+
                                         </div>
 
                                         <!-- CONTACTO -->
@@ -651,8 +785,8 @@
                                     <div class="text-center mt-4">
                                         <button type="submit" class="btn"
                                             style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }};
-                                                                                                                                        color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                                                                                                                        transition: all 0.3s ease;">
+                                                                                                                                                            color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                                                            transition: all 0.3s ease;">
                                             <i class="fas fa-save me-2"></i>Guardar Contenido
                                         </button>
                                     </div>
@@ -754,9 +888,9 @@
                     `alert alert-${type} alert-dismissible fade show position-fixed top-0 end-0 m-3`;
                 alertBox.style.zIndex = '9999';
                 alertBox.innerHTML = `
-                                                                                                                                                                    ${message}
-                                                                                                                                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                                                                                                                                                `;
+                                                                                                                                                                                        ${message}
+                                                                                                                                                                                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                                                                                                                                                                    `;
                 document.body.appendChild(alertBox);
 
                 setTimeout(() => {
