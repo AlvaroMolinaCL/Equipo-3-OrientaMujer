@@ -198,9 +198,10 @@
                                                             <label class="form-label fw-bold">Logo Principal Actual</label>
                                                             @if ($tenant->logo_path_1)
                                                                 <div class="text-center mb-2">
-                                                                    <img src="{{ $tenant->logo_path_1 }}" alt="Logo Principal"
-                                                                        class="img-fluid rounded border"
-                                                                        style="max-height: 80px; background-color: {{ $tenant->background_color_1 }};">
+<img src="{{ asset($tenant->logo_path_1) }}" alt="Logo Principal"
+    class="img-fluid rounded border"
+    style="max-height: 80px; background-color: {{ $tenant->background_color_1 }};">
+
                                                                 </div>
                                                             @else
                                                                 <p class="text-muted">No hay logo principal cargado</p>
