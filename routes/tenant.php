@@ -16,6 +16,8 @@ use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 use App\Http\Controllers\TenantTextController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PublicProductController;
+
 
 
 /*
@@ -44,7 +46,7 @@ Route::middleware([
     Route::get('/services', function () {
         return view(tenantView('services'));
     })->middleware('check.tenant.page.enabled:services');
-
+    
     // Página "Contacto"
     Route::get('/contact', function () {
         return view(tenantView('contact'));
@@ -94,6 +96,10 @@ Route::middleware([
         Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
         Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
         Route::delete('/cart/remove/{itemId}', [CartController::class, 'remove'])->name('cart.remove');
+        
+        // Planes
+        Route::get('/planes', [ProductController::class, 'planes'])->name('products.planes');
+
     });
 
     // Rutas exclusivas para Administrador
@@ -123,16 +129,13 @@ Route::middleware([
         // Gestión de Roles
         Route::resource('roles', RoleController::class);
 
-        // Gestion de Planes
-        
-        
+        // Gestion de Productos
         Route::get('/products', [ProductController::class, 'index'])->name('products.index');
         Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
         Route::post('/products', [ProductController::class, 'store'])->name('products.store');
         Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
         Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
         Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
-
 
         // Calendario de Disponibilidad
         Route::get('/admin/disponibilidad/calendario', function () {
