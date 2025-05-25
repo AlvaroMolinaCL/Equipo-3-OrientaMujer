@@ -3,14 +3,14 @@
 @section('title', 'Panel de Control - ' . tenantSetting('name', 'Tenant'))
 
 @section('sidebar')
-    @include('tenants.default.layouts.sidebar')
+@include('tenants.default.layouts.sidebar')
 @endsection
 
 @section('content')
 <div class="container">
     <h1>Editar Producto</h1>
 
-    <form method="POST" action="{{ route('products.update', $product) }}">
+    <form method="POST" action="{{ route('products.update', $product) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -23,13 +23,24 @@
             <label for="category" class="form-label">Categoría</label>
             <select name="category" class="form-select">
                 <option value="">Selecciona una categoría</option>
-                    @foreach ($categorias as $cat)
-                    <option value="{{ $cat }}" {{ old('category', $product->category) === $cat ? 'selected' : '' }}>
-                            {{ $cat }}
-                    </option>
+                @foreach ($categorias as $cat)
+                <option value="{{ $cat }}" {{ old('category', $product->category) === $cat ? 'selected' : '' }}>
+                    {{ $cat }}
+                </option>
                 @endforeach
-</select>
+            </select>
 
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Imagen</label>
+
+            @if ($product->image)
+            <div class="mb-2">
+                <img src="{{ asset($product->image) }}" alt="Imagen actual" style="max-height: 150px;">
+            </div>
+            @endif
+
+            <input type="file" class="form-control" name="image" accept="image/*">
         </div>
 
         <div class="mb-3">
