@@ -101,8 +101,8 @@
         </h3>
         <a href="{{ route('dashboard') }}" class="btn btn-sm"
             style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
-                                                                                                                                      color: {{ tenantSetting('text_color_1', '#8C2D18') }};
-                                                                                                                                      border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
+                                                                                                                                          color: {{ tenantSetting('text_color_1', '#8C2D18') }};
+                                                                                                                                          border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
             <i class="bi bi-arrow-left me-2"></i>Volver
         </a>
     </div>
@@ -157,8 +157,8 @@
                             <div class="text-center">
                                 <button id="savePaletteBtn" class="btn"
                                     style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; 
-                                                                                                                                                               color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                                                                                                                                               transition: all 0.3s ease;">
+                                                                                                                                                                   color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                                                                   transition: all 0.3s ease;">
                                     <i class="fas fa-save me-2"></i>Aplicar Paleta Seleccionada
                                 </button>
                             </div>
@@ -435,8 +435,8 @@
                                     <div class="text-center mt-4">
                                         <button type="submit" class="btn"
                                             style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; 
-                                                                                                                                               color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                                                                                                                               transition: all 0.3s ease;">
+                                                                                                                                                   color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                                                   transition: all 0.3s ease;">
                                             <i class="fas fa-save me-2"></i>Guardar Personalización
                                         </button>
                                     </div>
@@ -486,7 +486,8 @@
                                             <!-- Slogan -->
                                             <div class="mb-3">
                                                 <label for="slogan_text" class="form-label"><strong>Slogan</strong></label>
-                                                <textarea class="form-control summernote" name="slogan_text" id="slogan_text" rows="2"
+                                                <textarea class="form-control summernote" name="slogan_text"
+                                                    id="slogan_text" rows="2"
                                                     placeholder="Ej: Innovación y calidad">{!! old('slogan_text', tenantText('slogan_text', 'La información es poder, <strong>¡empodérate!</strong>')) !!}</textarea>
                                             </div>
 
@@ -505,38 +506,76 @@
                                                         Nosotros</strong></label>
                                                 <textarea class="form-control summernote" name="about_text" id="about_text"
                                                     rows="6" placeholder="Escribe tu contenido aquí...">{{ old('about_text', tenantText('about_text', '
-                            <p style="text-align: justify;">
-                                Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.
-                            </p>
-                            <p style="text-align: justify;">
-                                Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.
-                            </p>
-                            <p style="text-align: justify;">
-                                Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.
-                            </p>
-                            ')) }}</textarea>
+                                <p style="text-align: justify;">
+                                    Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.
+                                </p>
+                                <p style="text-align: justify;">
+                                    Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.
+                                </p>
+                                <p style="text-align: justify;">
+                                    Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.
+                                </p>
+                                ')) }}</textarea>
                                             </div>
 
                                             <!-- Servicios -->
-                                            @for ($i = 1; $i <= 3; $i++)
-                                                <div class="mb-3">
-                                                    <label for="service{{ $i }}_title" class="form-label">
-                                                        <strong>Título Servicio {{ $i }}</strong>
-                                                    </label>
-                                                    <input type="text" class="form-control" name="service{{ $i }}_title"
-                                                        id="service{{ $i }}_title"
-                                                        value="{{ old("service{$i}_title", tenantText("service{$i}_title", 'Asesoría jurídica integral')) }}"
-                                                        placeholder="Título del servicio {{ $i }}">
-                                                </div>
-                                                <div class="mb-4">
-                                                    <label for="service{{ $i }}_body" class="form-label">
-                                                        <strong>Descripción Servicio {{ $i }}</strong>
-                                                    </label>
-                                                    <textarea class="form-control summernote" name="service{{ $i }}_body"
-                                                        id="service{{ $i }}_body" rows="4"
-                                                        placeholder="Descripción del servicio {{ $i }}">{{ old("service{$i}_body", tenantText("service{$i}_body", '<p style="text-align: justify;">Contenido del servicio...</p>')) }}</textarea>
-                                                </div>
-                                            @endfor
+                                            <!-- Servicio 1 -->
+                                            <div class="mb-3">
+                                                <label for="service1_title" class="form-label">
+                                                    <strong>Título Servicio 1</strong>
+                                                </label>
+                                                <input type="text" class="form-control" name="service1_title"
+                                                    id="service1_title"
+                                                    value="{{ old('service1_title', tenantText('service1_title', 'Asesoría jurídica integral')) }}"
+                                                    placeholder="Título del servicio 1">
+                                            </div>
+                                            <div class="mb-4">
+                                                <label for="service1_body" class="form-label">
+                                                    <strong>Descripción Servicio 1</strong>
+                                                </label>
+                                                <textarea class="form-control summernote" name="service1_body"
+                                                    id="service1_body" rows="4"
+                                                    placeholder="Descripción del servicio 1">{!! old('service1_body', tenantText('service1_body', '<p style="text-align: justify;">Te ofrezco un servicio de orientación legal para identificar el escenario jurídico que enfrentas.</p>')) !!}</textarea>
+                                            </div>
+
+                                            <!-- Servicio 2 -->
+                                            <div class="mb-3">
+                                                <label for="service2_title" class="form-label">
+                                                    <strong>Título Servicio 2</strong>
+                                                </label>
+                                                <input type="text" class="form-control" name="service2_title"
+                                                    id="service2_title"
+                                                    value="{{ old('service2_title', tenantText('service2_title', 'Representación judicial')) }}"
+                                                    placeholder="Título del servicio 2">
+                                            </div>
+                                            <div class="mb-4">
+                                                <label for="service2_body" class="form-label">
+                                                    <strong>Descripción Servicio 2</strong>
+                                                </label>
+                                                <textarea class="form-control summernote" name="service2_body"
+                                                    id="service2_body" rows="4"
+                                                    placeholder="Descripción del servicio 2">{!! old('service2_body', tenantText('service2_body', '<p style="text-align: justify;">Te represento en procesos judiciales penales, de familia u otras materias.</p>')) !!}</textarea>
+                                            </div>
+
+                                            <!-- Servicio 3 -->
+                                            <div class="mb-3">
+                                                <label for="service3_title" class="form-label">
+                                                    <strong>Título Servicio 3</strong>
+                                                </label>
+                                                <input type="text" class="form-control" name="service3_title"
+                                                    id="service3_title"
+                                                    value="{{ old('service3_title', tenantText('service3_title', 'Capacitaciones y charlas')) }}"
+                                                    placeholder="Título del servicio 3">
+                                            </div>
+                                            <div class="mb-4">
+                                                <label for="service3_body" class="form-label">
+                                                    <strong>Descripción Servicio 3</strong>
+                                                </label>
+                                                <textarea class="form-control summernote" name="service3_body"
+                                                    id="service3_body" rows="4"
+                                                    placeholder="Descripción del servicio 3">{!! old('service3_body', tenantText('service3_body', '<p style="text-align: justify;">Realizo talleres, charlas y capacitaciones para grupos en contextos académicos, laborales o comunitarios.</p>')) !!}</textarea>
+                                            </div>
+
                                         </div>
 
                                         <!-- SERVICIOS -->
@@ -554,8 +593,8 @@
                                     <div class="text-center mt-4">
                                         <button type="submit" class="btn"
                                             style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }};
-                                                                                                                color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                                                                                                transition: all 0.3s ease;">
+                                                                                                                    color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                    transition: all 0.3s ease;">
                                             <i class="fas fa-save me-2"></i>Guardar Textos
                                         </button>
                                     </div>
@@ -657,9 +696,9 @@
                     `alert alert-${type} alert-dismissible fade show position-fixed top-0 end-0 m-3`;
                 alertBox.style.zIndex = '9999';
                 alertBox.innerHTML = `
-                                                                                                                                            ${message}
-                                                                                                                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                                                                                                                        `;
+                                                                                                                                                ${message}
+                                                                                                                                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                                                                                                                            `;
                 document.body.appendChild(alertBox);
 
                 setTimeout(() => {
@@ -786,7 +825,7 @@
                 height: 150,
                 toolbar: [
                     ['style', ['bold', 'italic', 'underline', 'clear']],
-                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['para', ['ul', 'ol']],
                     ['view', ['codeview']]
                 ]
             });
