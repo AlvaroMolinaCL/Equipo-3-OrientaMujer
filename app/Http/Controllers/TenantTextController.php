@@ -46,11 +46,13 @@ class TenantTextController extends Controller
             'body_service_1' => 'required|string',
             'body_service_2' => 'required|string',
             'body_service_3' => 'required|string',
+            'about_us' => 'required|string',
+            'experience' => 'required|string',
 
         ]);
 
         // Guardar textos normales en tenant_texts
-        $keys = ['slogan_text', 'slogan_body', 'about_text', 'service1_title', 'service1_body', 'service2_title', 'service2_body', 'service3_title', 'service3_body', 'title_service_1', 'title_service_2', 'title_service_3', 'body_service_1', 'body_service_2', 'body_service_3'];
+        $keys = ['slogan_text', 'slogan_body', 'about_text', 'service1_title', 'service1_body', 'service2_title', 'service2_body', 'service3_title', 'service3_body', 'title_service_1', 'title_service_2', 'title_service_3', 'body_service_1', 'body_service_2', 'body_service_3', 'about_us', 'experience'];
 
         foreach ($keys as $key) {
             $value = $request->input($key, '');
