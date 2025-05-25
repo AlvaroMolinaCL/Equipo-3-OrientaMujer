@@ -15,6 +15,8 @@ class TenantTextController extends Controller
             ->pluck('value', 'key')
             ->toArray();
 
+                    dd($texts);
+
         return view('tenant.texts.edit', compact('texts'));
     }
 
@@ -22,7 +24,7 @@ class TenantTextController extends Controller
     {
         $tenantId = tenant()->id;
 
-        $keys = ['slogan_text', 'slogan_body', 'about_text']; // Claves que vas a manejar
+        $keys = ['slogan_text', 'slogan_body', 'about_text', 'service1_title', 'service1_body', 'service2_title', 'service2_body', 'service3_title', 'service3_body']; 
 
         foreach ($keys as $key) {
             $value = $request->input($key, '');

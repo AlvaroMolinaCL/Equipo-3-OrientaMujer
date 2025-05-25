@@ -14,8 +14,8 @@
         <div class="hero-overlay">
             <div class="hero-text fade-in-section">
                 <h1>{!! tenantText('slogan_text', 'La información es poder, <strong>¡empodérate!</strong>') !!}</h1>
-                <p class="mt-3">{{ tenantText('slogan_body', 'Una representación judicial con perspectiva de género, exige un acompañamiento empático e
-                                                                    informado para alivianar las cargas del proceso.') }}
+                <p class="mt-3">{!! tenantText('slogan_body', 'Una representación judicial con perspectiva de género, exige un acompañamiento empático e
+                                                                    informado para alivianar las cargas del proceso.') !!}
                 </p>
                 <a href="/contact" class="btn btn-consulta" role="button">Agenda tu asesoría</a>
                 <br>
@@ -73,7 +73,7 @@
                             class="card-img-top" alt="Asesoría jurídica integral">
                         <div class="card-body">
                             <h5 class="card-title" style="font-weight: bold;">
-                                {{ tenantText('service1_title', 'Asesoría jurídica integral') }}
+                                {!! tenantText('service1_title', 'Asesoría jurídica integral') !!}
                             </h5>
                             {!! tenantText('service1_body', '<p style="text-align: justify;">Te ofrezco un servicio de orientación legal para identificar el escenario jurídico que enfrentas.</p>') !!}
                         </div>
@@ -87,7 +87,7 @@
                             class="card-img-top" alt="Representación judicial">
                         <div class="card-body">
                             <h5 class="card-title" style="font-weight: bold;">
-                                {{ tenantText('service2_title', 'Asesoría jurídica integral') }}
+                                {!! tenantText('service2_title', 'Asesoría jurídica integral') !!}
                             </h5>
                             {!! tenantText('service2_body', '<p style="text-align: justify;">Te represento en procesos judiciales penales, de familia u otras materias.</p>') !!}
 
@@ -102,7 +102,7 @@
                             class="card-img-top" alt="Capacitaciones y charlas">
                         <div class="card-body">
                             <h5 class="card-title" style="font-weight: bold;">
-                                {{ tenantText('service3_title', 'Asesoría jurídica integral') }}
+                                {!!tenantText('service3_title', 'Asesoría jurídica integral') !!}
                             </h5>
                             {!! tenantText('service3_body', '<p style="text-align: justify;">Realizo talleres, charlas y capacitaciones para grupos en contextos académicos, laborales o comunitarios.</p>') !!}
 

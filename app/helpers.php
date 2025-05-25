@@ -19,7 +19,8 @@ function tenantView(string $view): string
 /**
  * Recupera configuraciones de un tenant desde la base de datos
  */
-function tenantSetting($key, $default = null) {
+function tenantSetting($key, $default = null)
+{
     return tenant()?->{$key} ?? $default;
 }
 
@@ -27,20 +28,24 @@ function tenantSetting($key, $default = null) {
  * Recupera el nombre de la página de un tenant desde la base de datos
  */
 function tenantPageName(string $pageKey, string $fallback = '')
-    {
-        return \App\Models\TenantPage::on('central')
-            ->where('tenant_id', tenant()?->id)
-            ->where('page_key', $pageKey)
-            ->value('title') ?? $fallback;
-    }
+{
+    return \App\Models\TenantPage::on('central')
+        ->where('tenant_id', tenant()?->id)
+        ->where('page_key', $pageKey)
+        ->value('title') ?? $fallback;
+}
 
 /**
  * Recupera el texto de un tenant desde la base de datos
- */   
-function tenantText(string $key, string $default = ''): string
+ */
+function tenantText($key, $default = '')
 {
-    return \App\Models\TenantText::on('central')
-        ->where('tenant_id', tenant()?->id)
+    $tenantId = tenant()->id;
+
+    $text = \App\Models\TenantText::where('tenant_id', $tenantId)
         ->where('key', $key)
-        ->value('value') ?? $default;
+        ->value('value');
+
+    return $text ?: $default;
 }
+

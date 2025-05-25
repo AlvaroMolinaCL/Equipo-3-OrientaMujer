@@ -11,10 +11,10 @@ class AppearanceController extends Controller
 
     public function index()
     {
-        $tenant = tenant(); // función que devuelve el tenant actual en stancl/tenancy
-
+        $tenant = tenant();
         return view('tenants.default.appearance', compact('tenant'));
     }
+
 
 
     public function edit()
@@ -62,5 +62,6 @@ class AppearanceController extends Controller
             'color_tables',
         ]));
 
-        return response()->json(['success' => true]);    }
+        return response()->json(['success' => true]);
+    }
 }

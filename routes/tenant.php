@@ -100,6 +100,8 @@ Route::middleware([
 
         // Rutas para la gestión de textos
         Route::put('/tenant/texts/update', [TenantTextController::class, 'update'])->name('tenant.texts.update');
+        Route::get('/panel/textos', [TenantTextController::class, 'edit'])->name('tenant.texts.edit');
+
 
         // Panel de Control
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

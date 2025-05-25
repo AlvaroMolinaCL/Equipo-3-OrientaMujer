@@ -99,9 +99,10 @@
         <h3 class="fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
             <i class="bi bi-palette me-2"></i>{{ __('Editar Apariencia') }}
         </h3>
-        <a href="{{ route('dashboard') }}" class="btn btn-sm" style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
-                                              color: {{ tenantSetting('text_color_1', '#8C2D18') }};
-                                              border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
+        <a href="{{ route('dashboard') }}" class="btn btn-sm"
+            style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
+                                                                                                                                      color: {{ tenantSetting('text_color_1', '#8C2D18') }};
+                                                                                                                                      border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
             <i class="bi bi-arrow-left me-2"></i>Volver
         </a>
     </div>
@@ -154,9 +155,10 @@
                             </div>
 
                             <div class="text-center">
-                                <button id="savePaletteBtn" class="btn" style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; 
-                                                                       color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                                                       transition: all 0.3s ease;">
+                                <button id="savePaletteBtn" class="btn"
+                                    style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; 
+                                                                                                                                                               color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                                                               transition: all 0.3s ease;">
                                     <i class="fas fa-save me-2"></i>Aplicar Paleta Seleccionada
                                 </button>
                             </div>
@@ -431,9 +433,10 @@
                                     </div>
 
                                     <div class="text-center mt-4">
-                                        <button type="submit" class="btn" style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; 
-                                                       color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                                       transition: all 0.3s ease;">
+                                        <button type="submit" class="btn"
+                                            style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; 
+                                                                                                                                               color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                                               transition: all 0.3s ease;">
                                             <i class="fas fa-save me-2"></i>Guardar Personalización
                                         </button>
                                     </div>
@@ -441,6 +444,9 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- Sección de Textos Personalizados --}}
+                    {{-- Sección de Textos Personalizados --}}
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -454,39 +460,102 @@
                                     @csrf
                                     @method('PUT')
 
-                                    <div class="mb-4">
-                                        <h4 class="h6 mb-3"><i class="bi bi-card-heading me-2"></i>Textos Principales</h4>
+                                    <h4 class="h6 mb-3"><i class="bi bi-card-heading me-2"></i>Textos Principales</h4>
 
-                                        <div class="row g-3">
+                                    <!-- Nav Tabs -->
+                                    <ul class="nav nav-tabs mb-4" id="homeTextsTab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="inicio-tab" data-bs-toggle="tab"
+                                                data-bs-target="#inicio" type="button" role="tab">Inicio</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="servicios-tab" data-bs-toggle="tab"
+                                                data-bs-target="#servicios" type="button" role="tab">Servicios</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="contacto-tab" data-bs-toggle="tab"
+                                                data-bs-target="#contacto" type="button" role="tab">Contacto</button>
+                                        </li>
+                                    </ul>
+
+                                    <!-- Tab Content -->
+                                    <div class="tab-content" id="homeTextsTabContent">
+
+                                        <!-- INICIO -->
+                                        <div class="tab-pane fade show active" id="inicio" role="tabpanel">
                                             <!-- Slogan -->
-                                            <div class="col-md-6">
-                                                <label for="slogan_text" class="form-label">Slogan (texto corto)</label>
-                                                <input type="text" class="form-control" name="slogan_text" id="slogan_text"
-                                                    value="{{ old('slogan_text', $texts['slogan_text'] ?? '') }}"
-                                                    placeholder="Ej: Innovación y calidad">
+                                            <div class="mb-3">
+                                                <label for="slogan_text" class="form-label"><strong>Slogan</strong></label>
+                                                <textarea class="form-control summernote" name="slogan_text" id="slogan_text" rows="2"
+                                                    placeholder="Ej: Innovación y calidad">{!! old('slogan_text', tenantText('slogan_text', 'La información es poder, <strong>¡empodérate!</strong>')) !!}</textarea>
                                             </div>
 
-                                            <!-- Slogan Body -->
-                                            <div class="col-md-6">
-                                                <label for="slogan_body" class="form-label">Subtítulo</label>
-                                                <textarea class="form-control" name="slogan_body" id="slogan_body" rows="2"
-                                                    placeholder="Ej: Más de 20 años brindando soluciones">{{ old('slogan_body', $texts['slogan_body'] ?? '') }}</textarea>
+                                            <!-- Cuerpo del slogan -->
+                                            <div class="mb-3">
+                                                <label for="slogan_body" class="form-label"><strong>Cuerpo del
+                                                        slogan</strong></label>
+                                                <textarea class="form-control summernote" name="slogan_body"
+                                                    id="slogan_body" rows="2"
+                                                    placeholder="Ej: Más de 20 años brindando soluciones">{{ old('slogan_body', tenantText('slogan_body', 'Una representación judicial con perspectiva de género, exige un acompañamiento empático e informado para alivianar las cargas del proceso.')) }}</textarea>
                                             </div>
 
-                                            <!-- About Text -->
-                                            <div class="col-12">
-                                                <label for="about_text" class="form-label">Sobre Nosotros <small
-                                                        class="text-muted">(HTML permitido)</small></label>
-                                                <textarea class="form-control" name="about_text" id="about_text" rows="6"
-                                                    placeholder="Escribe tu contenido aquí...">{{ old('about_text', $texts['about_text'] ?? '') }}</textarea>
+                                            <!-- Sobre Nosotros -->
+                                            <div class="mb-3">
+                                                <label for="about_text" class="form-label"><strong>Sobre
+                                                        Nosotros</strong></label>
+                                                <textarea class="form-control summernote" name="about_text" id="about_text"
+                                                    rows="6" placeholder="Escribe tu contenido aquí...">{{ old('about_text', tenantText('about_text', '
+                            <p style="text-align: justify;">
+                                Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.
+                            </p>
+                            <p style="text-align: justify;">
+                                Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.
+                            </p>
+                            <p style="text-align: justify;">
+                                Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.
+                            </p>
+                            ')) }}</textarea>
                                             </div>
+
+                                            <!-- Servicios -->
+                                            @for ($i = 1; $i <= 3; $i++)
+                                                <div class="mb-3">
+                                                    <label for="service{{ $i }}_title" class="form-label">
+                                                        <strong>Título Servicio {{ $i }}</strong>
+                                                    </label>
+                                                    <input type="text" class="form-control" name="service{{ $i }}_title"
+                                                        id="service{{ $i }}_title"
+                                                        value="{{ old("service{$i}_title", tenantText("service{$i}_title", 'Asesoría jurídica integral')) }}"
+                                                        placeholder="Título del servicio {{ $i }}">
+                                                </div>
+                                                <div class="mb-4">
+                                                    <label for="service{{ $i }}_body" class="form-label">
+                                                        <strong>Descripción Servicio {{ $i }}</strong>
+                                                    </label>
+                                                    <textarea class="form-control summernote" name="service{{ $i }}_body"
+                                                        id="service{{ $i }}_body" rows="4"
+                                                        placeholder="Descripción del servicio {{ $i }}">{{ old("service{$i}_body", tenantText("service{$i}_body", '<p style="text-align: justify;">Contenido del servicio...</p>')) }}</textarea>
+                                                </div>
+                                            @endfor
                                         </div>
+
+                                        <!-- SERVICIOS -->
+                                        <div class="tab-pane fade" id="servicios" role="tabpanel">
+                                        </div>
+
+                                        <!-- CONTACTO -->
+                                        <div class="tab-pane fade" id="contacto" role="tabpanel">
+                                        </div>
+
                                     </div>
 
+
+                                    <!-- Botón Guardar -->
                                     <div class="text-center mt-4">
-                                        <button type="submit" class="btn" style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; 
-                                       color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                       transition: all 0.3s ease;">
+                                        <button type="submit" class="btn"
+                                            style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }};
+                                                                                                                color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                transition: all 0.3s ease;">
                                             <i class="fas fa-save me-2"></i>Guardar Textos
                                         </button>
                                     </div>
@@ -494,6 +563,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -587,9 +657,9 @@
                     `alert alert-${type} alert-dismissible fade show position-fixed top-0 end-0 m-3`;
                 alertBox.style.zIndex = '9999';
                 alertBox.innerHTML = `
-                                                    ${message}
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                                `;
+                                                                                                                                            ${message}
+                                                                                                                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                                                                                                                        `;
                 document.body.appendChild(alertBox);
 
                 setTimeout(() => {
@@ -701,4 +771,27 @@
             });
         });
     </script>
+    <!-- Summernote CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+    <!-- Summernote JS -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                height: 150,
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['view', ['codeview']]
+                ]
+            });
+        });
+    </script>
+
+
 @endsection
