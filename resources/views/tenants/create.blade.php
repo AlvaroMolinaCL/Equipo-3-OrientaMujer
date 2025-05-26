@@ -453,7 +453,7 @@
                                         <input type="color" class="form-control form-control-color border-start-0"
                                             style="background-color: #FDF5E5; height: 38px;" id="navbar_color_2"
                                             name="navbar_color_2"
-                                            value="{{ old('navbar_color_2', $tenant->navbar_color_2) }}">
+                                            value="{{ old('navbar_color_2', '#343a40') }}">
                                     </div>
                                     @error('navbar_color_2')
                                         <div class="text-danger small mt-2">
@@ -474,7 +474,7 @@
                                         <input type="color" class="form-control form-control-color border-start-0"
                                             style="background-color: #FDF5E5; height: 38px;" id="navbar_text_color_2"
                                             name="navbar_text_color_2"
-                                            value="{{ old('navbar_text_color_2', $tenant->navbar_text_color_2) }}">
+                                            value="{{ old('navbar_text_color_2', '#ffffff') }}">
                                     </div>
                                     @error('navbar_text_color_2')
                                         <div class="text-danger small mt-2">

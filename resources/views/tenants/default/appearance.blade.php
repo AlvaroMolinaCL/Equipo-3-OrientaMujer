@@ -559,17 +559,6 @@
                                                                                                             ')) }}</textarea>
                                             </div>
 
-                                            <div class="mb-3">
-                                                <label for="about_path" class="form-label"><strong>Imagen Sobre
-                                                        Nosotros</strong></label>
-                                                <input type="file" class="form-control" name="about_path" id="about_path"
-                                                    accept="image/*" onchange="previewImage(this, 'preview_about')">
-                                                <img id="preview_about"
-                                                    src="{{ asset('images/about/' . tenantSetting('about_path', 'about_(Predeterminado).png')) }}"
-                                                    alt="Vista previa Sobre Nosotros" class="img-fluid mt-2"
-                                                    style="max-height: 200px;">
-                                            </div>
-
                                             <!-- Servicios -->
                                             <!-- Servicio 1 -->
                                             <div class="mb-3">
@@ -627,43 +616,6 @@
                                                     id="service3_body" rows="4"
                                                     placeholder="Descripción del servicio 3">{!! old('service3_body', tenantText('service3_body', '<p style="text-align: justify;">Realizo talleres, charlas y capacitaciones para grupos en contextos académicos, laborales o comunitarios.</p>')) !!}</textarea>
                                             </div>
-
-                                            <div class="mb-3">
-                                                <label for="services_path_1" class="form-label"><strong>Imagen Servicio
-                                                        1</strong></label>
-                                                <input type="file" class="form-control" name="services_path_1"
-                                                    id="services_path_1" accept="image/*"
-                                                    onchange="previewImage(this, 'preview1')">
-                                                <img id="preview1"
-                                                    src="{{ asset('images/services/' . tenantSetting('services_path_1', 'Servicio_(Predeterminado).png')) }}"
-                                                    alt="Vista previa Servicio 1" class="img-fluid mt-2"
-                                                    style="max-height: 200px;">
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="services_path_2" class="form-label"><strong>Imagen Servicio
-                                                        2</strong></label>
-                                                <input type="file" class="form-control" name="services_path_2"
-                                                    id="services_path_2" accept="image/*"
-                                                    onchange="previewImage(this, 'preview2')">
-                                                <img id="preview2"
-                                                    src="{{ asset('images/services/' . tenantSetting('services_path_2', 'Servicio_(Predeterminado).png')) }}"
-                                                    alt="Vista previa Servicio 2" class="img-fluid mt-2"
-                                                    style="max-height: 200px;">
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="services_path_3" class="form-label"><strong>Imagen Servicio
-                                                        3</strong></label>
-                                                <input type="file" class="form-control" name="services_path_3"
-                                                    id="services_path_3" accept="image/*"
-                                                    onchange="previewImage(this, 'preview3')">
-                                                <img id="preview3"
-                                                    src="{{ asset('images/services/' . tenantSetting('services_path_3', 'Servicio_(Predeterminado).png')) }}"
-                                                    alt="Vista previa Servicio 3" class="img-fluid mt-2"
-                                                    style="max-height: 200px;">
-                                            </div>
-
                                         </div>
 
                                         <!-- SERVICIOS -->
@@ -751,13 +703,10 @@
                                             </div>
 
                                             <!-- Imágenes de Servicios -->
-
-
                                             <div class="mb-3">
                                                 <p class="text-muted small mb-4">
                                                     ⚠️ Estas imágenes también se muestran en la página de inicio. Si las
-                                                    cambias
-                                                    aquí, se actualizarán automáticamente allá.
+                                                    cambias, se actualizarán automáticamente en el inicio.
                                                 </p>
                                                 <label for="services_path_1" class="form-label">
                                                     <strong>Imagen Servicio 1</strong>
@@ -837,7 +786,7 @@
                                             <div class="mb-3">
                                                 <p class="text-muted small mb-4">
                                                     ⚠️ Esta imágen también se muestran en la página de inicio. Si la cambias
-                                                    aquí, se actualizarán automáticamente allá.
+                                                    aquí, se actualizará automáticamente en el inicio.
                                                 </p>
                                                 <label for="about_path" class="form-label"><strong>Imagen Sobre
                                                         Nosotros</strong></label>
