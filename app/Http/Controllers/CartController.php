@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    // Ver el carrito
     public function index()
     {
         $cart = Cart::firstOrCreate(
@@ -19,10 +18,9 @@ class CartController extends Controller
 
         $items = $cart->items()->with('product')->get();
 
-        return view('cart.index', compact('cart', 'items'));
+        return view('tenants.default.cart.index', compact('cart', 'items'));
     }
 
-    // Agregar producto al carrito
     public function add(Request $request)
     {
         $request->validate([
@@ -36,7 +34,6 @@ class CartController extends Controller
 
         $product = Product::findOrFail($request->product_id);
 
-        // Ver si ya está
         $item = CartItem::where('cart_id', $cart->id)
             ->where('product_id', $product->id)
             ->first();
@@ -56,7 +53,6 @@ class CartController extends Controller
         return redirect()->route('cart.index')->with('success', 'Producto agregado al carrito.');
     }
 
-    // Eliminar item del carrito
     public function remove($itemId)
     {
         $item = CartItem::findOrFail($itemId);

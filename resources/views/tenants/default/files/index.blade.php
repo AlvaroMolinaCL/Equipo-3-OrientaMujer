@@ -1,16 +1,23 @@
 @php
     $isUser = auth()->user()->hasRole('Usuario');
+    $isAdmin = auth()->user()->hasRole('Admin');
 @endphp
 
 @extends($isUser ? 'tenants.default.layouts.app' : 'tenants.default.layouts.panel')
 
 @if ($isUser)
+    @section('title', 'Mis Archivos - ' . tenantSetting('name', 'Tenant'))
+
     @section('navbar')
     @section('navbar-class', 'navbar-dark-mode')
         @include('tenants.default.layouts.navigation')
     @endsection
     
     @section('body-class', 'theme-dark')
+@endif
+
+@if ($isAdmin)
+    @section('title', 'Gestión de Archivos - ' . tenantSetting('name', 'Tenant'))
 @endif
 
 @section('content')
@@ -26,7 +33,7 @@
                     <span style="font-size: 1.5rem; font-weight: 600;">Agregar archivos</span>
                 </a>
 
-                <a href="{{ route('files.shared.folders') }}" 
+                <a href="{{ route('files.shared.files') }}" 
                 class="cube-block flex-fill d-flex flex-column align-items-center justify-content-center text-decoration-none"
                 style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
                         color: {{ tenantSetting('text_color_1', '#8C2D18') }};">

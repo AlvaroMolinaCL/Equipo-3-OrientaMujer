@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Gestión de Usuarios - ' . config('app.name', 'Laravel'))
+
 @section('navbar')
     @include('layouts.navigation')
 @endsection
@@ -66,17 +68,20 @@
                                                 </a>
 
                                                 {{-- Eliminar --}}
-                                                <form action="{{ route('users.destroy', $user) }}" method="POST"
-                                                    onsubmit="return confirm('¿Estás seguro de eliminar este usuario?')"
-                                                    class="flex-grow-1">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                        class="btn btn-sm d-flex align-items-center justify-content-center gap-1 w-100"
-                                                        style="background-color: #dc3545; color: white; min-width: 100px;">
-                                                        <i class="bi bi-trash"></i> Eliminar
-                                                    </button>
-                                                </form>
+                                                @if ($user->id !== $firstSuperAdminId)
+                                                    {{-- Mostrar botón eliminar --}}
+                                                    <form action="{{ route('users.destroy', $user) }}" method="POST"
+                                                        onsubmit="return confirm('¿Estás seguro de eliminar este usuario?')"
+                                                        class="flex-grow-1">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="btn btn-sm d-flex align-items-center justify-content-center gap-1 w-100"
+                                                            style="background-color: #dc3545; color: white; min-width: 100px;">
+                                                            <i class="bi bi-trash"></i> Eliminar
+                                                        </button>
+                                                    </form>
+                                                @endif
                                             </div>
                                         @endif
                                     </td>

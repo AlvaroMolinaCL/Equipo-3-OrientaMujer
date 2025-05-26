@@ -21,11 +21,21 @@ class AdminSuperAdminRequestController extends Controller
     public function approve($id)
     {
         $solicitud = SuperAdminRequest::findOrFail($id);
-
         $solicitud->update(['approved' => true]);
 
-        return back()->with('success', 'Solicitud aprobada sin enviar email.');
-    }
+        // Crear token único
+        $token = Str::uuid();
 
+        SuperAdminInvitation::create([
+            'email' => $solicitud->email,
+            'token' => $token,
+            'used' => false,
+        ]);
+
+        // Enviar correo
+        Mail::to($solicitud->email)->send(new SuperAdminInvitationMail($token, $solicitud));
+
+        return back()->with('success', 'Solicitud aprobada y correo de invitación enviado.');
+    }
 }
 

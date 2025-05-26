@@ -22,8 +22,8 @@
 
                 @foreach ($enabledPages as $page)
                     @if ($page->is_visible)
-                        {{-- No mostrar login si está logueado --}}
-                        @if ($page->page_key === 'login' && Auth::check())
+                        {{-- No mostrar login ni register si el usuario está logueado --}}
+                        @if (in_array($page->page_key, ['login', 'register']) && Auth::check())
                             @continue
                         @endif
 

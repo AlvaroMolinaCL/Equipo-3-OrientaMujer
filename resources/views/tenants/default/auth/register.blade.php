@@ -1,5 +1,7 @@
 @extends('tenants.default.layouts.app')
 
+@section('title', tenantPageName('register', 'Registrarse') . ' - ' . tenantSetting('name', 'Tenant'))
+
 @section('body-class', 'theme-light')
 
 @section('content')

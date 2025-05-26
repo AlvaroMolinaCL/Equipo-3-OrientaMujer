@@ -1,6 +1,6 @@
 @extends('tenants.default.layouts.panel')
 
-@section('title', 'Dashboard')
+@section('title', 'Editar Apariencia - ' . tenantSetting('name', 'Tenant'))
 
 @section('sidebar')
     @include('tenants.default.layouts.sidebar')
@@ -101,8 +101,8 @@
         </h3>
         <a href="{{ route('dashboard') }}" class="btn btn-sm"
             style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
-              color: {{ tenantSetting('text_color_1', '#8C2D18') }};
-              border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
+                                                                                                                                                                                                                      color: {{ tenantSetting('text_color_1', '#8C2D18') }};
+                                                                                                                                                                                                                      border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
             <i class="bi bi-arrow-left me-2"></i>Volver
         </a>
     </div>
@@ -110,268 +110,767 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 {{-- Sección de Paletas Predefinidas --}}
-                <div class="mb-5">
-                    <h3 class="h5 mb-3 border-bottom pb-2"><i class="bi bi-palette-fill me-2"></i>Paletas de Colores
-                        Predefinidas</h3>
-                    <p class="text-muted mb-4">Selecciona una de nuestras paletas preconfiguradas o personaliza manualmente
-                        más abajo</p>
-
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4" id="palettes-container">
-                        @foreach ($presetStyles as $key => $palette)
-                            <div class="col">
-                                <div class="palette-card card h-100 border-0 shadow-sm hover-shadow transition-all"
-                                    style="cursor: pointer;" data-key="{{ $key }}"
-                                    data-palette='@json($palette)'
-                                    title="Seleccionar paleta {{ $palette['label'] }}">
-                                    <div class="card-header py-2"
-                                        style="background-color: {{ $palette['navbar_color_1'] }}; color: {{ $palette['navbar_text_color_1'] }};">
-                                        <h5 class="mb-0 text-center">{{ $palette['label'] }}</h5>
-                                    </div>
-                                    <div class="card-body p-3"
-                                        style="background-color: {{ $palette['background_color_1'] }}; color: {{ $palette['text_color_1'] }};">
-                                        <div class="d-flex flex-wrap gap-1 mb-2">
-                                            @foreach (['navbar_color_1', 'button_color_sidebar', 'color_metrics', 'color_tables'] as $colorKey)
-                                                <div style="width: 40px; height: 40px; background-color: {{ $palette[$colorKey] }}; border: 1px solid rgba(0,0,0,0.1); border-radius: 4px;"
-                                                    class="shadow-sm"
-                                                    title="{{ $colorKey }}: {{ $palette[$colorKey] }}"></div>
-                                            @endforeach
-                                        </div>
-                                        <div class="d-flex justify-content-between small">
-                                            <span>Texto: <span
-                                                    style="color: {{ $palette['text_color_1'] }}">Aa</span></span>
-                                            <span>Fondo: <span class="badge"
-                                                    style="background-color: {{ $palette['background_color_1'] }}; color: {{ $palette['text_color_1'] }}">Ejemplo</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-
-                    <div class="text-center">
-                        <button id="savePaletteBtn" class="btn"
-                            style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; 
-                                       color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                       transition: all 0.3s ease;">
-                            <i class="fas fa-save me-2"></i>Aplicar Paleta Seleccionada
+                <div class="accordion" id="mainAccordion">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapsePalettes" aria-expanded="true" aria-controls="collapsePalettes">
+                            <i class="bi bi-palette-fill me-2"></i>Paletas de Colores Predefinidas
                         </button>
+                    </h2>
+                    <div id="collapsePalettes" class="accordion-collapse collapse show" data-bs-parent="#mainAccordion">
+                        <div class="accordion-body">
+                            <p class="text-muted mb-4">Selecciona una de nuestras paletas preconfiguradas o personaliza
+                                manualmente más abajo.</p>
+
+                            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4" id="palettes-container">
+
+                                @foreach ($presetStyles as $key => $palette)
+                                    <div class="col">
+                                        <div class="palette-card card h-100 border-0 shadow-sm hover-shadow transition-all"
+                                            style="cursor: pointer;" data-key="{{ $key }}" data-palette='@json($palette)'
+                                            title="Seleccionar paleta {{ $palette['label'] }}">
+                                            <div class="card-header py-2"
+                                                style="background-color: {{ $palette['navbar_color_1'] }}; color: {{ $palette['navbar_text_color_1'] }};">
+                                                <h5 class="mb-0 text-center">{{ $palette['label'] }}</h5>
+                                            </div>
+                                            <div class="card-body p-3"
+                                                style="background-color: {{ $palette['background_color_1'] }}; color: {{ $palette['text_color_1'] }};">
+                                                <div class="d-flex flex-wrap gap-1 mb-2">
+                                                    @foreach (['navbar_color_1', 'button_color_sidebar', 'color_metrics', 'color_tables'] as $colorKey)
+                                                        <div style="width: 40px; height: 40px; background-color: {{ $palette[$colorKey] }}; border: 1px solid rgba(0,0,0,0.1); border-radius: 4px;"
+                                                            class="shadow-sm" title="{{ $colorKey }}: {{ $palette[$colorKey] }}">
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                                <div class="d-flex justify-content-between small">
+                                                    <span>Texto: <span
+                                                            style="color: {{ $palette['text_color_1'] }}">Aa</span></span>
+                                                    <span>Fondo: <span class="badge"
+                                                            style="background-color: {{ $palette['background_color_1'] }}; color: {{ $palette['text_color_1'] }}">Ejemplo</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            <div class="text-center">
+                                <button id="savePaletteBtn" class="btn"
+                                    style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; 
+                                                                                                                                                                                                                                               color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                                                                                                                                               transition: all 0.3s ease;">
+                                    <i class="fas fa-save me-2"></i>Aplicar Paleta Seleccionada
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                {{-- Sección de Personalización Avanzada --}}
-                <div class="mt-5 pt-4 border-top">
-                    <h3 class="h5 mb-3 border-bottom pb-2"><i class="bi bi-sliders me-2"></i>Personalización Avanzada</h3>
-                    <p class="text-muted mb-4">Ajusta cada aspecto de tu diseño manualmente</p>
-
-                    <form id="customizationForm" enctype="multipart/form-data">
-                        @csrf
-
-                        {{-- Logos --}}
-                        <div class="mb-4">
-                            <h4 class="h6 mb-3"><i class="bi bi-images me-2"></i>Logos</h4>
-
-                            <div class="row g-3">
-                                {{-- Logo Principal --}}
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">Logo Principal Actual</label>
-                                    @if ($tenant->logo_path_1)
-                                        <div class="text-center mb-2">
-                                            <img src="{{ $tenant->logo_path_1 }}" alt="Logo Principal"
-                                                class="img-fluid rounded border"
-                                                style="max-height: 80px; background-color: {{ $tenant->background_color_1 }};">
-                                        </div>
-                                    @else
-                                        <p class="text-muted">No hay logo principal cargado</p>
-                                    @endif
-
-                                    <label for="logo_1" class="form-label">Actualizar Logo Principal</label>
-                                    <input type="file" class="form-control" id="logo_1" name="logo_1"
-                                        accept="image/*">
-                                </div>
-
-                                {{-- Logo Secundario --}}
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">Logo Secundario Actual</label>
-                                    @if ($tenant->logo_path_2)
-                                        <div class="text-center mb-2">
-                                            <img src="{{ $tenant->logo_path_2 }}" alt="Logo Secundario"
-                                                class="img-fluid rounded border"
-                                                style="max-height: 80px; background-color: {{ $tenant->background_color_2 }};">
-                                        </div>
-                                    @else
-                                        <p class="text-muted">No hay logo secundario cargado</p>
-                                    @endif
-
-                                    <label for="logo_2" class="form-label">Actualizar Logo Secundario</label>
-                                    <input type="file" class="form-control" id="logo_2" name="logo_2"
-                                        accept="image/*">
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- Colores --}}
-                        <div class="mb-4">
-                            <h4 class="h6 mb-3"><i class="bi bi-palette me-2"></i>Colores</h4>
-
-                            <div class="row g-3">
-                                {{-- Fondo 1 --}}
-                                <div class="col-md-6 col-lg-4">
-                                    <label for="background_color_1" class="form-label">Fondo Principal</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-droplet"></i></span>
-                                        <input type="color" class="form-control form-control-color"
-                                            id="background_color_1" name="background_color_1"
-                                            value="{{ old('background_color_1', $tenant->background_color_1) }}">
-                                    </div>
-                                </div>
-
-                                {{-- Texto 1 --}}
-                                <div class="col-md-6 col-lg-4">
-                                    <label for="text_color_1" class="form-label">Texto Principal</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-fonts"></i></span>
-                                        <input type="color" class="form-control form-control-color" id="text_color_1"
-                                            name="text_color_1" value="{{ old('text_color_1', $tenant->text_color_1) }}">
-                                    </div>
-                                </div>
-
-                                {{-- Fondo 2 --}}
-                                <div class="col-md-6 col-lg-4">
-                                    <label for="background_color_2" class="form-label">Fondo Secundario</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-droplet"></i></span>
-                                        <input type="color" class="form-control form-control-color"
-                                            id="background_color_2" name="background_color_2"
-                                            value="{{ old('background_color_2', $tenant->background_color_2) }}">
-                                    </div>
-                                </div>
-
-                                {{-- Texto 2 --}}
-                                <div class="col-md-6 col-lg-4">
-                                    <label for="text_color_2" class="form-label">Texto Secundario</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-fonts"></i></span>
-                                        <input type="color" class="form-control form-control-color" id="text_color_2"
-                                            name="text_color_2" value="{{ old('text_color_2', $tenant->text_color_2) }}">
-                                    </div>
-                                </div>
-
-                                {{-- Navbar --}}
-                                <div class="col-md-6 col-lg-4">
-                                    <label for="navbar_color_1" class="form-label">Color de Navbar</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-border-width"></i></span>
-                                        <input type="color" class="form-control form-control-color" id="navbar_color_1"
-                                            name="navbar_color_1"
-                                            value="{{ old('navbar_color_1', $tenant->navbar_color_1) }}">
-                                    </div>
-                                </div>
-
-                                {{-- Texto Navbar --}}
-                                <div class="col-md-6 col-lg-4">
-                                    <label for="navbar_text_color_1" class="form-label">Texto de Navbar</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-type"></i></span>
-                                        <input type="color" class="form-control form-control-color"
-                                            id="navbar_text_color_1" name="navbar_text_color_1"
-                                            value="{{ old('navbar_text_color_1', $tenant->navbar_text_color_1) }}">
-                                    </div>
-                                </div>
-                                {{-- Botón Sidebar --}}
-                                <div class="col-md-6 col-lg-4">
-                                    <label for="button_color_sidebar" class="form-label">Botón Sidebar</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-toggle-on"></i></span>
-                                        <input type="color" class="form-control form-control-color"
-                                            id="button_color_sidebar" name="button_color_sidebar"
-                                            value="{{ old('button_color_sidebar', $tenant->button_color_sidebar) }}">
-                                    </div>
-                                </div>
-
-                                {{-- Color Métricas --}}
-                                <div class="col-md-6 col-lg-4">
-                                    <label for="color_metrics" class="form-label">Color Métricas</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-toggle-on"></i></span>
-                                        <input type="color" class="form-control form-control-color" id="color_metrics"
-                                            name="color_metrics"
-                                            value="{{ old('color_metrics', $tenant->color_metrics) }}">
-                                    </div>
-                                </div>
-
-                                {{-- Color Tablas --}}
-                                <div class="col-md-6 col-lg-4">
-                                    <label for="color_tables" class="form-label">Color Tablas</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-toggle-on"></i></span>
-                                        <input type="color" class="form-control form-control-color" id="color_tables"
-                                            name="color_tables" value="{{ old('color_tables', $tenant->color_tables) }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- Tipografías --}}
-                        <div class="mb-4">
-                            <h4 class="h6 mb-3"><i class="bi bi-fonts me-2"></i>Tipografías</h4>
-
-                            <div class="row g-3">
-                                <div class="col-md-4">
-                                    <label for="navbar_font" class="form-label">Navbar</label>
-                                    <select class="form-select" id="navbar_font" name="navbar_font">
-                                        <option value="Arial" {{ $tenant->navbar_font == 'Arial' ? 'selected' : '' }}>
-                                            Arial</option>
-                                        <option value="Roboto" {{ $tenant->navbar_font == 'Roboto' ? 'selected' : '' }}>
-                                            Roboto</option>
-                                        <option value="Open Sans"
-                                            {{ $tenant->navbar_font == 'Open Sans' ? 'selected' : '' }}>Open Sans</option>
-                                        <option value="Montserrat"
-                                            {{ $tenant->navbar_font == 'Montserrat' ? 'selected' : '' }}>Montserrat
-                                        </option>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="heading_font" class="form-label">Títulos</label>
-                                    <select class="form-select" id="heading_font" name="heading_font">
-                                        <option value="Arial" {{ $tenant->heading_font == 'Arial' ? 'selected' : '' }}>
-                                            Arial</option>
-                                        <option value="Roboto" {{ $tenant->heading_font == 'Roboto' ? 'selected' : '' }}>
-                                            Roboto</option>
-                                        <option value="Open Sans"
-                                            {{ $tenant->heading_font == 'Open Sans' ? 'selected' : '' }}>Open Sans</option>
-                                        <option value="Montserrat"
-                                            {{ $tenant->heading_font == 'Montserrat' ? 'selected' : '' }}>Montserrat
-                                        </option>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="body_font" class="form-label">Cuerpo</label>
-                                    <select class="form-select" id="body_font" name="body_font">
-                                        <option value="Arial" {{ $tenant->body_font == 'Arial' ? 'selected' : '' }}>Arial
-                                        </option>
-                                        <option value="Roboto" {{ $tenant->body_font == 'Roboto' ? 'selected' : '' }}>
-                                            Roboto</option>
-                                        <option value="Open Sans"
-                                            {{ $tenant->body_font == 'Open Sans' ? 'selected' : '' }}>Open Sans</option>
-                                        <option value="Montserrat"
-                                            {{ $tenant->body_font == 'Montserrat' ? 'selected' : '' }}>Montserrat</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="text-center mt-4">
-                            <button type="submit" class="btn"
-                                style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; 
-                                       color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                       transition: all 0.3s ease;">
-                                <i class="fas fa-save me-2"></i>Guardar Personalización
+                    {{-- Sección de Personalización Avanzada --}}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseAdvanced" aria-expanded="false" aria-controls="collapseAdvanced">
+                                <i class="bi bi-sliders me-2"></i>Personalización Avanzada
                             </button>
-                        </div>
+                        </h2>
+                        <div id="collapseAdvanced" class="accordion-collapse collapse" data-bs-parent="#mainAccordion">
+                            <div class="accordion-body">
+                                <p class="text-muted mb-4">Ajusta cada aspecto de tu diseño manualmente.</p>
 
-                    </form>
+                                <form id="customizationForm" enctype="multipart/form-data">
+                                    @csrf
+
+                                    {{-- Dropdown para Logos --}}
+                                    <div class="accordion mb-3" id="accordionLogos">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseLogos" aria-expanded="true"
+                                                    aria-controls="collapseLogos">
+                                                    <i class="bi bi-images me-2"></i> Configuración de Logos
+                                                </button>
+                                            </h2>
+                                            <div id="collapseLogos" class="accordion-collapse collapse show"
+                                                data-bs-parent="#accordionLogos">
+                                                <div class="accordion-body">
+                                                    <div class="row g-3">
+                                                        {{-- Logo Principal --}}
+                                                        <div class="col-md-6">
+                                                            <label class="form-label fw-bold">Logo Principal Actual</label>
+                                                            @if ($tenant->logo_path_1)
+                                                                <div class="text-center mb-2">
+                                                                    <img src="{{ asset($tenant->logo_path_1) }}"
+                                                                        alt="Logo Principal" class="img-fluid rounded border"
+                                                                        style="max-height: 80px; background-color: {{ $tenant->background_color_1 }};">
+
+                                                                </div>
+                                                            @else
+                                                                <p class="text-muted">No hay logo principal cargado</p>
+                                                            @endif
+
+                                                            <label for="logo_1" class="form-label">Actualizar Logo
+                                                                Principal</label>
+                                                            <input type="file" class="form-control" id="logo_1"
+                                                                name="logo_1" accept="image/*">
+                                                        </div>
+
+                                                        {{-- Logo Secundario --}}
+                                                        <div class="col-md-6">
+                                                            <label class="form-label fw-bold">Logo Secundario Actual</label>
+                                                            @if ($tenant->logo_path_2)
+                                                                <div class="text-center mb-2">
+                                                                    <img src="{{ $tenant->logo_path_2 }}" alt="Logo Secundario"
+                                                                        class="img-fluid rounded border"
+                                                                        style="max-height: 80px; background-color: {{ $tenant->background_color_2 }};">
+                                                                </div>
+                                                            @else
+                                                                <p class="text-muted">No hay logo secundario cargado</p>
+                                                            @endif
+
+                                                            <label for="logo_2" class="form-label">Actualizar Logo
+                                                                Secundario</label>
+                                                            <input type="file" class="form-control" id="logo_2"
+                                                                name="logo_2" accept="image/*">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- Dropdown para Colores --}}
+                                    <div class="accordion mb-3" id="accordionColors">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseColors"
+                                                    aria-expanded="false" aria-controls="collapseColors">
+                                                    <i class="bi bi-palette me-2"></i> Configuración de Colores
+                                                </button>
+                                            </h2>
+                                            <div id="collapseColors" class="accordion-collapse collapse"
+                                                data-bs-parent="#accordionColors">
+                                                <div class="accordion-body">
+                                                    <div class="row g-3">
+                                                        {{-- Fondo 1 --}}
+                                                        <div class="col-md-6 col-lg-4">
+                                                            <label for="background_color_1" class="form-label">Fondo
+                                                                Principal</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text"><i
+                                                                        class="bi bi-droplet"></i></span>
+                                                                <input type="color" class="form-control form-control-color"
+                                                                    id="background_color_1" name="background_color_1"
+                                                                    value="{{ old('background_color_1', $tenant->background_color_1) }}">
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- Texto 1 --}}
+                                                        <div class="col-md-6 col-lg-4">
+                                                            <label for="text_color_1" class="form-label">Texto
+                                                                Principal</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text"><i
+                                                                        class="bi bi-fonts"></i></span>
+                                                                <input type="color" class="form-control form-control-color"
+                                                                    id="text_color_1" name="text_color_1"
+                                                                    value="{{ old('text_color_1', $tenant->text_color_1) }}">
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- Fondo 2 --}}
+                                                        <div class="col-md-6 col-lg-4">
+                                                            <label for="background_color_2" class="form-label">Fondo
+                                                                Secundario</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text"><i
+                                                                        class="bi bi-droplet"></i></span>
+                                                                <input type="color" class="form-control form-control-color"
+                                                                    id="background_color_2" name="background_color_2"
+                                                                    value="{{ old('background_color_2', $tenant->background_color_2) }}">
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- Texto 2 --}}
+                                                        <div class="col-md-6 col-lg-4">
+                                                            <label for="text_color_2" class="form-label">Texto
+                                                                Secundario</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text"><i
+                                                                        class="bi bi-fonts"></i></span>
+                                                                <input type="color" class="form-control form-control-color"
+                                                                    id="text_color_2" name="text_color_2"
+                                                                    value="{{ old('text_color_2', $tenant->text_color_2) }}">
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- Navbar --}}
+                                                        <div class="col-md-6 col-lg-4">
+                                                            <label for="navbar_color_1" class="form-label">Color de
+                                                                Navbar</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text"><i
+                                                                        class="bi bi-border-width"></i></span>
+                                                                <input type="color" class="form-control form-control-color"
+                                                                    id="navbar_color_1" name="navbar_color_1"
+                                                                    value="{{ old('navbar_color_1', $tenant->navbar_color_1) }}">
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- Texto Navbar --}}
+                                                        <div class="col-md-6 col-lg-4">
+                                                            <label for="navbar_text_color_1" class="form-label">Texto de
+                                                                Navbar</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text"><i
+                                                                        class="bi bi-type"></i></span>
+                                                                <input type="color" class="form-control form-control-color"
+                                                                    id="navbar_text_color_1" name="navbar_text_color_1"
+                                                                    value="{{ old('navbar_text_color_1', $tenant->navbar_text_color_1) }}">
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- Navbar 2 --}}
+                                                        <div class="col-md-6 col-lg-4">
+                                                            <label for="navbar_color_2" class="form-label">Color de
+                                                                Navbar</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text"><i
+                                                                        class="bi bi-border-width"></i></span>
+                                                                <input type="color" class="form-control form-control-color"
+                                                                    id="navbar_color_2" name="navbar_color_2"
+                                                                    value="{{ old('navbar_color_2', $tenant->navbar_color_2) }}">
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- Texto Navbar 2--}}
+                                                        <div class="col-md-6 col-lg-4">
+                                                            <label for="navbar_text_color_2" class="form-label">Texto de
+                                                                Navbar</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text"><i
+                                                                        class="bi bi-type"></i></span>
+                                                                <input type="color" class="form-control form-control-color"
+                                                                    id="navbar_text_color_2" name="navbar_text_color_2"
+                                                                    value="{{ old('navbar_text_color_2', $tenant->navbar_text_color_2) }}">
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- Botón Sidebar --}}
+                                                        <div class="col-md-6 col-lg-4">
+                                                            <label for="button_color_sidebar" class="form-label">Botón
+                                                                Sidebar</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text"><i
+                                                                        class="bi bi-toggle-on"></i></span>
+                                                                <input type="color" class="form-control form-control-color"
+                                                                    id="button_color_sidebar" name="button_color_sidebar"
+                                                                    value="{{ old('button_color_sidebar', $tenant->button_color_sidebar) }}">
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- Color Métricas --}}
+                                                        <div class="col-md-6 col-lg-4">
+                                                            <label for="color_metrics" class="form-label">Color
+                                                                Métricas</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text"><i
+                                                                        class="bi bi-toggle-on"></i></span>
+                                                                <input type="color" class="form-control form-control-color"
+                                                                    id="color_metrics" name="color_metrics"
+                                                                    value="{{ old('color_metrics', $tenant->color_metrics) }}">
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- Color Tablas --}}
+                                                        <div class="col-md-6 col-lg-4">
+                                                            <label for="color_tables" class="form-label">Color
+                                                                Tablas</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text"><i
+                                                                        class="bi bi-toggle-on"></i></span>
+                                                                <input type="color" class="form-control form-control-color"
+                                                                    id="color_tables" name="color_tables"
+                                                                    value="{{ old('color_tables', $tenant->color_tables) }}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- Dropdown para Tipografías --}}
+                                    <div class="accordion mb-3" id="accordionFonts">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseFonts"
+                                                    aria-expanded="false" aria-controls="collapseFonts">
+                                                    <i class="bi bi-fonts me-2"></i> Configuración de Tipografías
+                                                </button>
+                                            </h2>
+                                            <div id="collapseFonts" class="accordion-collapse collapse"
+                                                data-bs-parent="#accordionFonts">
+                                                <div class="accordion-body">
+                                                    <div class="row g-3">
+                                                        <div class="col-md-4">
+                                                            <label for="navbar_font" class="form-label">Navbar</label>
+                                                            <select class="form-select" id="navbar_font" name="navbar_font">
+                                                                <option value="Arial" {{ $tenant->navbar_font == 'Arial' ? 'selected' : '' }}>
+                                                                    Arial</option>
+                                                                <option value="Roboto" {{ $tenant->navbar_font == 'Roboto' ? 'selected' : '' }}>
+                                                                    Roboto</option>
+                                                                <option value="Open Sans" {{ $tenant->navbar_font == 'Open Sans' ? 'selected' : '' }}>Open Sans</option>
+                                                                <option value="Montserrat" {{ $tenant->navbar_font == 'Montserrat' ? 'selected' : '' }}>
+                                                                    Montserrat
+                                                                </option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <label for="heading_font" class="form-label">Títulos</label>
+                                                            <select class="form-select" id="heading_font"
+                                                                name="heading_font">
+                                                                <option value="Arial" {{ $tenant->heading_font == 'Arial' ? 'selected' : '' }}>
+                                                                    Arial</option>
+                                                                <option value="Roboto" {{ $tenant->heading_font == 'Roboto' ? 'selected' : '' }}>
+                                                                    Roboto</option>
+                                                                <option value="Open Sans" {{ $tenant->heading_font == 'Open Sans' ? 'selected' : '' }}>Open Sans</option>
+                                                                <option value="Montserrat" {{ $tenant->heading_font == 'Montserrat' ? 'selected' : '' }}>
+                                                                    Montserrat
+                                                                </option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <label for="body_font" class="form-label">Cuerpo</label>
+                                                            <select class="form-select" id="body_font" name="body_font">
+                                                                <option value="Arial" {{ $tenant->body_font == 'Arial' ? 'selected' : '' }}>Arial
+                                                                </option>
+                                                                <option value="Roboto" {{ $tenant->body_font == 'Roboto' ? 'selected' : '' }}>
+                                                                    Roboto</option>
+                                                                <option value="Open Sans" {{ $tenant->body_font == 'Open Sans' ? 'selected' : '' }}>Open Sans</option>
+                                                                <option value="Montserrat" {{ $tenant->body_font == 'Montserrat' ? 'selected' : '' }}>
+                                                                    Montserrat</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center mt-4">
+                                        <button type="submit" class="btn"
+                                            style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; 
+                                                                                                                                                                                                                               color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                                                                                                                               transition: all 0.3s ease;">
+                                            <i class="fas fa-save me-2"></i>Guardar Personalización
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Sección de Contenido Personalizados --}}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTexts" aria-expanded="false" aria-controls="collapseTexts">
+                                <i class="bi bi-text-paragraph me-2"></i>Contenido Personalizado
+                            </button>
+                        </h2>
+                        <div id="collapseTexts" class="accordion-collapse collapse" data-bs-parent="#mainAccordion">
+                            <div class="accordion-body">
+                                <form method="POST" action="{{ route('tenant.texts.update') }}"
+                                    enctype="multipart/form-data" class="mt-3">
+                                    @csrf
+                                    @method('PUT')
+
+                                    <h4 class="h6 mb-3"><i class="bi bi-card-heading me-2"></i>Textos e Imágenes Principales
+                                    </h4>
+
+                                    <!-- Nav Tabs -->
+                                    <ul class="nav nav-tabs mb-4" id="homeTextsTab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="inicio-tab" data-bs-toggle="tab"
+                                                data-bs-target="#inicio" type="button" role="tab">Inicio</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="servicios-tab" data-bs-toggle="tab"
+                                                data-bs-target="#servicios" type="button" role="tab">Servicios</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="contacto-tab" data-bs-toggle="tab"
+                                                data-bs-target="#contacto" type="button" role="tab">Sobre mí</button>
+                                        </li>
+                                    </ul>
+
+                                    <!-- Tab Content -->
+                                    <div class="tab-content" id="homeTextsTabContent">
+
+                                        <!-- INICIO -->
+                                        <div class="tab-pane fade show active" id="inicio" role="tabpanel">
+                                            <!-- Slogan -->
+                                            <div class="mb-3">
+                                                <label for="slogan_text" class="form-label"><strong>Slogan</strong></label>
+                                                <textarea class="form-control summernote" name="slogan_text"
+                                                    id="slogan_text" rows="2"
+                                                    placeholder="Ej: Innovación y calidad">{!! old('slogan_text', tenantText('slogan_text', 'La información es poder, <strong>¡empodérate!</strong>')) !!}</textarea>
+                                            </div>
+
+                                            <!-- Cuerpo del slogan -->
+                                            <div class="mb-3">
+                                                <label for="slogan_body" class="form-label"><strong>Cuerpo del
+                                                        slogan</strong></label>
+                                                <textarea class="form-control summernote" name="slogan_body"
+                                                    id="slogan_body" rows="2"
+                                                    placeholder="Ej: Más de 20 años brindando soluciones">{{ old('slogan_body', tenantText('slogan_body', 'Una representación judicial con perspectiva de género, exige un acompañamiento empático e informado para alivianar las cargas del proceso.')) }}</textarea>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="banner_path" class="form-label"><strong>Imagen
+                                                        Banner</strong></label>
+                                                <input type="file" class="form-control" name="banner_path" id="banner_path"
+                                                    accept="image/*" onchange="previewImage(this, 'previewBanner')">
+                                                <img id="previewBanner"
+                                                    src="{{ asset('images/banner/' . tenantSetting('banner_path', 'Banner_1_(Predeterminado).png')) }}"
+                                                    alt="Vista previa Banner" class="img-fluid mt-2"
+                                                    style="max-height: 200px;">
+                                            </div>
+
+                                            <!-- Sobre Nosotros -->
+                                            <div class="mb-3">
+                                                <label for="about_text" class="form-label"><strong>Sobre
+                                                        Nosotros</strong></label>
+                                                <textarea class="form-control summernote" name="about_text" id="about_text"
+                                                    rows="6"
+                                                    placeholder="Escribe tu contenido aquí...">{{ old('about_text', tenantText('about_text', '
+                                                                                                            <p style="text-align: justify;">
+                                                                                                                Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.
+                                                                                                            </p>
+                                                                                                            <p style="text-align: justify;">
+                                                                                                                Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.
+                                                                                                            </p>
+                                                                                                            <p style="text-align: justify;">
+                                                                                                                Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.
+                                                                                                            </p>
+                                                                                                            ')) }}</textarea>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="about_path" class="form-label"><strong>Imagen Sobre
+                                                        Nosotros</strong></label>
+                                                <input type="file" class="form-control" name="about_path" id="about_path"
+                                                    accept="image/*" onchange="previewImage(this, 'preview_about')">
+                                                <img id="preview_about"
+                                                    src="{{ asset('images/about/' . tenantSetting('about_path', 'about_(Predeterminado).png')) }}"
+                                                    alt="Vista previa Sobre Nosotros" class="img-fluid mt-2"
+                                                    style="max-height: 200px;">
+                                            </div>
+
+                                            <!-- Servicios -->
+                                            <!-- Servicio 1 -->
+                                            <div class="mb-3">
+                                                <label for="service1_title" class="form-label">
+                                                    <strong>Título Servicio 1</strong>
+                                                </label>
+                                                <input type="text" class="form-control" name="service1_title"
+                                                    id="service1_title"
+                                                    value="{{ old('service1_title', tenantText('service1_title', 'Asesoría jurídica integral')) }}"
+                                                    placeholder="Título del servicio 1">
+                                            </div>
+                                            <div class="mb-4">
+                                                <label for="service1_body" class="form-label">
+                                                    <strong>Descripción Servicio 1</strong>
+                                                </label>
+                                                <textarea class="form-control summernote" name="service1_body"
+                                                    id="service1_body" rows="4"
+                                                    placeholder="Descripción del servicio 1">{!! old('service1_body', tenantText('service1_body', '<p style="text-align: justify;">Te ofrezco un servicio de orientación legal para identificar el escenario jurídico que enfrentas.</p>')) !!}</textarea>
+                                            </div>
+
+                                            <!-- Servicio 2 -->
+                                            <div class="mb-3">
+                                                <label for="service2_title" class="form-label">
+                                                    <strong>Título Servicio 2</strong>
+                                                </label>
+                                                <input type="text" class="form-control" name="service2_title"
+                                                    id="service2_title"
+                                                    value="{{ old('service2_title', tenantText('service2_title', 'Representación judicial')) }}"
+                                                    placeholder="Título del servicio 2">
+                                            </div>
+                                            <div class="mb-4">
+                                                <label for="service2_body" class="form-label">
+                                                    <strong>Descripción Servicio 2</strong>
+                                                </label>
+                                                <textarea class="form-control summernote" name="service2_body"
+                                                    id="service2_body" rows="4"
+                                                    placeholder="Descripción del servicio 2">{!! old('service2_body', tenantText('service2_body', '<p style="text-align: justify;">Te represento en procesos judiciales penales, de familia u otras materias.</p>')) !!}</textarea>
+                                            </div>
+
+                                            <!-- Servicio 3 -->
+                                            <div class="mb-3">
+                                                <label for="service3_title" class="form-label">
+                                                    <strong>Título Servicio 3</strong>
+                                                </label>
+                                                <input type="text" class="form-control" name="service3_title"
+                                                    id="service3_title"
+                                                    value="{{ old('service3_title', tenantText('service3_title', 'Capacitaciones y charlas')) }}"
+                                                    placeholder="Título del servicio 3">
+                                            </div>
+                                            <div class="mb-4">
+                                                <label for="service3_body" class="form-label">
+                                                    <strong>Descripción Servicio 3</strong>
+                                                </label>
+                                                <textarea class="form-control summernote" name="service3_body"
+                                                    id="service3_body" rows="4"
+                                                    placeholder="Descripción del servicio 3">{!! old('service3_body', tenantText('service3_body', '<p style="text-align: justify;">Realizo talleres, charlas y capacitaciones para grupos en contextos académicos, laborales o comunitarios.</p>')) !!}</textarea>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="services_path_1" class="form-label"><strong>Imagen Servicio
+                                                        1</strong></label>
+                                                <input type="file" class="form-control" name="services_path_1"
+                                                    id="services_path_1" accept="image/*"
+                                                    onchange="previewImage(this, 'preview1')">
+                                                <img id="preview1"
+                                                    src="{{ asset('images/services/' . tenantSetting('services_path_1', 'Servicio_(Predeterminado).png')) }}"
+                                                    alt="Vista previa Servicio 1" class="img-fluid mt-2"
+                                                    style="max-height: 200px;">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="services_path_2" class="form-label"><strong>Imagen Servicio
+                                                        2</strong></label>
+                                                <input type="file" class="form-control" name="services_path_2"
+                                                    id="services_path_2" accept="image/*"
+                                                    onchange="previewImage(this, 'preview2')">
+                                                <img id="preview2"
+                                                    src="{{ asset('images/services/' . tenantSetting('services_path_2', 'Servicio_(Predeterminado).png')) }}"
+                                                    alt="Vista previa Servicio 2" class="img-fluid mt-2"
+                                                    style="max-height: 200px;">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="services_path_3" class="form-label"><strong>Imagen Servicio
+                                                        3</strong></label>
+                                                <input type="file" class="form-control" name="services_path_3"
+                                                    id="services_path_3" accept="image/*"
+                                                    onchange="previewImage(this, 'preview3')">
+                                                <img id="preview3"
+                                                    src="{{ asset('images/services/' . tenantSetting('services_path_3', 'Servicio_(Predeterminado).png')) }}"
+                                                    alt="Vista previa Servicio 3" class="img-fluid mt-2"
+                                                    style="max-height: 200px;">
+                                            </div>
+
+                                        </div>
+
+                                        <!-- SERVICIOS -->
+                                        <div class="tab-pane fade" id="servicios" role="tabpanel">
+                                            <!-- Títulos y Descripciones de Servicio 1 -->
+                                            <div class="mb-3">
+                                                <label for="title_service_1" class="form-label">
+                                                    <strong>Título Servicio 1</strong>
+                                                </label>
+                                                <input type="text" class="form-control" name="title_service_1"
+                                                    id="title_service_1"
+                                                    value="{{ old('title_service_1', tenantText('title_service_1', 'Asesoría jurídica integral')) }}"
+                                                    placeholder="Título del servicio 1">
+                                            </div>
+
+                                            <div class="mb-4">
+                                                <label for="body_service_1" class="form-label">
+                                                    <strong>Descripción Servicio 1</strong>
+                                                </label>
+                                                <textarea class="form-control summernote" name="body_service_1"
+                                                    id="body_service_1" rows="6"
+                                                    placeholder="Descripción del servicio 1">{!! old('body_service_1', tenantText('body_service_1', '
+                                                                                                        <p style="text-align: justify;">Te ofrezco un servicio de orientación legal para identificar el escenario jurídico que enfrentas.</p>
+                                                                                                        <p style="text-align: justify;">Conocerás:</p>
+                                                                                                        <ul>
+                                                                                                            <li style="text-align: justify;">La procedencia de acciones judiciales en materias de violencia contra la mujer.</li>
+                                                                                                            <li style="text-align: justify;">Pasos a seguir para iniciar procedimientos judiciales.</li>
+                                                                                                            <li style="text-align: justify;">Análisis de la necesidad de representación privada o derivación a organismos públicos.</li>
+                                                                                                            <li style="text-align: justify;">Explicación clara de la dinámica de los procesos en derecho penal, familia y otras áreas.</li>
+                                                                                                            <li style="text-align: justify;">Derivación segura a abogadas especializadas si así lo requieres.</li>
+                                                                                                        </ul>')) !!}</textarea>
+                                            </div>
+
+                                            <!-- Títulos y Descripciones de Servicio 2 -->
+                                            <div class="mb-3">
+                                                <label for="title_service_2" class="form-label">
+                                                    <strong>Título Servicio 2</strong>
+                                                </label>
+                                                <input type="text" class="form-control" name="title_service_2"
+                                                    id="title_service_2"
+                                                    value="{{ old('title_service_2', tenantText('title_service_2', 'Representación judicial en causas de derecho penal, familia, u otros')) }}"
+                                                    placeholder="Título del servicio 2">
+                                            </div>
+
+                                            <div class="mb-4">
+                                                <label for="body_service_2" class="form-label">
+                                                    <strong>Descripción Servicio 2</strong>
+                                                </label>
+                                                <textarea class="form-control summernote" name="body_service_2"
+                                                    id="body_service_2" rows="6" placeholder="Descripción del servicio 2">{!! old('body_service_2', tenantText('body_service_2', '
+                                                                                                    <p style="text-align: justify;">Te represento en procesos judiciales penales, de familia u otras materias, comprometiéndome a:</p>
+                                                                                                    <ul>
+                                                                                                        <li style="text-align: justify;">Diseñar contigo la estrategia de defensa o acción.</li>
+                                                                                                        <li style="text-align: justify;">Representar tus intereses bajo perspectiva de género, territorio, interculturalidad, derechos humanos, según corresponda.</li>
+                                                                                                        <li style="text-align: justify;">Informarte en cada etapa, asegurando tu participación activa en la toma de decisiones.</li>
+                                                                                                    </ul>
+                                                                                                ')) !!}</textarea>
+                                            </div>
+
+                                            <!-- Títulos y Descripciones de Servicio 3 -->
+                                            <div class="mb-3">
+                                                <label for="title_service_3" class="form-label">
+                                                    <strong>Título Servicio 3</strong>
+                                                </label>
+                                                <input type="text" class="form-control" name="title_service_3"
+                                                    id="title_service_3"
+                                                    value="{{ old('title_service_3', tenantText('title_service_3', 'Capacitaciones y charlas')) }}"
+                                                    placeholder="Título del servicio 3">
+                                            </div>
+
+                                            <div class="mb-4">
+                                                <label for="body_service_3" class="form-label">
+                                                    <strong>Descripción Servicio 3</strong>
+                                                </label>
+                                                <textarea class="form-control summernote" name="body_service_3"
+                                                    id="body_service_3" rows="6" placeholder="Descripción del servicio 3">{!! old('body_service_3', tenantText('body_service_3', '
+                                                                                                    <p style="text-align: justify;">Realizo talleres, charlas y capacitaciones para grupos en contextos académicos, laborales o comunitarios.</p>
+                                                                                                    <p style="text-align: justify;">Temáticas abordadas:</p>
+                                                                                                    <ul>
+                                                                                                        <li style="text-align: justify;">Sensibilización en género.</li>
+                                                                                                        <li style="text-align: justify;">Normativa nacional e internacional sobre derechos humanos, género y otras materias.</li>
+                                                                                                        <li style="text-align: justify;">Funcionamiento práctico de los procedimientos judiciales.</li>
+                                                                                                    </ul>
+                                                                                                ')) !!}</textarea>
+                                            </div>
+
+                                            <!-- Imágenes de Servicios -->
+
+
+                                            <div class="mb-3">
+                                                <p class="text-muted small mb-4">
+                                                    ⚠️ Estas imágenes también se muestran en la página de inicio. Si las
+                                                    cambias
+                                                    aquí, se actualizarán automáticamente allá.
+                                                </p>
+                                                <label for="services_path_1" class="form-label">
+                                                    <strong>Imagen Servicio 1</strong>
+                                                </label>
+                                                <small class="text-muted d-block mb-1">Esta imagen también se usa en la
+                                                    sección de inicio.</small>
+                                                <input type="file" class="form-control" name="services_path_1"
+                                                    id="services_path_1" accept="image/*"
+                                                    onchange="previewImage(this, 'preview1')">
+                                                <img id="preview1"
+                                                    src="{{ asset('images/services/' . tenantSetting('services_path_1', 'Servicio_(Predeterminado).png')) }}"
+                                                    alt="Vista previa Servicio 1" class="img-fluid mt-2"
+                                                    style="max-height: 200px;">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="services_path_2" class="form-label">
+                                                    <strong>Imagen Servicio 2</strong>
+                                                </label>
+                                                <small class="text-muted d-block mb-1">Esta imagen también se usa en la
+                                                    sección de inicio.</small>
+                                                <input type="file" class="form-control" name="services_path_2"
+                                                    id="services_path_2" accept="image/*"
+                                                    onchange="previewImage(this, 'preview2')">
+                                                <img id="preview2"
+                                                    src="{{ asset('images/services/' . tenantSetting('services_path_2', 'Servicio_(Predeterminado).png')) }}"
+                                                    alt="Vista previa Servicio 2" class="img-fluid mt-2"
+                                                    style="max-height: 200px;">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="services_path_3" class="form-label">
+                                                    <strong>Imagen Servicio 3</strong>
+                                                </label>
+                                                <small class="text-muted d-block mb-1">Esta imagen también se usa en la
+                                                    sección de inicio.</small>
+                                                <input type="file" class="form-control" name="services_path_3"
+                                                    id="services_path_3" accept="image/*"
+                                                    onchange="previewImage(this, 'preview3')">
+                                                <img id="preview3"
+                                                    src="{{ asset('images/services/' . tenantSetting('services_path_3', 'Servicio_(Predeterminado).png')) }}"
+                                                    alt="Vista previa Servicio 3" class="img-fluid mt-2"
+                                                    style="max-height: 200px;">
+                                            </div>
+
+
+                                        </div>
+
+                                        <!-- ABOUT -->
+                                        <div class="tab-pane fade" id="contacto" role="tabpanel">
+                                            <!-- Sobre mi-->
+                                            <div class="mb-3">
+                                                <label for="about_us" class="form-label"><strong>Sobre mí</strong></label>
+                                                <textarea class="form-control summernote" name="about_us" id="about_us"
+                                                    rows="10">{!! old('about_us', tenantText('about_us', '
+                                                                                <p style="text-align: justify;">Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.</p>
+                                                                                <p style="text-align: justify;">Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.</p>
+                                                                                <p style="text-align: justify;">Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.</p>
+                                                                                <p style="text-align: justify;"><strong>"La información es poder, empodérate"</strong></p>
+                                                                            ')) !!}</textarea>
+                                            </div>
+                                            <!-- experience -->
+                                            <div class="mb-3">
+                                                <label for="experience"
+                                                    class="form-label"><strong>Experiencia</strong></label>
+                                                <textarea class="form-control summernote" name="experience" id="experience"
+                                                    rows="7">{!! old('experience', tenantText('experience', '
+                                                                                <ul class="fade-in-section">
+                                                                                    <li>Abogada titulada por la Universidad de Concepción.</li>
+                                                                                    <li>Magíster en Derecho Penal y Derecho Procesal Penal, Universidad Católica del Norte (en curso).</li>
+                                                                                    <li>Diplomada en Derechos Humanos y Función Pública, Universidad de Los Lagos e Instituto Nacional de Derechos Humanos.</li>
+                                                                                </ul>
+                                                                            ')) !!}</textarea>
+                                            </div>
+
+                                            <!-- Imagen Sobre Nosotros -->
+                                            <div class="mb-3">
+                                                <p class="text-muted small mb-4">
+                                                    ⚠️ Esta imágen también se muestran en la página de inicio. Si la cambias
+                                                    aquí, se actualizarán automáticamente allá.
+                                                </p>
+                                                <label for="about_path" class="form-label"><strong>Imagen Sobre
+                                                        Nosotros</strong></label>
+                                                <small class="text-muted d-block mb-1">Esta imagen también se usa en la
+                                                    sección de inicio.</small>
+                                                <input type="file" class="form-control" name="about_path" id="about_path"
+                                                    accept="image/*" onchange="previewImage(this, 'preview_about')">
+                                                <img id="preview_about"
+                                                    src="{{ asset('images/about/' . tenantSetting('about_path', 'about_(Predeterminado).png')) }}"
+                                                    alt="Vista previa Sobre Nosotros" class="img-fluid mt-2"
+                                                    style="max-height: 200px;">
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- Botón Guardar -->
+                                    <div class="text-center mt-4">
+                                        <button type="submit" class="btn"
+                                            style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }};
+                                                                                                                                                                                                color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                                                                                                transition: all 0.3s ease;">
+                                            <i class="fas fa-save me-2"></i>Guardar Contenido
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -410,7 +909,7 @@
     </style>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Manejo de paletas de colores
             const palettesContainer = document.getElementById('palettes-container');
             const saveBtn = document.getElementById('savePaletteBtn');
@@ -454,6 +953,8 @@
                 document.getElementById('text_color_2').value = palette.text_color_2;
                 document.getElementById('navbar_color_1').value = palette.navbar_color_1;
                 document.getElementById('navbar_text_color_1').value = palette.navbar_text_color_1;
+                document.getElementById('navbar_color_2').value = palette.navbar_color_2;
+                document.getElementById('navbar_text_color_2').value = palette.navbar_text_color_2;
                 document.getElementById('button_color_sidebar').value = palette.button_color_sidebar;
                 document.getElementById('color_metrics').value = palette.color_metrics;
                 document.getElementById('color_tables').value = palette.color_tables;
@@ -465,9 +966,9 @@
                     `alert alert-${type} alert-dismissible fade show position-fixed top-0 end-0 m-3`;
                 alertBox.style.zIndex = '9999';
                 alertBox.innerHTML = `
-                    ${message}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                `;
+                                                                                                                                                                                                                            ${message}
+                                                                                                                                                                                                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                                                                                                                                                                                                        `;
                 document.body.appendChild(alertBox);
 
                 setTimeout(() => {
@@ -536,7 +1037,7 @@
             // Manejo del formulario de personalización
             const customizationForm = document.getElementById('customizationForm');
 
-            customizationForm.addEventListener('submit', async function(e) {
+            customizationForm.addEventListener('submit', async function (e) {
                 e.preventDefault();
 
                 const submitBtn = this.querySelector('button[type="submit"]');
@@ -579,4 +1080,27 @@
             });
         });
     </script>
+    <!-- Summernote CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+    <!-- Summernote JS -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                height: 150,
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['para', ['ul', 'ol']],
+                    ['view', ['codeview']]
+                ]
+            });
+        });
+    </script>
+
+
 @endsection

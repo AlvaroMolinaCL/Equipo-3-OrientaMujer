@@ -7,12 +7,19 @@ use App\Http\Controllers\App\UserController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AppearanceController;
 use App\Http\Controllers\AvailableSlotController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\Tenant\RoleController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
-use App\Http\Controllers\CartController;
+use App\Http\Controllers\TenantTextController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PublicProductController;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Tenant Routes
@@ -35,12 +42,12 @@ Route::middleware([
         return view(tenantView('index'));
     })->name('tenants.default.index');
 
-    // Página "Services"
+    // Página "Servicios"
     Route::get('/services', function () {
         return view(tenantView('services'));
     })->middleware('check.tenant.page.enabled:services');
-
-    // Página "Contact"
+    
+    // Página "Contacto"
     Route::get('/contact', function () {
         return view(tenantView('contact'));
     })->middleware('check.tenant.page.enabled:contact');
@@ -50,7 +57,7 @@ Route::middleware([
         return view(tenantView('tips'));
     })->middleware('check.tenant.page.enabled:tips');
 
-    // Página "About"
+    // Página "Nosotros"
     Route::get('/about', function () {
         return view(tenantView('about'));
     })->middleware('check.tenant.page.enabled:about');
@@ -61,8 +68,12 @@ Route::middleware([
         Route::middleware(['check.tenant.page.enabled:agenda'])->group(function () {
             Route::get('/agenda', [AgendaController::class, 'index'])->name('tenant.agenda.index');
             Route::post('/agenda', [AgendaController::class, 'store'])->name('tenant.agenda.store');
-            Route::get('/agenda/cuestionario', [AgendaController::class, 'showQuestionnaire'])->name('tenant.agenda.questionnaire');
-            Route::post('/agenda/cuestionario', [AgendaController::class, 'processQuestionnaire'])->name('tenant.agenda.questionnaire.process');
+
+            // Cuestionario Pre-Agendamiento
+            Route::middleware(['check.tenant.page.enabled:questionnaire'])->group(function () {
+                Route::get('/agenda/cuestionario', [AgendaController::class, 'showQuestionnaire'])->name('tenant.agenda.questionnaire');
+                Route::post('/agenda/cuestionario', [AgendaController::class, 'processQuestionnaire'])->name('tenant.agenda.questionnaire.process');
+            });
         });
 
         // Perfil de Usuario
@@ -78,18 +89,28 @@ Route::middleware([
         Route::delete('/files/{file}', [FileController::class, 'destroy'])->name('files.destroy');
 
         // Archivos Compartidos
-        Route::get('/shared-folders', [FileController::class, 'sharedFolders'])->name('files.shared.folders');
-        Route::get('/shared-folders/{user}', [FileController::class, 'sharedByUser'])->name('files.shared.byUser');
+        Route::get('/shared-files', [FileController::class, 'sharedFiles'])->name('files.shared.files');
+        Route::get('/shared-files/{user}', [FileController::class, 'sharedByUser'])->name('files.shared.byUser');
 
         // Carrito
         Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
         Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
         Route::delete('/cart/remove/{itemId}', [CartController::class, 'remove'])->name('cart.remove');
+        
+        // Planes
+        Route::get('/planes', [ProductController::class, 'planes'])->name('products.planes');
+
     });
 
     // Rutas exclusivas para Administrador
     Route::middleware(['auth', 'role:Admin'])->group(function () {
-        // Dashboard
+
+        // Rutas para la gestión de textos
+        Route::put('/tenant/texts/update', [TenantTextController::class, 'update'])->name('tenant.texts.update');
+        Route::get('/panel/textos', [TenantTextController::class, 'edit'])->name('tenant.texts.edit');
+
+
+        // Panel de Control
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // Gestión de Agenda
@@ -104,6 +125,22 @@ Route::middleware([
 
         // Gestión de Usuarios
         Route::resource('users', UserController::class);
+
+        // Gestión de Roles
+        Route::resource('roles', RoleController::class);
+
+        // Gestion de Productos
+        Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+        Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+        Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+        Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+        Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+        Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+        // Calendario de Disponibilidad
+        Route::get('/admin/disponibilidad/calendario', function () {
+            return view('tenants.default.available-slots.calendar');
+        })->middleware('role:Admin')->name('admin.disponibilidad.calendario');
     });
 
     require __DIR__ . '/tenant-auth.php';

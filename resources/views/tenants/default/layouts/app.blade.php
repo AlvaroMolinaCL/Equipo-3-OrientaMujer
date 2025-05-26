@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ tenantSetting('name', 'Tenant') }}</title>
+    <title>@yield('title')</title>
 
     <!-- Fonts -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +28,9 @@
 
     @php
         $tenant = tenant();
-        $bannerUrl = asset(tenantSetting('banner_path', '/images/banner/Banner_1_(Predeterminado).png'));
+        $bannerUrl = tenantSetting('banner_path')
+            ? asset('images/banner/' . tenantSetting('banner_path'))
+            : asset('images/banner/Banner_1_(Predeterminado).png');
     @endphp
 
     @if ($tenant->google_analytics_id)

@@ -4,6 +4,8 @@
 
 @extends($isUser ? 'tenants.default.layouts.app' : 'tenants.default.layouts.panel')
 
+@section('title', 'Subir Archivo - ' . tenantSetting('name', 'Tenant'))
+
 @if ($isUser)
     @section('navbar')
     @section('navbar-class', 'navbar-dark-mode')

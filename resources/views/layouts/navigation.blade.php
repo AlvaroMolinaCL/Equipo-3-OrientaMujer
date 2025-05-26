@@ -11,7 +11,7 @@
             </a>
         </li>
 
-        <!-- Tenants -->
+        {{-- Tenants --}}
         <li class="nav-item">
             <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
                 href="#tenantsMenu" style="color: white;">
@@ -32,7 +32,7 @@
             </div>
         </li>
 
-        <!-- Dominios -->
+        {{-- Dominios --}}
         <li class="nav-item">
             <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
                 href="#domainsMenu" style="color: white;">
@@ -53,7 +53,7 @@
             </div>
         </li>
 
-        <!-- Usuarios -->
+        {{-- Usuarios --}}
         <li class="nav-item">
             <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
                 href="#usersMenu" style="color: white;">
@@ -74,16 +74,37 @@
             </div>
         </li>
 
-        <!-- Token de Acceso -->
+        {{-- Roles --}}
+        <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
+                href="#rolesMenu" style="color: white;">
+                <span><i class="bi bi-person-check me-2"></i> Roles</span>
+                <i class="bi bi-chevron-down small"></i>
+            </a>
+            <div class="collapse ps-3 {{ Route::is('roles.*') ? 'show' : '' }}" id="rolesMenu" data-bs-parent="#sidebarAccordion">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('roles.index') ? 'active' : '' }}"
+                            href="{{ route('roles.index') }}" style="color: white;">Ver Roles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('roles.create') ? 'active' : '' }}"
+                            href="{{ route('roles.create') }}" style="color: white;">Agregar Rol</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        {{-- Token de Acceso --}}
         <li class="nav-item">
             <a class="nav-link {{ Route::is('admin.token') ? 'active' : '' }}" href="{{ route('admin.token') }}"
                 style="color: white;">
-                <i class="bi bi-key me-2"></i> Ver Token de Acceso
+                <i class="bi bi-key me-2"></i> Solicitudes de acceso
             </a>
         </li>
     </ul>
 
-    <!-- Información de Usuario -->
+    {{-- Información de Usuario --}}
     <div class="mt-auto border-top pt-3" style="border-color: #BF8A49 !important;">
         <div class="text-left">
             <strong style="color: white;">{{ Auth::user()->name }}</strong><br>
