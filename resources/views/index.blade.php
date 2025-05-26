@@ -20,6 +20,7 @@
                         <a href="#request-access" class="btn btn-lg btn-outline-dark">
                             <i class="bi bi-key me-1"></i> Solicitar Token
                         </a>
+
                     </div>
 
                     <div class="mt-4 p-3 rounded"
@@ -86,6 +87,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -204,11 +206,16 @@
     <!-- Existing Admin Login CTA -->
     <section class="py-5" style="background-color: #4A1D0B;">
         <div class="container text-center">
-            <h3 class="text-white mb-3">¿Ya eres Super Administrador?</h3>
-            <p class="text-white-50 mb-4">Accede a tu panel de control para gestionar tenants y generar tokens.</p>
-            <a href="{{ route('login') }}" class="btn btn-light btn-lg px-5">
-                <i class="bi bi-box-arrow-in-right me-1"></i> Iniciar Sesión
-            </a>
+            <h3 class="text-white mb-3">¿Ya tienes un token de acceso?</h3>
+            <p class="text-white-50 mb-4">Regístrate para crear tu cuenta de Super Administrador.</p>
+            <div class="d-flex gap-3 justify-content-center">
+                <a href="{{ route('login') }}" class="btn btn-light btn-lg px-5">
+                    <i class="bi bi-box-arrow-in-right me-1"></i> Iniciar Sesión
+                </a>
+                <a href="{{ route('register') }}" class="btn btn-outline-light btn-lg px-5">
+                    <i class="bi bi-person-plus me-1"></i> Registrarse
+                </a>
+            </div>
         </div>
     </section>
 @endsection

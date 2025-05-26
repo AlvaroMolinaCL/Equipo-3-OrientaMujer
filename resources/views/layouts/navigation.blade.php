@@ -99,7 +99,7 @@
         <li class="nav-item">
             <a class="nav-link {{ Route::is('admin.token') ? 'active' : '' }}" href="{{ route('admin.token') }}"
                 style="color: white;">
-                <i class="bi bi-key me-2"></i> Ver Token de Acceso
+                <i class="bi bi-key me-2"></i> Solicitudes de acceso
             </a>
         </li>
     </ul>

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Cache;
+use Spatie\Permission\Models\Role;
+
 
 class RegisteredUserController extends Controller
 {
@@ -42,14 +44,12 @@ class RegisteredUserController extends Controller
             'password' => 'required|string|confirmed|min:8',
         ];
 
-        // Solo pedir access_token si estamos en el central y ya hay usuarios
         if (!tenant() && !$noUsersExist) {
             $rules['access_token'] = 'required|string';
         }
 
         $request->validate($rules);
 
-        // Validar token si estamos en central y ya hay usuarios
         if (!tenant() && !$noUsersExist) {
             $submittedToken = $request->access_token;
             $currentToken = Cache::get('current_token');
@@ -60,6 +60,9 @@ class RegisteredUserController extends Controller
 
             $this->changeToken();
         }
+
+        // Crear el rol de Super Admin si no existe
+        Role::firstOrCreate(['name' => 'Super Admin', 'guard_name' => 'web']);
 
         $user = User::create([
             'name' => $request->name,
@@ -73,14 +76,11 @@ class RegisteredUserController extends Controller
             $user->assignRole('Usuario');
         }
 
-
         Auth::login($user);
 
-        if (tenant()) {
-            return redirect('/');
-        } else {
-            return redirect(RouteServiceProvider::HOME);
-        }
+        return tenant()
+            ? redirect('/')
+            : redirect(RouteServiceProvider::HOME);
     }
 
 
@@ -93,6 +93,6 @@ class RegisteredUserController extends Controller
         $newToken = strtoupper(Str::random(4)) . '-' . strtoupper(Str::random(4)) . '-' . rand(1000, 9999);
 
         // Guardar el nuevo token en el cache
-        Cache::put('current_token', $newToken, now()->endOfDay()); // Expira a las 11:59 PM
+        Cache::put('current_token', $newToken, now()->endOfDay());
     }
 }

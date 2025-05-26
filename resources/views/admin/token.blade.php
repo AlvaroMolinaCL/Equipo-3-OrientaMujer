@@ -11,7 +11,7 @@
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h3 class="fw-bold mb-0" style="color: #8C2D18;">
-                <i class="bi bi-key me-2"></i>Token de Acceso
+                <i class="bi bi-key me-2"></i>Solicitudes de Acceso
             </h3>
             <a href="{{ route('dashboard') }}" class="btn btn-sm" style="background-color: #F5E8D0; color: #8C2D18;">
                 <i class="bi bi-arrow-left me-2"></i>Volver
