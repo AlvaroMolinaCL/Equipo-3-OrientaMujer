@@ -441,6 +441,48 @@
                                     @enderror
                                 </div>
 
+                                {{-- Navbar 2 --}}
+                                <div class="col-md-6 col-lg-4">
+                                    <label for="navbar_color_2" class="form-label fw-medium" style="color: #8C2D18;">
+                                        Color de Navbar Secundario
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                            <i class="bi bi-border-width"></i>
+                                        </span>
+                                        <input type="color" class="form-control form-control-color border-start-0"
+                                            style="background-color: #FDF5E5; height: 38px;" id="navbar_color_2"
+                                            name="navbar_color_2"
+                                            value="{{ old('navbar_color_2', $tenant->navbar_color_2) }}">
+                                    </div>
+                                    @error('navbar_color_2')
+                                        <div class="text-danger small mt-2">
+                                            <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                {{-- Texto Navbar 2 --}}
+                                <div class="col-md-6 col-lg-4">
+                                    <label for="navbar_text_color_2" class="form-label fw-medium" style="color: #8C2D18;">
+                                        Texto de Navbar Secundario
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" style="background-color: #F5E8D0; color: #8C2D18;">
+                                            <i class="bi bi-type"></i>
+                                        </span>
+                                        <input type="color" class="form-control form-control-color border-start-0"
+                                            style="background-color: #FDF5E5; height: 38px;" id="navbar_text_color_2"
+                                            name="navbar_text_color_2"
+                                            value="{{ old('navbar_text_color_2', $tenant->navbar_text_color_2) }}">
+                                    </div>
+                                    @error('navbar_text_color_2')
+                                        <div class="text-danger small mt-2">
+                                            <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
                                 {{-- Botón Sidebar --}}
                                 <div class="col-md-6 col-lg-4">
                                     <label for="button_color_sidebar" class="form-label fw-medium"

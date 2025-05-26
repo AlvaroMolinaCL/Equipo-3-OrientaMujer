@@ -43,9 +43,27 @@ class AppearanceController extends Controller
             'button_color_sidebar' => 'nullable|string|max:7',
             'color_metrics' => 'nullable|string|max:7',
             'color_tables' => 'nullable|string|max:7',
+            'logo_1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'logo_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $tenant->update($request->only([
+        if ($request->hasFile('logo_1')) {
+            $file = $request->file('logo_1');
+            $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path("images/logo/{$tenant->id}"), $filename);
+            $tenant->logo_path_1 = "images/logo/{$tenant->id}/$filename";
+        }
+
+        if ($request->hasFile('logo_2')) {
+            $file = $request->file('logo_2');
+            $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path("images/logo/{$tenant->id}"), $filename);
+            $tenant->logo_path_2 = "images/logo/{$tenant->id}/$filename";
+        }
+
+
+        // Actualizar los demás campos
+        $tenant->fill($request->only([
             'background_color_1',
             'text_color_1',
             'background_color_2',
@@ -62,6 +80,9 @@ class AppearanceController extends Controller
             'color_tables',
         ]));
 
+        $tenant->save();
+
         return response()->json(['success' => true]);
     }
+
 }
