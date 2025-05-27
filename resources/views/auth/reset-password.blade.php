@@ -10,7 +10,7 @@
 
                 <!-- Logo -->
                 <div class="text-center py-2" style="background-color: #fdf5e5;">
-                    <img src="{{ asset('images/abogared2.png') }}" alt="Logo del despacho" style="max-width: 250px;"
+                    <img src="{{ asset('images/abogasense2.png') }}" alt="Logo del despacho" style="max-width: 250px;"
                         class="img-fluid mb-2">
                 </div>
 

@@ -97,7 +97,7 @@
             <div class="mt-3 text-center">
                 <a href="/" class="text-decoration-none"
                     style="color: {{ tenantSetting('navbar_color_1', '#4A1D0B') }};">Volver a
-                    {{ tenantSetting('name', 'AbogaRed') }}</a>
+                    {{ tenantSetting('name', 'AbogaSense') }}</a>
             </div>
         </div>
     </div>

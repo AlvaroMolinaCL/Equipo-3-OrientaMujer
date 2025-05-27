@@ -1,6 +1,6 @@
 <nav class="navbar navbar-light flex-column p-3 h-100" style="background-color:rgb(68, 30, 8) ;">
     <a class="navbar-brand mx-auto d-none d-lg-block p-0 mb-3" href="{{ route('dashboard') }}">
-        <img src="{{ asset('images/abogared3.png') }}" alt="Logo" style="height: 60px;">
+        <img src="{{ asset('images/abogasense3.png') }}" alt="Logo" style="height: 60px;">
     </a>
 
     <ul class="navbar-nav flex-column w-100" id="sidebarAccordion">

@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 d-none d-lg-block">
-                    <img src="{{ asset('images/abogared1.png') }}" alt="Acceso seguro con token" class="img-fluid">
+                    <img src="{{ asset('images/abogasense1.png') }}" alt="Acceso seguro con token" class="img-fluid">
                 </div>
             </div>
         </div>

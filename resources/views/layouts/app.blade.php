@@ -137,7 +137,7 @@
                     <span class=" navbar-toggler-icon"></span>
                 </button>
                 <a class="navbar-brand mx-auto" href="{{ route('dashboard') }}">
-                    <img src="{{ asset('images/abogared3.png') }}" alt="Logo" style="height: 44px;">
+                    <img src="{{ asset('images/abogasense3.png') }}" alt="Logo" style="height: 44px;">
                 </a>
             </div>
         </nav>

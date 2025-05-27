@@ -13,7 +13,7 @@
                     <!-- Columna con imagen (pantallas grandes) -->
                     <div class="col-md-6 d-none d-md-block p-0" style="background-color: #fdf5e5;">
                         <div class="h-100 w-100 d-flex align-items-center justify-content-center">
-                            <img src="{{ asset('images/abogared1.png') }}" alt="Despacho de abogados"
+                            <img src="{{ asset('images/abogasense1.png') }}" alt="Despacho de abogados"
                                 class="img-fluid logo-img">
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                             <!-- Logo para pantallas pequeñas -->
                             <div class="d-block d-md-none" style="border-radius: 12px;">
                                 <div class="text-center" style="background-color: #fdf5e5; border-radius: 12px;">
-                                    <img class="py-3" src="{{ asset('images/abogared2.png') }}" alt="Despacho de abogados"
+                                    <img class="py-3" src="{{ asset('images/abogasense2.png') }}" alt="Despacho de abogados"
                                         style="max-width: 150px;" class="img-fluid mb-2">
                                 </div>
                                 <div class="p-3 text-center">
