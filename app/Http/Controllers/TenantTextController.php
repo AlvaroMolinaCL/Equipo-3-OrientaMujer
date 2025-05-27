@@ -64,22 +64,27 @@ class TenantTextController extends Controller
         }
 
         // Manejo de imágenes - guardamos el nombre en la tabla tenants directamente
-        for ($i = 1; $i <= 3; $i++) {
-            $fileInputName = "services_path_{$i}";
-
-            if ($request->hasFile($fileInputName)) {
-                $file = $request->file($fileInputName);
-
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $destinationPath = public_path('images/services');
-
-                $file->move($destinationPath, $filename);
-
-                // Guardar nombre del archivo en la columna correcta de la tabla tenants
-                $columnName = "services_path_{$i}";
-                $tenant->$columnName = $filename;
-            }
+        if ($request->hasFile('services_path_1')) {
+            $file1 = $request->file('services_path_1');
+            $filename1 = time() . '_' . $file1->getClientOriginalName();
+            $file1->move(public_path('images/services'), $filename1);
+            $tenant->services_path_1 = $filename1;
         }
+
+        if ($request->hasFile('services_path_2')) {
+            $file2 = $request->file('services_path_2');
+            $filename2 = time() . '_' . $file2->getClientOriginalName();
+            $file2->move(public_path('images/services'), $filename2);
+            $tenant->services_path_2 = $filename2;
+        }
+
+        if ($request->hasFile('services_path_3')) {
+            $file3 = $request->file('services_path_3');
+            $filename3 = time() . '_' . $file3->getClientOriginalName();
+            $file3->move(public_path('images/services'), $filename3);
+            $tenant->services_path_3 = $filename3;
+        }
+
 
         // Manejo de about_path (imagen sobre nosotros)
         if ($request->hasFile('about_path')) {
@@ -107,7 +112,6 @@ class TenantTextController extends Controller
 
             // Guardar en columna banner_path de tenant
             $tenant->banner_path = $filename;
-            $tenant->save();
         }
 
 
