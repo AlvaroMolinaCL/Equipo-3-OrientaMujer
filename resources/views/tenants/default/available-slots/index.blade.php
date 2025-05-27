@@ -55,7 +55,29 @@
                 right: ''
             },
             events: '/api/slots',   
+            dayCellDidMount: function(info) {
+                const cellDate = new Date(info.date);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                if (cellDate < today) {
+                    info.el.style.backgroundColor = '#eeeeee'; // gris claro
+                    info.el.style.opacity = '0.5';
+                    info.el.style.cursor = 'not-allowed';
+                    info.el.classList.add('fc-disabled-day'); // opcional para CSS
+                }
+            },
+
             dateClick: function (info) {
+                const selectedDate = new Date(info.dateStr);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                // evita clics en fechas pasadas
+                if (selectedDate < today) {
+                    return;
+                }
+
                 const date = info.dateStr;
                 modalDateTitle.textContent = `Horarios para el ${date}`;
                 modalDateInput.value = date;
@@ -87,7 +109,6 @@
                             });
                         }
 
-                        // Solo ahora, agrega el formulario al final
                         slotsList.innerHTML += `
                             <hr class="my-4">
                             <h6 class="mb-3"><i class="bi bi-plus-circle me-1"></i> Agregar nuevo horario</h6>
@@ -111,8 +132,8 @@
                             </form>
                         `;
                     });
+            },
 
-            }
         });
 
         calendar.render();
