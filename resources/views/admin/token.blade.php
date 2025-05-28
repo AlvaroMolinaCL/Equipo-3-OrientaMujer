@@ -8,6 +8,21 @@
 
 @section('content')
     <div class="container-fluid">
+        @if (session('success'))
+            <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055;">
+                <div class="toast align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive"
+                    aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            {{ session('success') }}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Cerrar"></button>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h3 class="fw-bold mb-0" style="color: #8C2D18;">
