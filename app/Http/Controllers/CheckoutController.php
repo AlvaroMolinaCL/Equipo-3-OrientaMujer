@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Mail\OrderConfirmationMail;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -25,25 +27,20 @@ class CheckoutController extends Controller
     {
         $user = auth()->user();
 
-        // Validación de datos
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'payment_method' => 'required|in:credit_card,transfer'
         ]);
 
-        // Obtener el carrito activo
-        $cart = Cart::with('items')
+        $cart = Cart::with('items.product')
             ->where('user_id', $user->id)
             ->where('status', 'active')
             ->firstOrFail();
 
-        // Aquí iría la lógica real de procesamiento de pago
-        // Simulamos que el pago fue aprobado
-
         // Crear la orden
         $order = Order::create([
-            'user_id' => $user->id, // Ahora es fillable
+            'user_id' => $user->id,
             'total' => $cart->items->sum(function ($item) {
                 return $item->price * $item->quantity;
             }),
@@ -51,7 +48,7 @@ class CheckoutController extends Controller
             'payment_method' => $validated['payment_method']
         ]);
 
-        // Asociar los items del carrito a la orden
+        // Asociar items
         foreach ($cart->items as $item) {
             $order->items()->create([
                 'product_id' => $item->product_id,
@@ -60,11 +57,11 @@ class CheckoutController extends Controller
             ]);
         }
 
-        // Marcar el carrito como completado (no lo borramos físicamente)
+        // Actualizar carrito
         $cart->update(['status' => 'completed']);
 
-        // Opcional: Borrar físicamente los items del carrito
-        $cart->items()->delete();
+        // Enviar correo de confirmación
+        Mail::to($user->email)->send(new OrderConfirmationMail($order));
 
         return redirect()->route('checkout.success')->with([
             'order_id' => $order->id,
