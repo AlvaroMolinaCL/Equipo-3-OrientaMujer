@@ -9,10 +9,20 @@
 
 <nav class="navbar navbar-light flex-column p-3 h-100"
     style="background-color: {{ tenantSetting('navbar_color_1', 'rgb(68, 30, 8)') }};">
-    <a class="navbar-brand mx-auto d-none d-lg-block p-0 mb-3" href="{{ route('dashboard') }}">
+    <a class="navbar-brand mx-auto d-none d-lg-block p-0" href="{{ route('dashboard') }}">
         <img src="{{ asset(tenantSetting('logo_path_1', 'images/logo/Logo_1_(Predeterminado).png')) }}" alt="Logo"
             style="max-width: 100%; height: 60px" class="img-fluid mx-auto d-block">
     </a>
+    <!-- Botón Inicio -->
+    <div class="px-3 mb-2">
+        <a href="{{ route('tenants.default.index') }}" class="btn w-100" style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }};
+              color: {{ tenantSetting('navbar_text_color_1', 'white') }};
+              border-radius: 0.375rem;
+              text-align: center;
+              display: block;">
+            <i class="bi bi-house-door-fill me-2"></i> Inicio
+        </a>
+    </div>
 
     <ul class="navbar-nav flex-column w-100" id="sidebarAccordion">
         {{-- Panel de Control --}}
