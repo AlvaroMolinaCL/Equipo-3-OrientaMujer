@@ -101,8 +101,8 @@
         </h3>
         <a href="{{ route('dashboard') }}" class="btn btn-sm"
             style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
-                                                                                                                                                                                                                      color: {{ tenantSetting('text_color_1', '#8C2D18') }};
-                                                                                                                                                                                                                      border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
+                                                                                                                                                                                                                                                              color: {{ tenantSetting('text_color_1', '#8C2D18') }};
+                                                                                                                                                                                                                                                              border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
             <i class="bi bi-arrow-left me-2"></i>Volver
         </a>
     </div>
@@ -157,8 +157,8 @@
                             <div class="text-center">
                                 <button id="savePaletteBtn" class="btn"
                                     style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; 
-                                                                                                                                                                                                                                               color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                                                                                                                                                                                                                               transition: all 0.3s ease;">
+                                                                                                                                                                                                                                                                                       color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                                                                                                                                                                                       transition: all 0.3s ease;">
                                     <i class="fas fa-save me-2"></i>Aplicar Paleta Seleccionada
                                 </button>
                             </div>
@@ -193,43 +193,52 @@
                                                 data-bs-parent="#accordionLogos">
                                                 <div class="accordion-body">
                                                     <div class="row g-3">
-                                                        {{-- Logo Principal --}}
+                                                        <!-- Logo Principal -->
                                                         <div class="col-md-6">
-                                                            <label class="form-label fw-bold">Logo Principal Actual</label>
-                                                            @if ($tenant->logo_path_1)
-                                                                <div class="text-center mb-2">
-                                                                    <img src="{{ asset($tenant->logo_path_1) }}"
-                                                                        alt="Logo Principal" class="img-fluid rounded border"
-                                                                        style="max-height: 80px; background-color: {{ $tenant->background_color_1 }};">
+                                                            <label class="form-label fw-bold">Logo Principal</label>
+                                                            <div class="text-center mb-3">
+                                                                <!-- Vista previa dinámica -->
+                                                                <img id="previewLogo1"
+                                                                    src="{{ $tenant->logo_path_1 ? asset($tenant->logo_path_1) : '#' }}"
+                                                                    alt="Vista previa logo principal"
+                                                                    class="img-fluid rounded border mb-2"
+                                                                    style="max-height: 150px; background-color: {{ $tenant->background_color_1 }};{{ !$tenant->logo_path_1 ? 'display: none;' : '' }}">
+                                                                <!-- Mensaje cuando no hay imagen -->
+                                                                <p id="noLogo1Text" class="text-muted mb-2" {{ $tenant->logo_path_1 ? 'style=display:none;' : '' }}>
+                                                                    No hay logo principal cargado
+                                                                </p>
+                                                            </div>
 
-                                                                </div>
-                                                            @else
-                                                                <p class="text-muted">No hay logo principal cargado</p>
-                                                            @endif
-
-                                                            <label for="logo_1" class="form-label">Actualizar Logo
-                                                                Principal</label>
+                                                            <label for="logo_1" class="form-label">Seleccionar nuevo
+                                                                logo</label>
                                                             <input type="file" class="form-control" id="logo_1"
                                                                 name="logo_1" accept="image/*">
+                                                            <div class="form-text">Formatos aceptados: JPG, PNG, SVG. Tamaño
+                                                                máximo: 2MB</div>
                                                         </div>
 
-                                                        {{-- Logo Secundario --}}
+                                                        <!-- Logo Secundario -->
                                                         <div class="col-md-6">
-                                                            <label class="form-label fw-bold">Logo Secundario Actual</label>
-                                                            @if ($tenant->logo_path_2)
-                                                                <div class="text-center mb-2">
-                                                                    <img src="{{ $tenant->logo_path_2 }}" alt="Logo Secundario"
-                                                                        class="img-fluid rounded border"
-                                                                        style="max-height: 80px; background-color: {{ $tenant->background_color_2 }};">
-                                                                </div>
-                                                            @else
-                                                                <p class="text-muted">No hay logo secundario cargado</p>
-                                                            @endif
+                                                            <label class="form-label fw-bold">Logo Secundario</label>
+                                                            <div class="text-center mb-3">
+                                                                <!-- Vista previa dinámica -->
+                                                                <img id="previewLogo2"
+                                                                    src="{{ $tenant->logo_path_2 ? asset($tenant->logo_path_2) : '#' }}"
+                                                                    alt="Vista previa logo secundario"
+                                                                    class="img-fluid rounded border mb-2"
+                                                                    style="max-height: 150px; background-color: {{ $tenant->background_color_2 }};{{ !$tenant->logo_path_2 ? 'display: none;' : '' }}">
+                                                                <!-- Mensaje cuando no hay imagen -->
+                                                                <p id="noLogo2Text" class="text-muted mb-2" {{ $tenant->logo_path_2 ? 'style=display:none;' : '' }}>
+                                                                    No hay logo secundario cargado
+                                                                </p>
+                                                            </div>
 
-                                                            <label for="logo_2" class="form-label">Actualizar Logo
-                                                                Secundario</label>
+                                                            <label for="logo_2" class="form-label">Seleccionar nuevo
+                                                                logo</label>
                                                             <input type="file" class="form-control" id="logo_2"
                                                                 name="logo_2" accept="image/*">
+                                                            <div class="form-text">Formatos aceptados: JPG, PNG, SVG. Tamaño
+                                                                máximo: 2MB</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -463,8 +472,8 @@
                                     <div class="text-center mt-4">
                                         <button type="submit" class="btn"
                                             style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; 
-                                                                                                                                                                                                                               color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                                                                                                                                                                                                               transition: all 0.3s ease;">
+                                                                                                                                                                                                                                                                       color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                                                                                                                                                                       transition: all 0.3s ease;">
                                             <i class="fas fa-save me-2"></i>Guardar Personalización
                                         </button>
                                     </div>
@@ -533,11 +542,20 @@
                                                 <label for="banner_path" class="form-label"><strong>Imagen
                                                         Banner</strong></label>
                                                 <input type="file" class="form-control" name="banner_path" id="banner_path"
-                                                    accept="image/*" onchange="previewImage(this, 'previewBanner')">
-                                                <img id="previewBanner"
-                                                    src="{{ asset('images/banner/' . tenantSetting('banner_path', 'Banner_1_(Predeterminado).png')) }}"
-                                                    alt="Vista previa Banner" class="img-fluid mt-2"
-                                                    style="max-height: 200px;">
+                                                    accept="image/*">
+                                                <div class="mt-2 text-center">
+                                                    <img id="previewBanner"
+                                                        src="{{ asset('images/banner/' . tenantSetting('banner_path', 'Banner_1_(Predeterminado).png')) }}"
+                                                        alt="Vista previa Banner" class="img-fluid border"
+                                                        style="max-height: 300px; display: {{ tenantSetting('banner_path') ? 'block' : 'none' }};"
+                                                        data-default-src="{{ asset('images/banner/Banner_1_(Predeterminado).png') }}">
+                                                    <p class="text-muted mt-1" id="noBannerText"
+                                                        style="{{ !tenantSetting('banner_path') ? '' : 'display: none;' }}">
+                                                        Vista previa del banner
+                                                    </p>
+                                                </div>
+                                                <div class="form-text">Recomendado: 1200x400px, formato JPG o PNG. Máx. 5MB
+                                                </div>
                                             </div>
 
                                             <!-- Sobre Nosotros -->
@@ -547,16 +565,16 @@
                                                 <textarea class="form-control summernote" name="about_text" id="about_text"
                                                     rows="6"
                                                     placeholder="Escribe tu contenido aquí...">{{ old('about_text', tenantText('about_text', '
-                                                                                                            <p style="text-align: justify;">
-                                                                                                                Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.
-                                                                                                            </p>
-                                                                                                            <p style="text-align: justify;">
-                                                                                                                Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.
-                                                                                                            </p>
-                                                                                                            <p style="text-align: justify;">
-                                                                                                                Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.
-                                                                                                            </p>
-                                                                                                            ')) }}</textarea>
+                                                                                                                                                    <p style="text-align: justify;">
+                                                                                                                                                        Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.
+                                                                                                                                                    </p>
+                                                                                                                                                    <p style="text-align: justify;">
+                                                                                                                                                        Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.
+                                                                                                                                                    </p>
+                                                                                                                                                    <p style="text-align: justify;">
+                                                                                                                                                        Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.
+                                                                                                                                                    </p>
+                                                                                                                                                    ')) }}</textarea>
                                             </div>
 
                                             <!-- Servicios -->
@@ -638,15 +656,15 @@
                                                 <textarea class="form-control summernote" name="body_service_1"
                                                     id="body_service_1" rows="6"
                                                     placeholder="Descripción del servicio 1">{!! old('body_service_1', tenantText('body_service_1', '
-                                                                                                        <p style="text-align: justify;">Te ofrezco un servicio de orientación legal para identificar el escenario jurídico que enfrentas.</p>
-                                                                                                        <p style="text-align: justify;">Conocerás:</p>
-                                                                                                        <ul>
-                                                                                                            <li style="text-align: justify;">La procedencia de acciones judiciales en materias de violencia contra la mujer.</li>
-                                                                                                            <li style="text-align: justify;">Pasos a seguir para iniciar procedimientos judiciales.</li>
-                                                                                                            <li style="text-align: justify;">Análisis de la necesidad de representación privada o derivación a organismos públicos.</li>
-                                                                                                            <li style="text-align: justify;">Explicación clara de la dinámica de los procesos en derecho penal, familia y otras áreas.</li>
-                                                                                                            <li style="text-align: justify;">Derivación segura a abogadas especializadas si así lo requieres.</li>
-                                                                                                        </ul>')) !!}</textarea>
+                                                                                                                                                <p style="text-align: justify;">Te ofrezco un servicio de orientación legal para identificar el escenario jurídico que enfrentas.</p>
+                                                                                                                                                <p style="text-align: justify;">Conocerás:</p>
+                                                                                                                                                <ul>
+                                                                                                                                                    <li style="text-align: justify;">La procedencia de acciones judiciales en materias de violencia contra la mujer.</li>
+                                                                                                                                                    <li style="text-align: justify;">Pasos a seguir para iniciar procedimientos judiciales.</li>
+                                                                                                                                                    <li style="text-align: justify;">Análisis de la necesidad de representación privada o derivación a organismos públicos.</li>
+                                                                                                                                                    <li style="text-align: justify;">Explicación clara de la dinámica de los procesos en derecho penal, familia y otras áreas.</li>
+                                                                                                                                                    <li style="text-align: justify;">Derivación segura a abogadas especializadas si así lo requieres.</li>
+                                                                                                                                                </ul>')) !!}</textarea>
                                             </div>
 
                                             <!-- Títulos y Descripciones de Servicio 2 -->
@@ -665,14 +683,15 @@
                                                     <strong>Descripción Servicio 2</strong>
                                                 </label>
                                                 <textarea class="form-control summernote" name="body_service_2"
-                                                    id="body_service_2" rows="6" placeholder="Descripción del servicio 2">{!! old('body_service_2', tenantText('body_service_2', '
-                                                                                                    <p style="text-align: justify;">Te represento en procesos judiciales penales, de familia u otras materias, comprometiéndome a:</p>
-                                                                                                    <ul>
-                                                                                                        <li style="text-align: justify;">Diseñar contigo la estrategia de defensa o acción.</li>
-                                                                                                        <li style="text-align: justify;">Representar tus intereses bajo perspectiva de género, territorio, interculturalidad, derechos humanos, según corresponda.</li>
-                                                                                                        <li style="text-align: justify;">Informarte en cada etapa, asegurando tu participación activa en la toma de decisiones.</li>
-                                                                                                    </ul>
-                                                                                                ')) !!}</textarea>
+                                                    id="body_service_2" rows="6"
+                                                    placeholder="Descripción del servicio 2">{!! old('body_service_2', tenantText('body_service_2', '
+                                                                                                                                            <p style="text-align: justify;">Te represento en procesos judiciales penales, de familia u otras materias, comprometiéndome a:</p>
+                                                                                                                                            <ul>
+                                                                                                                                                <li style="text-align: justify;">Diseñar contigo la estrategia de defensa o acción.</li>
+                                                                                                                                                <li style="text-align: justify;">Representar tus intereses bajo perspectiva de género, territorio, interculturalidad, derechos humanos, según corresponda.</li>
+                                                                                                                                                <li style="text-align: justify;">Informarte en cada etapa, asegurando tu participación activa en la toma de decisiones.</li>
+                                                                                                                                            </ul>
+                                                                                                                                        ')) !!}</textarea>
                                             </div>
 
                                             <!-- Títulos y Descripciones de Servicio 3 -->
@@ -691,15 +710,16 @@
                                                     <strong>Descripción Servicio 3</strong>
                                                 </label>
                                                 <textarea class="form-control summernote" name="body_service_3"
-                                                    id="body_service_3" rows="6" placeholder="Descripción del servicio 3">{!! old('body_service_3', tenantText('body_service_3', '
-                                                                                                    <p style="text-align: justify;">Realizo talleres, charlas y capacitaciones para grupos en contextos académicos, laborales o comunitarios.</p>
-                                                                                                    <p style="text-align: justify;">Temáticas abordadas:</p>
-                                                                                                    <ul>
-                                                                                                        <li style="text-align: justify;">Sensibilización en género.</li>
-                                                                                                        <li style="text-align: justify;">Normativa nacional e internacional sobre derechos humanos, género y otras materias.</li>
-                                                                                                        <li style="text-align: justify;">Funcionamiento práctico de los procedimientos judiciales.</li>
-                                                                                                    </ul>
-                                                                                                ')) !!}</textarea>
+                                                    id="body_service_3" rows="6"
+                                                    placeholder="Descripción del servicio 3">{!! old('body_service_3', tenantText('body_service_3', '
+                                                                                                                                            <p style="text-align: justify;">Realizo talleres, charlas y capacitaciones para grupos en contextos académicos, laborales o comunitarios.</p>
+                                                                                                                                            <p style="text-align: justify;">Temáticas abordadas:</p>
+                                                                                                                                            <ul>
+                                                                                                                                                <li style="text-align: justify;">Sensibilización en género.</li>
+                                                                                                                                                <li style="text-align: justify;">Normativa nacional e internacional sobre derechos humanos, género y otras materias.</li>
+                                                                                                                                                <li style="text-align: justify;">Funcionamiento práctico de los procedimientos judiciales.</li>
+                                                                                                                                            </ul>
+                                                                                                                                        ')) !!}</textarea>
                                             </div>
 
                                             <!-- Imágenes de Servicios -->
@@ -711,48 +731,52 @@
                                                 <label for="services_path_1" class="form-label">
                                                     <strong>Imagen Servicio 1</strong>
                                                 </label>
-                                                <small class="text-muted d-block mb-1">Esta imagen también se usa en la
-                                                    sección de inicio.</small>
                                                 <input type="file" class="form-control" name="services_path_1"
-                                                    id="services_path_1" accept="image/*"
-                                                    onchange="previewImage(this, 'preview1')">
-                                                <img id="preview1"
-                                                    src="{{ asset('images/services/' . tenantSetting('services_path_1', 'Servicio_(Predeterminado).png')) }}"
-                                                    alt="Vista previa Servicio 1" class="img-fluid mt-2"
-                                                    style="max-height: 200px;">
+                                                    id="services_path_1" accept="image/*">
+                                                <div class="mt-2 text-center">
+                                                    <img id="preview1"
+                                                        src="{{ asset('images/services/' . tenantSetting('services_path_1', 'Servicio_(Predeterminado).png')) }}"
+                                                        alt="Vista previa Servicio 1" class="img-fluid border"
+                                                        style="max-height: 200px; display: {{ tenantSetting('services_path_1') ? 'block' : 'none' }};"
+                                                        data-default-src="{{ asset('images/services/Servicio_(Predeterminado).png') }}">
+                                                </div>
+                                                <div class="form-text">Recomendado: 600x400px, formato PNG.</div>
                                             </div>
 
+                                            <!-- Imagen Servicio 2 -->
                                             <div class="mb-3">
+
                                                 <label for="services_path_2" class="form-label">
                                                     <strong>Imagen Servicio 2</strong>
                                                 </label>
-                                                <small class="text-muted d-block mb-1">Esta imagen también se usa en la
-                                                    sección de inicio.</small>
                                                 <input type="file" class="form-control" name="services_path_2"
-                                                    id="services_path_2" accept="image/*"
-                                                    onchange="previewImage(this, 'preview2')">
-                                                <img id="preview2"
-                                                    src="{{ asset('images/services/' . tenantSetting('services_path_2', 'Servicio_(Predeterminado).png')) }}"
-                                                    alt="Vista previa Servicio 2" class="img-fluid mt-2"
-                                                    style="max-height: 200px;">
+                                                    id="services_path_2" accept="image/*">
+                                                <div class="mt-2 text-center">
+                                                    <img id="preview2"
+                                                        src="{{ asset('images/services/' . tenantSetting('services_path_2', 'Servicio_(Predeterminado).png')) }}"
+                                                        alt="Vista previa Servicio 1" class="img-fluid border"
+                                                        style="max-height: 200px; display: {{ tenantSetting('services_path_2') ? 'block' : 'none' }};"
+                                                        data-default-src="{{ asset('images/services/Servicio_(Predeterminado).png') }}">
+                                                </div>
+                                                <div class="form-text">Recomendado: 600x400px, formato PNG.</div>
                                             </div>
 
+                                            <!-- Imagen Servicio 3 -->
                                             <div class="mb-3">
                                                 <label for="services_path_3" class="form-label">
                                                     <strong>Imagen Servicio 3</strong>
                                                 </label>
-                                                <small class="text-muted d-block mb-1">Esta imagen también se usa en la
-                                                    sección de inicio.</small>
                                                 <input type="file" class="form-control" name="services_path_3"
-                                                    id="services_path_3" accept="image/*"
-                                                    onchange="previewImage(this, 'preview3')">
-                                                <img id="preview3"
-                                                    src="{{ asset('images/services/' . tenantSetting('services_path_3', 'Servicio_(Predeterminado).png')) }}"
-                                                    alt="Vista previa Servicio 3" class="img-fluid mt-2"
-                                                    style="max-height: 200px;">
+                                                    id="services_path_3" accept="image/*">
+                                                <div class="mt-2 text-center">
+                                                    <img id="preview3"
+                                                        src="{{ asset('images/services/' . tenantSetting('services_path_3', 'Servicio_(Predeterminado).png')) }}"
+                                                        alt="Vista previa Servicio 1" class="img-fluid border"
+                                                        style="max-height: 200px; display: {{ tenantSetting('services_path_3') ? 'block' : 'none' }};"
+                                                        data-default-src="{{ asset('images/services/Servicio_(Predeterminado).png') }}">
+                                                </div>
+                                                <div class="form-text">Recomendado: 600x400px, formato PNG.</div>
                                             </div>
-
-
                                         </div>
 
                                         <!-- ABOUT -->
@@ -762,11 +786,11 @@
                                                 <label for="about_us" class="form-label"><strong>Sobre mí</strong></label>
                                                 <textarea class="form-control summernote" name="about_us" id="about_us"
                                                     rows="10">{!! old('about_us', tenantText('about_us', '
-                                                                                <p style="text-align: justify;">Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.</p>
-                                                                                <p style="text-align: justify;">Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.</p>
-                                                                                <p style="text-align: justify;">Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.</p>
-                                                                                <p style="text-align: justify;"><strong>"La información es poder, empodérate"</strong></p>
-                                                                            ')) !!}</textarea>
+                                                                                                                        <p style="text-align: justify;">Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.</p>
+                                                                                                                        <p style="text-align: justify;">Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.</p>
+                                                                                                                        <p style="text-align: justify;">Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.</p>
+                                                                                                                        <p style="text-align: justify;"><strong>"La información es poder, empodérate"</strong></p>
+                                                                                                                    ')) !!}</textarea>
                                             </div>
                                             <!-- experience -->
                                             <div class="mb-3">
@@ -774,12 +798,12 @@
                                                     class="form-label"><strong>Experiencia</strong></label>
                                                 <textarea class="form-control summernote" name="experience" id="experience"
                                                     rows="7">{!! old('experience', tenantText('experience', '
-                                                                                <ul class="fade-in-section">
-                                                                                    <li>Abogada titulada por la Universidad de Concepción.</li>
-                                                                                    <li>Magíster en Derecho Penal y Derecho Procesal Penal, Universidad Católica del Norte (en curso).</li>
-                                                                                    <li>Diplomada en Derechos Humanos y Función Pública, Universidad de Los Lagos e Instituto Nacional de Derechos Humanos.</li>
-                                                                                </ul>
-                                                                            ')) !!}</textarea>
+                                                                                                                        <ul class="fade-in-section">
+                                                                                                                            <li>Abogada titulada por la Universidad de Concepción.</li>
+                                                                                                                            <li>Magíster en Derecho Penal y Derecho Procesal Penal, Universidad Católica del Norte (en curso).</li>
+                                                                                                                            <li>Diplomada en Derechos Humanos y Función Pública, Universidad de Los Lagos e Instituto Nacional de Derechos Humanos.</li>
+                                                                                                                        </ul>
+                                                                                                                    ')) !!}</textarea>
                                             </div>
 
                                             <!-- Imagen Sobre Nosotros -->
@@ -790,14 +814,18 @@
                                                 </p>
                                                 <label for="about_path" class="form-label"><strong>Imagen Sobre
                                                         Nosotros</strong></label>
-                                                <small class="text-muted d-block mb-1">Esta imagen también se usa en la
-                                                    sección de inicio.</small>
                                                 <input type="file" class="form-control" name="about_path" id="about_path"
-                                                    accept="image/*" onchange="previewImage(this, 'preview_about')">
-                                                <img id="preview_about"
-                                                    src="{{ asset('images/about/' . tenantSetting('about_path', 'about_(Predeterminado).png')) }}"
-                                                    alt="Vista previa Sobre Nosotros" class="img-fluid mt-2"
-                                                    style="max-height: 200px;">
+                                                    accept="image/*">
+                                                <div class="mt-2 text-center">
+                                                    <img id="preview_about"
+                                                        src="{{ asset('images/about/' . tenantSetting('about_path', 'about_(Predeterminado).png')) }}"
+                                                        alt="Vista previa Sobre Nosotros"
+                                                        class="img-fluid rounded-circle border"
+                                                        style="max-height: 200px; width: 200px; object-fit: cover; display: {{ tenantSetting('about_path') ? 'block' : 'none' }};"
+                                                        data-default-src="{{ asset('images/about/about_(Predeterminado).png') }}">
+                                                </div>
+                                                <div class="form-text">Recomendado: 500x500px, formato JPG o PNG. Foto de
+                                                    perfil.</div>
                                             </div>
 
 
@@ -810,8 +838,8 @@
                                     <div class="text-center mt-4">
                                         <button type="submit" class="btn"
                                             style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }};
-                                                                                                                                                                                                color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                                                                                                                                                                                transition: all 0.3s ease;">
+                                                                                                                                                                                                                                        color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                                                                                                                                        transition: all 0.3s ease;">
                                             <i class="fas fa-save me-2"></i>Guardar Contenido
                                         </button>
                                     </div>
@@ -858,6 +886,84 @@
     </style>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Configuración para imagenes
+            setupImagePreview('logo_1', 'previewLogo1', 'noLogo1Text');
+            setupImagePreview('logo_2', 'previewLogo2', 'noLogo2Text');
+            setupImagePreview('banner_path', 'previewBanner', 'noBannerText');
+            setupImagePreview('services_path_1', 'preview1');
+            setupImagePreview('services_path_2', 'preview2');
+            setupImagePreview('services_path_3', 'preview3');
+            setupImagePreview('about_path', 'preview_about');
+
+            function setupImagePreview(inputId, previewId, noImageTextId = null) {
+                const input = document.getElementById(inputId);
+                const preview = document.getElementById(previewId);
+                const noImageText = noImageTextId ? document.getElementById(noImageTextId) : null;
+
+                if (input && preview) {
+                    // Mostrar la vista previa actual si existe
+                    if (preview.src && !preview.src.includes('#')) {
+                        preview.style.display = 'block';
+                        if (noImageText) noImageText.style.display = 'none';
+                    } else {
+                        preview.style.display = 'none';
+                        if (noImageText) noImageText.style.display = 'block';
+                    }
+
+                    input.addEventListener('change', function () {
+                        if (this.files && this.files[0]) {
+                            // Validar el tipo de archivo
+                            const validTypes = ['image/jpeg', 'image/png', 'image/svg+xml', 'image/gif', 'image/webp'];
+                            if (!validTypes.includes(this.files[0].type)) {
+                                alert('Por favor selecciona una imagen válida (JPG, PNG, SVG, GIF o WebP)');
+                                this.value = '';
+                                return;
+                            }
+
+                            // Validar el tamaño (5MB máximo)
+                            if (this.files[0].size > 5 * 1024 * 1024) {
+                                alert('La imagen es demasiado grande. El tamaño máximo permitido es 5MB');
+                                this.value = '';
+                                return;
+                            }
+
+                            // Mostrar vista previa
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                preview.src = e.target.result;
+                                preview.style.display = 'block';
+                                if (noImageText) noImageText.style.display = 'none';
+
+                                // Ajustar tamaño según el tipo de imagen
+                                if (inputId === 'banner_path') {
+                                    preview.style.maxHeight = '300px';
+                                    preview.style.width = 'auto';
+                                } else if (inputId === 'about_path') {
+                                    preview.style.maxHeight = '200px';
+                                    preview.style.width = '200px';
+                                } else {
+                                    preview.style.maxHeight = '200px';
+                                    preview.style.width = 'auto';
+                                }
+                            }
+                            reader.readAsDataURL(this.files[0]);
+                        } else {
+                            // Si no se seleccionó archivo, restaurar estado original
+                            if (preview.dataset.defaultSrc) {
+                                preview.src = preview.dataset.defaultSrc;
+                                preview.style.display = 'block';
+                                if (noImageText) noImageText.style.display = 'none';
+                            } else {
+                                preview.style.display = 'none';
+                                if (noImageText) noImageText.style.display = 'block';
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             // Manejo de paletas de colores
             const palettesContainer = document.getElementById('palettes-container');
@@ -915,9 +1021,9 @@
                     `alert alert-${type} alert-dismissible fade show position-fixed top-0 end-0 m-3`;
                 alertBox.style.zIndex = '9999';
                 alertBox.innerHTML = `
-                                                                                                                                                                                                                            ${message}
-                                                                                                                                                                                                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                                                                                                                                                                                                        `;
+                                                                                                                                                                                                                                                                    ${message}
+                                                                                                                                                                                                                                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                                                                                                                                                                                                                                                `;
                 document.body.appendChild(alertBox);
 
                 setTimeout(() => {
@@ -1027,6 +1133,7 @@
                     submitBtn.innerHTML = '<i class="fas fa-save me-2"></i>Guardar Personalización';
                 }
             });
+
         });
     </script>
     <!-- Summernote CSS -->
