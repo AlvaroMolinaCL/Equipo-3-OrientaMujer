@@ -4,6 +4,10 @@
 /node_modules
 /public/build
 /public/hot
+/public/images/about
+/public/images/banner
+/public/images/logo
+/public/images/services
 /public/storage
 /public/tenancy
 /storage/*.key
