@@ -60,4 +60,27 @@ class CartController extends Controller
 
         return redirect()->route('cart.index')->with('success', 'Producto eliminado.');
     }
+
+    public function clear()
+    {
+        $cart = Cart::where('user_id', auth()->id())
+            ->where('status', 'active')
+            ->firstOrFail();
+
+        $cart->items()->delete();
+
+        return back()->with('success', 'Carrito vaciado correctamente');
+    }
+
+    public function update(Request $request, $itemId)
+    {
+        $request->validate([
+            'quantity' => 'required|integer|min:1|max:10'
+        ]);
+
+        $item = CartItem::findOrFail($itemId);
+        $item->update(['quantity' => $request->quantity]);
+
+        return back()->with('success', 'Cantidad actualizada correctamente');
+    }
 }

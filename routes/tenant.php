@@ -17,6 +17,7 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 use App\Http\Controllers\TenantTextController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PublicProductController;
+use App\Http\Controllers\CheckoutController;
 
 
 
@@ -46,7 +47,7 @@ Route::middleware([
     Route::get('/services', function () {
         return view(tenantView('services'));
     })->middleware('check.tenant.page.enabled:services');
-    
+
     // Página "Contacto"
     Route::get('/contact', function () {
         return view(tenantView('contact'));
@@ -96,7 +97,13 @@ Route::middleware([
         Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
         Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
         Route::delete('/cart/remove/{itemId}', [CartController::class, 'remove'])->name('cart.remove');
-        
+        Route::delete('/clear', [CartController::class, 'clear'])->name('cart.clear');
+        Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+        Route::patch('/update/{item}', [CartController::class, 'update'])->name('cart.update');
+
+
+
+
         // Planes
         Route::get('/planes', [ProductController::class, 'planes'])->name('products.planes');
 
