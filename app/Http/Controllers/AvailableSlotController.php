@@ -54,6 +54,14 @@ class AvailableSlotController extends Controller
                 'end_time' => 'required|date_format:H:i|after:start_time',
             ]);
 
+            $today = now()->format('Y-m-d');
+            if ($request->date === $today) {
+                $nowTime = now()->format('H:i');
+                if ($request->start_time < $nowTime) {
+                    return back()->with('error', 'La hora de inicio debe ser igual o posterior a la hora actual.');
+                }
+            }
+
             AvailableSlot::create([
                 'user_id' => Auth::id(),
                 'date' => $request->date,

@@ -7,6 +7,15 @@
 @endsection
 
 @section('content')
+<style>
+    .disabled-btn {
+        background-color: #ccc !important;
+        color: #666 !important;
+        cursor: not-allowed !important;
+        pointer-events: none;
+    }
+</style>
+
 <div class="container">
     <h3 class="mb-4" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Calendario de Disponibilidad</h3>
     <div id="calendar"></div>
@@ -69,16 +78,16 @@
             },
 
             dateClick: function (info) {
-                const selectedDate = new Date(info.dateStr);
+                const selectedDate = new Date(info.date);
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
+                selectedDate.setHours(0, 0, 0, 0);
 
-                // evita clics en fechas pasadas
-                if (selectedDate < today) {
-                    return;
-                }
+                if (selectedDate < today) return;
 
                 const date = info.dateStr;
+                const todayStr = today.toISOString().split('T')[0];
+
                 modalDateTitle.textContent = `Horarios para el ${date}`;
                 modalDateInput.value = date;
                 slotsList.innerHTML = `<p class="text-muted">Cargando horarios...</p>`;
@@ -89,15 +98,19 @@
                     .then(data => {
                         slotsList.innerHTML = '';
 
+                        const isToday = date === todayStr;
+                        const nowTime = new Date().toTimeString().slice(0, 5);
+
                         if (data.length === 0) {
                             slotsList.innerHTML = '<p class="text-muted">No se registran horarios disponibles.</p>';
                         } else {
                             data.forEach(slot => {
+                                const isExpiredToday = isToday && slot.end_time <= nowTime;
                                 slotsList.innerHTML += `
-                                    <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                                        <div class="d-flex justify-content-between align-items-center border-bottom py-2 ${isExpiredToday ? 'bg-light text-muted border border-secondary-subtle rounded-2 opacity-75' : ''}">
                                         <div><strong>${slot.start_time} - ${slot.end_time}</strong></div>
                                         <div>
-                                            <a href="/available-slots/${slot.id}/edit" class="btn btn-sm btn-outline-secondary me-2">Editar</a>
+                                            ${isExpiredToday ? '' : `<a href="/available-slots/${slot.id}/edit" class="btn btn-sm btn-outline-secondary me-2">Editar</a>`}
                                             <form method="POST" action="/available-slots/${slot.id}" style="display:inline;">
                                                 <input type="hidden" name="_token" value="${document.querySelector('meta[name=csrf-token]').content}">
                                                 <input type="hidden" name="_method" value="DELETE">
@@ -117,25 +130,67 @@
                                 <input type="hidden" name="mode" value="puntual">
                                 <input type="hidden" name="date" value="${date}">
                                 <div class="col-md-4">
-                                    <input type="time" name="start_time" class="form-control" required>
+                                    <input type="time" name="start_time" class="form-control" id="start_time_input"
+                                        ${isToday ? `min="${nowTime}"` : ''} required>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="time" name="end_time" class="form-control" required>
+                                    <input type="time" name="end_time" class="form-control" id="end_time_input" required>
                                 </div>
                                 <div class="col-md-4 d-grid">
-                                    <button type="submit" class="btn fw-bold"
-                                        style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};
-                                            color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }};">
+                                    <button id="submit-slot-btn" type="submit" class="btn fw-bold disabled-btn btn-secondary" disabled>
                                         + Agregar Horario
                                     </button>
                                 </div>
                             </form>
                         `;
+
+                        // Agregar validación interactiva
+                        const startInput = document.querySelector('#start_time_input');
+                        const endInput = document.querySelector('#end_time_input');
+
+                        if (startInput && endInput) {
+                            startInput.addEventListener('input', () => {
+                                endInput.min = startInput.value;
+                                endInput.setCustomValidity('');
+                                validar();
+                            });
+                            endInput.addEventListener('input', () => {
+                                if (endInput.value <= startInput.value) {
+                                    endInput.setCustomValidity('La hora de fin debe ser posterior a la de inicio');
+                                } else {
+                                    endInput.setCustomValidity('');
+                                }
+                                validar();
+                            });
+                        }
+                        validar();
                     });
             },
 
         });
 
+        function validar() {
+            const startInput = document.querySelector('input[name="start_time"]');
+            const endInput = document.querySelector('input[name="end_time"]');
+            const submitBtn = document.querySelector('#submit-slot-btn');
+
+            if (!startInput || !endInput || !submitBtn) return;
+
+            const isStartValid = startInput.checkValidity();
+            const isEndValid = endInput.checkValidity();
+
+            if (isStartValid && isEndValid) {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('disabled-btn');
+                submitBtn.classList.remove('btn-secondary');
+                submitBtn.classList.add('btn-success');
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.classList.add('disabled-btn');
+                submitBtn.classList.remove('btn-success');
+                submitBtn.classList.add('btn-secondary');
+            }
+        }
         calendar.render();
     });
 </script>
