@@ -1,5 +1,6 @@
 @php
     $enabledPages = \App\Models\TenantPage::where('tenant_id', tenant()->id)->where('is_enabled', true)->get();
+    $cartCount = Auth::check() ? \App\Models\Cart::where('user_id', Auth::id())->where('status', 'active')->first()?->items->count() ?? 0 : 0;
 @endphp
 
 <nav class="navbar navbar-expand-lg fixed-top @yield('navbar-class', 'navbar-dark-mode')">
@@ -36,6 +37,19 @@
                 @endforeach
 
                 @auth
+                    {{-- Ícono del carrito --}}
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="{{ route('cart.index') }}">
+                            Carrito
+                            @if($cartCount > 0)
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {{ $cartCount }}
+                                    <span class="visually-hidden">productos en el carrito</span>
+                                </span>
+                            @endif
+                        </a>
+                    </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -62,7 +76,18 @@
                     </li>
                 @endauth
             </ul>
-
         </div>
     </div>
 </nav>
+
+@push('styles')
+<style>
+    .navbar .badge {
+        font-size: 0.6rem;
+        padding: 0.25em 0.4em;
+    }
+    .fa-shopping-cart {
+        font-size: 1.2rem;
+    }
+</style>
+@endpush
