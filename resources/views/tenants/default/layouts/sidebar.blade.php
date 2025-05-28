@@ -1,7 +1,8 @@
 <style>
     .navbar-nav .nav-link.active {
         background-color:
-            {{ tenantSetting('button_color_sidebar', '#BF8A49') }} !important;
+            {{ tenantSetting('button_color_sidebar', '#BF8A49') }}
+            !important;
         border-radius: 0.375rem;
     }
 </style>
@@ -38,7 +39,8 @@
                 <span><i class="bi bi-calendar me-2"></i> Mi Agenda</span>
                 <i class="bi bi-chevron-down small"></i>
             </a>
-            <div class="collapse ps-3 {{ Route::is('available-slots.*') ? 'show' : '' }}" id="availableSlotsMenu" data-bs-parent="#sidebarAccordion">
+            <div class="collapse ps-3 {{ Route::is('available-slots.*') ? 'show' : '' }}" id="availableSlotsMenu"
+                data-bs-parent="#sidebarAccordion">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('available-slots.index') ? 'active' : '' }}"
@@ -63,7 +65,8 @@
                 <span><i class="bi bi-file-text me-2"></i> Archivos</span>
                 <i class="bi bi-chevron-down small"></i>
             </a>
-            <div class="collapse ps-3 {{ Route::is('files.*') ? 'show' : '' }}" id="filesMenu" data-bs-parent="#sidebarAccordion">
+            <div class="collapse ps-3 {{ Route::is('files.*') ? 'show' : '' }}" id="filesMenu"
+                data-bs-parent="#sidebarAccordion">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('files.index') ? 'active' : '' }}"
@@ -93,7 +96,8 @@
                 <span><i class="bi bi-people me-2"></i> Usuarios</span>
                 <i class="bi bi-chevron-down small"></i>
             </a>
-            <div class="collapse ps-3 {{ Route::is('users.*') ? 'show' : '' }}" id="usersMenu" data-bs-parent="#sidebarAccordion">
+            <div class="collapse ps-3 {{ Route::is('users.*') ? 'show' : '' }}" id="usersMenu"
+                data-bs-parent="#sidebarAccordion">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('users.index') ? 'active' : '' }}"
@@ -116,27 +120,45 @@
                 <span><i class="bi bi-person-check me-2"></i> Roles</span>
                 <i class="bi bi-chevron-down small"></i>
             </a>
-            <div class="collapse ps-3 {{ Route::is('roles.*') ? 'show' : '' }}" id="rolesMenu" data-bs-parent="#sidebarAccordion">
+            <div class="collapse ps-3 {{ Route::is('roles.*') ? 'show' : '' }}" id="rolesMenu"
+                data-bs-parent="#sidebarAccordion">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('roles.index') ? 'active' : '' }}"
-                            href="{{ route('roles.index') }}" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Ver Roles</a>
+                            href="{{ route('roles.index') }}"
+                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Ver Roles</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('roles.create') ? 'active' : '' }}"
-                            href="{{ route('roles.create') }}" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Agregar Rol</a>
+                            href="{{ route('roles.create') }}"
+                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Agregar Rol</a>
                     </li>
                 </ul>
             </div>
         </li>
-         {{-- Productos --}}
+        {{-- Planes --}}
         <li class="nav-item">
-            <a class="nav-link {{ Route::is('products.index') ? 'active' : '' }}" href="{{ route('products.index') }}"
-                style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
-                <i class="bi bi-palette me-2"></i> Productos
+            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
+                href="#planesMenu" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
+                <span><i class="bi bi-card-checklist me-2"></i> Planes</span>
+                <i class="bi bi-chevron-down small"></i>
             </a>
+            <div class="collapse ps-3 {{ Route::is('products.*') ? 'show' : '' }}" id="planesMenu"
+                data-bs-parent="#sidebarAccordion">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('products.index') ? 'active' : '' }}"
+                            href="{{ route('products.index') }}"
+                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Ver Planes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('products.create') ? 'active' : '' }}"
+                            href="{{ route('products.create') }}"
+                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Agregar Plan</a>
+                    </li>
+                </ul>
+            </div>
         </li>
-
     </ul>
 
     {{-- Información de Usuario --}}
@@ -149,8 +171,7 @@
                 style="color: {{ tenantSetting('navbar_text_color_1', '#BF8A49') }};">{{ Auth::user()->email }}</small>
         </div>
         <div class="dropup mt-2">
-            <button class="btn btn-sm w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }};
+            <button class="btn btn-sm w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }};
                color: {{ tenantSetting('navbar_text_color_1', 'white') }};
                border: 1px solid {{ tenantSetting('navbar_text_color_1', 'white') }};">
                 Cuenta
@@ -167,5 +188,5 @@
             </ul>
         </div>
     </div>
-    
+
 </nav>
