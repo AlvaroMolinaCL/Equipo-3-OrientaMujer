@@ -24,7 +24,7 @@ class SuperAdminInvitationMail extends Mailable
     public function build()
     {
         return $this->subject('Invitación para registrarte como Super Administrador/a')
-            ->view('emails.superadmin-invitation')
+            ->markdown('emails.superadmin-invitation')
             ->with([
                 'link' => $this->link,
                 'superAdminRequest' => $this->superAdminRequest,

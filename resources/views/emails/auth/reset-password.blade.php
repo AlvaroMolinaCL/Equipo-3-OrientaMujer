@@ -12,5 +12,5 @@ Este enlace para restablecer la contraseña expirará en {{ $count }} minutos.
 Si no solicitaste este cambio, puedes ignorar este mensaje.
 
 Gracias,<br>
-{{ config('app.name') }}
+AbogaSense
 @endcomponent

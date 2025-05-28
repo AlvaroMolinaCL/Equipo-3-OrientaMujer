@@ -1,10 +1,14 @@
-<p>Estimado/a {{ $superAdminRequest->name }},</p>
+@component('mail::message')
+# ¡Hola {{ $superAdminRequest->name }}!
 
-<p>Ha sido invitado/a a registrarse como Super Administrador/a en nuestra plataforma. Para completar su registro, por
-    favor haga clic en el siguiente enlace:</p>
+Has sido invitado/a a registrarte como Super Administrador/a en nuestra plataforma.
 
-<p><a href="{{ $link }}">{{ $link }}</a></p>
+@component('mail::button', ['url' => $link])
+Completar registro
+@endcomponent
 
-<p>Si usted no solicitó esta invitación, puede ignorar este mensaje.</p>
+Si no solicitaste esta invitación, puedes ignorar este mensaje.
 
-<p>Atentamente,<br>El equipo de administración</p>
+Gracias,<br>
+El equipo de administración
+@endcomponent
