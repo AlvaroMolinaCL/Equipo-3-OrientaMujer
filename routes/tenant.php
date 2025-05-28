@@ -101,8 +101,12 @@ Route::middleware([
         Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
         Route::patch('/update/{item}', [CartController::class, 'update'])->name('cart.update');
 
-
-
+        // Rutas de Checkout
+        Route::prefix('checkout')->group(function () {
+            Route::get('/', [CheckoutController::class, 'index'])->name('checkout');
+            Route::post('/process', [CheckoutController::class, 'process'])->name('checkout.process');
+            Route::get('/success', [CheckoutController::class, 'success'])->name('checkout.success');
+        })->middleware(['web', 'auth']);
 
         // Planes
         Route::get('/planes', [ProductController::class, 'planes'])->name('products.planes');
