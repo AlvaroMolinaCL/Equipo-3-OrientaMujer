@@ -101,8 +101,8 @@
         </h3>
         <a href="{{ route('dashboard') }}" class="btn btn-sm"
             style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
-                                                                                                                                                                                                                                                              color: {{ tenantSetting('text_color_1', '#8C2D18') }};
-                                                                                                                                                                                                                                                              border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
+                                                                                                                                                                                                                                                                      color: {{ tenantSetting('text_color_1', '#8C2D18') }};
+                                                                                                                                                                                                                                                                      border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
             <i class="bi bi-arrow-left me-2"></i>Volver
         </a>
     </div>
@@ -157,8 +157,8 @@
                             <div class="text-center">
                                 <button id="savePaletteBtn" class="btn"
                                     style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; 
-                                                                                                                                                                                                                                                                                       color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                                                                                                                                                                                                                                                                       transition: all 0.3s ease;">
+                                                                                                                                                                                                                                                                                               color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                                                                                                                                                                                               transition: all 0.3s ease;">
                                     <i class="fas fa-save me-2"></i>Aplicar Paleta Seleccionada
                                 </button>
                             </div>
@@ -432,6 +432,9 @@
                                                                 <option value="Open Sans" {{ $tenant->navbar_font == 'Open Sans' ? 'selected' : '' }}>Open Sans</option>
                                                                 <option value="Montserrat" {{ $tenant->navbar_font == 'Montserrat' ? 'selected' : '' }}>
                                                                     Montserrat
+                                                                <option value="Courier Prime" {{ $tenant->navbar_font == 'Courier Prime' ? 'selected' : '' }}>
+                                                                    Courier Prime
+                                                                </option>
                                                                 </option>
                                                             </select>
                                                         </div>
@@ -448,6 +451,9 @@
                                                                 <option value="Montserrat" {{ $tenant->heading_font == 'Montserrat' ? 'selected' : '' }}>
                                                                     Montserrat
                                                                 </option>
+                                                                <option value="Courier Prime" {{ $tenant->navbar_font == 'Courier Prime' ? 'selected' : '' }}>
+                                                                    Courier Prime
+                                                                </option>
                                                             </select>
                                                         </div>
 
@@ -461,6 +467,9 @@
                                                                 <option value="Open Sans" {{ $tenant->body_font == 'Open Sans' ? 'selected' : '' }}>Open Sans</option>
                                                                 <option value="Montserrat" {{ $tenant->body_font == 'Montserrat' ? 'selected' : '' }}>
                                                                     Montserrat</option>
+                                                                    <option value="Courier Prime" {{ $tenant->navbar_font == 'Courier Prime' ? 'selected' : '' }}>
+                                                                    Courier Prime
+                                                                </option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -472,8 +481,8 @@
                                     <div class="text-center mt-4">
                                         <button type="submit" class="btn"
                                             style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; 
-                                                                                                                                                                                                                                                                       color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                                                                                                                                                                                                                                                       transition: all 0.3s ease;">
+                                                                                                                                                                                                                                                                               color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                                                                                                                                                                               transition: all 0.3s ease;">
                                             <i class="fas fa-save me-2"></i>Guardar Personalización
                                         </button>
                                     </div>
@@ -565,16 +574,16 @@
                                                 <textarea class="form-control summernote" name="about_text" id="about_text"
                                                     rows="6"
                                                     placeholder="Escribe tu contenido aquí...">{{ old('about_text', tenantText('about_text', '
-                                                                                                                                                    <p style="text-align: justify;">
-                                                                                                                                                        Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.
-                                                                                                                                                    </p>
-                                                                                                                                                    <p style="text-align: justify;">
-                                                                                                                                                        Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.
-                                                                                                                                                    </p>
-                                                                                                                                                    <p style="text-align: justify;">
-                                                                                                                                                        Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.
-                                                                                                                                                    </p>
-                                                                                                                                                    ')) }}</textarea>
+                                                                                                                                                            <p style="text-align: justify;">
+                                                                                                                                                                Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.
+                                                                                                                                                            </p>
+                                                                                                                                                            <p style="text-align: justify;">
+                                                                                                                                                                Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.
+                                                                                                                                                            </p>
+                                                                                                                                                            <p style="text-align: justify;">
+                                                                                                                                                                Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.
+                                                                                                                                                            </p>
+                                                                                                                                                            ')) }}</textarea>
                                             </div>
 
                                             <!-- Servicios -->
@@ -656,15 +665,15 @@
                                                 <textarea class="form-control summernote" name="body_service_1"
                                                     id="body_service_1" rows="6"
                                                     placeholder="Descripción del servicio 1">{!! old('body_service_1', tenantText('body_service_1', '
-                                                                                                                                                <p style="text-align: justify;">Te ofrezco un servicio de orientación legal para identificar el escenario jurídico que enfrentas.</p>
-                                                                                                                                                <p style="text-align: justify;">Conocerás:</p>
-                                                                                                                                                <ul>
-                                                                                                                                                    <li style="text-align: justify;">La procedencia de acciones judiciales en materias de violencia contra la mujer.</li>
-                                                                                                                                                    <li style="text-align: justify;">Pasos a seguir para iniciar procedimientos judiciales.</li>
-                                                                                                                                                    <li style="text-align: justify;">Análisis de la necesidad de representación privada o derivación a organismos públicos.</li>
-                                                                                                                                                    <li style="text-align: justify;">Explicación clara de la dinámica de los procesos en derecho penal, familia y otras áreas.</li>
-                                                                                                                                                    <li style="text-align: justify;">Derivación segura a abogadas especializadas si así lo requieres.</li>
-                                                                                                                                                </ul>')) !!}</textarea>
+                                                                                                                                                        <p style="text-align: justify;">Te ofrezco un servicio de orientación legal para identificar el escenario jurídico que enfrentas.</p>
+                                                                                                                                                        <p style="text-align: justify;">Conocerás:</p>
+                                                                                                                                                        <ul>
+                                                                                                                                                            <li style="text-align: justify;">La procedencia de acciones judiciales en materias de violencia contra la mujer.</li>
+                                                                                                                                                            <li style="text-align: justify;">Pasos a seguir para iniciar procedimientos judiciales.</li>
+                                                                                                                                                            <li style="text-align: justify;">Análisis de la necesidad de representación privada o derivación a organismos públicos.</li>
+                                                                                                                                                            <li style="text-align: justify;">Explicación clara de la dinámica de los procesos en derecho penal, familia y otras áreas.</li>
+                                                                                                                                                            <li style="text-align: justify;">Derivación segura a abogadas especializadas si así lo requieres.</li>
+                                                                                                                                                        </ul>')) !!}</textarea>
                                             </div>
 
                                             <!-- Títulos y Descripciones de Servicio 2 -->
@@ -685,13 +694,13 @@
                                                 <textarea class="form-control summernote" name="body_service_2"
                                                     id="body_service_2" rows="6"
                                                     placeholder="Descripción del servicio 2">{!! old('body_service_2', tenantText('body_service_2', '
-                                                                                                                                            <p style="text-align: justify;">Te represento en procesos judiciales penales, de familia u otras materias, comprometiéndome a:</p>
-                                                                                                                                            <ul>
-                                                                                                                                                <li style="text-align: justify;">Diseñar contigo la estrategia de defensa o acción.</li>
-                                                                                                                                                <li style="text-align: justify;">Representar tus intereses bajo perspectiva de género, territorio, interculturalidad, derechos humanos, según corresponda.</li>
-                                                                                                                                                <li style="text-align: justify;">Informarte en cada etapa, asegurando tu participación activa en la toma de decisiones.</li>
-                                                                                                                                            </ul>
-                                                                                                                                        ')) !!}</textarea>
+                                                                                                                                                    <p style="text-align: justify;">Te represento en procesos judiciales penales, de familia u otras materias, comprometiéndome a:</p>
+                                                                                                                                                    <ul>
+                                                                                                                                                        <li style="text-align: justify;">Diseñar contigo la estrategia de defensa o acción.</li>
+                                                                                                                                                        <li style="text-align: justify;">Representar tus intereses bajo perspectiva de género, territorio, interculturalidad, derechos humanos, según corresponda.</li>
+                                                                                                                                                        <li style="text-align: justify;">Informarte en cada etapa, asegurando tu participación activa en la toma de decisiones.</li>
+                                                                                                                                                    </ul>
+                                                                                                                                                ')) !!}</textarea>
                                             </div>
 
                                             <!-- Títulos y Descripciones de Servicio 3 -->
@@ -712,14 +721,14 @@
                                                 <textarea class="form-control summernote" name="body_service_3"
                                                     id="body_service_3" rows="6"
                                                     placeholder="Descripción del servicio 3">{!! old('body_service_3', tenantText('body_service_3', '
-                                                                                                                                            <p style="text-align: justify;">Realizo talleres, charlas y capacitaciones para grupos en contextos académicos, laborales o comunitarios.</p>
-                                                                                                                                            <p style="text-align: justify;">Temáticas abordadas:</p>
-                                                                                                                                            <ul>
-                                                                                                                                                <li style="text-align: justify;">Sensibilización en género.</li>
-                                                                                                                                                <li style="text-align: justify;">Normativa nacional e internacional sobre derechos humanos, género y otras materias.</li>
-                                                                                                                                                <li style="text-align: justify;">Funcionamiento práctico de los procedimientos judiciales.</li>
-                                                                                                                                            </ul>
-                                                                                                                                        ')) !!}</textarea>
+                                                                                                                                                    <p style="text-align: justify;">Realizo talleres, charlas y capacitaciones para grupos en contextos académicos, laborales o comunitarios.</p>
+                                                                                                                                                    <p style="text-align: justify;">Temáticas abordadas:</p>
+                                                                                                                                                    <ul>
+                                                                                                                                                        <li style="text-align: justify;">Sensibilización en género.</li>
+                                                                                                                                                        <li style="text-align: justify;">Normativa nacional e internacional sobre derechos humanos, género y otras materias.</li>
+                                                                                                                                                        <li style="text-align: justify;">Funcionamiento práctico de los procedimientos judiciales.</li>
+                                                                                                                                                    </ul>
+                                                                                                                                                ')) !!}</textarea>
                                             </div>
 
                                             <!-- Imágenes de Servicios -->
@@ -786,11 +795,11 @@
                                                 <label for="about_us" class="form-label"><strong>Sobre mí</strong></label>
                                                 <textarea class="form-control summernote" name="about_us" id="about_us"
                                                     rows="10">{!! old('about_us', tenantText('about_us', '
-                                                                                                                        <p style="text-align: justify;">Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.</p>
-                                                                                                                        <p style="text-align: justify;">Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.</p>
-                                                                                                                        <p style="text-align: justify;">Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.</p>
-                                                                                                                        <p style="text-align: justify;"><strong>"La información es poder, empodérate"</strong></p>
-                                                                                                                    ')) !!}</textarea>
+                                                                                                                                <p style="text-align: justify;">Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.</p>
+                                                                                                                                <p style="text-align: justify;">Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.</p>
+                                                                                                                                <p style="text-align: justify;">Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.</p>
+                                                                                                                                <p style="text-align: justify;"><strong>"La información es poder, empodérate"</strong></p>
+                                                                                                                            ')) !!}</textarea>
                                             </div>
                                             <!-- experience -->
                                             <div class="mb-3">
@@ -798,12 +807,12 @@
                                                     class="form-label"><strong>Experiencia</strong></label>
                                                 <textarea class="form-control summernote" name="experience" id="experience"
                                                     rows="7">{!! old('experience', tenantText('experience', '
-                                                                                                                        <ul class="fade-in-section">
-                                                                                                                            <li>Abogada titulada por la Universidad de Concepción.</li>
-                                                                                                                            <li>Magíster en Derecho Penal y Derecho Procesal Penal, Universidad Católica del Norte (en curso).</li>
-                                                                                                                            <li>Diplomada en Derechos Humanos y Función Pública, Universidad de Los Lagos e Instituto Nacional de Derechos Humanos.</li>
-                                                                                                                        </ul>
-                                                                                                                    ')) !!}</textarea>
+                                                                                                                                <ul class="fade-in-section">
+                                                                                                                                    <li>Abogada titulada por la Universidad de Concepción.</li>
+                                                                                                                                    <li>Magíster en Derecho Penal y Derecho Procesal Penal, Universidad Católica del Norte (en curso).</li>
+                                                                                                                                    <li>Diplomada en Derechos Humanos y Función Pública, Universidad de Los Lagos e Instituto Nacional de Derechos Humanos.</li>
+                                                                                                                                </ul>
+                                                                                                                            ')) !!}</textarea>
                                             </div>
 
                                             <!-- Imagen Sobre Nosotros -->
@@ -838,8 +847,8 @@
                                     <div class="text-center mt-4">
                                         <button type="submit" class="btn"
                                             style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }};
-                                                                                                                                                                                                                                        color: {{ tenantSetting('button_banner_text_color', 'white') }};
-                                                                                                                                                                                                                                        transition: all 0.3s ease;">
+                                                                                                                                                                                                                                                color: {{ tenantSetting('button_banner_text_color', 'white') }};
+                                                                                                                                                                                                                                                transition: all 0.3s ease;">
                                             <i class="fas fa-save me-2"></i>Guardar Contenido
                                         </button>
                                     </div>
@@ -1021,9 +1030,9 @@
                     `alert alert-${type} alert-dismissible fade show position-fixed top-0 end-0 m-3`;
                 alertBox.style.zIndex = '9999';
                 alertBox.innerHTML = `
-                                                                                                                                                                                                                                                                    ${message}
-                                                                                                                                                                                                                                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                                                                                                                                                                                                                                                `;
+                                                                                                                                                                                                                                                                            ${message}
+                                                                                                                                                                                                                                                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                                                                                                                                                                                                                                                        `;
                 document.body.appendChild(alertBox);
 
                 setTimeout(() => {
