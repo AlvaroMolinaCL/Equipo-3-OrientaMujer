@@ -9,13 +9,12 @@
 
 @section('body-class', 'theme-light')
 
-
 @section('content')
 <section class="py-5" style="margin-top: 80px;">
     <div class="container">
         <div class="text-center mb-5">
-            <h1 class="display-4 fw-bold mb-3">Planes Disponibles</h1>
-            <p class="lead">Elige el plan que mejor se adapte a tus necesidades</p>
+            <h1 class="display-4 fw-bold mb-3" style="font-family: {{ tenantSetting('heading_font', '') }}">Planes Disponibles</h1>
+            <p class="lead" style="font-family: {{ tenantSetting('body_font', '') }}">Elige el plan que mejor se adapte a tus necesidades</p>
         </div>
 
         <div class="row g-4">

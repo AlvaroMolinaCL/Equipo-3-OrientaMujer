@@ -1,5 +1,7 @@
 @extends('tenants.default.layouts.app')
 
+@section('title', 'Agendamiento Exitoso - ' . tenantSetting('name', 'Tenant'))
+
 @section('navbar')
     @include('tenants.default.layouts.navigation')
 @endsection
@@ -28,7 +30,8 @@
                 <a href="{{ route('products.planes') }}" class="btn btn-secondary">
                     <i class="fas fa-store me-2"></i>Ver más planes
                 </a>
-                <a href="{{ route('tenants.default.index') }}" class="btn" style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};
+                <a href="{{ route('tenants.default.index') }}" class="btn"
+                    style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};
                           color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }};">
                     <i class="fas fa-home me-2"></i>Volver al inicio
                 </a>

@@ -1,5 +1,7 @@
 @extends('tenants.default.layouts.app')
 
+@section('title', 'Resumen del Agendamiento - ' . tenantSetting('name', 'Tenant'))
+
 @section('navbar')
     @include('tenants.default.layouts.navigation')
 @endsection
@@ -11,7 +13,9 @@
                 <!-- Resumen del Pedido -->
                 <div class="col-lg-8 mb-4">
                     <div class="bg-white rounded shadow-sm p-4">
-                        <h3 class="mb-4">Resumen de tu pedido</h3>
+                        <h3 class="mb-4"
+                            style="font-family: {{ tenantSetting('heading_font', '') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                            Resumen de tu pedido</h3>
 
                         <div class="table-responsive">
                             <table class="table">
@@ -27,13 +31,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($items as $item)
+                                    @foreach ($items as $item)
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    @if($item->product->image ?? false)
-                                                        <img src="{{ asset($item->product->image) }}" width="50" height="50"
-                                                            class="rounded me-2" style="object-fit: cover;">
+                                                    @if ($item->product->image ?? false)
+                                                        <img src="{{ asset($item->product->image) }}" width="50"
+                                                            height="50" class="rounded me-2" style="object-fit: cover;">
                                                     @endif
                                                     {{ $item->product->name ?? 'Producto no disponible' }}
                                                 </div>
@@ -54,8 +58,6 @@
                                                 </form>
                                             </td>
                                         </tr>
-
-
                                     @endforeach
                                 </tbody>
                                 <tfoot>
@@ -63,8 +65,14 @@
                                         <td colspan="3" class="text-end fw-bold">Total:</td>
                                         <td class="text-end fw-bold h5"
                                             style="color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};">
-                                            ${{ number_format($items->sum(function ($item) {
-        return $item->price * $item->quantity; }), 0, ',', '.') }}
+                                            ${{ number_format(
+                                                $items->sum(function ($item) {
+                                                    return $item->price * $item->quantity;
+                                                }),
+                                                0,
+                                                ',',
+                                                '.',
+                                            ) }}
                                         </td>
                                     </tr>
                                 </tfoot>
@@ -76,7 +84,9 @@
                 <!-- Formulario de Pago -->
                 <div class="col-lg-4">
                     <div class="bg-white rounded shadow-sm p-4">
-                        <h3 class="mb-4">Método de pago</h3>
+                        <h3 class="mb-4"
+                            style="font-family: {{ tenantSetting('heading_font', '') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                            Método de pago</h3>
 
                         <form id="payment-form" action="{{ route('checkout.process') }}" method="POST">
                             @csrf
@@ -132,7 +142,8 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn w-100 py-2" style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};
+                            <button type="submit" class="btn w-100 py-2"
+                                style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};
                                                        color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }};">
                                 <i class="fas fa-lock me-2"></i>Pagar ahora
                             </button>
@@ -146,7 +157,7 @@
 
 @push('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // Mostrar/ocultar campos según método de pago
             const paymentMethodRadios = document.querySelectorAll('input[name="payment_method"]');
             const creditCardFields = document.getElementById('credit-card-fields');

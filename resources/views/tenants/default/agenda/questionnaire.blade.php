@@ -12,7 +12,7 @@
 @section('content')
 <section class="py-5" style="margin-top: 80px;">
     <div class="container">
-        <div class="text-center mb-5">
+        <div class="mb-5">
             <h1 class="mb-3" style="font-family: {{ tenantSetting('heading_font', '') }}; color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }};">
                 <i class="bi bi-file-earmark-text me-2"></i>Cuestionario Previo a la Asesoría
             </h1>

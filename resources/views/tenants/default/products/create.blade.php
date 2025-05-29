@@ -1,6 +1,6 @@
 @extends('tenants.default.layouts.panel')
 
-@section('title', 'Añadir Plan - ' . tenantSetting('name', 'Tenant'))
+@section('title', 'Nuevo Plan - ' . tenantSetting('name', 'Tenant'))
 
 @section('sidebar')
     @include('tenants.default.layouts.sidebar')
@@ -9,77 +9,156 @@
 @section('content')
     <div class="container">
         {{-- Encabezado --}}
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
             <h3 class="fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
-                <i class="bi bi-journal-plus me-2"></i>Crear nuevo plan
+                <i class="bi bi-journal-plus me-2"></i>{{ __('Nuevo Plan') }}
             </h3>
-            <a href="{{ route('products.index') }}" class="btn btn-sm" style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
+            <a href="{{ route('products.index') }}" class="btn btn-sm"
+                style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};
                        color: {{ tenantSetting('text_color_1', '#8C2D18') }};
                        border: 2px solid {{ tenantSetting('color_tables', '#8C2D18') }};">
                 <i class="bi bi-arrow-left me-2"></i>Volver
             </a>
         </div>
 
-        {{-- Errores --}}
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul class="mb-0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         {{-- Formulario --}}
-        <div class="card border-0 shadow-sm">
-            <div class="card-header" style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }};
-                       color: {{ tenantSetting('button_banner_text_color', 'white') }};">
-                <h5 class="mb-0">Detalles del Plan</h5>
-            </div>
-
-            <div class="card-body">
-                <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+        <div class="card shadow border-0" style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};">
+            <div class="card-body p-4">
+                <form method="POST" action="{{ route('products.store') }}" class="bg-white p-4 rounded-3 shadow-sm"
+                    enctype="multipart/form-data">
                     @csrf
 
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Título del plan</label>
-                        <input type="text" class="form-control" id="name" name="name" required value="{{ old('name') }}">
+                    <h5 class="fw-medium mb-3"
+                        style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};">
+                        <i class="bi bi-info-circle me-2"></i>Información del Plan
+                    </h5>
+
+                    {{-- Título del Plan --}}
+                    <div class="mb-4">
+                        <label for="name" class="form-label fw-medium"
+                            style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                            <i class="bi bi-person me-1"></i>Título del Plan
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text"
+                                style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                                <i class="bi bi-fonts"></i>
+                            </span>
+                            <input id="name" type="text" class="form-control border-start-0"
+                                style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};"
+                                placeholder="Por ejemplo: Sesión Virtual Fin de Semana AM" name="name"
+                                value="{{ old('name') }}" required autofocus>
+                        </div>
+                        @error('name')
+                            <div class="text-danger small mt-2">
+                                <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                            </div>
+                        @enderror
                     </div>
 
-                    <div class="mb-3">
-                        <label for="category" class="form-label">Tipo de ayuda legal</label>
-                        <select name="category" class="form-select">
-                            <option value="">Selecciona una categoría</option>
-                            @foreach ($categorias as $cat)
-                                <option value="{{ $cat }}" {{ old('category') === $cat ? 'selected' : '' }}>
-                                    {{ $cat }}
+                    {{-- Tipo de Ayuda Legal --}}
+                    <div class="mb-4">
+                        <label for="category" class="form-label fw-medium"
+                            style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                            <i class="bi bi-person-gear me-1"></i>Tipo de Ayuda Legal
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text"
+                                style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                                <i class="bi bi-shield-check"></i>
+                            </span>
+                            <select name="category" id="category" class="form-select border-start-0"
+                                style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};">
+                                <option value="category_default" selected disabled>
+                                    Seleccione una categoría
                                 </option>
-                            @endforeach
-                        </select>
+                                @foreach ($categorias as $cat)
+                                    <option value="{{ $cat }}" {{ old('category') === $cat ? 'selected' : '' }}>
+                                        {{ $cat }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @error('category')
+                            <div class="text-danger small mt-2">
+                                <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                            </div>
+                        @enderror
                     </div>
 
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Descripción</label>
-                        <textarea class="form-control" id="description" name="description"
-                            rows="4">{{ old('description') }}</textarea>
+                    {{-- Descripción --}}
+                    <div class="mb-4">
+                        <label for="description" class="form-label fw-medium"
+                            style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                            <i class="bi bi-person me-1"></i>Descripción
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text"
+                                style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                                <i class="bi bi-card-text"></i>
+                            </span>
+                            <textarea id="description" type="text" class="form-control border-start-0"
+                                style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};"
+                                placeholder="Por ejemplo: Estas sesiones se realizarán entre 11:00 y 13:00 horas" name="description" rows="4"
+                                required>{{ old('description') }}</textarea>
+                        </div>
+                        @error('description')
+                            <div class="text-danger small mt-2">
+                                <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                            </div>
+                        @enderror
                     </div>
 
-                    <div class="mb-3">
-                        <label for="price" class="form-label">Precio</label>
-                        <input type="number" class="form-control" id="price" name="price" required step="0.01"
-                            value="{{ old('price') }}">
+                    {{-- Precio --}}
+                    <div class="mb-4">
+                        <label for="price" class="form-label fw-medium"
+                            style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                            <i class="bi bi-cash me-1"></i>Precio
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text"
+                                style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                                <i class="bi bi-currency-dollar"></i>
+                            </span>
+                            <input id="price" type="number" class="form-control border-start-0"
+                                style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};"
+                                placeholder="Por ejemplo: 10000" name="price" value="{{ old('price') }}" required
+                                step="0.01" required>
+                        </div>
+                        @error('price')
+                            <div class="text-danger small mt-2">
+                                <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                            </div>
+                        @enderror
                     </div>
 
-                    <div class="mb-3">
-                        <label for="image" class="form-label">Imagen del plan</label>
-                        <input class="form-control" type="file" id="image" name="image" accept="image/*">
+                    {{-- Imagen del Plan --}}
+                    <div class="mb-4">
+                        <label for="image" class="form-label fw-medium"
+                            style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                            <i class="bi bi-image me-1"></i>Imagen del Plan
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text"
+                                style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                                <i class="bi bi-file-earmark-image"></i>
+                            </span>
+                            <input id="image" type="file" class="form-control border-start-0"
+                                style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};"
+                                name="image" accept="image/*">
+                        </div>
+                        @error('image')
+                            <div class="text-danger small mt-2">
+                                <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                            </div>
+                        @enderror
                     </div>
 
-                    <div class="text-center">
-                        <button type="submit" class="btn" style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }};
-                               color: {{ tenantSetting('button_banner_text_color', '#ffffff') }};">
-                            <i class="bi bi-save me-1"></i> Crear plan
+                    {{-- Botón de Guardar --}}
+                    <div class="mt-4 pt-3 border-top text-center">
+                        <button type="submit" class="btn fw-medium py-1"
+                            style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }}; color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }}; width: 200px;">
+                            <i class="bi bi-save me-2"></i>Guardar Plan
                         </button>
                     </div>
                 </form>
