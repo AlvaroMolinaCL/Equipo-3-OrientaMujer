@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Appointment;
 use App\Models\AvailableSlot;
 use App\Models\TenantPage;
+use App\Models\QuestionnaireResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\QuestionnaireResponse;
-
-
 
 class AgendaController extends Controller
 {
@@ -18,8 +15,6 @@ class AgendaController extends Controller
     {
         return view('tenants.default.agenda.questionnaire');
     }
-
-
 
     public function processQuestionnaire(Request $request)
     {
@@ -51,8 +46,6 @@ class AgendaController extends Controller
         return redirect()->route('tenant.agenda.index')->with('success', 'Gracias por completar el cuestionario.');
     }
 
-
-
     public function index()
     {
         $tenantId = tenant('id');
@@ -81,17 +74,14 @@ class AgendaController extends Controller
             return back()->withErrors(['available_slot_id' => 'La hora seleccionada ya no es válida.']);
         }
 
-        // Guardar temporalmente los datos en la sesión
         session([
             'appointment_slot_id' => $validated['available_slot_id'],
             'appointment_description' => $validated['description']
         ]);
 
-        return redirect()->route('cart.index')->with('success', 'Puedes proceder al pago para confirmar tu cita.');
+        return redirect()->route('tenant.agenda.index')->with('success', 'Cita agendada con éxito.');
     }
 
-
-    // 🔹 NUEVO MÉTODO: Confirmación de Cita
     public function confirm(Request $request)
     {
         $slotId = $request->query('slot_id');
