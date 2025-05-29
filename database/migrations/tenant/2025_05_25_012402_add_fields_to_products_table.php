@@ -9,23 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-        public function up()
+    public function up()
     {
         Schema::table('products', function (Blueprint $table) {
             $table->string('category')->nullable();
-            $table->string('image_path')->nullable(); // por si aún no lo tienes
+            $table->string('image_path')->nullable();
         });
     }
-
 
     /**
      * Reverse the migrations.
      */
-        public function down()
+    public function down()
     {
         Schema::table('products', function (Blueprint $table) {
             $table->dropColumn(['category', 'image_path']);
         });
     }
-
 };

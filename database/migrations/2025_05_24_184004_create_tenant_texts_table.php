@@ -13,13 +13,11 @@ return new class extends Migration {
         Schema::create('tenant_texts', function (Blueprint $table) {
             $table->id();
             $table->string('tenant_id');
-            $table->string('key');      // Por ejemplo: "banner_text", "about_title"
-            $table->text('value');      // El contenido que se mostrará
+            $table->string('key');
+            $table->text('value');
             $table->timestamps();
-
             $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('cascade');
         });
-
     }
 
     /**

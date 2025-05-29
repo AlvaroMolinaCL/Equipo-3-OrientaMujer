@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('tenant_id');
             $table->string('key');
             $table->string('value');
-
             $table->timestamps();
             $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('cascade');
         });
