@@ -54,8 +54,6 @@
             <a href="#" class="btn text-white disabled" style="background-color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }};">
                 <i class="bi bi-credit-card me-1"></i> Proceder al Pago (próximamente)
             </a>
-            {{-- TODO: asignar ruta real al botón cuando se integre el sistema de pago --}}
-
         </form>
     </div>
 </section>

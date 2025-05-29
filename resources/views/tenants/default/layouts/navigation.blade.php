@@ -28,6 +28,16 @@
                             @continue
                         @endif
 
+                        {{-- Redirección especial para la agenda --}}
+                        @if ($page->page_key === 'agenda')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('tenant.agenda.questionnaire') }}">
+                                    {{ $page->title ?? 'Agenda' }}
+                                </a>
+                            </li>
+                            @continue
+                        @endif
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url($page->page_key) }}">
                                 {{ $page->title ?? ucfirst($page->page_key) }}
