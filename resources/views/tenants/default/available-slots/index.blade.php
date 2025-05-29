@@ -140,6 +140,8 @@
 
         const calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
+            initialDate: new Date(), // Forzar fecha de hoy según navegador
+
             locale: 'es',
             height: 600,
             eventOrder: "start,-duration,allDay,title",
@@ -156,7 +158,13 @@
             selectable: true,
             dayHeaders: true,
             dayHeaderFormat: { weekday: 'long' },
-            titleFormat: { year: 'numeric', month: 'long' },
+            titleFormat: {
+                year: 'numeric',
+                month: 'long'
+            },
+
+
+
             headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',
@@ -175,12 +183,6 @@
                     info.el.classList.add('fc-disabled-day');
                 }
             },
-            eventDidMount: function () {
-                const title = document.querySelector('.fc-toolbar-title');
-                if (title) {
-                    title.textContent = title.textContent.charAt(0).toUpperCase() + title.textContent.slice(1);
-                }
-            },
             dateClick: function (info) {
                 const selectedDate = new Date(info.date);
                 const today = new Date();
@@ -191,7 +193,10 @@
                 const date = info.dateStr;
                 const todayStr = today.toISOString().split('T')[0];
 
-                modalDateTitle.textContent = `Horarios para el ${date}`;
+                const opcionesFecha = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const fechaFormateada = selectedDate.toLocaleDateString('es-CL', opcionesFecha);
+                modalDateTitle.textContent = `Horarios para el ${fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1)}`;
+
                 modalDateInput.value = date;
                 slotsList.innerHTML = `<p class="text-muted">Cargando horarios...</p>`;
                 modal.show();
@@ -206,6 +211,9 @@
                         if (data.length === 0) {
                             slotsList.innerHTML = '<p class="text-muted">No se registran horarios disponibles.</p>';
                         } else {
+                            // Ordenar los horarios por hora de inicio (formato 24h)
+                            data.sort((a, b) => a.start_time.localeCompare(b.start_time));
+
                             data.forEach(slot => {
                                 const isExpiredToday = isToday && slot.end_time <= nowTime;
                                 slotsList.innerHTML += `
