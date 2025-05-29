@@ -157,6 +157,9 @@
                 initialView: 'dayGridMonth',
                 initialDate: new Date(),
                 locale: 'es',
+                buttonText: {
+                    today: 'Hoy'
+                },
                 height: 600,
                 eventOrder: "start,-duration,allDay,title",
                 dayMaxEvents: 1,
