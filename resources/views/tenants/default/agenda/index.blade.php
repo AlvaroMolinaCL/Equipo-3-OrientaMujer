@@ -10,142 +10,195 @@
 @section('body-class', 'theme-light')
 
 @section('content')
+    <style>
+        .fc-theme-standard .fc-scrollgrid {
+            border: 1px solid #ccc !important;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .fc-theme-standard td,
+        .fc-theme-standard th {
+            border: 1px solid #dee2e6;
+        }
+
+        .fc .fc-daygrid-day-frame {
+            padding: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .fc .fc-daygrid-event {
+            font-size: 0.875rem;
+            padding: 2px 4px;
+            border: none;
+            border-radius: 4px;
+            background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};
+            color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }};
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .fc .fc-col-header-cell-cushion,
+        .fc .fc-toolbar-title,
+        .fc .fc-daygrid-day-number {
+            color: {{ tenantSetting('text_color_1', '#8C2D18') }};
+        }
+
+        .fc .fc-daygrid-more-link {
+            margin-top: 5px;
+            padding: 2px 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};
+            color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }};
+            border-radius: 4px;
+            text-decoration: none !important;
+        }
+
+        .fc .fc-daygrid-more-link:hover {
+            background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};
+            color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }};
+        }
+
+        .fc-daygrid-event-harness + .fc-daygrid-more-link {
+            align-self: center;
+        }
+
+        .fc .fc-col-header-cell-cushion {
+            text-transform: capitalize;
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: {{ tenantSetting('text_color_1', '#8C2D18') }};
+        }
+
+        .fc .fc-toolbar-title {
+            text-transform: capitalize;
+            color: {{ tenantSetting('text_color_1', '#8C2D18') }};
+        }
+    </style>
+
     <section class="py-5" style="margin-top: 80px;">
         <div class="container">
-            <h1 class="mb-4" style="font-family: {{ tenantSetting('heading_font', '') }}">
-                {{ tenantPageName('agenda', 'Agenda') }}
-            </h1>
+            <h3 class="mb-4" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Selecciona un horario disponible</h3>
+            <a href="{{ route('tenants.default.index') }}" class="btn btn-outline-secondary mb-3">
+                <i class="bi bi-arrow-left"></i> Volver al Inicio
+            </a>
+            <div id="calendar"></div>
+        </div>
 
-            @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
-
-            {{-- Paso 1: Seleccionar fecha y hora --}}
-            <div id="step1">
-                <div class="mb-3">
-                    <label for="appointment_date" class="form-label">Fecha:</label>
-                    <input type="date" id="appointment_date" class="form-control" required
-                        min="{{ now()->toDateString() }}">
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Hora:</label>
-                    <div id="available_slots" class="d-flex flex-wrap gap-2"></div>
+        {{-- Modal --}}
+        <div class="modal fade" id="dayModal" tabindex="-1" aria-labelledby="dayModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="dayModalLabel">Horarios del día</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="modal-date-input" name="date">
+                        <div id="slots-list-modal"></div>
+                    </div>
                 </div>
             </div>
-
-            {{-- Paso 2: Formulario con datos del usuario --}}
-            <form id="appointmentForm" style="display: none;">
-                @csrf
-                <input type="hidden" name="available_slot_id" id="selected_slot_id">
-
-                <div class="mb-3">
-                    <label class="form-label">Nombre:</label>
-                    <input type="text" class="form-control" value="{{ Auth::user()->name }}" readonly>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Apellido Paterno:</label>
-                    <input type="text" class="form-control" value="{{ Auth::user()->last_name }}" readonly>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Apellido Materno:</label>
-                    <input type="text" class="form-control" value="{{ Auth::user()->second_last_name }}" readonly>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Correo Electrónico:</label>
-                    <input type="email" class="form-control" value="{{ Auth::user()->email }}" readonly>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Teléfono:</label>
-                    <input type="text" class="form-control" value="{{ Auth::user()->phone_number }}" readonly>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Descripción del Problema:</label>
-                    <textarea name="description" class="form-control" maxlength="500" required></textarea>
-                </div>
-
-                <button type="button" id="showConfirmation" class="btn text-white"
-                    style="background-color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }};">
-                    <i class="bi bi-box-arrow-in-right me-1"></i> Continuar
-                </button>
-            </form>
         </div>
     </section>
 
-    {{-- Modal de confirmación --}}
-    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Confirmar Cita</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>Fecha:</strong> <span id="confirm_date"></span></p>
-                    <p><strong>Hora:</strong> <span id="confirm_time"></span></p>
-                    <p><strong>Abogado:</strong> <span id="confirm_lawyer"></span></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" form="appointmentForm" class="btn btn-success">Confirmar</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     @include('tenants.default.layouts.footer')
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        document.getElementById('appointment_date').addEventListener('change', function() {
-            const date = this.value;
-            const slotsContainer = document.getElementById('available_slots');
-            document.getElementById('appointmentForm').style.display = 'none';
-            slotsContainer.innerHTML = '<span class="text-muted">Cargando horarios...</span>';
+    document.addEventListener('DOMContentLoaded', function () {
+        const calendarEl = document.getElementById('calendar');
+        const modal = new bootstrap.Modal(document.getElementById('dayModal'));
+        const modalDateInput = document.getElementById('modal-date-input');
+        const modalDateTitle = document.getElementById('dayModalLabel');
+        const slotsList = document.getElementById('slots-list-modal');
 
-            fetch(`/api/available-hours?date=${date}`)
-                .then(res => res.json())
-                .then(data => {
-                    slotsContainer.innerHTML = '';
-                    if (!data.length) {
-                        slotsContainer.innerHTML =
-                            '<span class="text-danger">No hay horarios disponibles.</span>';
-                        return;
-                    }
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            initialDate: new Date(),
+            locale: 'es',
+            height: 600,
+            eventOrder: "start,-duration,allDay,title",
+            dayMaxEvents: 1,
+            eventDisplay: 'block',
 
-                    data.forEach(slot => {
-                        const label = document.createElement('label');
-                        label.className = 'btn btn-outline-dark';
-                        label.innerHTML = `
-                        <input type="radio" name="slot_option" value="${slot.slot_id}" data-time="${slot.start_time}" data-lawyer="${slot.lawyer_name}">
-                        ${slot.start_time.slice(0,5)} - ${slot.end_time.slice(0,5)}
-                    `;
+            moreLinkContent: function(args) {
+                return { html: `<span class="more-badge">+${args.num} más</span>` };
+            },
 
-                        if (!slot.available) {
-                            label.classList.add('disabled');
-                            label.innerHTML += ' <small class="text-danger">(Reservada)</small>';
-                            label.querySelector('input').disabled = true;
+            selectable: true,
+            dayHeaders: true,
+            dayHeaderFormat: { weekday: 'long' },
+            titleFormat: { year: 'numeric', month: 'long' },
+
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: ''
+            },
+
+            events: '/api/slots', // Reutiliza misma API del abogado
+
+            dayCellDidMount: function (info) {
+                const cellDate = new Date(info.date);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                if (cellDate < today) {
+                    info.el.style.backgroundColor = '#eeeeee';
+                    info.el.style.opacity = '0.5';
+                    info.el.style.cursor = 'not-allowed';
+                    info.el.classList.add('fc-disabled-day');
+                }
+            },
+
+            dateClick: function (info) {
+                const selectedDate = new Date(info.date);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                selectedDate.setHours(0, 0, 0, 0);
+                if (selectedDate < today) return;
+
+                const date = info.dateStr;
+                const opcionesFecha = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const fechaFormateada = selectedDate.toLocaleDateString('es-CL', opcionesFecha);
+                modalDateTitle.textContent = `Horarios para el ${fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1)}`;
+                modalDateInput.value = date;
+                slotsList.innerHTML = `<p class="text-muted">Cargando horarios...</p>`;
+                modal.show();
+
+                fetch(`/api/slots?date=${date}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        slotsList.innerHTML = '';
+                        if (data.length === 0) {
+                            slotsList.innerHTML = '<p class="text-muted">No se registran horarios disponibles.</p>';
                         } else {
-                            label.querySelector('input').addEventListener('change', () => {
-                                document.getElementById('selected_slot_id').value = slot
-                                .slot_id;
-                                document.getElementById('appointmentForm').style.display =
-                                    'block';
-                                document.getElementById('confirm_date').textContent = date;
-                                document.getElementById('confirm_time').textContent = slot
-                                    .start_time.slice(0, 5);
-                                document.getElementById('confirm_lawyer').textContent = slot
-                                    .lawyer_name;
+                            data.sort((a, b) => a.start_time.localeCompare(b.start_time));
+                            data.forEach(slot => {
+                                slotsList.innerHTML += `
+                                    <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                                        <div><strong>${slot.start_time} - ${slot.end_time}</strong></div>
+                                        <a href="/agenda/confirmar?slot_id=${slot.id}" class="btn btn-sm btn-primary" title="Agendar este horario">Agendar</a>
+                                        </a>
+                                    </div>
+                                `;
                             });
                         }
-
-                        slotsContainer.appendChild(label);
                     });
-                });
+            }
         });
 
-        document.getElementById('showConfirmation').addEventListener('click', function() {
-            new bootstrap.Modal(document.getElementById('confirmationModal')).show();
-        });
+        calendar.render();
+    });
     </script>
+
 @endsection
