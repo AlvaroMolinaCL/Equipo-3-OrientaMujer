@@ -127,7 +127,8 @@
                                 @foreach ($presetStyles as $key => $palette)
                                     <div class="col">
                                         <div class="palette-card card h-100 border-0 shadow-sm hover-shadow transition-all"
-                                            style="cursor: pointer;" data-key="{{ $key }}" data-palette='@json($palette)'
+                                            style="cursor: pointer;" data-key="{{ $key }}"
+                                            data-palette='@json($palette)'
                                             title="Seleccionar paleta {{ $palette['label'] }}">
                                             <div class="card-header py-2"
                                                 style="background-color: {{ $palette['navbar_color_1'] }}; color: {{ $palette['navbar_text_color_1'] }};">
@@ -138,7 +139,8 @@
                                                 <div class="d-flex flex-wrap gap-1 mb-2">
                                                     @foreach (['navbar_color_1', 'button_color_sidebar', 'color_metrics', 'color_tables'] as $colorKey)
                                                         <div style="width: 40px; height: 40px; background-color: {{ $palette[$colorKey] }}; border: 1px solid rgba(0,0,0,0.1); border-radius: 4px;"
-                                                            class="shadow-sm" title="{{ $colorKey }}: {{ $palette[$colorKey] }}">
+                                                            class="shadow-sm"
+                                                            title="{{ $colorKey }}: {{ $palette[$colorKey] }}">
                                                         </div>
                                                     @endforeach
                                                 </div>
@@ -204,7 +206,8 @@
                                                                     class="img-fluid rounded border mb-2"
                                                                     style="max-height: 150px; background-color: {{ $tenant->background_color_1 }};{{ !$tenant->logo_path_1 ? 'display: none;' : '' }}">
                                                                 <!-- Mensaje cuando no hay imagen -->
-                                                                <p id="noLogo1Text" class="text-muted mb-2" {{ $tenant->logo_path_1 ? 'style=display:none;' : '' }}>
+                                                                <p id="noLogo1Text" class="text-muted mb-2"
+                                                                    {{ $tenant->logo_path_1 ? 'style=display:none;' : '' }}>
                                                                     No hay logo principal cargado
                                                                 </p>
                                                             </div>
@@ -213,7 +216,8 @@
                                                                 logo</label>
                                                             <input type="file" class="form-control" id="logo_1"
                                                                 name="logo_1" accept="image/*">
-                                                            <div class="form-text">Formatos aceptados: JPG, PNG, SVG. Tamaño
+                                                            <div class="form-text">Formatos aceptados: JPG, PNG, SVG.
+                                                                Tamaño
                                                                 máximo: 2MB</div>
                                                         </div>
 
@@ -228,7 +232,8 @@
                                                                     class="img-fluid rounded border mb-2"
                                                                     style="max-height: 150px; background-color: {{ $tenant->background_color_2 }};{{ !$tenant->logo_path_2 ? 'display: none;' : '' }}">
                                                                 <!-- Mensaje cuando no hay imagen -->
-                                                                <p id="noLogo2Text" class="text-muted mb-2" {{ $tenant->logo_path_2 ? 'style=display:none;' : '' }}>
+                                                                <p id="noLogo2Text" class="text-muted mb-2"
+                                                                    {{ $tenant->logo_path_2 ? 'style=display:none;' : '' }}>
                                                                     No hay logo secundario cargado
                                                                 </p>
                                                             </div>
@@ -237,7 +242,8 @@
                                                                 logo</label>
                                                             <input type="file" class="form-control" id="logo_2"
                                                                 name="logo_2" accept="image/*">
-                                                            <div class="form-text">Formatos aceptados: JPG, PNG, SVG. Tamaño
+                                                            <div class="form-text">Formatos aceptados: JPG, PNG, SVG.
+                                                                Tamaño
                                                                 máximo: 2MB</div>
                                                         </div>
                                                     </div>
@@ -267,7 +273,8 @@
                                                             <div class="input-group">
                                                                 <span class="input-group-text"><i
                                                                         class="bi bi-droplet"></i></span>
-                                                                <input type="color" class="form-control form-control-color"
+                                                                <input type="color"
+                                                                    class="form-control form-control-color"
                                                                     id="background_color_1" name="background_color_1"
                                                                     value="{{ old('background_color_1', $tenant->background_color_1) }}">
                                                             </div>
@@ -280,7 +287,8 @@
                                                             <div class="input-group">
                                                                 <span class="input-group-text"><i
                                                                         class="bi bi-fonts"></i></span>
-                                                                <input type="color" class="form-control form-control-color"
+                                                                <input type="color"
+                                                                    class="form-control form-control-color"
                                                                     id="text_color_1" name="text_color_1"
                                                                     value="{{ old('text_color_1', $tenant->text_color_1) }}">
                                                             </div>
@@ -293,7 +301,8 @@
                                                             <div class="input-group">
                                                                 <span class="input-group-text"><i
                                                                         class="bi bi-droplet"></i></span>
-                                                                <input type="color" class="form-control form-control-color"
+                                                                <input type="color"
+                                                                    class="form-control form-control-color"
                                                                     id="background_color_2" name="background_color_2"
                                                                     value="{{ old('background_color_2', $tenant->background_color_2) }}">
                                                             </div>
@@ -306,7 +315,8 @@
                                                             <div class="input-group">
                                                                 <span class="input-group-text"><i
                                                                         class="bi bi-fonts"></i></span>
-                                                                <input type="color" class="form-control form-control-color"
+                                                                <input type="color"
+                                                                    class="form-control form-control-color"
                                                                     id="text_color_2" name="text_color_2"
                                                                     value="{{ old('text_color_2', $tenant->text_color_2) }}">
                                                             </div>
@@ -319,7 +329,8 @@
                                                             <div class="input-group">
                                                                 <span class="input-group-text"><i
                                                                         class="bi bi-border-width"></i></span>
-                                                                <input type="color" class="form-control form-control-color"
+                                                                <input type="color"
+                                                                    class="form-control form-control-color"
                                                                     id="navbar_color_1" name="navbar_color_1"
                                                                     value="{{ old('navbar_color_1', $tenant->navbar_color_1) }}">
                                                             </div>
@@ -332,7 +343,8 @@
                                                             <div class="input-group">
                                                                 <span class="input-group-text"><i
                                                                         class="bi bi-type"></i></span>
-                                                                <input type="color" class="form-control form-control-color"
+                                                                <input type="color"
+                                                                    class="form-control form-control-color"
                                                                     id="navbar_text_color_1" name="navbar_text_color_1"
                                                                     value="{{ old('navbar_text_color_1', $tenant->navbar_text_color_1) }}">
                                                             </div>
@@ -345,20 +357,22 @@
                                                             <div class="input-group">
                                                                 <span class="input-group-text"><i
                                                                         class="bi bi-border-width"></i></span>
-                                                                <input type="color" class="form-control form-control-color"
+                                                                <input type="color"
+                                                                    class="form-control form-control-color"
                                                                     id="navbar_color_2" name="navbar_color_2"
                                                                     value="{{ old('navbar_color_2', $tenant->navbar_color_2) }}">
                                                             </div>
                                                         </div>
 
-                                                        {{-- Texto Navbar 2--}}
+                                                        {{-- Texto Navbar 2 --}}
                                                         <div class="col-md-6 col-lg-4">
                                                             <label for="navbar_text_color_2" class="form-label">Texto de
                                                                 Navbar</label>
                                                             <div class="input-group">
                                                                 <span class="input-group-text"><i
                                                                         class="bi bi-type"></i></span>
-                                                                <input type="color" class="form-control form-control-color"
+                                                                <input type="color"
+                                                                    class="form-control form-control-color"
                                                                     id="navbar_text_color_2" name="navbar_text_color_2"
                                                                     value="{{ old('navbar_text_color_2', $tenant->navbar_text_color_2) }}">
                                                             </div>
@@ -371,7 +385,8 @@
                                                             <div class="input-group">
                                                                 <span class="input-group-text"><i
                                                                         class="bi bi-toggle-on"></i></span>
-                                                                <input type="color" class="form-control form-control-color"
+                                                                <input type="color"
+                                                                    class="form-control form-control-color"
                                                                     id="button_color_sidebar" name="button_color_sidebar"
                                                                     value="{{ old('button_color_sidebar', $tenant->button_color_sidebar) }}">
                                                             </div>
@@ -384,7 +399,8 @@
                                                             <div class="input-group">
                                                                 <span class="input-group-text"><i
                                                                         class="bi bi-toggle-on"></i></span>
-                                                                <input type="color" class="form-control form-control-color"
+                                                                <input type="color"
+                                                                    class="form-control form-control-color"
                                                                     id="color_metrics" name="color_metrics"
                                                                     value="{{ old('color_metrics', $tenant->color_metrics) }}">
                                                             </div>
@@ -397,7 +413,8 @@
                                                             <div class="input-group">
                                                                 <span class="input-group-text"><i
                                                                         class="bi bi-toggle-on"></i></span>
-                                                                <input type="color" class="form-control form-control-color"
+                                                                <input type="color"
+                                                                    class="form-control form-control-color"
                                                                     id="color_tables" name="color_tables"
                                                                     value="{{ old('color_tables', $tenant->color_tables) }}">
                                                             </div>
@@ -424,15 +441,22 @@
                                                     <div class="row g-3">
                                                         <div class="col-md-4">
                                                             <label for="navbar_font" class="form-label">Navbar</label>
-                                                            <select class="form-select" id="navbar_font" name="navbar_font">
-                                                                <option value="Arial" {{ $tenant->navbar_font == 'Arial' ? 'selected' : '' }}>
+                                                            <select class="form-select" id="navbar_font"
+                                                                name="navbar_font">
+                                                                <option value="Arial"
+                                                                    {{ $tenant->navbar_font == 'Arial' ? 'selected' : '' }}>
                                                                     Arial</option>
-                                                                <option value="Roboto" {{ $tenant->navbar_font == 'Roboto' ? 'selected' : '' }}>
+                                                                <option value="Roboto"
+                                                                    {{ $tenant->navbar_font == 'Roboto' ? 'selected' : '' }}>
                                                                     Roboto</option>
-                                                                <option value="Open Sans" {{ $tenant->navbar_font == 'Open Sans' ? 'selected' : '' }}>Open Sans</option>
-                                                                <option value="Montserrat" {{ $tenant->navbar_font == 'Montserrat' ? 'selected' : '' }}>
+                                                                <option value="Open Sans"
+                                                                    {{ $tenant->navbar_font == 'Open Sans' ? 'selected' : '' }}>
+                                                                    Open Sans</option>
+                                                                <option value="Montserrat"
+                                                                    {{ $tenant->navbar_font == 'Montserrat' ? 'selected' : '' }}>
                                                                     Montserrat
-                                                                <option value="Courier Prime" {{ $tenant->navbar_font == 'Courier Prime' ? 'selected' : '' }}>
+                                                                <option value="Courier Prime"
+                                                                    {{ $tenant->navbar_font == 'Courier Prime' ? 'selected' : '' }}>
                                                                     Courier Prime
                                                                 </option>
                                                                 </option>
@@ -443,15 +467,21 @@
                                                             <label for="heading_font" class="form-label">Títulos</label>
                                                             <select class="form-select" id="heading_font"
                                                                 name="heading_font">
-                                                                <option value="Arial" {{ $tenant->heading_font == 'Arial' ? 'selected' : '' }}>
+                                                                <option value="Arial"
+                                                                    {{ $tenant->heading_font == 'Arial' ? 'selected' : '' }}>
                                                                     Arial</option>
-                                                                <option value="Roboto" {{ $tenant->heading_font == 'Roboto' ? 'selected' : '' }}>
+                                                                <option value="Roboto"
+                                                                    {{ $tenant->heading_font == 'Roboto' ? 'selected' : '' }}>
                                                                     Roboto</option>
-                                                                <option value="Open Sans" {{ $tenant->heading_font == 'Open Sans' ? 'selected' : '' }}>Open Sans</option>
-                                                                <option value="Montserrat" {{ $tenant->heading_font == 'Montserrat' ? 'selected' : '' }}>
+                                                                <option value="Open Sans"
+                                                                    {{ $tenant->heading_font == 'Open Sans' ? 'selected' : '' }}>
+                                                                    Open Sans</option>
+                                                                <option value="Montserrat"
+                                                                    {{ $tenant->heading_font == 'Montserrat' ? 'selected' : '' }}>
                                                                     Montserrat
                                                                 </option>
-                                                                <option value="Courier Prime" {{ $tenant->navbar_font == 'Courier Prime' ? 'selected' : '' }}>
+                                                                <option value="Courier Prime"
+                                                                    {{ $tenant->navbar_font == 'Courier Prime' ? 'selected' : '' }}>
                                                                     Courier Prime
                                                                 </option>
                                                             </select>
@@ -460,14 +490,21 @@
                                                         <div class="col-md-4">
                                                             <label for="body_font" class="form-label">Cuerpo</label>
                                                             <select class="form-select" id="body_font" name="body_font">
-                                                                <option value="Arial" {{ $tenant->body_font == 'Arial' ? 'selected' : '' }}>Arial
+                                                                <option value="Arial"
+                                                                    {{ $tenant->body_font == 'Arial' ? 'selected' : '' }}>
+                                                                    Arial
                                                                 </option>
-                                                                <option value="Roboto" {{ $tenant->body_font == 'Roboto' ? 'selected' : '' }}>
+                                                                <option value="Roboto"
+                                                                    {{ $tenant->body_font == 'Roboto' ? 'selected' : '' }}>
                                                                     Roboto</option>
-                                                                <option value="Open Sans" {{ $tenant->body_font == 'Open Sans' ? 'selected' : '' }}>Open Sans</option>
-                                                                <option value="Montserrat" {{ $tenant->body_font == 'Montserrat' ? 'selected' : '' }}>
+                                                                <option value="Open Sans"
+                                                                    {{ $tenant->body_font == 'Open Sans' ? 'selected' : '' }}>
+                                                                    Open Sans</option>
+                                                                <option value="Montserrat"
+                                                                    {{ $tenant->body_font == 'Montserrat' ? 'selected' : '' }}>
                                                                     Montserrat</option>
-                                                                    <option value="Courier Prime" {{ $tenant->navbar_font == 'Courier Prime' ? 'selected' : '' }}>
+                                                                <option value="Courier Prime"
+                                                                    {{ $tenant->navbar_font == 'Courier Prime' ? 'selected' : '' }}>
                                                                     Courier Prime
                                                                 </option>
                                                             </select>
@@ -506,7 +543,8 @@
                                     @csrf
                                     @method('PUT')
 
-                                    <h4 class="h6 mb-3"><i class="bi bi-card-heading me-2"></i>Textos e Imágenes Principales
+                                    <h4 class="h6 mb-3"><i class="bi bi-card-heading me-2"></i>Textos e Imágenes
+                                        Principales
                                     </h4>
 
                                     <!-- Nav Tabs -->
@@ -517,11 +555,13 @@
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="servicios-tab" data-bs-toggle="tab"
-                                                data-bs-target="#servicios" type="button" role="tab">Servicios</button>
+                                                data-bs-target="#servicios" type="button"
+                                                role="tab">Servicios</button>
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="contacto-tab" data-bs-toggle="tab"
-                                                data-bs-target="#contacto" type="button" role="tab">Sobre mí</button>
+                                                data-bs-target="#contacto" type="button" role="tab">Sobre
+                                                mí</button>
                                         </li>
                                     </ul>
 
@@ -532,9 +572,9 @@
                                         <div class="tab-pane fade show active" id="inicio" role="tabpanel">
                                             <!-- Slogan -->
                                             <div class="mb-3">
-                                                <label for="slogan_text" class="form-label"><strong>Slogan</strong></label>
-                                                <textarea class="form-control summernote" name="slogan_text"
-                                                    id="slogan_text" rows="2"
+                                                <label for="slogan_text"
+                                                    class="form-label"><strong>Slogan</strong></label>
+                                                <textarea class="form-control summernote" name="slogan_text" id="slogan_text" rows="2"
                                                     placeholder="Ej: Innovación y calidad">{!! old('slogan_text', tenantText('slogan_text', 'La información es poder, <strong>¡empodérate!</strong>')) !!}</textarea>
                                             </div>
 
@@ -542,16 +582,15 @@
                                             <div class="mb-3">
                                                 <label for="slogan_body" class="form-label"><strong>Cuerpo del
                                                         slogan</strong></label>
-                                                <textarea class="form-control summernote" name="slogan_body"
-                                                    id="slogan_body" rows="2"
+                                                <textarea class="form-control summernote" name="slogan_body" id="slogan_body" rows="2"
                                                     placeholder="Ej: Más de 20 años brindando soluciones">{{ old('slogan_body', tenantText('slogan_body', 'Una representación judicial con perspectiva de género, exige un acompañamiento empático e informado para alivianar las cargas del proceso.')) }}</textarea>
                                             </div>
 
                                             <div class="mb-3">
                                                 <label for="banner_path" class="form-label"><strong>Imagen
                                                         Banner</strong></label>
-                                                <input type="file" class="form-control" name="banner_path" id="banner_path"
-                                                    accept="image/*">
+                                                <input type="file" class="form-control" name="banner_path"
+                                                    id="banner_path" accept="image/*">
                                                 <div class="mt-2 text-center">
                                                     <img id="previewBanner"
                                                         src="{{ asset('images/banner/' . tenantSetting('banner_path', 'Banner_1_(Predeterminado).png')) }}"
@@ -563,7 +602,7 @@
                                                         Vista previa del banner
                                                     </p>
                                                 </div>
-                                                <div class="form-text">Recomendado: 1200x400px, formato JPG o PNG. Máx. 5MB
+                                                <div class="form-text">Recomendado: 1200x400px, formato JPG o PNG. Máx. 2MB
                                                 </div>
                                             </div>
 
@@ -571,19 +610,24 @@
                                             <div class="mb-3">
                                                 <label for="about_text" class="form-label"><strong>Sobre
                                                         Nosotros</strong></label>
-                                                <textarea class="form-control summernote" name="about_text" id="about_text"
-                                                    rows="6"
-                                                    placeholder="Escribe tu contenido aquí...">{{ old('about_text', tenantText('about_text', '
-                                                                                                                                                            <p style="text-align: justify;">
-                                                                                                                                                                Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.
-                                                                                                                                                            </p>
-                                                                                                                                                            <p style="text-align: justify;">
-                                                                                                                                                                Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.
-                                                                                                                                                            </p>
-                                                                                                                                                            <p style="text-align: justify;">
-                                                                                                                                                                Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.
-                                                                                                                                                            </p>
-                                                                                                                                                            ')) }}</textarea>
+                                                <textarea class="form-control summernote" name="about_text" id="about_text" rows="6"
+                                                    placeholder="Escribe tu contenido aquí...">{{ old(
+                                                        'about_text',
+                                                        tenantText(
+                                                            'about_text',
+                                                            '
+                                                                                                                                                                                                                <p style="text-align: justify;">
+                                                                                                                                                                                                                    Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.
+                                                                                                                                                                                                                </p>
+                                                                                                                                                                                                                <p style="text-align: justify;">
+                                                                                                                                                                                                                    Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.
+                                                                                                                                                                                                                </p>
+                                                                                                                                                                                                                <p style="text-align: justify;">
+                                                                                                                                                                                                                    Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.
+                                                                                                                                                                                                                </p>
+                                                                                                                                                                                                                ',
+                                                        ),
+                                                    ) }}</textarea>
                                             </div>
 
                                             <!-- Servicios -->
@@ -601,9 +645,14 @@
                                                 <label for="service1_body" class="form-label">
                                                     <strong>Descripción Servicio 1</strong>
                                                 </label>
-                                                <textarea class="form-control summernote" name="service1_body"
-                                                    id="service1_body" rows="4"
-                                                    placeholder="Descripción del servicio 1">{!! old('service1_body', tenantText('service1_body', '<p style="text-align: justify;">Te ofrezco un servicio de orientación legal para identificar el escenario jurídico que enfrentas.</p>')) !!}</textarea>
+                                                <textarea class="form-control summernote" name="service1_body" id="service1_body" rows="4"
+                                                    placeholder="Descripción del servicio 1">{!! old(
+                                                        'service1_body',
+                                                        tenantText(
+                                                            'service1_body',
+                                                            '<p style="text-align: justify;">Te ofrezco un servicio de orientación legal para identificar el escenario jurídico que enfrentas.</p>',
+                                                        ),
+                                                    ) !!}</textarea>
                                             </div>
 
                                             <!-- Servicio 2 -->
@@ -620,9 +669,14 @@
                                                 <label for="service2_body" class="form-label">
                                                     <strong>Descripción Servicio 2</strong>
                                                 </label>
-                                                <textarea class="form-control summernote" name="service2_body"
-                                                    id="service2_body" rows="4"
-                                                    placeholder="Descripción del servicio 2">{!! old('service2_body', tenantText('service2_body', '<p style="text-align: justify;">Te represento en procesos judiciales penales, de familia u otras materias.</p>')) !!}</textarea>
+                                                <textarea class="form-control summernote" name="service2_body" id="service2_body" rows="4"
+                                                    placeholder="Descripción del servicio 2">{!! old(
+                                                        'service2_body',
+                                                        tenantText(
+                                                            'service2_body',
+                                                            '<p style="text-align: justify;">Te represento en procesos judiciales penales, de familia u otras materias.</p>',
+                                                        ),
+                                                    ) !!}</textarea>
                                             </div>
 
                                             <!-- Servicio 3 -->
@@ -639,9 +693,14 @@
                                                 <label for="service3_body" class="form-label">
                                                     <strong>Descripción Servicio 3</strong>
                                                 </label>
-                                                <textarea class="form-control summernote" name="service3_body"
-                                                    id="service3_body" rows="4"
-                                                    placeholder="Descripción del servicio 3">{!! old('service3_body', tenantText('service3_body', '<p style="text-align: justify;">Realizo talleres, charlas y capacitaciones para grupos en contextos académicos, laborales o comunitarios.</p>')) !!}</textarea>
+                                                <textarea class="form-control summernote" name="service3_body" id="service3_body" rows="4"
+                                                    placeholder="Descripción del servicio 3">{!! old(
+                                                        'service3_body',
+                                                        tenantText(
+                                                            'service3_body',
+                                                            '<p style="text-align: justify;">Realizo talleres, charlas y capacitaciones para grupos en contextos académicos, laborales o comunitarios.</p>',
+                                                        ),
+                                                    ) !!}</textarea>
                                             </div>
                                         </div>
 
@@ -662,18 +721,23 @@
                                                 <label for="body_service_1" class="form-label">
                                                     <strong>Descripción Servicio 1</strong>
                                                 </label>
-                                                <textarea class="form-control summernote" name="body_service_1"
-                                                    id="body_service_1" rows="6"
-                                                    placeholder="Descripción del servicio 1">{!! old('body_service_1', tenantText('body_service_1', '
-                                                                                                                                                        <p style="text-align: justify;">Te ofrezco un servicio de orientación legal para identificar el escenario jurídico que enfrentas.</p>
-                                                                                                                                                        <p style="text-align: justify;">Conocerás:</p>
-                                                                                                                                                        <ul>
-                                                                                                                                                            <li style="text-align: justify;">La procedencia de acciones judiciales en materias de violencia contra la mujer.</li>
-                                                                                                                                                            <li style="text-align: justify;">Pasos a seguir para iniciar procedimientos judiciales.</li>
-                                                                                                                                                            <li style="text-align: justify;">Análisis de la necesidad de representación privada o derivación a organismos públicos.</li>
-                                                                                                                                                            <li style="text-align: justify;">Explicación clara de la dinámica de los procesos en derecho penal, familia y otras áreas.</li>
-                                                                                                                                                            <li style="text-align: justify;">Derivación segura a abogadas especializadas si así lo requieres.</li>
-                                                                                                                                                        </ul>')) !!}</textarea>
+                                                <textarea class="form-control summernote" name="body_service_1" id="body_service_1" rows="6"
+                                                    placeholder="Descripción del servicio 1">{!! old(
+                                                        'body_service_1',
+                                                        tenantText(
+                                                            'body_service_1',
+                                                            '
+                                                                                                                                                                                                            <p style="text-align: justify;">Te ofrezco un servicio de orientación legal para identificar el escenario jurídico que enfrentas.</p>
+                                                                                                                                                                                                            <p style="text-align: justify;">Conocerás:</p>
+                                                                                                                                                                                                            <ul>
+                                                                                                                                                                                                                <li style="text-align: justify;">La procedencia de acciones judiciales en materias de violencia contra la mujer.</li>
+                                                                                                                                                                                                                <li style="text-align: justify;">Pasos a seguir para iniciar procedimientos judiciales.</li>
+                                                                                                                                                                                                                <li style="text-align: justify;">Análisis de la necesidad de representación privada o derivación a organismos públicos.</li>
+                                                                                                                                                                                                                <li style="text-align: justify;">Explicación clara de la dinámica de los procesos en derecho penal, familia y otras áreas.</li>
+                                                                                                                                                                                                                <li style="text-align: justify;">Derivación segura a abogadas especializadas si así lo requieres.</li>
+                                                                                                                                                                                                            </ul>',
+                                                        ),
+                                                    ) !!}</textarea>
                                             </div>
 
                                             <!-- Títulos y Descripciones de Servicio 2 -->
@@ -691,16 +755,21 @@
                                                 <label for="body_service_2" class="form-label">
                                                     <strong>Descripción Servicio 2</strong>
                                                 </label>
-                                                <textarea class="form-control summernote" name="body_service_2"
-                                                    id="body_service_2" rows="6"
-                                                    placeholder="Descripción del servicio 2">{!! old('body_service_2', tenantText('body_service_2', '
-                                                                                                                                                    <p style="text-align: justify;">Te represento en procesos judiciales penales, de familia u otras materias, comprometiéndome a:</p>
-                                                                                                                                                    <ul>
-                                                                                                                                                        <li style="text-align: justify;">Diseñar contigo la estrategia de defensa o acción.</li>
-                                                                                                                                                        <li style="text-align: justify;">Representar tus intereses bajo perspectiva de género, territorio, interculturalidad, derechos humanos, según corresponda.</li>
-                                                                                                                                                        <li style="text-align: justify;">Informarte en cada etapa, asegurando tu participación activa en la toma de decisiones.</li>
-                                                                                                                                                    </ul>
-                                                                                                                                                ')) !!}</textarea>
+                                                <textarea class="form-control summernote" name="body_service_2" id="body_service_2" rows="6"
+                                                    placeholder="Descripción del servicio 2">{!! old(
+                                                        'body_service_2',
+                                                        tenantText(
+                                                            'body_service_2',
+                                                            '
+                                                                                                                                                                                                        <p style="text-align: justify;">Te represento en procesos judiciales penales, de familia u otras materias, comprometiéndome a:</p>
+                                                                                                                                                                                                        <ul>
+                                                                                                                                                                                                            <li style="text-align: justify;">Diseñar contigo la estrategia de defensa o acción.</li>
+                                                                                                                                                                                                            <li style="text-align: justify;">Representar tus intereses bajo perspectiva de género, territorio, interculturalidad, derechos humanos, según corresponda.</li>
+                                                                                                                                                                                                            <li style="text-align: justify;">Informarte en cada etapa, asegurando tu participación activa en la toma de decisiones.</li>
+                                                                                                                                                                                                        </ul>
+                                                                                                                                                                                                    ',
+                                                        ),
+                                                    ) !!}</textarea>
                                             </div>
 
                                             <!-- Títulos y Descripciones de Servicio 3 -->
@@ -718,17 +787,22 @@
                                                 <label for="body_service_3" class="form-label">
                                                     <strong>Descripción Servicio 3</strong>
                                                 </label>
-                                                <textarea class="form-control summernote" name="body_service_3"
-                                                    id="body_service_3" rows="6"
-                                                    placeholder="Descripción del servicio 3">{!! old('body_service_3', tenantText('body_service_3', '
-                                                                                                                                                    <p style="text-align: justify;">Realizo talleres, charlas y capacitaciones para grupos en contextos académicos, laborales o comunitarios.</p>
-                                                                                                                                                    <p style="text-align: justify;">Temáticas abordadas:</p>
-                                                                                                                                                    <ul>
-                                                                                                                                                        <li style="text-align: justify;">Sensibilización en género.</li>
-                                                                                                                                                        <li style="text-align: justify;">Normativa nacional e internacional sobre derechos humanos, género y otras materias.</li>
-                                                                                                                                                        <li style="text-align: justify;">Funcionamiento práctico de los procedimientos judiciales.</li>
-                                                                                                                                                    </ul>
-                                                                                                                                                ')) !!}</textarea>
+                                                <textarea class="form-control summernote" name="body_service_3" id="body_service_3" rows="6"
+                                                    placeholder="Descripción del servicio 3">{!! old(
+                                                        'body_service_3',
+                                                        tenantText(
+                                                            'body_service_3',
+                                                            '
+                                                                                                                                                                                                        <p style="text-align: justify;">Realizo talleres, charlas y capacitaciones para grupos en contextos académicos, laborales o comunitarios.</p>
+                                                                                                                                                                                                        <p style="text-align: justify;">Temáticas abordadas:</p>
+                                                                                                                                                                                                        <ul>
+                                                                                                                                                                                                            <li style="text-align: justify;">Sensibilización en género.</li>
+                                                                                                                                                                                                            <li style="text-align: justify;">Normativa nacional e internacional sobre derechos humanos, género y otras materias.</li>
+                                                                                                                                                                                                            <li style="text-align: justify;">Funcionamiento práctico de los procedimientos judiciales.</li>
+                                                                                                                                                                                                        </ul>
+                                                                                                                                                                                                    ',
+                                                        ),
+                                                    ) !!}</textarea>
                                             </div>
 
                                             <!-- Imágenes de Servicios -->
@@ -793,38 +867,48 @@
                                             <!-- Sobre mi-->
                                             <div class="mb-3">
                                                 <label for="about_us" class="form-label"><strong>Sobre mí</strong></label>
-                                                <textarea class="form-control summernote" name="about_us" id="about_us"
-                                                    rows="10">{!! old('about_us', tenantText('about_us', '
-                                                                                                                                <p style="text-align: justify;">Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.</p>
-                                                                                                                                <p style="text-align: justify;">Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.</p>
-                                                                                                                                <p style="text-align: justify;">Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.</p>
-                                                                                                                                <p style="text-align: justify;"><strong>"La información es poder, empodérate"</strong></p>
-                                                                                                                            ')) !!}</textarea>
+                                                <textarea class="form-control summernote" name="about_us" id="about_us" rows="10">{!! old(
+                                                    'about_us',
+                                                    tenantText(
+                                                        'about_us',
+                                                        '
+                                                                                                                                                                                <p style="text-align: justify;">Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.</p>
+                                                                                                                                                                                <p style="text-align: justify;">Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.</p>
+                                                                                                                                                                                <p style="text-align: justify;">Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.</p>
+                                                                                                                                                                                <p style="text-align: justify;"><strong>"La información es poder, empodérate"</strong></p>
+                                                                                                                                                                            ',
+                                                    ),
+                                                ) !!}</textarea>
                                             </div>
                                             <!-- experience -->
                                             <div class="mb-3">
                                                 <label for="experience"
                                                     class="form-label"><strong>Experiencia</strong></label>
-                                                <textarea class="form-control summernote" name="experience" id="experience"
-                                                    rows="7">{!! old('experience', tenantText('experience', '
-                                                                                                                                <ul class="fade-in-section">
-                                                                                                                                    <li>Abogada titulada por la Universidad de Concepción.</li>
-                                                                                                                                    <li>Magíster en Derecho Penal y Derecho Procesal Penal, Universidad Católica del Norte (en curso).</li>
-                                                                                                                                    <li>Diplomada en Derechos Humanos y Función Pública, Universidad de Los Lagos e Instituto Nacional de Derechos Humanos.</li>
-                                                                                                                                </ul>
-                                                                                                                            ')) !!}</textarea>
+                                                <textarea class="form-control summernote" name="experience" id="experience" rows="7">{!! old(
+                                                    'experience',
+                                                    tenantText(
+                                                        'experience',
+                                                        '
+                                                                                                                                                                                <ul class="fade-in-section">
+                                                                                                                                                                                    <li>Abogada titulada por la Universidad de Concepción.</li>
+                                                                                                                                                                                    <li>Magíster en Derecho Penal y Derecho Procesal Penal, Universidad Católica del Norte (en curso).</li>
+                                                                                                                                                                                    <li>Diplomada en Derechos Humanos y Función Pública, Universidad de Los Lagos e Instituto Nacional de Derechos Humanos.</li>
+                                                                                                                                                                                </ul>
+                                                                                                                                                                            ',
+                                                    ),
+                                                ) !!}</textarea>
                                             </div>
 
                                             <!-- Imagen Sobre Nosotros -->
                                             <div class="mb-3">
                                                 <p class="text-muted small mb-4">
-                                                    ⚠️ Esta imágen también se muestran en la página de inicio. Si la cambias
+                                                    ⚠️ Estas imágenes también se muestran en la página de inicio. Si la cambias
                                                     aquí, se actualizará automáticamente en el inicio.
                                                 </p>
                                                 <label for="about_path" class="form-label"><strong>Imagen Sobre
                                                         Nosotros</strong></label>
-                                                <input type="file" class="form-control" name="about_path" id="about_path"
-                                                    accept="image/*">
+                                                <input type="file" class="form-control" name="about_path"
+                                                    id="about_path" accept="image/*">
                                                 <div class="mt-2 text-center">
                                                     <img id="preview_about"
                                                         src="{{ asset('images/about/' . tenantSetting('about_path', 'about_(Predeterminado).png')) }}"
@@ -895,7 +979,7 @@
     </style>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // Configuración para imagenes
             setupImagePreview('logo_1', 'previewLogo1', 'noLogo1Text');
             setupImagePreview('logo_2', 'previewLogo2', 'noLogo2Text');
@@ -920,26 +1004,28 @@
                         if (noImageText) noImageText.style.display = 'block';
                     }
 
-                    input.addEventListener('change', function () {
+                    input.addEventListener('change', function() {
                         if (this.files && this.files[0]) {
                             // Validar el tipo de archivo
-                            const validTypes = ['image/jpeg', 'image/png', 'image/svg+xml', 'image/gif', 'image/webp'];
+                            const validTypes = ['image/jpeg', 'image/png', 'image/svg+xml', 'image/gif',
+                                'image/webp'
+                            ];
                             if (!validTypes.includes(this.files[0].type)) {
                                 alert('Por favor selecciona una imagen válida (JPG, PNG, SVG, GIF o WebP)');
                                 this.value = '';
                                 return;
                             }
 
-                            // Validar el tamaño (5MB máximo)
-                            if (this.files[0].size > 5 * 1024 * 1024) {
-                                alert('La imagen es demasiado grande. El tamaño máximo permitido es 5MB');
+                            // Validar el tamaño (2MB máximo)
+                            if (this.files[0].size > 2 * 1024 * 1024) {
+                                alert('La imagen es demasiado grande. El tamaño máximo permitido es 2MB');
                                 this.value = '';
                                 return;
                             }
 
                             // Mostrar vista previa
                             const reader = new FileReader();
-                            reader.onload = function (e) {
+                            reader.onload = function(e) {
                                 preview.src = e.target.result;
                                 preview.style.display = 'block';
                                 if (noImageText) noImageText.style.display = 'none';
@@ -973,7 +1059,7 @@
             }
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // Manejo de paletas de colores
             const palettesContainer = document.getElementById('palettes-container');
             const saveBtn = document.getElementById('savePaletteBtn');
@@ -1029,7 +1115,8 @@
                 alertBox.className =
                     `alert alert-${type} alert-dismissible fade show position-fixed top-0 end-0 m-3`;
                 alertBox.style.zIndex = '9999';
-                alertBox.innerHTML = `
+                alertBox.innerHTML =
+                    `
                                                                                                                                                                                                                                                                             ${message}
                                                                                                                                                                                                                                                                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                                                                                                                                                                                                                                                                         `;
@@ -1101,7 +1188,7 @@
             // Manejo del formulario de personalización
             const customizationForm = document.getElementById('customizationForm');
 
-            customizationForm.addEventListener('submit', async function (e) {
+            customizationForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
 
                 const submitBtn = this.querySelector('button[type="submit"]');
@@ -1155,7 +1242,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.summernote').summernote({
                 height: 150,
                 toolbar: [

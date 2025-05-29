@@ -37,7 +37,7 @@
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            @foreach ($roles as $rol)
+                            @forelse ($roles as $rol)
                                 <tr>
                                     <td>{{ $rol->name }}</td>
                                     <td>
@@ -71,7 +71,11 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center py-3 text-muted">No hay roles.</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

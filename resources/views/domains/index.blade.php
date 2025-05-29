@@ -39,7 +39,7 @@
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            @foreach ($domains as $domain)
+                            @forelse ($domains as $domain)
                                 <tr>
                                     <td>{{ $domain->domain }}</td>
                                     <td>{{ $domain->tenant_id . '.' . config('app.domain') }}</td>
@@ -67,7 +67,11 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="3" class="text-center py-3 text-muted">No hay dominios.</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

@@ -55,13 +55,7 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('available-slots.index') ? 'active' : '' }}"
                             href="{{ route('available-slots.index') }}"
-                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Ver Disponibilidad</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('available-slots.create') ? 'active' : '' }}"
-                            href="{{ route('available-slots.create') }}"
-                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Agregar
-                            Disponibilidad</a>
+                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Gestionar Disponibilidad</a>
                     </li>
                 </ul>
             </div>

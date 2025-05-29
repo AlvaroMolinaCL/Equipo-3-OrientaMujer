@@ -115,7 +115,7 @@
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            @foreach ($files as $file)
+                            @forelse ($files as $file)
                                 <tr>
                                     <td>{{ $file->name }}</td>
                                     <td>{{ $file->created_at->format('d/m/Y H:i') }}</td>
@@ -211,7 +211,11 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="3" class="text-center py-3 text-muted">No hay archivos.</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

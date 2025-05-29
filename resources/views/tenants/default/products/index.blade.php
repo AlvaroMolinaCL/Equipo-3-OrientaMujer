@@ -85,7 +85,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="text-center py-3 text-muted">No hay productos aún.</td>
+                                    <td colspan="5" class="text-center py-3 text-muted">No hay planes.</td>
                                 </tr>
                             @endforelse
                         </tbody>

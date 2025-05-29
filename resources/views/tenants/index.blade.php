@@ -40,7 +40,7 @@
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            @foreach ($tenants as $tenant)
+                            @forelse ($tenants as $tenant)
                                 <tr>
                                     <td>{{ $tenant->name }}</td>
                                     <td>{{ $tenant->email }}</td>
@@ -87,7 +87,11 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center py-3 text-muted">No hay tenants.</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
