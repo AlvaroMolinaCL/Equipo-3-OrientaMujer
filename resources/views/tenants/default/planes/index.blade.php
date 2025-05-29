@@ -50,7 +50,7 @@
                                         style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }}; 
                                                color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }};
                                                border-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};">
-                                    <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
+                                    <i class="fas fa-calendar-alt me-2"></i>Agendar Reunión
                                 </button>
                             </form>
                         </div>
