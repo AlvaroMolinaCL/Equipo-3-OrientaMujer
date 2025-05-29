@@ -51,9 +51,10 @@
                 <textarea name="description" class="form-control" maxlength="500" required></textarea>
             </div>
 
-            <a href="/checkout" class="btn text-white" style="background-color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }};">
-                <i class="bi bi-credit-card me-1"></i> Proceder al Pago (próximamente)
-            </a>
+            <button type="submit" class="btn text-white">
+                <i class="bi bi-credit-card me-1"></i> Proceder al Pago
+            </button>
+
         </form>
     </div>
 </section>
