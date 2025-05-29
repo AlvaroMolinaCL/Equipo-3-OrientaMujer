@@ -108,14 +108,14 @@
                             <div class="mb-3">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="payment_method" id="credit-card"
-                                        value="credit_card" checked>
+                                        value="tarjeta" checked>
                                     <label class="form-check-label" for="credit-card">
                                         <i class="fas fa-credit-card me-2"></i>Tarjeta de crédito/débito
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="payment_method" id="transfer"
-                                        value="transfer">
+                                        value="transferencia">
                                     <label class="form-check-label" for="transfer">
                                         <i class="fas fa-university me-2"></i>Transferencia bancaria
                                     </label>
