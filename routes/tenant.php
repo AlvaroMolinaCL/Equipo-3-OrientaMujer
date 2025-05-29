@@ -2,22 +2,33 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\App\ProfileController;
-use App\Http\Controllers\App\UserController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AppearanceController;
 use App\Http\Controllers\AvailableSlotController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TenantTextController;
+use App\Http\Controllers\App\ProfileController;
+use App\Http\Controllers\App\UserController;
 use App\Http\Controllers\Tenant\RoleController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
-use App\Http\Controllers\TenantTextController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\PublicProductController;
-use App\Http\Controllers\CheckoutController;
+
+/*
+|--------------------------------------------------------------------------
+| Tenant Routes
+|--------------------------------------------------------------------------
+|
+| Here you can register the tenant routes for your application.
+| These routes are loaded by the TenantRouteServiceProvider.
+|
+| Feel free to customize them however you want. Good luck!
+|
+*/
 
 Route::middleware([
     'web',
@@ -54,10 +65,11 @@ Route::middleware([
 
         // Sistema de Agendamiento
         Route::middleware(['check.tenant.page.enabled:agenda'])->group(function () {
+            // Agenda
             Route::get('/agenda', [AgendaController::class, 'index'])->name('tenant.agenda.index');
             Route::post('/agenda', [AgendaController::class, 'store'])->name('tenant.agenda.store');
 
-            // 🔹 NUEVA RUTA: Confirmar cita
+            // Confirmación de Cita
             Route::get('/agenda/confirmar', [AgendaController::class, 'confirm'])->name('tenant.agenda.confirm');
 
             // Cuestionario Pre-Agendamiento
@@ -92,8 +104,6 @@ Route::middleware([
         Route::patch('/update/{item}', [CartController::class, 'update'])->name('cart.update');
         Route::delete('/cart/item/{id}', [CartController::class, 'remove'])->name('cart.remove.item');
 
-
-
         // Rutas de Checkout
         Route::prefix('checkout')->group(function () {
             Route::get('/', [CheckoutController::class, 'index'])->name('checkout');
@@ -101,18 +111,15 @@ Route::middleware([
             Route::get('/success', [CheckoutController::class, 'success'])->name('checkout.success');
         })->middleware(['web', 'auth']);
 
-
         // Planes
         Route::get('/planes', [ProductController::class, 'planes'])->name('products.planes');
         Route::get('/agenda/questionnaire', function () {
-        return view('tenants.default.agenda.questionnaire');
+            return view('tenants.default.agenda.questionnaire');
         })->name('agenda.questionnaire');
-
     });
 
     // Rutas exclusivas para Administrador
     Route::middleware(['auth', 'role:Admin'])->group(function () {
-
         // Rutas para la gestión de textos
         Route::put('/tenant/texts/update', [TenantTextController::class, 'update'])->name('tenant.texts.update');
         Route::get('/panel/textos', [TenantTextController::class, 'edit'])->name('tenant.texts.edit');
