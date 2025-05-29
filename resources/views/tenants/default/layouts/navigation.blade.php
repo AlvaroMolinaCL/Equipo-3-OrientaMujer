@@ -47,19 +47,6 @@
                 @endforeach
 
                 @auth
-                    {{-- Ícono del carrito --}}
-                    <li class="nav-item">
-                        <a class="nav-link position-relative" href="{{ route('cart.index') }}">
-                            Carrito
-                            @if($cartCount > 0)
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    {{ $cartCount }}
-                                    <span class="visually-hidden">productos en el carrito</span>
-                                </span>
-                            @endif
-                        </a>
-                    </li>
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">

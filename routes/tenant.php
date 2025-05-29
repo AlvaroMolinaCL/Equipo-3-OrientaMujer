@@ -90,6 +90,8 @@ Route::middleware([
         Route::delete('/clear', [CartController::class, 'clear'])->name('cart.clear');
         Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
         Route::patch('/update/{item}', [CartController::class, 'update'])->name('cart.update');
+        Route::delete('/cart/item/{id}', [CartController::class, 'remove'])->name('cart.remove.item');
+
 
 
         // Rutas de Checkout

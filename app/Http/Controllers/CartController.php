@@ -58,8 +58,9 @@ class CartController extends Controller
         $item = CartItem::findOrFail($itemId);
         $item->delete();
 
-        return redirect()->route('cart.index')->with('success', 'Producto eliminado.');
+        return redirect()->back()->with('success', 'Producto eliminado.');
     }
+
 
     public function clear()
     {
@@ -71,4 +72,6 @@ class CartController extends Controller
 
         return back()->with('success', 'Carrito vaciado correctamente');
     }
+
+
 }
