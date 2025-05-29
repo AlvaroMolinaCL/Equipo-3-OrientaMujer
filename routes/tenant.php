@@ -18,20 +18,6 @@ use App\Http\Controllers\TenantTextController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PublicProductController;
 
-
-
-/*
-|--------------------------------------------------------------------------
-| Tenant Routes
-|--------------------------------------------------------------------------
-|
-| Here you can register the tenant routes for your application.
-| These routes are loaded by the TenantRouteServiceProvider.
-|
-| Feel free to customize them however you want. Good luck!
-|
-*/
-
 Route::middleware([
     'web',
     InitializeTenancyByDomain::class,
@@ -46,7 +32,7 @@ Route::middleware([
     Route::get('/services', function () {
         return view(tenantView('services'));
     })->middleware('check.tenant.page.enabled:services');
-    
+
     // Página "Contacto"
     Route::get('/contact', function () {
         return view(tenantView('contact'));
@@ -64,10 +50,14 @@ Route::middleware([
 
     // Rutas solo para usuarios que han iniciado sesión
     Route::middleware(['auth'])->group(function () {
+
         // Sistema de Agendamiento
         Route::middleware(['check.tenant.page.enabled:agenda'])->group(function () {
             Route::get('/agenda', [AgendaController::class, 'index'])->name('tenant.agenda.index');
             Route::post('/agenda', [AgendaController::class, 'store'])->name('tenant.agenda.store');
+
+            // 🔹 NUEVA RUTA: Confirmar cita
+            Route::get('/agenda/confirmar', [AgendaController::class, 'confirm'])->name('tenant.agenda.confirm');
 
             // Cuestionario Pre-Agendamiento
             Route::middleware(['check.tenant.page.enabled:questionnaire'])->group(function () {
@@ -96,10 +86,9 @@ Route::middleware([
         Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
         Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
         Route::delete('/cart/remove/{itemId}', [CartController::class, 'remove'])->name('cart.remove');
-        
+
         // Planes
         Route::get('/planes', [ProductController::class, 'planes'])->name('products.planes');
-
     });
 
     // Rutas exclusivas para Administrador
@@ -108,7 +97,6 @@ Route::middleware([
         // Rutas para la gestión de textos
         Route::put('/tenant/texts/update', [TenantTextController::class, 'update'])->name('tenant.texts.update');
         Route::get('/panel/textos', [TenantTextController::class, 'edit'])->name('tenant.texts.edit');
-
 
         // Panel de Control
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -129,7 +117,7 @@ Route::middleware([
         // Gestión de Roles
         Route::resource('roles', RoleController::class);
 
-        // Gestion de Productos
+        // Gestión de Productos
         Route::get('/products', [ProductController::class, 'index'])->name('products.index');
         Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
         Route::post('/products', [ProductController::class, 'store'])->name('products.store');

@@ -303,7 +303,6 @@
             calendar.render();
 
             // Aplicar colores personalizados desde tenantSetting
-            document.documentElement.style.setProperty('--fc-today-bg-color', '{{ tenantSetting('background_color_1', '#FDF5E5') }}');
             document.documentElement.style.setProperty('--fc-border-color', '{{ tenantSetting('color_tables', '#8C2D18') }}');
             document.documentElement.style.setProperty('--fc-event-bg-color', '{{ tenantSetting('navbar_color_2', '#8C2D18') }}');
             document.documentElement.style.setProperty('--fc-event-text-color', '{{ tenantSetting('navbar_text_color_2', '#FFFFFF') }}');

@@ -72,4 +72,18 @@ class AgendaController extends Controller
 
         return redirect()->route('tenant.agenda.index')->with('success', 'Cita agendada con éxito.');
     }
+
+    // 🔹 NUEVO MÉTODO: Confirmación de Cita
+    public function confirm(Request $request)
+    {
+        $slotId = $request->query('slot_id');
+
+        $slot = AvailableSlot::where('id', $slotId)->first();
+
+        if (!$slot) {
+            abort(404, 'Horario no válido o no disponible.');
+        }
+
+        return view('tenants.default.agenda.confirm', compact('slot'));
+    }
 }
