@@ -21,7 +21,7 @@
         {{-- Formulario --}}
         <div class="card shadow border-0" style="background-color: #FDF5E5;">
             <div class="card-body p-4">
-                <form method="POST" action="{{ route('users.store') }}" class="bg-white p-4 rounded-3 shadow-sm">
+                <form method="POST" action="{{ route('users.update', $user->id) }}" class="bg-white p-4 rounded-3 shadow-sm">
                     @csrf
                     @method('PUT')
 

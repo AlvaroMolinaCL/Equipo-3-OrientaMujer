@@ -68,6 +68,8 @@ Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
 
     // Gestión de Usuarios
     Route::resource('users', UserController::class);
+    Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+
 
     // Gestión de Roles
     Route::resource('roles', RoleController::class);
