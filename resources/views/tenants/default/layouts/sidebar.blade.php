@@ -14,7 +14,7 @@
             style="max-width: 100%; height: 60px" class="img-fluid mx-auto d-block">
     </a>
     <!-- Botón Inicio -->
-    <div class="px-3 mb-2">
+    <div class="px-3 mb-3 mt-3">
         <a href="{{ route('tenants.default.index') }}" class="btn w-100" style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }};
               color: {{ tenantSetting('navbar_text_color_1', 'white') }};
               border-radius: 0.375rem;
