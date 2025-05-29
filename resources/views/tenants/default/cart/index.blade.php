@@ -42,10 +42,8 @@
                 <table class="table mb-0">
                     <thead style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }}; color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }};">
                         <tr>
-                            <th class="py-3">Producto</th>
-                            <th class="py-3 text-center">Cantidad</th>
-                            <th class="py-3 text-end">Precio Unitario</th>
-                            <th class="py-3 text-end">Subtotal</th>
+                            <th class="py-3">Sesión</th>
+                            <th class="py-3 text-end">Precio</th>
                             <th class="py-3 text-center">Acciones</th>
                         </tr>
                     </thead>
@@ -59,25 +57,12 @@
                                          class="rounded me-3" width="60" height="60" style="object-fit: cover;">
                                     @endif
                                     <div>
-                                        <h5 class="mb-1">{{ $item->product->name ?? 'Producto no disponible' }}</h5>
+                                        <h5 class="mb-1">{{ $item->product->name ?? 'Sesión no disponible' }}</h5>
                                         <small class="text-muted">{{ $item->product->category ?? '' }}</small>
                                     </div>
                                 </div>
                             </td>
-                            <td class="text-center">
-                                <form action="{{ route('cart.update', $item->id) }}" method="POST" class="quantity-form">
-                                    @csrf
-                                    @method('PATCH')
-                                    <div class="input-group input-group-sm" style="max-width: 120px;">
-                                        <button type="button" class="btn btn-outline-secondary decrement">-</button>
-                                        <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" max="10"
-                                               class="form-control text-center quantity-input">
-                                        <button type="button" class="btn btn-outline-secondary increment">+</button>
-                                    </div>
-                                </form>
-                            </td>
-                            <td class="text-end">${{ number_format($item->price, 0, ',', '.') }}</td>
-                            <td class="text-end fw-bold">${{ number_format($item->price * $item->quantity, 0, ',', '.') }}</td>
+                            <td class="text-end fw-bold">${{ number_format($item->price, 0, ',', '.') }}</td>
                             <td class="text-center">
                                 <form action="{{ route('cart.remove', $item->id) }}" method="POST">
                                     @csrf
@@ -90,11 +75,10 @@
                         </tr>
                         @endforeach
                         <tr>
-                            <td colspan="3" class="text-end fw-bold">Total:</td>
-                            <td class="text-end fw-bold h5" style="color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};">
-                                ${{ number_format($items->sum(function($item) { return $item->price * $item->quantity; }), 0, ',', '.') }}
+                            <td colspan="2" class="text-end fw-bold">Total:</td>
+                            <td class="text-center fw-bold h5" style="color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};">
+                                ${{ number_format($items->sum('price'), 0, ',', '.') }}
                             </td>
-                            <td></td>
                         </tr>
                     </tbody>
                 </table>
@@ -110,7 +94,7 @@
                         </button>
                     </form>
                     
-                    <a href="{{ route('checkout') }}" class="btn btn-lg"
+                    <a href="{{ route('checkout') }}" class="btn btn-md"
                        style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};
                               color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }};">
                         <i class="fas fa-credit-card me-2"></i>Proceder al pago
@@ -123,36 +107,6 @@
 </section>
 @endsection
 
-@push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Manejar incremento/decremento
-    document.querySelectorAll('.increment').forEach(button => {
-        button.addEventListener('click', function() {
-            const input = this.closest('.input-group').querySelector('.quantity-input');
-            input.stepUp();
-            this.closest('.quantity-form').submit();
-        });
-    });
-
-    document.querySelectorAll('.decrement').forEach(button => {
-        button.addEventListener('click', function() {
-            const input = this.closest('.input-group').querySelector('.quantity-input');
-            input.stepDown();
-            this.closest('.quantity-form').submit();
-        });
-    });
-
-    // Actualizar automáticamente al cambiar el valor manualmente
-    document.querySelectorAll('.quantity-input').forEach(input => {
-        input.addEventListener('change', function() {
-            this.closest('.quantity-form').submit();
-        });
-    });
-});
-</script>
-@endpush
-
 @push('styles')
 <style>
     .table thead th {
@@ -164,12 +118,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     .bg-white {
         border-radius: 0.5rem;
-    }
-    .input-group {
-        margin: 0 auto;
-    }
-    .quantity-input {
-        width: 40px;
     }
 </style>
 @endpush
