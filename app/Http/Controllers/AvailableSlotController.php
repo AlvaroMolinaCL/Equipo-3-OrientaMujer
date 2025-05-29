@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AvailableSlot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Appointment;
 
 class AvailableSlotController extends Controller
 {
@@ -39,6 +40,33 @@ class AvailableSlotController extends Controller
             })
         );
     }
+
+    public function clientSlots(Request $request)
+    {
+        $query = AvailableSlot::with('appointments');
+
+        if ($request->has('date')) {
+            $query->where('date', $request->query('date'));
+        }
+
+        $usedSlotIds = Appointment::pluck('available_slot_id')->toArray();
+
+        $query->whereNotIn('id', $usedSlotIds);
+
+        return response()->json(
+            $query->get()->map(function ($slot) {
+                return [
+                    'id' => $slot->id,
+                    'title' => $slot->start_time . ' - ' . $slot->end_time,
+                    'start' => $slot->date,
+                    'start_time' => $slot->start_time,
+                    'end_time' => $slot->end_time,
+                    'available' => true,
+                ];
+            })
+        );
+    }
+
 
     public function create()
     {

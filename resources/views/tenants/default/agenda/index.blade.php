@@ -171,7 +171,7 @@
                     hour12: false
                 },
 
-                events: '/api/slots', // Reutiliza misma API del abogado
+                events: '/api/client-slots',
 
                 dayCellDidMount: function (info) {
                     const cellDate = new Date(info.date);
@@ -203,7 +203,7 @@
 
                     const formatTime = timeStr => timeStr.slice(0, 5);
 
-                    fetch(`/api/slots?date=${date}`)
+                    fetch(`/api/client-slots?date=${date}`)
                         .then(res => res.json())
                         .then(data => {
                             slotsList.innerHTML = '';
