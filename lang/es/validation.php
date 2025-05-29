@@ -182,6 +182,8 @@ return [
     'attributes' => [
         'title' => 'título',
         'content' => 'contenido',
+        'description' => 'descripción',
+        'category' => 'categoría',
         'name' => 'nombre',
         'email' => 'correo electrónico',
         'current_password' => 'contraseña actual',
@@ -206,5 +208,7 @@ return [
         'heading_font' => 'tipografía de títulos',
         'body_font' => 'tipografía de página',
         'access_token' => 'token de acceso',
+        'price' => 'precio',
+        'image' => 'imagen',
     ],
 ];
