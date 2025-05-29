@@ -80,13 +80,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($last_users as $user)
+                            @forelse ($last_users as $user)
                                 <tr>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->created_at }}</td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center py-3 text-muted">No hay usuarios registrados en los últimos 5 días.</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
