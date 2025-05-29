@@ -18,7 +18,8 @@
                 <span><i class="bi bi-building me-2"></i> Tenants</span>
                 <i class="bi bi-chevron-down small"></i>
             </a>
-            <div class="collapse ps-3 {{ Route::is('tenants.*') ? 'show' : '' }}" id="tenantsMenu" data-bs-parent="#sidebarAccordion">
+            <div class="collapse ps-3 {{ Route::is('tenants.*') ? 'show' : '' }}" id="tenantsMenu"
+                data-bs-parent="#sidebarAccordion">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('tenants.index') ? 'active' : '' }}"
@@ -39,7 +40,8 @@
                 <span><i class="bi bi-globe-americas me-2"></i> Dominios</span>
                 <i class="bi bi-chevron-down small"></i>
             </a>
-            <div class="collapse ps-3 {{ Route::is('domains.*') ? 'show' : '' }}" id="domainsMenu" data-bs-parent="#sidebarAccordion">
+            <div class="collapse ps-3 {{ Route::is('domains.*') ? 'show' : '' }}" id="domainsMenu"
+                data-bs-parent="#sidebarAccordion">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('domains.index') ? 'active' : '' }}"
@@ -60,7 +62,8 @@
                 <span><i class="bi bi-people me-2"></i> Usuarios</span>
                 <i class="bi bi-chevron-down small"></i>
             </a>
-            <div class="collapse ps-3 {{ Route::is('users.*') ? 'show' : '' }}" id="usersMenu" data-bs-parent="#sidebarAccordion">
+            <div class="collapse ps-3 {{ Route::is('users.*') ? 'show' : '' }}" id="usersMenu"
+                data-bs-parent="#sidebarAccordion">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('users.index') ? 'active' : '' }}"
@@ -81,7 +84,8 @@
                 <span><i class="bi bi-person-check me-2"></i> Roles</span>
                 <i class="bi bi-chevron-down small"></i>
             </a>
-            <div class="collapse ps-3 {{ Route::is('roles.*') ? 'show' : '' }}" id="rolesMenu" data-bs-parent="#sidebarAccordion">
+            <div class="collapse ps-3 {{ Route::is('roles.*') ? 'show' : '' }}" id="rolesMenu"
+                data-bs-parent="#sidebarAccordion">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('roles.index') ? 'active' : '' }}"
@@ -99,7 +103,7 @@
         <li class="nav-item">
             <a class="nav-link {{ Route::is('admin.token') ? 'active' : '' }}" href="{{ route('admin.token') }}"
                 style="color: white;">
-                <i class="bi bi-key me-2"></i> Solicitudes de acceso
+                <i class="bi bi-key me-2"></i> Solicitudes de Acceso
             </a>
         </li>
     </ul>
