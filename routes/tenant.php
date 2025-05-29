@@ -102,6 +102,10 @@ Route::middleware([
 
         // Planes
         Route::get('/planes', [ProductController::class, 'planes'])->name('products.planes');
+        Route::get('/agenda/questionnaire', function () {
+        return view('tenants.default.agenda.questionnaire');
+        })->name('agenda.questionnaire');
+
     });
 
     // Rutas exclusivas para Administrador

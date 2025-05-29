@@ -50,7 +50,7 @@ class CartController extends Controller
             ]);
         }
 
-        return redirect()->route('cart.index')->with('success', 'Producto agregado al carrito.');
+        return redirect()->route('agenda.questionnaire')->with('success', 'Producto agregado al carrito.');
     }
 
     public function remove($itemId)

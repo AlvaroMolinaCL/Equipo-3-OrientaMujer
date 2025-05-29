@@ -18,7 +18,7 @@
                     {!! tenantText('slogan_body', 'Una representación judicial con perspectiva de género, exige un acompañamiento empático e
                                                                             informado para alivianar las cargas del proceso.') !!}
                 </p>
-                <a href="/contact" class="btn btn-consulta" role="button">Agenda tu asesoría</a>
+                <a href="/planes" class="btn btn-consulta" role="button">Agenda tu asesoría</a>
                 <br>
             </div>
         </div>
