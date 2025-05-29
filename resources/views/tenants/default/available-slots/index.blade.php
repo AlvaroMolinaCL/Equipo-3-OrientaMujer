@@ -84,21 +84,17 @@
             pointer-events: auto;
         }
 
-        .fc .fc-daygrid-more-link:hover,
-        .fc .fc-daygrid-more-link:focus {
+        .fc .fc-daygrid-more-link:hover, .fc .fc-daygrid-more-link:focus {
             background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }} !important;
             color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }} !important;
             box-shadow: none !important;
             text-decoration: none !important;
         }
 
-        /* Asegura que el más se alinee centrado cuando hay solo un evento visible */
         .fc-daygrid-event-harness + .fc-daygrid-more-link {
             align-self: center;
         }
     </style>
-
-
 
     <div class="container">
         <h3 class="mb-4" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Calendario de Disponibilidad</h3>
@@ -131,7 +127,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function () {
         const calendarEl = document.getElementById('calendar');
         const modal = new bootstrap.Modal(document.getElementById('dayModal'));
         const modalDateInput = document.getElementById('modal-date-input');
@@ -140,12 +136,11 @@
 
         const calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
-            initialDate: new Date(), // Forzar fecha de hoy según navegador
-
+            initialDate: new Date(),
             locale: 'es',
             height: 600,
             eventOrder: "start,-duration,allDay,title",
-            dayMaxEvents: 1, // ← permite 1 evento visible + el badge
+            dayMaxEvents: 1,
             eventDisplay: 'block',
 
             moreLinkContent: function(args) {
@@ -153,7 +148,6 @@
                     html: `<span class="more-badge">+${args.num} más</span>`
                 };
             },
-
 
             selectable: true,
             dayHeaders: true,
@@ -163,15 +157,14 @@
                 month: 'long'
             },
 
-
-
             headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',
                 right: ''
             },
             events: '/api/slots',
-                    dayCellDidMount: function (info) {
+
+            dayCellDidMount: function (info) {
                 const cellDate = new Date(info.date);
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
@@ -183,20 +176,19 @@
                     info.el.classList.add('fc-disabled-day');
                 }
             },
+
             dateClick: function (info) {
                 const selectedDate = new Date(info.date);
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
                 selectedDate.setHours(0, 0, 0, 0);
                 if (selectedDate < today) return;
-
                 const date = info.dateStr;
                 const todayStr = today.toISOString().split('T')[0];
-
                 const opcionesFecha = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
                 const fechaFormateada = selectedDate.toLocaleDateString('es-CL', opcionesFecha);
-                modalDateTitle.textContent = `Horarios para el ${fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1)}`;
 
+                modalDateTitle.textContent = `Horarios para el ${fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1)}`;
                 modalDateInput.value = date;
                 slotsList.innerHTML = `<p class="text-muted">Cargando horarios...</p>`;
                 modal.show();
@@ -213,7 +205,6 @@
                         } else {
                             // Ordenar los horarios por hora de inicio (formato 24h)
                             data.sort((a, b) => a.start_time.localeCompare(b.start_time));
-
                             data.forEach(slot => {
                                 const isExpiredToday = isToday && slot.end_time <= nowTime;
                                 slotsList.innerHTML += `
@@ -308,16 +299,14 @@
                         submitBtn.classList.add('btn-success');
                     }
                 });
-        }
+            }
+            calendar.render();
 
-        calendar.render();
-
-        // Aplicar colores personalizados desde tenantSetting
-        document.documentElement.style.setProperty('--fc-today-bg-color', '{{ tenantSetting('background_color_1', '#FDF5E5') }}');
-        document.documentElement.style.setProperty('--fc-border-color', '{{ tenantSetting('color_tables', '#8C2D18') }}');
-        document.documentElement.style.setProperty('--fc-event-bg-color', '{{ tenantSetting('navbar_color_2', '#8C2D18') }}');
-        document.documentElement.style.setProperty('--fc-event-text-color', '{{ tenantSetting('navbar_text_color_2', '#FFFFFF') }}');
-    });
-</script>
-
+            // Aplicar colores personalizados desde tenantSetting
+            document.documentElement.style.setProperty('--fc-today-bg-color', '{{ tenantSetting('background_color_1', '#FDF5E5') }}');
+            document.documentElement.style.setProperty('--fc-border-color', '{{ tenantSetting('color_tables', '#8C2D18') }}');
+            document.documentElement.style.setProperty('--fc-event-bg-color', '{{ tenantSetting('navbar_color_2', '#8C2D18') }}');
+            document.documentElement.style.setProperty('--fc-event-text-color', '{{ tenantSetting('navbar_text_color_2', '#FFFFFF') }}');
+        });
+    </script>
 @endsection
