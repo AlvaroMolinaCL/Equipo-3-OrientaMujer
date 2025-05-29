@@ -60,6 +60,9 @@ Route::middleware([
         return view(tenantView('about'));
     })->middleware('check.tenant.page.enabled:about');
 
+    // API para mostrar solo horarios no agendados al cliente
+    Route::get('/api/client-slots', [AvailableSlotController::class, 'clientSlots']);
+
     // Rutas solo para usuarios que han iniciado sesión
     Route::middleware(['auth'])->group(function () {
 
