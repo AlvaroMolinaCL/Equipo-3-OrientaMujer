@@ -54,10 +54,6 @@ class AgendaController extends Controller
             ->where('is_enabled', true)
             ->exists();
 
-        if ($cuestionarioHabilitado && !session('cuestionario_aprobado')) {
-            return redirect()->route('tenant.agenda.questionnaire');
-        }
-
         return view('tenants.default.agenda.index');
     }
 
@@ -79,7 +75,7 @@ class AgendaController extends Controller
             'appointment_description' => $validated['description']
         ]);
 
-        return redirect()->route('tenant.agenda.index')->with('success', 'Cita agendada con éxito.');
+        return redirect()->route('checkout')->with('success', 'Cita agendada con éxito.');
     }
 
     public function confirm(Request $request)

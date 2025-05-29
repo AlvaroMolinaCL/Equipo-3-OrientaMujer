@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 use App\Models\Appointment;
+use App\Models\AvailableSlot;
 
 class CheckoutController extends Controller
 {
@@ -63,24 +64,23 @@ class CheckoutController extends Controller
         // Actualizar carrito
         $cart->update(['status' => 'completed']);
 
+
         $slotId = session('appointment_slot_id');
         $description = session('appointment_description');
 
         if ($slotId && $description) {
-            $slot = \App\Models\AvailableSlot::find($slotId); // <- ESTA LÍNEA ES CLAVE
+            $slot = AvailableSlot::find($slotId); // <- ESTA LÍNEA ES CLAVE
 
             if ($slot) {
                 // ❗ Verificación temporalmente desactivada:
                 // if ($slot->appointments()->count() < $slot->max_bookings) {
-                \App\Models\Appointment::create([
+                Appointment::create([
                     'user_id' => $user->id,
                     'available_slot_id' => $slotId,
                     'description' => $description
                 ]);
                 // }
             }
-
-
 
             session()->forget(['appointment_slot_id', 'appointment_description']);
         }

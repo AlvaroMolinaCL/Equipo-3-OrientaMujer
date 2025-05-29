@@ -18,7 +18,7 @@ class CartController extends Controller
 
         $items = $cart->items()->with('product')->get();
 
-        return view('tenants.default.cart.index', compact('cart', 'items'));
+        return view('checkout', compact('cart', 'items'));
     }
 
     public function add(Request $request)
