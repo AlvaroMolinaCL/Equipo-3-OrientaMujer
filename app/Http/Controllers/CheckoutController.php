@@ -36,7 +36,7 @@ class CheckoutController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'payment_method' => 'required|in:credit_card,transfer'
+            'payment_method' => 'required|in:tarjeta,transferencia'
         ]);
 
         $cart = Cart::with('items.product')
