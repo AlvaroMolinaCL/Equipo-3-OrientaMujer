@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 use App\Models\Appointment;
 use App\Models\AvailableSlot;
+use App\Mail\AppointmentConfirmationMail;
+
 
 class CheckoutController extends Controller
 {
@@ -68,18 +70,29 @@ class CheckoutController extends Controller
         $slotId = session('appointment_slot_id');
         $description = session('appointment_description');
 
+
         if ($slotId && $description) {
-            $slot = AvailableSlot::find($slotId); // <- ESTA LÍNEA ES CLAVE
+            $slot = AvailableSlot::find($slotId);
 
             if ($slot) {
-                // ❗ Verificación temporalmente desactivada:
-                // if ($slot->appointments()->count() < $slot->max_bookings) {
                 Appointment::create([
                     'user_id' => $user->id,
                     'available_slot_id' => $slotId,
                     'description' => $description
                 ]);
-                // }
+
+                // Obtener nombre del usuario
+                $userName = $user->name;
+
+                // Obtener nombres de productos del carrito
+                $productNames = $cart->items->map(function ($item) {
+                    return $item->product->name ?? 'Producto desconocido';
+                })->toArray();
+
+                // Enviar correo de confirmación de cita
+                Mail::to($user->email)->send(
+                    new AppointmentConfirmationMail($userName, $slot, $description, $productNames)
+                );
             }
 
             session()->forget(['appointment_slot_id', 'appointment_description']);
