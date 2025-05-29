@@ -51,7 +51,7 @@
                 <textarea name="description" class="form-control" maxlength="500" required></textarea>
             </div>
 
-            <a href="#" class="btn text-white disabled" style="background-color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }};">
+            <a href="/cart" class="btn text-white" style="background-color: {{ tenantSetting('navbar_color_2', '#4A1D0B') }};">
                 <i class="bi bi-credit-card me-1"></i> Proceder al Pago (próximamente)
             </a>
         </form>
