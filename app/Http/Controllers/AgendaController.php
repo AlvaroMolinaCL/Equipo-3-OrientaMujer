@@ -8,6 +8,9 @@ use App\Models\AvailableSlot;
 use App\Models\TenantPage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\QuestionnaireResponse;
+
+
 
 class AgendaController extends Controller
 {
@@ -16,21 +19,39 @@ class AgendaController extends Controller
         return view('tenants.default.agenda.questionnaire');
     }
 
+
+
     public function processQuestionnaire(Request $request)
     {
         $validated = $request->validate([
-            'q1' => 'required|in:yes,no',
-            'q2' => 'required|in:yes,no',
-            'q3' => 'required|in:yes,no',
+            'q1' => 'required|string',
+            'q2' => 'required|string',
+            'q3' => 'required|string',
+            'q4' => 'nullable|string',
+            'q5' => 'nullable|string',
+            'q6' => 'nullable|string',
+            'q7' => 'nullable|string',
+            'q7_detail' => 'nullable|string',
+            'q8' => 'nullable|string',
         ]);
 
-        if ($validated['q1'] === 'yes' && $validated['q2'] === 'yes' && $validated['q3'] === 'no') {
-            session(['cuestionario_aprobado' => true]);
-            return redirect()->route('tenant.agenda.index');
-        }
+        QuestionnaireResponse::create([
+            'user_id' => Auth::id(),
+            'q1' => $validated['q1'],
+            'q2' => $validated['q2'],
+            'q3' => $validated['q3'],
+            'q4' => $validated['q4'] ?? null,
+            'q5' => $validated['q5'] ?? null,
+            'q6' => $validated['q6'] ?? null,
+            'q7' => $validated['q7'] ?? null,
+            'q7_detail' => $validated['q7_detail'] ?? null,
+            'q8' => $validated['q8'] ?? null,
+        ]);
 
-        return back()->with('error', 'No cumples con los requisitos para agendar una cita en este momento.');
+        return redirect()->route('tenant.agenda.index')->with('success', 'Gracias por completar el cuestionario.');
     }
+
+
 
     public function index()
     {
