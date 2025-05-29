@@ -60,18 +60,15 @@ class AgendaController extends Controller
             return back()->withErrors(['available_slot_id' => 'La hora seleccionada ya no es válida.']);
         }
 
-        if ($slot->appointments()->count() >= $slot->max_bookings) {
-            return back()->withErrors(['available_slot_id' => 'Esta hora ya no tiene cupo disponible.']);
-        }
-
-        Appointment::create([
-            'user_id' => Auth::id(),
-            'available_slot_id' => $slot->id,
-            'description' => $validated['description'],
+        // Guardar temporalmente los datos en la sesión
+        session([
+            'appointment_slot_id' => $validated['available_slot_id'],
+            'appointment_description' => $validated['description']
         ]);
 
-        return redirect()->route('tenant.agenda.index')->with('success', 'Cita agendada con éxito.');
+        return redirect()->route('cart.index')->with('success', 'Puedes proceder al pago para confirmar tu cita.');
     }
+
 
     // 🔹 NUEVO MÉTODO: Confirmación de Cita
     public function confirm(Request $request)

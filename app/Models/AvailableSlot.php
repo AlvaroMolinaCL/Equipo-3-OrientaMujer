@@ -25,4 +25,9 @@ class AvailableSlot extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getMaxBookingsAttribute()
+    {
+        return 1; // máximo una cita por horario
+    }
 }
