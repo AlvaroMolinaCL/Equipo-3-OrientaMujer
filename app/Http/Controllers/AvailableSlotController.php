@@ -45,13 +45,30 @@ class AvailableSlotController extends Controller
     {
         $query = AvailableSlot::with('appointments');
 
+        $today = now()->format('Y-m-d');
+        $currentTime = now()->format('H:i:s');
+
         if ($request->has('date')) {
-            $query->where('date', $request->query('date'));
+            $date = $request->query('date');
+            $query->where('date', $date);
+
+            // Si es hoy, aplicar filtro por hora actual
+            if ($date === $today) {
+                $query->where('start_time', '>=', $currentTime);
+            }
+        } else {
+            // Cuando no se filtra por día: excluir slots de hoy con hora expirada
+            $query->where(function ($q) use ($today, $currentTime) {
+                $q->where('date', '>', $today)
+                ->orWhere(function ($subq) use ($today, $currentTime) {
+                    $subq->where('date', $today)
+                        ->where('start_time', '>=', $currentTime);
+                });
+            });
         }
 
         $usedSlotIds = Appointment::pluck('available_slot_id')->toArray();
-
-        $query->whereNotIn('id', $usedSlotIds);
+        $query->whereNotIn('id', $usedSlotIds)->orderBy('start_time');
 
         return response()->json(
             $query->get()->map(function ($slot) {
@@ -66,6 +83,8 @@ class AvailableSlotController extends Controller
             })
         );
     }
+
+
 
 
     public function create()
