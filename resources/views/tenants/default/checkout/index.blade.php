@@ -36,8 +36,8 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     @if ($item->product->image ?? false)
-                                                        <img src="{{ asset($item->product->image) }}" width="50"
-                                                            height="50" class="rounded me-2" style="object-fit: cover;">
+                                                        <img src="{{ asset($item->product->image) }}" width="50" height="50"
+                                                            class="rounded me-2" style="object-fit: cover;">
                                                     @endif
                                                     {{ $item->product->name ?? 'Producto no disponible' }}
                                                 </div>
@@ -66,13 +66,13 @@
                                         <td class="text-end fw-bold h5"
                                             style="color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};">
                                             ${{ number_format(
-                                                $items->sum(function ($item) {
-                                                    return $item->price * $item->quantity;
-                                                }),
-                                                0,
-                                                ',',
-                                                '.',
-                                            ) }}
+        $items->sum(function ($item) {
+            return $item->price * $item->quantity;
+        }),
+        0,
+        ',',
+        '.',
+    ) }}
                                         </td>
                                     </tr>
                                 </tfoot>
@@ -95,13 +95,13 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nombre completo</label>
                                 <input type="text" class="form-control" id="name" name="name"
-                                    value="{{ auth()->user()->name }}" required>
+                                    value="{{ auth()->user()->name }}" readonly>
                             </div>
 
                             <div class="mb-3">
                                 <label for="email" class="form-label">Correo electrónico</label>
                                 <input type="email" class="form-control" id="email" name="email"
-                                    value="{{ auth()->user()->email }}" required>
+                                    value="{{ auth()->user()->email }}" readonly>
                             </div>
 
                             <!-- Métodos de Pago -->
@@ -142,9 +142,8 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn w-100 py-2"
-                                style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};
-                                                       color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }};">
+                            <button type="submit" class="btn w-100 py-2" style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};
+                                                           color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }};">
                                 <i class="fas fa-lock me-2"></i>Pagar ahora
                             </button>
                         </form>
@@ -157,7 +156,7 @@
 
 @push('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Mostrar/ocultar campos según método de pago
             const paymentMethodRadios = document.querySelectorAll('input[name="payment_method"]');
             const creditCardFields = document.getElementById('credit-card-fields');
