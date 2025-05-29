@@ -149,7 +149,7 @@ class TenantController extends Controller
             }
             $filename = Str::uuid() . '.' . $request->file('logo_1')->getClientOriginalExtension();
             $request->file('logo_1')->move(public_path('images/logo'), $filename);
-            $logoPath1 = 'images/logo/' . $filename;
+            $logoPath1 = '/images/logo/' . $filename;
         }
 
         if ($request->hasFile('logo_2')) {
@@ -158,7 +158,7 @@ class TenantController extends Controller
             }
             $filename = Str::uuid() . '.' . $request->file('logo_2')->getClientOriginalExtension();
             $request->file('logo_2')->move(public_path('images/logo'), $filename);
-            $logoPath2 = 'images/logo/' . $filename;
+            $logoPath2 = '/images/logo/' . $filename;
         }
 
         $tenant->update([
