@@ -13,14 +13,12 @@ class AppointmentConfirmationMail extends Mailable
 
     public $userName;
     public $slot;
-    public $description;
     public $productNames;
 
-    public function __construct($userName, AvailableSlot $slot, $description, $productNames)
+    public function __construct($userName, AvailableSlot $slot, $productNames)
     {
         $this->userName = $userName;
         $this->slot = $slot;
-        $this->description = $description;
         $this->productNames = $productNames;
     }
 

@@ -21,6 +21,7 @@ class TenantDatabaseSeeder extends Seeder
             $this->call([
                 GenreSeeder::class,
                 ChileanTableSeeder::class,
+                QuestionnaireSeeder::class
             ]);
 
             (new TenantInitialSetupSeeder(

@@ -31,7 +31,7 @@
                         {{-- Redirección especial para la agenda --}}
                         @if ($page->page_key === 'agenda')
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('products.planes') }}">
+                                <a class="nav-link" href="{{ route('products.plans') }}">
                                     {{ $page->title ?? 'Agenda' }}
                                 </a>
                             </li>

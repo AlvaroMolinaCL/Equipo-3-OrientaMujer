@@ -77,8 +77,11 @@ Route::middleware([
 
             // Cuestionario Pre-Agendamiento
             Route::middleware(['check.tenant.page.enabled:questionnaire'])->group(function () {
-                Route::get('/agenda/cuestionario', [AgendaController::class, 'showQuestionnaire'])->name('tenant.agenda.questionnaire');
-                Route::post('/agenda/cuestionario', [AgendaController::class, 'processQuestionnaire'])->name('tenant.agenda.questionnaire.process');
+                Route::get('/agenda/questionnaire', [AgendaController::class, 'showQuestionnaire'])->name('tenant.agenda.questionnaire');
+                Route::post('/agenda/questionnaire', [AgendaController::class, 'processQuestionnaire'])->name('tenant.agenda.questionnaire.process');
+                Route::get('/agenda/questionnaire/thanks', function () {
+                    return view('tenants.default.agenda.questionnaire_thanks');
+                })->name('tenant.agenda.questionnaire.thanks');
             });
         });
 
@@ -115,10 +118,7 @@ Route::middleware([
         })->middleware(['web', 'auth']);
 
         // Planes
-        Route::get('/planes', [ProductController::class, 'planes'])->name('products.planes');
-        Route::get('/agenda/questionnaire', function () {
-            return view('tenants.default.agenda.questionnaire');
-        })->name('agenda.questionnaire');
+        Route::get('/plans', [ProductController::class, 'plans'])->name('products.plans');
     });
 
     // Rutas exclusivas para Administrador

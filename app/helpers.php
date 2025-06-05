@@ -49,3 +49,10 @@ function tenantText($key, $default = '')
     return $text ?: $default;
 }
 
+/**
+ * Recupera el flujo de agendamiento del tenant, por defecto es 'completo'.
+ */
+function tenantAgendaFlow()
+{
+    return tenantSetting('agenda_flow', 'completo');
+}

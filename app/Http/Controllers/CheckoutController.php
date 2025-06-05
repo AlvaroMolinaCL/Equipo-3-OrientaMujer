@@ -44,7 +44,6 @@ class CheckoutController extends Controller
             ->where('status', 'active')
             ->firstOrFail();
 
-        // Crear la orden
         $order = Order::create([
             'user_id' => $user->id,
             'total' => $cart->items->sum(function ($item) {
@@ -54,7 +53,6 @@ class CheckoutController extends Controller
             'payment_method' => $validated['payment_method']
         ]);
 
-        // Asociar items
         foreach ($cart->items as $item) {
             $order->items()->create([
                 'product_id' => $item->product_id,
@@ -63,42 +61,52 @@ class CheckoutController extends Controller
             ]);
         }
 
-        // Actualizar carrito
         $cart->update(['status' => 'completed']);
 
-
         $slotId = session('appointment_slot_id');
-        $description = session('appointment_description');
+        $firstName = session('appointment_first_name');
+        $lastName = session('appointment_last_name');
+        $secondLastName = session('appointment_second_last_name');
+        $email = session('appointment_email');
+        $phoneNumber = session('appointment_phone_number');
+        $residenceRegionId = session('appointment_residence_region_id');
+        $residenceCommuneId = session('appointment_residence_commune_id');
+        $incidentRegionId = session('appointment_incident_region_id');
+        $incidentCommuneId = session('appointment_incident_commune_id');
+        $questionnaireResponseId = session('appointment_questionnaire_response_id');
 
-
-        if ($slotId && $description) {
+        if ($slotId && $firstName && $lastName && $secondLastName && $email && $phoneNumber && $residenceRegionId && $residenceCommuneId && $incidentRegionId && $incidentCommuneId && $questionnaireResponseId) {
             $slot = AvailableSlot::find($slotId);
 
             if ($slot) {
                 Appointment::create([
                     'user_id' => $user->id,
                     'available_slot_id' => $slotId,
-                    'description' => $description
+                    'first_name' => $firstName,
+                    'last_name' => $lastName,
+                    'second_last_name' => $secondLastName,
+                    'email' => $email,
+                    'phone_number' => $phoneNumber,
+                    'residence_region_id' => $residenceRegionId,
+                    'residence_commune_id' => $residenceCommuneId,
+                    'incident_region_id' => $incidentRegionId,
+                    'incident_commune_id' => $incidentCommuneId,
+                    'questionnaire_response_id' => $questionnaireResponseId
                 ]);
 
-                // Obtener nombre del usuario
                 $userName = $user->name;
-
-                // Obtener nombres de productos del carrito
                 $productNames = $cart->items->map(function ($item) {
                     return $item->product->name ?? 'Producto desconocido';
                 })->toArray();
 
-                // Enviar correo de confirmación de cita
                 Mail::to($user->email)->send(
-                    new AppointmentConfirmationMail($userName, $slot, $description, $productNames)
+                    new AppointmentConfirmationMail($userName, $slot, $productNames)
                 );
             }
 
             session()->forget(['appointment_slot_id', 'appointment_description']);
         }
 
-        // Enviar correo de confirmación
         Mail::to($user->email)->send(new OrderConfirmationMail($order));
 
         return redirect()->route('checkout.success')->with([

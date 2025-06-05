@@ -18,7 +18,11 @@
                     {!! tenantText('slogan_body', 'Una representación judicial con perspectiva de género, exige un acompañamiento empático e
                                                                             informado para alivianar las cargas del proceso.') !!}
                 </p>
-                <a href="/planes" class="btn btn-consulta" role="button">Agenda tu asesoría</a>
+                @if (tenantAgendaFlow() === 'completo')
+                    <a href="/plans" class="btn btn-consulta" role="button">Agenda tu asesoría</a>
+                @else
+                    <a href="/agenda/questionnaire" class="btn btn-consulta" role="button">Agenda tu asesoría</a>
+                @endif
                 <br>
             </div>
         </div>
