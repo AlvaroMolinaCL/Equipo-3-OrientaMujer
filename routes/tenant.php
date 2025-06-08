@@ -17,6 +17,7 @@ use App\Http\Controllers\Tenant\RoleController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
+use App\Http\Controllers\ChatbotController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,10 @@ Route::middleware([
     Route::get('/about', function () {
         return view(tenantView('about'));
     })->middleware('check.tenant.page.enabled:about');
+
+    // Página "Chatbot"
+    Route::post('/chatbot', [ChatbotController::class, 'chat']);
+
 
     // API para mostrar solo horarios no agendados al cliente
     Route::get('/api/client-slots', [AvailableSlotController::class, 'clientSlots']);
