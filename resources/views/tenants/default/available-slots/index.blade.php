@@ -132,7 +132,6 @@
                     <input type="hidden" id="modal-date-input" name="date">
                     <div id="slots-list-modal"></div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -170,7 +169,6 @@
                         html: `<span class="more-badge">+${args.num} más</span>`
                     };
                 },
-
                 selectable: true,
                 dayHeaders: true,
                 dayHeaderFormat: { weekday: 'long' },
@@ -178,7 +176,6 @@
                     year: 'numeric',
                     month: 'long'
                 },
-
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
@@ -209,7 +206,6 @@
                     const todayStr = today.toISOString().split('T')[0];
                     const opcionesFecha = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
                     const fechaFormateada = selectedDate.toLocaleDateString('es-CL', opcionesFecha);
-
                     modalDateTitle.textContent = `Horarios para el ${fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1)}`;
                     modalDateInput.value = date;
                     slotsList.innerHTML = `<p class="text-muted">Cargando horarios...</p>`;
@@ -225,50 +221,56 @@
                             if (data.length === 0) {
                                 slotsList.innerHTML = '<p class="text-muted">No se registran horarios disponibles.</p>';
                             } else {
-                                // Ordenar los horarios por hora de inicio (formato 24h)
                                 data.sort((a, b) => a.start_time.localeCompare(b.start_time));
-
-
                                 data.forEach(slot => {
                                     const startFormatted = slot.start_time.slice(0, 5);
                                     const endFormatted = slot.end_time.slice(0, 5);
                                     const isExpiredToday = isToday && slot.end_time <= nowTime;
                                     slotsList.innerHTML += `
-                                                <div class="d-flex justify-content-between align-items-center border-bottom py-2 ${isExpiredToday ? 'bg-light text-muted border border-secondary-subtle rounded-2 opacity-75' : ''}">
-        <div><strong>${startFormatted} - ${endFormatted}</strong></div>
-                                                    <div>
-                                                        ${isExpiredToday ? '' : `<a href="/available-slots/${slot.id}/edit" class="btn btn-sm btn-outline-secondary me-2">Editar</a>`}
-                                                        <form method="POST" action="/available-slots/${slot.id}" style="display:inline;">
-                                                            <input type="hidden" name="_token" value="${document.querySelector('meta[name=csrf-token]').content}">
-                                                            <input type="hidden" name="_method" value="DELETE">
-                                                            <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            `;
+                                        <div class="d-flex justify-content-between align-items-center border-bottom py-2 ${isExpiredToday ? 'bg-light text-muted border border-secondary-subtle rounded-2 opacity-75' : ''}">
+                                        <div><strong>${startFormatted} - ${endFormatted}</strong></div>
+                                            <div>
+                                                ${isExpiredToday ? '' : `<a href="/available-slots/${slot.id}/edit" class="btn btn-sm btn-outline-secondary me-2">Editar</a>`}
+                                                <form method="POST" action="/available-slots/${slot.id}" style="display:inline;">
+                                                    <input type="hidden" name="_token" value="${document.querySelector('meta[name=csrf-token]').content}">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    `;
                                 });
                             }
 
                             slotsList.innerHTML += `
-                                        <hr class="my-4">
-                                        <h6 class="mb-3"><i class="bi bi-plus-circle me-1"></i> Agregar nuevo horario</h6>
-                                        <form method="POST" action="/available-slots" class="row g-2 align-items-center">
-                                            <input type="hidden" name="_token" value="${document.querySelector('meta[name=csrf-token]').content}">
-                                            <input type="hidden" name="mode" value="puntual">
-                                            <input type="hidden" name="date" value="${date}">
-                                            <div class="col-md-4">
-                                                <input type="text" name="start_time" id="start_time_input" class="form-control flat-time" required>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="text" name="end_time" id="end_time_input" class="form-control flat-time" required>
-                                            </div>
-                                            <div class="col-md-4 d-grid">
-                                                <button id="submit-slot-btn" type="submit" class="btn fw-bold disabled-btn btn-secondary" disabled>
-                                                    + Agregar Horario
-                                                </button>
-                                            </div>
-                                        </form>
-                                    `;
+                                <hr class="my-4">
+                                <p class="fw-bold mb-3" style="font-size: 0.95rem; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                                    <i class="bi bi-plus-circle me-1"></i> Añadir nuevo horario disponible
+                                </p>
+                                <form method="POST" action="/available-slots" class="row g-2 align-items-center">
+                                    <input type="hidden" name="_token" value="${document.querySelector('meta[name=csrf-token]').content}">
+                                    <input type="hidden" name="mode" value="puntual">
+                                    <input type="hidden" name="date" value="${date}">
+                                    <div class="col-md-4">
+                                        <label for="start_time_input" class="form-label">Hora de Inicio</label>
+                                        <input type="text" name="start_time" id="start_time_input" class="form-control flat-time" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="end_time_input" class="form-label">Hora de Término</label>
+                                        <input type="text" name="end_time" id="end_time_input" class="form-control flat-time" required>
+                                    </div>
+                                    <div class="col-md-4 d-grid align-self-end">
+                                        <button id="submit-slot-btn" type="submit" class="btn fw-bold disabled-btn btn-secondary" disabled>
+                                            + Agregar Horario
+                                        </button>
+                                    </div>
+                                </form>
+                                <div class="col-12">
+                                    <div id="error-message" class="text-danger small mt-2" aria-live="polite">
+                                        <!-- Mensaje dinámico aquí -->
+                                    </div>
+                                </div>
+                            `;
 
                             const startInput = document.querySelector('#start_time_input');
                             const endInput = document.querySelector('#end_time_input');
@@ -276,10 +278,10 @@
                             if (startInput && endInput) {
                                 startInput.addEventListener('input', () => {
                                     endInput.min = startInput.value;
-                                    validarSolapamiento(date);
+                                    validarHorario(date);
                                 });
                                 endInput.addEventListener('input', () => {
-                                    validarSolapamiento(date);
+                                    validarHorario(date);
                                 });
                             }
 
@@ -293,39 +295,95 @@
                 }
             });
 
-            function validarSolapamiento(date) {
+            function validarHorario(date) {
                 const start = document.querySelector('#start_time_input').value;
                 const end = document.querySelector('#end_time_input').value;
                 const submitBtn = document.querySelector('#submit-slot-btn');
+                const errorMessage = document.querySelector('#error-message');
 
-                if (!start || !end || end <= start) {
-                    submitBtn.disabled = true;
-                    submitBtn.classList.add('disabled-btn');
-                    submitBtn.classList.remove('btn-success');
-                    submitBtn.classList.add('btn-secondary');
+                const now = new Date();
+                const today = now.toISOString().split('T')[0];
+                const nowTime = now.toTimeString().slice(0, 5);
+
+                resetEstado();
+
+                if (!start || !end) return;
+
+                if (!esRangoValido(start, end)) {
+                    mostrarError('La hora de término debe ser posterior a la hora de inicio.');
+                    return;
+                }
+
+                if (esDiaHoy(date, today) && esHoraPasada(start, nowTime)) {
+                    mostrarError('La hora de inicio no puede ser anterior a la hora actual.');
                     return;
                 }
 
                 fetch(`/api/slots?date=${date}`)
                     .then(res => res.json())
                     .then(slots => {
-                        const solapado = slots.some(slot => {
-                            return (start < slot.end_time && end > slot.start_time);
-                        });
-
-                        if (solapado) {
-                            submitBtn.disabled = true;
-                            submitBtn.classList.add('disabled-btn');
-                            submitBtn.classList.remove('btn-success');
-                            submitBtn.classList.add('btn-secondary');
-                        } else {
-                            submitBtn.disabled = false;
-                            submitBtn.classList.remove('disabled-btn');
-                            submitBtn.classList.remove('btn-secondary');
-                            submitBtn.classList.add('btn-success');
+                        const conflicto = detectarSolapamiento(start, end, slots);
+                        if (conflicto) {
+                            mostrarError(`Este horario disponible choca con el de ${conflicto.start_time.slice(0,5)} - ${conflicto.end_time.slice(0,5)}.`);
+                            return;
                         }
+                        habilitarBoton();
                     });
+
+                // Sub-funciones internas
+                function resetEstado() {
+                    errorMessage.textContent = '';
+                    submitBtn.disabled = true;
+                    setBtnDeshabilitado();
+                }
+
+                function mostrarError(msg) {
+                    errorMessage.textContent = msg;
+                }
+
+                function habilitarBoton() {
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('disabled-btn', 'btn-secondary');
+                    submitBtn.classList.add('btn-success');
+                }
+
+                function esRangoValido(inicio, termino) {
+                    return inicio < termino;
+                }
+
+                function esDiaHoy(fechaSeleccionada, fechaActual) {
+                    return fechaSeleccionada === fechaActual;
+                }
+
+                function esHoraPasada(hora, ahora) {
+                    return hora < ahora;
+                }
+
+                function timeToMinutes(timeStr) {
+                    const [h, m] = timeStr.split(':').map(Number);
+                    return h * 60 + m;
+                }
+
+                function detectarSolapamiento(start, end, slots) {
+                    const startMin = timeToMinutes(start);
+                    const endMin = timeToMinutes(end);
+
+                    return slots.find(slot => {
+                        const slotStartMin = timeToMinutes(slot.start_time.slice(0, 5));
+                        const slotEndMin = timeToMinutes(slot.end_time.slice(0, 5));
+
+                        return !(endMin < slotStartMin || startMin > slotEndMin);
+                    });
+                }
             }
+
+            function setBtnDeshabilitado() {
+                const btn = document.querySelector('#submit-slot-btn');
+                btn.classList.add('disabled-btn');
+                btn.classList.remove('btn-success');
+                btn.classList.add('btn-secondary');
+            }
+            
             calendar.render();
 
             // Aplicar colores personalizados desde tenantSetting
