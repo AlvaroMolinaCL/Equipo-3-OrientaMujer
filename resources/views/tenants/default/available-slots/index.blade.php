@@ -76,6 +76,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            font-weight: bold;
         }
 
         .fc .fc-daygrid-event-harness {
@@ -152,7 +153,9 @@
     </style>
 
     <div class="container">
-        <h3 class="mb-4" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Calendario de Disponibilidad</h3>
+        <h3 class="fw-bold mt-3 mb-4" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+            <i class="bi bi-calendar-event me-2"></i>{{ __('Calendario de Disponibilidad') }}
+        </h3>
         <div id="calendar"></div>
     </div>
 
@@ -277,9 +280,13 @@
                                     const startFormatted = slot.start_time.slice(0, 5);
                                     const endFormatted = slot.end_time.slice(0, 5);
                                     const isExpiredToday = isToday && slot.end_time <= nowTime;
+                                    const isOngoing = isToday && slot.start_time <= nowTime && slot.end_time > nowTime;
                                     slotsList.innerHTML += `
                                         <div class="d-flex justify-content-between align-items-center border-bottom py-2 ${isExpiredToday ? 'bg-light text-muted border border-secondary-subtle rounded-2 opacity-75' : ''}">
-                                        <div><strong>${startFormatted} - ${endFormatted}</strong></div>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <strong class="m-0">${startFormatted} - ${endFormatted}</strong>
+                                                ${isOngoing ? '<span class="badge text-bg-warning">En curso</span>' : ''}
+                                            </div>
                                             <div>
                                                 ${isExpiredToday ? '' : `<a href="/available-slots/${slot.id}/edit" class="btn btn-sm btn-outline-secondary me-2">Editar</a>`}
                                                 <form method="POST" action="/available-slots/${slot.id}" style="display:inline;">
