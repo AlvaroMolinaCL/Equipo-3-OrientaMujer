@@ -140,6 +140,15 @@
         .fc-daygrid-event-harness+.fc-daygrid-more-link {
             align-self: center;
         }
+
+        .fc-event-title .icon-in-progress {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 0.85rem;
+            color: #ffc107;
+            margin-left: 5px;
+            line-height: 1;
+        }
     </style>
 
     <div class="container">
@@ -169,6 +178,8 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <script>
@@ -186,16 +197,28 @@
                 buttonText: {
                     today: 'Hoy'
                 },
+                
                 height: 600,
                 eventOrder: "start,-duration,allDay,title",
                 dayMaxEvents: 1,
                 eventDisplay: 'block',
-
                 moreLinkContent: function (args) {
                     return {
                         html: `<span class="more-badge">+${args.num} más</span>`
                     };
                 },
+
+                eventDidMount: function(info) {
+                    if (info.event.extendedProps.in_progress) {
+                        const titleEl = info.el.querySelector('.fc-event-title');
+                        if (titleEl) {
+                            const icon = document.createElement('i');
+                            icon.className = 'bi bi-clock-fill icon-in-progress';
+                            titleEl.appendChild(icon);
+                        }
+                    }
+                },
+
                 selectable: true,
                 dayHeaders: true,
                 dayHeaderFormat: { weekday: 'long' },
@@ -203,6 +226,7 @@
                     year: 'numeric',
                     month: 'long'
                 },
+
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',

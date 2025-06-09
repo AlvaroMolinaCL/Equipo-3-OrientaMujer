@@ -47,6 +47,11 @@ class AvailableSlotController extends Controller
 
         return response()->json(
             $query->get()->map(function ($slot) {
+                $now = now();
+                $slotStart = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $slot->date . ' ' . $slot->start_time);
+                $slotEnd = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $slot->date . ' ' . $slot->end_time);
+                $inProgress = $now->between($slotStart, $slotEnd);
+
                 return [
                     'id' => $slot->id,
                     'title' => substr($slot->start_time, 0, 5) . ' - ' . substr($slot->end_time, 0, 5),
@@ -54,6 +59,7 @@ class AvailableSlotController extends Controller
                     'start_time' => $slot->start_time,
                     'end_time' => $slot->end_time,
                     'available' => true,
+                    'in_progress' => $inProgress,
                 ];
             })
         );
