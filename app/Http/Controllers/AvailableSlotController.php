@@ -31,7 +31,7 @@ class AvailableSlotController extends Controller
             $query->get()->map(function ($slot) {
                 return [
                     'id' => $slot->id,
-                    'title' => $slot->start_time . ' - ' . $slot->end_time,
+                    'title' => substr($slot->start_time, 0, 5) . ' - ' . substr($slot->end_time, 0, 5),
                     'start' => $slot->date,
                     'start_time' => $slot->start_time,
                     'end_time' => $slot->end_time,

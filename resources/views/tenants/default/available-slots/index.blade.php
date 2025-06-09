@@ -21,9 +21,7 @@
 
         .fc .fc-daygrid-day-frame {
             padding: 6px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            display: block;
         }
 
         .fc .fc-daygrid-event {
@@ -43,9 +41,16 @@
             text-overflow: ellipsis;
             width: 100%;
             max-width: 100%;
+            box-sizing: border-box;
         }
 
         .fc .fc-col-header-cell-cushion {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: center;
             text-transform: capitalize;
             font-weight: bold;
             font-size: 0.95rem;
@@ -66,23 +71,45 @@
             color:
                 {{ tenantSetting('text_color_1', '#8C2D18') }}
             ;
+            display: inline-block;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .fc .fc-daygrid-event-harness {
             display: flex;
             justify-content: center;
+            max-width: 100%;
             width: 100%;
+            flex: 1 1 100%;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .fc .fc-event-main {
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
         }
 
         .fc .fc-event-title {
+            display: block;
+            width: 100%;
+            max-width: 100%;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
         .fc .fc-daygrid-more-link {
-            display: inline-block;
-            margin-top: 5px;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 2px;
             padding: 2px 6px;
             font-size: 0.8rem;
             font-weight: 500;
