@@ -164,7 +164,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content" style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="dayModalLabel">Horarios del día</h5>
+                    <h5 class="modal-title fw-bold" id="dayModalLabel">Horarios del día</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
@@ -276,13 +276,15 @@
                                 slotsList.innerHTML = '<p class="text-muted">No se registran horarios disponibles.</p>';
                             } else {
                                 data.sort((a, b) => a.start_time.localeCompare(b.start_time));
-                                data.forEach(slot => {
+                                data.forEach((slot, index) => {
                                     const startFormatted = slot.start_time.slice(0, 5);
                                     const endFormatted = slot.end_time.slice(0, 5);
                                     const isExpiredToday = isToday && slot.end_time <= nowTime;
                                     const isOngoing = isToday && slot.start_time <= nowTime && slot.end_time > nowTime;
+                                    const isLast = index === data.length - 1;
+
                                     slotsList.innerHTML += `
-                                        <div class="d-flex justify-content-between align-items-center border-bottom py-2 ${isExpiredToday ? 'bg-light text-muted border border-secondary-subtle rounded-2 opacity-75' : ''}">
+                                        <div class="d-flex justify-content-between align-items-center py-2 ${!isLast ? 'border-bottom' : ''} ${isExpiredToday ? 'bg-light text-muted border border-secondary-subtle rounded-2 opacity-75' : ''}">
                                             <div class="d-flex align-items-center gap-2">
                                                 <strong class="m-0">${startFormatted} - ${endFormatted}</strong>
                                                 ${isOngoing ? '<span class="badge text-bg-warning">En curso</span>' : ''}
@@ -301,7 +303,7 @@
                             }
 
                             slotsList.innerHTML += `
-                                <hr class="my-4">
+                                <div class="border-bottom pb-2 mb-3"></div>
                                 <p class="fw-bold mb-3" style="font-size: 0.95rem; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                                     <i class="bi bi-plus-circle me-1"></i> Añadir nuevo horario disponible
                                 </p>
