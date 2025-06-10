@@ -59,7 +59,7 @@
                                                         </p>
                                                     ') !!}
                     <div class="text-center">
-                        <a href="/about" class="btn btn-consulta" style="background-color: #ffffff54; !important"
+                        <a href="/about" class="btn btn-consulta" style="background-color: {{ tenantSetting('button_color_sidebar', '#ffffff54') }};"
                             role="button">Conoce más</a>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                 </div>
             </div>
             <div class="text-center mt-4">
-                <a href="/services" class="btn btn-consulta fade-in-section" style="background-color: #ffffff54; !important"
+                <a href="/services" class="btn btn-consulta fade-in-section" style="background-color: {{ tenantSetting('button_color_sidebar', '#ffffff54') }};"
                     role="button">Revisa más detalles</a>
             </div>
         </div>
