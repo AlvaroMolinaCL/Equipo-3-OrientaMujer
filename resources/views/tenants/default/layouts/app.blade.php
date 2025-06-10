@@ -117,6 +117,15 @@
                 overflow: hidden;
             }
 
+            .hero-text {
+                background-color: rgba(255, 255, 255, 0.1);
+                padding: 20px;
+                border-radius: 10px;
+                backdrop-filter: blur(5px);
+                -webkit-backdrop-filter: blur(5px);
+            }
+
+
             /* Color de fondo y de texto del botón de la página de Inicio */
             .btn-consulta {
                 background-color:
