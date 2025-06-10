@@ -10,7 +10,7 @@
     <div class="container">
         {{-- Encabezado --}}
         <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-            <h3 class="fw-bold mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+            <h3 class="fw-bold mt-3 mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                 <i class="bi bi-calendar-event me-2"></i>{{ __('Editar Disponibilidad') }}
             </h3>
             <a href="{{ route('available-slots.index') }}" class="btn btn-sm"
@@ -29,8 +29,8 @@
                     @csrf
                     @method('PUT')
 
-                    <h5 class="fw-medium mb-3"
-                        style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};">
+                    <h5 class="fw-bold mb-4"
+                        style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                         <i class="bi bi-info-circle me-2"></i>Información de la Disponibilidad
                     </h5>
 
@@ -97,6 +97,11 @@
                                 </div>
                             @enderror
                         </div>
+
+                        {{-- Mensaje de error dinámico --}}
+                        <div class="col-12">
+                            <div class="text-danger small mt-2" id="edit-error-message" aria-live="polite"></div>
+                        </div>
                     </div>
 
                     {{-- Botón de Guardar --}}
@@ -113,69 +118,120 @@
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const startInput = document.getElementById('start-time');
-            const endInput = document.getElementById('end-time');
-            const saveBtn = document.getElementById('save-slot-btn');
-            const slotId = {{ $slot->id }};
-            const date = "{{ $slot->date }}";
+    document.addEventListener('DOMContentLoaded', function () {
+        const startInput = document.getElementById('start-time');
+        const endInput = document.getElementById('end-time');
+        const saveBtn = document.getElementById('save-slot-btn');
+        const slotId = {{ $slot->id }};
+        const date = "{{ $slot->date }}";
+        const errorMessage = document.getElementById('edit-error-message');
 
-            async function validar() {
-                const start = startInput.value;
-                const end = endInput.value;
+        function resetEstado() {
+            errorMessage.textContent = '';
+            saveBtn.disabled = true;
+            saveBtn.classList.remove('btn-success');
+            saveBtn.classList.add('btn-secondary');
+        }
 
-                // Validación local: hora fin debe ser mayor a inicio
-                const horasValidas = start && end && end > start;
-                if (!horasValidas) {
-                    saveBtn.disabled = true;
-                    saveBtn.classList.remove('btn-primary');
-                    saveBtn.classList.add('btn-secondary');
-                    return;
-                }
+        function mostrarError(msg) {
+            errorMessage.innerHTML = msg;
+            saveBtn.disabled = true;
+            saveBtn.classList.remove('btn-success');
+            saveBtn.classList.add('btn-secondary');
+        }
 
-                // Validación contra solapamientos
-                try {
-                    const res = await fetch(`/api/slots?date=${date}`);
-                    const slots = await res.json();
+        function habilitarBoton() {
+            errorMessage.textContent = '';
+            saveBtn.disabled = false;
+            saveBtn.classList.remove('btn-secondary');
+            saveBtn.classList.add('btn-success');
+        }
 
-                    const hayChoque = slots.some(slot => {
-                        if (parseInt(slot.id) === parseInt(slotId)) return false;
-                        return (start < slot.end_time && end > slot.start_time);
-                    });
+        function timeToMinutes(timeStr) {
+            const [h, m] = timeStr.split(':').map(Number);
+            return h * 60 + m;
+        }
 
-                    if (hayChoque) {
-                        saveBtn.disabled = true;
-                        saveBtn.classList.remove('btn-primary');
-                        saveBtn.classList.add('btn-secondary');
-                    } else {
-                        saveBtn.disabled = false;
-                        saveBtn.classList.remove('btn-secondary');
-                        saveBtn.classList.add('btn-primary');
-                    }
-                } catch (error) {
-                    console.error("Error al validar disponibilidad:", error);
-                    saveBtn.disabled = true;
-                    saveBtn.classList.remove('btn-primary');
-                    saveBtn.classList.add('btn-secondary');
-                }
+        function esHoraPasada(hora, ahora) {
+            return hora < ahora;
+        }
+
+        function esDiaHoy(fechaSeleccionada, fechaActual) {
+            return fechaSeleccionada === fechaActual;
+        }
+
+        function validar() {
+            const parsedDate = new Date(date);
+            const formattedDate = parsedDate.toISOString().split('T')[0];
+            const start = startInput.value;
+            const end = endInput.value;
+            const now = new Date();
+            const localDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+            const today = localDate.toISOString().split('T')[0];
+            const nowTime = now.toTimeString().slice(0, 5);
+
+            resetEstado();
+
+            if (!start || !end) return;
+
+            // PRIORIDAD 1: Hora fin menor o igual a inicio
+            if (start >= end) {
+                mostrarError('La hora de término debe ser posterior a la hora de inicio.');
+                return;
             }
 
-            startInput.addEventListener('input', () => {
-                endInput.min = startInput.value;
-                validar();
-            });
+            // PRIORIDAD 2: Hora pasada en el día actual
+            if (esDiaHoy(formattedDate, today) && esHoraPasada(start, nowTime)) {
+                mostrarError('La hora de inicio no puede ser anterior a la hora actual.');
+                return;
+            }
 
-            endInput.addEventListener('input', validar);
+            // PRIORIDAD 3: Chequear conflictos
+            fetch(`/api/slots?date=${date}`)
+                .then(res => res.json())
+                .then(slots => {
+                    const startMin = timeToMinutes(start);
+                    const endMin = timeToMinutes(end);
 
-            validar(); // Validación inicial
+                    const conflictos = slots.filter(slot => {
+                        if (parseInt(slot.id) === parseInt(slotId)) return false;
+                        const slotStart = timeToMinutes(slot.start_time.slice(0, 5));
+                        const slotEnd = timeToMinutes(slot.end_time.slice(0, 5));
+                        return !(endMin < slotStart || startMin > slotEnd);
+                    });
+
+                    if (conflictos.length > 0) {
+                        const mensajes = conflictos.map(slot =>
+                            `Este horario disponible choca con el de ${slot.start_time.slice(0, 5)} - ${slot.end_time.slice(0, 5)}.`
+                        );
+                        mostrarError(mensajes.join('<br>'));
+                        return;
+                    }
+
+                    // ✅ Todo válido
+                    habilitarBoton();
+                })
+                .catch(err => {
+                    console.error("Error al validar disponibilidad:", err);
+                    mostrarError('Ocurrió un error al validar el horario.');
+                });
+        }
+
+        startInput.addEventListener('input', () => {
+            endInput.min = startInput.value;
+            validar();
         });
-        
-        flatpickr(".flat-timepicker", {
-            enableTime: true,
-            noCalendar: true,
-            dateFormat: "H:i",
-            time_24hr: true
-        });
 
-    </script>
+        endInput.addEventListener('input', validar);
+
+        validar();
+    });
+
+    flatpickr(".flat-timepicker", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true
+    });
+</script>
 @endsection

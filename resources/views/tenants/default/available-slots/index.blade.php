@@ -360,37 +360,44 @@
                 const end = document.querySelector('#end_time_input').value;
                 const submitBtn = document.querySelector('#submit-slot-btn');
                 const errorMessage = document.querySelector('#error-message');
-
                 const now = new Date();
-                const today = now.toISOString().split('T')[0];
+                const localDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+                const today = localDate.toISOString().split('T')[0];
                 const nowTime = now.toTimeString().slice(0, 5);
 
                 resetEstado();
 
                 if (!start || !end) return;
 
+                // PRIORIDAD 1: Hora de término inválida
                 if (!esRangoValido(start, end)) {
                     mostrarError('La hora de término debe ser posterior a la hora de inicio.');
                     return;
                 }
 
+                // PRIORIDAD 2: Hora anterior a la actual (solo si es hoy)
                 if (esDiaHoy(date, today) && esHoraPasada(start, nowTime)) {
                     mostrarError('La hora de inicio no puede ser anterior a la hora actual.');
                     return;
                 }
 
+                // PRIORIDAD 3: Conflictos con horarios existentes
                 fetch(`/api/slots?date=${date}`)
                     .then(res => res.json())
                     .then(slots => {
-                        const conflicto = detectarSolapamiento(start, end, slots);
-                        if (conflicto) {
-                            mostrarError(`Este horario disponible choca con el de ${conflicto.start_time.slice(0,5)} - ${conflicto.end_time.slice(0,5)}.`);
+                        const conflictos = detectarTodosLosConflictos(start, end, slots);
+                        if (conflictos.length > 0) {
+                            const mensajes = conflictos.map(slot =>
+                                `Este horario disponible choca con el de ${slot.start_time.slice(0,5)} - ${slot.end_time.slice(0,5)}.`
+                            );
+                            mostrarError(mensajes.join('<br>'));
                             return;
                         }
+
+                        // ✅ Si todo está bien
                         habilitarBoton();
                     });
 
-                // Sub-funciones internas
                 function resetEstado() {
                     errorMessage.textContent = '';
                     submitBtn.disabled = true;
@@ -398,7 +405,7 @@
                 }
 
                 function mostrarError(msg) {
-                    errorMessage.textContent = msg;
+                    errorMessage.innerHTML = msg;
                 }
 
                 function habilitarBoton() {
@@ -424,18 +431,18 @@
                     return h * 60 + m;
                 }
 
-                function detectarSolapamiento(start, end, slots) {
+                function detectarTodosLosConflictos(start, end, slots) {
                     const startMin = timeToMinutes(start);
                     const endMin = timeToMinutes(end);
 
-                    return slots.find(slot => {
+                    return slots.filter(slot => {
                         const slotStartMin = timeToMinutes(slot.start_time.slice(0, 5));
                         const slotEndMin = timeToMinutes(slot.end_time.slice(0, 5));
-
                         return !(endMin < slotStartMin || startMin > slotEndMin);
                     });
                 }
             }
+
 
             function setBtnDeshabilitado() {
                 const btn = document.querySelector('#submit-slot-btn');
