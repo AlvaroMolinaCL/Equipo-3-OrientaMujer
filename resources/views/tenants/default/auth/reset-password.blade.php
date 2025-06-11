@@ -85,6 +85,4 @@
             </div>
         </div>
     </div>
-
-    @include('tenants.default.layouts.footer')
 @endsection

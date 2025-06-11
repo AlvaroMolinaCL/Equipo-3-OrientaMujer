@@ -361,19 +361,19 @@
     @endif
 </head>
 
-<body class="@yield('body-class', 'theme-light')">
-    <div class="d-flex min-h-screen">
+<body class="@yield('body-class', 'theme-light') d-flex flex-column min-vh-100">
+    <div class="flex-grow-1">
+        @hasSection('navbar')
+            @yield('navbar')
+        @endif
 
-        <div class="flex-grow-1">
-            @hasSection('navbar')
-                @yield('navbar')
-            @endif
-
-            <main>
-                @yield('content')
-            </main>
-        </div>
+        <main>
+            @yield('content')
+        </main>
     </div>
+
+    @include('tenants.default.layouts.footer')
+    
     @stack('scripts')
     @stack('styles')
 
