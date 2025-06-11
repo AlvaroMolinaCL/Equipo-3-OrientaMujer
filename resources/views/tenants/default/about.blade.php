@@ -27,26 +27,32 @@
 
                 {{-- Texto: segundo plano en móviles, primero plano en pantallas grandes --}}
                 <div class="col-md-6 order-2 order-md-1">
-                    {!! tenantText('about_us', '
-                            <p style="text-align: justify;">Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos humanos y litigación con perspectiva de género.</p>
-                            <p style="text-align: justify;">Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras, asesoría accesible y representación comprometida.</p>
-                            <p style="text-align: justify;">Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar soluciones dentro de las reales posibilidades que brinda el sistema.</p>
-                            <p style="text-align: justify;"><strong>"La información es poder, empodérate"</strong></p>
-                        ') !!}
+                    {!! tenantText(
+                        'about_us',
+                        '
+                            <p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a odio purus. Nullam nec commodo urna, vel dignissim enim. Aenean ac quam sit amet libero volutpat ornare.</p>
+                            <p style="text-align: justify;">Nunc at odio ac magna sagittis varius. Maecenas ut orci vel felis maximus condimentum.</p>
+                            <p style="text-align: justify;">Aliquam erat volutpat. Mauris pretium aliquam neque vitae efficitur. Sed massa neque, malesuada ut blandit in, maximus non lorem. Sed nec eleifend odio. Vivamus faucibus maximus pellentesque. Duis posuere placerat vestibulum. Sed tincidunt ligula odio, sit amet tempor leo elementum et. Quisque bibendum hendrerit libero.</p>
+                            <p style="text-align: justify;"><strong>"Duis rhoncus, ipsum at vehicula aliquet"</strong></p>
+                        ',
+                    ) !!}
                 </div>
 
             </div>
 
-            <h1 class="mb-3 mt-5" style="font-family: 'Courier Prime', Courier">Experiencia</h1>
+            <h1 class="mb-3 mt-5" style="font-family: 'Arial'">Experiencia</h1>
 
             <div>
-                {!! tenantText('experience', '
-                <ul class="fade-in-section">
-                    <li>Abogada titulada por la Universidad de Concepción.</li>
-                    <li>Magíster en Derecho Penal y Derecho Procesal Penal, Universidad Católica del Norte (en curso).</li>
-                    <li>Diplomada en Derechos Humanos y Función Pública, Universidad de Los Lagos e Instituto Nacional de Derechos Humanos.</li>
-                </ul>
-            ') !!}
+                {!! tenantText(
+                    'experience',
+                    '
+                        <ul class="fade-in-section">
+                            <li>Orci varius natoque penatibus et magnis dis parturient montes.</li>
+                            <li>Morbi arcu felis, tristique in neque vitae, imperdiet finibus elit.</li>
+                            <li>Aliquam pulvinar ligula a mi lobortis efficitur.</li>
+                        </ul>
+                    ',
+                ) !!}
             </div>
 
         </div>

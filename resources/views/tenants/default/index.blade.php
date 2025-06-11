@@ -13,10 +13,9 @@
     <section class="hero-section">
         <div class="hero-overlay">
             <div class="hero-text fade-in-section">
-                <h1>{!! tenantText('slogan_text', 'La información es poder, <strong>¡empodérate!</strong>') !!}</h1>
+                <h1>{!! tenantText('slogan_text', '<strong>¡Bienvenidos!</strong>') !!}</h1>
                 <p class="mt-3">
-                    {!! tenantText('slogan_body', 'Una representación judicial con perspectiva de género, exige un acompañamiento empático e
-                                                                            informado para alivianar las cargas del proceso.') !!}
+                    {!! tenantText('slogan_body', 'Esta es nuestra página, <strong>¡conócenos!</strong>') !!}
                 </p>
                 @if (tenantAgendaFlow() === 'completo')
                     <a href="/plans" class="btn btn-consulta" role="button">Agenda tu asesoría</a>
@@ -39,27 +38,25 @@
                 </div>
 
                 {{-- Texto: segundo plano en móviles, primer plano en pantallas grandes --}}
-                <h1 class="mb-5 text-center">Sobre {{ tenantSetting('id', 'Orienta Mujer') }}</h1>
+                <h1 class="mb-5 text-center">Sobre {{ tenantSetting('name', 'Lorem Ipsum') }}</h1>
                 <div class="col-md-6 order-2 order-md-1 fade-in-section">
-                    {!! tenantText('about_text', '
-                                                        <p style="text-align: justify;">
-                                                            Soy Omara Muñoz Navarro, abogada especializada en derecho penal, derecho de familia, derechos
-                                                            humanos y litigación con perspectiva de género.
-                                                        </p>
-                                                        <p style="text-align: justify;">
-                                                            Mi propósito es acompañarte en procesos legales complejos, entregándote herramientas claras,
-                                                            asesoría accesible y representación comprometida.
-                                                        </p>
-                                                        <p style="text-align: justify;">
-                                                            Conozco el sistema desde adentro, a lo largo de mi desarrollo académico y profesional me desempeñé
-                                                            en las distintas instituciones que componen nuestro sistema judicial. Saber cómo desarrollan su
-                                                            quehacer Tribunales de Justicia; Ministerio Público; Defensoría Penal Pública; programas de apoyo a
-                                                            mujeres, niños, niñas y adolescentes, entre otras, me permite orientarte de forma certera y buscar
-                                                            soluciones dentro de las reales posibilidades que brinda el sistema.
-                                                        </p>
-                                                    ') !!}
+                    {!! tenantText(
+                        'about_text',
+                        '
+                            <p style="text-align: justify;">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a odio purus. Nullam nec commodo urna, vel dignissim enim. Aenean ac quam sit amet libero volutpat ornare.
+                            </p>
+                            <p style="text-align: justify;">
+                                Nunc at odio ac magna sagittis varius. Maecenas ut orci vel felis maximus condimentum.
+                            </p>
+                            <p style="text-align: justify;">
+                                Quisque vel quam tortor. Etiam iaculis tincidunt purus, eget congue urna volutpat sed.
+                            </p>
+                        ',
+                    ) !!}
                     <div class="text-center">
-                        <a href="/about" class="btn btn-consulta" style="background-color: {{ tenantSetting('button_color_sidebar', '#ffffff54') }};"
+                        <a href="/about" class="btn btn-consulta"
+                            style="background-color: {{ tenantSetting('button_color_sidebar', '#ffffff54') }};"
                             role="button">Conoce más</a>
                     </div>
                 </div>
@@ -79,9 +76,12 @@
 
                         <div class="card-body">
                             <h5 class="card-title" style="font-weight: bold;">
-                                {!! tenantText('service1_title', 'Asesoría jurídica integral') !!}
+                                {!! tenantText('service1_title', 'Servicio 1') !!}
                             </h5>
-                            {!! tenantText('service1_body', '<p style="text-align: justify;">Te ofrezco un servicio de orientación legal para identificar el escenario jurídico que enfrentas.</p>') !!}
+                            {!! tenantText(
+                                'service1_body',
+                                '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a odio purus.</p>',
+                            ) !!}
                         </div>
                     </div>
                 </div>
@@ -89,14 +89,17 @@
                 {{-- Recuadro 2 --}}
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm border-0 fade-in-section">
-                        <img src="{{ asset('images/services/' . (tenantSetting('services_path_2', 'Servicio_(Predeterminado).png'))) }}"
+                        <img src="{{ asset('images/services/' . tenantSetting('services_path_2', 'Servicio_(Predeterminado).png')) }}"
                             class="card-img-top" alt="Representación judicial">
 
                         <div class="card-body">
                             <h5 class="card-title" style="font-weight: bold;">
-                                {!! tenantText('service2_title', 'Asesoría jurídica integral') !!}
+                                {!! tenantText('service2_title', 'Servicio 2') !!}
                             </h5>
-                            {!! tenantText('service2_body', '<p style="text-align: justify;">Te represento en procesos judiciales penales, de familia u otras materias.</p>') !!}
+                            {!! tenantText(
+                                'service2_body',
+                                '<p style="text-align: justify;">Nullam nec commodo urna, vel dignissim enim. Aenean ac quam sit amet libero volutpat ornare.</p>',
+                            ) !!}
 
                         </div>
                     </div>
@@ -109,16 +112,20 @@
                             class="card-img-top" alt="Capacitaciones y charlas">
                         <div class="card-body">
                             <h5 class="card-title" style="font-weight: bold;">
-                                {!!tenantText('service3_title', 'Asesoría jurídica integral') !!}
+                                {!! tenantText('service3_title', 'Servicio 3') !!}
                             </h5>
-                            {!! tenantText('service3_body', '<p style="text-align: justify;">Realizo talleres, charlas y capacitaciones para grupos en contextos académicos, laborales o comunitarios.</p>') !!}
+                            {!! tenantText(
+                                'service3_body',
+                                '<p style="text-align: justify;">Praesent tempus accumsan urna. Sed vel tempor nulla, et sodales enim. Vivamus a dictum urna, ut cursus leo.</p>',
+                            ) !!}
 
                         </div>
                     </div>
                 </div>
             </div>
             <div class="text-center mt-4">
-                <a href="/services" class="btn btn-consulta fade-in-section" style="background-color: {{ tenantSetting('button_color_sidebar', '#ffffff54') }};"
+                <a href="/services" class="btn btn-consulta fade-in-section"
+                    style="background-color: {{ tenantSetting('button_color_sidebar', '#ffffff54') }};"
                     role="button">Revisa más detalles</a>
             </div>
         </div>
