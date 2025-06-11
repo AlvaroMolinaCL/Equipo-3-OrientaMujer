@@ -68,6 +68,8 @@ Route::middleware([
 
     // API para mostrar solo horarios no agendados al cliente
     Route::get('/api/client-slots', [AvailableSlotController::class, 'clientSlots']);
+    Route::post('/api/apply-batch', [ScheduleBatchController::class, 'applyBatch']);
+    Route::get('/api/batch-preview', [ScheduleBatchController::class, 'previewBatch']);
 
     // Rutas solo para usuarios que han iniciado sesión
     Route::middleware(['auth'])->group(function () {

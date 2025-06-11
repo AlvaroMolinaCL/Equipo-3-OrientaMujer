@@ -158,7 +158,7 @@
         </h3>
         <div id="calendar"></div>
         <div class="text-center mt-5 mb-3">
-            <a href="{{ route('available-slots.create') }}"
+            <a href="{{ route('schedule-batches.create') }}"
             class="btn fw-bold"
             style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};
                     color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }};
@@ -166,6 +166,49 @@
                     border-radius: 8px;">
                 <i class="bi bi-calendar-plus me-2"></i>Crear Carga de Horarios
             </a>
+        </div>
+
+        {{-- Listado de Cargas Guardadas --}}
+        <div class="mt-5">
+            <h4 class="fw-bold mb-3" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                <i class="bi bi-layers me-2"></i>Cargas de horarios guardadas
+            </h4>
+
+            @if($scheduleBatches->isEmpty())
+                <p class="text-muted">Aún no has guardado ninguna carga de horarios.</p>
+            @else
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle" style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Fecha creación</th>
+                                <th scope="col">Días programados</th>
+                                <th scope="col">Total horarios</th>
+                                <th scope="col">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($scheduleBatches as $batch)
+                                <tr>
+                                    <th scope="row">{{ $loop->iteration }}</th>
+                                    <td>{{ \Carbon\Carbon::parse($batch->created_at)->format('d/m/Y H:i') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($batch->start_date)->diffInDays($batch->end_date) + 1 }}</td>
+                                    <td>{{ $batch->slots_count }}</td>
+                                    <td>
+                                        <form method="GET" action="{{ route('available-slots.index') }}">
+                                            <input type="hidden" name="batch_id" value="{{ $batch->id }}">
+                                            <button type="submit" class="btn btn-sm btn-outline-primary">
+                                                Aplicar carga
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
         </div>
     </div>
 
@@ -261,6 +304,36 @@
                 },
 
                 dateClick: function (info) {
+                    if (batchPreviewMode && batchPreviewSlots.length > 0) {
+                        const startDate = new Date(info.dateStr);
+                        const confirmApply = confirm("¿Deseas aplicar esta carga comenzando desde el " + startDate.toLocaleDateString('es-CL') + "?");
+
+                        if (!confirmApply) return;
+
+                        const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+                        fetch('/api/apply-batch', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken
+                            },
+                            body: JSON.stringify({
+                                batch_id: batchId,
+                                start_date: info.dateStr
+                            })
+                        }).then(res => res.json())
+                        .then(response => {
+                            if (response.success) {
+                                window.location.href = '{{ route('available-slots.index') }}';
+                            } else {
+                                alert('Ocurrió un error al aplicar la carga.');
+                            }
+                        });
+
+                        return;
+                    }
+
                     const selectedDate = new Date(info.date);
                     const today = new Date();
                     today.setHours(0, 0, 0, 0);
@@ -404,7 +477,6 @@
                             return;
                         }
 
-                        // ✅ Si todo está bien
                         habilitarBoton();
                     });
 
@@ -458,6 +530,28 @@
                 btn.classList.add('disabled-btn');
                 btn.classList.remove('btn-success');
                 btn.classList.add('btn-secondary');
+            }
+
+            const batchId = new URLSearchParams(window.location.search).get('batch_id');
+            let batchPreviewSlots = [];
+            let batchPreviewMode = false;
+
+            if (batchId) {
+                batchPreviewMode = true;
+
+                const alert = document.createElement('div');
+                alert.className = 'alert alert-info text-center mt-4 fw-bold';
+                alert.innerHTML = `
+                    <i class="bi bi-mouse me-1"></i>Selecciona el día en el calendario donde deseas comenzar a aplicar la carga de horarios.
+                    <a href="{{ route('available-slots.index') }}" class="btn btn-sm btn-outline-secondary ms-3">Cancelar</a>
+                `;
+                document.querySelector('.container').appendChild(alert);
+
+                fetch(`/api/batch-preview?id=${batchId}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        batchPreviewSlots = data;
+                    });
             }
             
             calendar.render();

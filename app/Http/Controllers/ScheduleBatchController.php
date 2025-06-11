@@ -42,4 +42,60 @@ class ScheduleBatchController extends Controller
         return redirect()->route('available-slots.index')
                          ->with('success', 'Carga de horarios guardada correctamente.');
     }
+
+    public function applyBatch(Request $request)
+    {
+        $request->validate([
+            'batch_id' => 'required|exists:schedule_batches,id',
+            'start_date' => 'required|date',
+        ]);
+
+        $batch = ScheduleBatch::with('slots')->findOrFail($request->batch_id);
+        $startDate = \Carbon\Carbon::parse($request->start_date);
+        $originalStart = \Carbon\Carbon::parse($batch->start_date);
+        $daysOffset = $startDate->diffInDays($originalStart, false);
+
+        foreach ($batch->slots as $slot) {
+            $newDate = \Carbon\Carbon::parse($batch->start_date)
+                ->addDays($slot->day_index + $daysOffset);
+
+            \App\Models\AvailableSlot::create([
+                'user_id' => Auth::id(),
+                'date' => $newDate->format('Y-m-d'),
+                'start_time' => $slot->start_time,
+                'end_time' => $slot->end_time,
+            ]);
+        }
+
+        return response()->json(['success' => true]);
+    }
+
+    public function previewBatch(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:schedule_batches,id',
+        ]);
+
+        $batch = ScheduleBatch::with('slots')->findOrFail($request->id);
+
+        return response()->json(
+            $batch->slots->map(function ($slot) {
+                return [
+                    'day_index' => $slot->day_index,
+                    'start_time' => $slot->start_time,
+                    'end_time' => $slot->end_time,
+                ];
+            })
+        );
+    }
+
+    public function create()
+    {
+        $scheduleBatches = ScheduleBatch::withCount('slots')
+            ->where('user_id', Auth::id())
+            ->orderByDesc('created_at')
+            ->get();
+
+        return view('tenants.default.available-slots.create', compact('scheduleBatches'));
+    }
 }
