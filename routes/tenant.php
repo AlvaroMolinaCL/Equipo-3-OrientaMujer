@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 use App\Http\Controllers\ChatbotController;
+use App\Http\Controllers\ScheduleBatchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -136,10 +137,14 @@ Route::middleware([
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // Gestión de Agenda
-        Route::resource('available-slots', AvailableSlotController::class)->only(['index', 'create', 'store', 'destroy']);
+        Route::resource('available-slots', AvailableSlotController::class)->only(['index', 'store', 'destroy']);
         Route::get('/available-slots/{id}/reservations', [AvailableSlotController::class, 'reservations'])->name('available-slots.reservations');
         Route::get('/available-slots/{slot}/edit', [AvailableSlotController::class, 'edit'])->name('available-slots.edit');
         Route::put('/available-slots/{slot}', [AvailableSlotController::class, 'update'])->name('available-slots.update');
+
+        // Cargas de horarios (schedule_batches)
+        Route::get('/schedule-batches/create', [ScheduleBatchController::class, 'create'])->name('schedule-batches.create');
+        Route::post('/schedule-batches', [ScheduleBatchController::class, 'store'])->name('schedule-batches.store');
 
         // Gestión de Apariencia
         Route::get('/appearance', [AppearanceController::class, 'index'])->name('appearance');

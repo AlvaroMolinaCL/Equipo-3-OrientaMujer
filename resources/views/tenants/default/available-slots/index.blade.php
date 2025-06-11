@@ -157,6 +157,16 @@
             <i class="bi bi-calendar-event me-2"></i>{{ __('Calendario de Disponibilidad') }}
         </h3>
         <div id="calendar"></div>
+        <div class="text-center mt-5 mb-3">
+            <a href="{{ route('available-slots.create') }}"
+            class="btn fw-bold"
+            style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};
+                    color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }};
+                    padding: 10px 20px;
+                    border-radius: 8px;">
+                <i class="bi bi-calendar-plus me-2"></i>Crear Carga de Horarios
+            </a>
+        </div>
     </div>
 
     {{-- Modal --}}
@@ -442,7 +452,6 @@
                     });
                 }
             }
-
 
             function setBtnDeshabilitado() {
                 const btn = document.querySelector('#submit-slot-btn');

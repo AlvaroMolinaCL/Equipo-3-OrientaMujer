@@ -7,6 +7,7 @@ use App\Models\AvailableSlot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Appointment;
+use App\Models\ScheduleBatch;
 
 class AvailableSlotController extends Controller
 {
