@@ -115,8 +115,6 @@
     </div>
 </section>
 
-@include('tenants.default.layouts.footer')
-
 <script>
     function filterCommunes(regionSelectId, communeSelectId) {
         const regionId = document.getElementById(regionSelectId).value;

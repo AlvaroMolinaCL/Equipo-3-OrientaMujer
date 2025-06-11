@@ -41,6 +41,4 @@
             </p>
         </div>
     </section>
-
-    @include('tenants.default.layouts.footer')
 @endsection
