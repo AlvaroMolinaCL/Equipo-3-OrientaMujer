@@ -7,6 +7,42 @@
 @endsection
 
 @section('content')
+    <style>
+        .day-card {
+            max-height: 100%;
+            flex-shrink: 0;
+            width: 500px; /* antes 350 */
+            transition: box-shadow 0.3s ease;
+        }
+
+        .day-tab-active {
+            color: {{ tenantSetting('text_color_1', '#8C2D18') }};
+            font-weight: bold;
+            border-bottom: 2px solid {{ tenantSetting('text_color_1', '#8C2D18') }};
+            transition: all 0.2s ease-in-out;
+        }
+
+        .day-card:hover {
+            box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+        }
+
+        #dayTabs {
+            margin-top: 1.2rem; /* Aumenta separación con respecto al select */
+        }
+
+        .scroll-container {
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding-bottom: 1rem; /* Añade separación inferior */
+        }
+
+        .validation-error {
+            color: red;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+    </style>
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
         <h3 class="fw-bold mt-3 mb-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
@@ -34,10 +70,17 @@
                     <option value="{{ $i }}">{{ $i }} día{{ $i > 1 ? 's' : '' }}</option>
                 @endfor
             </select>
+            {{-- Menú de navegación por día --}}
+            <ul id="dayTabs" class="nav nav-pills justify-content-center mb-4 d-none flex-wrap">
+            </ul>
         </div>
 
         {{-- Contenedor de formularios por día --}}
-        <div id="daysContainer"></div>
+        <div class="scroll-container d-flex gap-3 mb-4" id="daysContainer"
+            style="overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;">
+            {{-- Se llenará dinámicamente --}}
+        </div>
+
 
         {{-- Botón de envío --}}
         <div class="mt-4 text-center border-top pt-4">
@@ -52,6 +95,7 @@
 
 {{-- Scripts para lógica de formulario dinámico --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
     const daysContainer = document.getElementById('daysContainer');
@@ -60,28 +104,50 @@
     daysCount.addEventListener('change', () => {
         const count = parseInt(daysCount.value);
         daysContainer.innerHTML = '';
+        const dayTabs = document.getElementById('dayTabs');
+        dayTabs.innerHTML = '';
+        dayTabs.classList.remove('d-none');
 
         for (let i = 0; i < count; i++) {
-            const dayDiv = document.createElement('div');
-            dayDiv.className = 'mb-4';
-            dayDiv.innerHTML = `
-                <h5 class="fw-bold mt-4 mb-3" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
-                    Día ${i + 1}
-                </h5>
+            // Crear tarjeta por día
+            const dayCard = document.createElement('div');
+            dayCard.className = 'day-card p-3 rounded shadow-sm';
+            dayCard.id = `day-${i}`;
+            dayCard.style = `
+                min-width: 500px;
+                scroll-snap-align: start;
+                background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};
+            `;
+            dayCard.innerHTML = `
+                <h5 class="fw-bold mb-3" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Día ${i + 1}</h5>
                 <div class="slot-day-${i}">
                     ${generateSlotRow(i, 0)}
                 </div>
-                <div class="mt-2">
+                <div class="mt-2 d-flex justify-content-center">
                     <button type="button" class="btn btn-sm btn-outline-secondary add-slot" data-day="${i}">
-                        <i class="bi bi-plus-circle me-1"></i>Agregar otro horario
+                        <i class="bi bi-plus-circle me-1"></i>Agregar horario
                     </button>
                 </div>
-                <hr>
             `;
-            daysContainer.appendChild(dayDiv);
+            daysContainer.appendChild(dayCard);
+
+            // Agregar botón de navegación
+            const tab = document.createElement('li');
+            tab.className = 'nav-item';
+            tab.innerHTML = `
+                <button
+                    type="button"
+                    class="nav-link btn btn-sm fw-bold day-nav-btn"
+                    style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};"
+                    data-target="day-${i}"
+                    onclick="document.getElementById('day-${i}').scrollIntoView({ behavior: 'smooth', inline: 'center' });">
+                    ${i + 1}
+                </button>
+            `;
+            dayTabs.appendChild(tab);
         }
 
-        // Activar flatpickr en todos los inputs nuevos
+        // Inicializar flatpickr
         flatpickr(".flat-time", {
             enableTime: true,
             noCalendar: true,
@@ -92,17 +158,31 @@
 
     function generateSlotRow(dayIndex, slotIndex) {
         return `
-            <div class="row g-2 align-items-end mb-2">
-                <div class="col-md-5">
-                    <label class="form-label">Hora de inicio</label>
-                    <input type="text" name="slots[${dayIndex}][${slotIndex}][start]" class="form-control flat-time" required>
+            <div class="slot-wrapper mb-3 w-100" data-index="${slotIndex}">
+                <div class="d-flex align-items-end gap-2">
+                    <span class="slot-number fw-bold pt-4" style="min-width: 1.5rem; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                        ${slotIndex + 1}.
+                    </span>
+                    <div style="flex: 1;">
+                        <label class="form-label">Hora de inicio</label>
+                        <input type="text" class="form-control flat-time start-time" required>
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="form-label">Hora de término</label>
+                        <input type="text" class="form-control flat-time end-time" required>
+                    </div>
+                    <div style="flex: 0;">
+                        <label class="form-label d-block">&nbsp;</label>
+                        <button type="button"
+                            class="btn btn-outline-danger btn-sm remove-slot d-flex align-items-center justify-content-center mb-1"
+                            style="width: 30px; height: 30px;"
+                            title="Eliminar horario">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="col-md-5">
-                    <label class="form-label">Hora de término</label>
-                    <input type="text" name="slots[${dayIndex}][${slotIndex}][end]" class="form-control flat-time" required>
-                </div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-danger btn-sm remove-slot">✖</button>
+                <div class="w-100 mt-1">
+                    <div class="validation-error text-center"></div>
                 </div>
             </div>
         `;
@@ -113,7 +193,7 @@
         if (e.target.classList.contains('add-slot')) {
             const dayIndex = e.target.getAttribute('data-day');
             const container = document.querySelector(`.slot-day-${dayIndex}`);
-            const slotCount = container.querySelectorAll('.row').length;
+            const slotCount = container.querySelectorAll('.slot-wrapper').length;
             container.insertAdjacentHTML('beforeend', generateSlotRow(dayIndex, slotCount));
             flatpickr(".flat-time", {
                 enableTime: true,
@@ -121,10 +201,93 @@
                 dateFormat: "H:i",
                 time_24hr: true
             });
+            validateAllSlots();
         }
 
-        if (e.target.classList.contains('remove-slot')) {
-            e.target.closest('.row').remove();
+        if (e.target.closest('.remove-slot')) {
+            const slotWrapper = e.target.closest('.slot-wrapper');
+            if (!slotWrapper) return;
+
+            const container = slotWrapper.closest('.slot-day-' + slotWrapper.closest('[id^="day-"]').id.split('-')[1]);
+            slotWrapper.remove();
+
+            // Reenumerar los horarios
+            const wrappers = container.querySelectorAll('.slot-wrapper');
+            wrappers.forEach((wrapper, index) => {
+                const label = wrapper.querySelector('.slot-number');
+                if (label) label.textContent = `${index + 1}.`;
+            });
+            validateAllSlots();
+        }
+    });
+
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('day-nav-btn')) {
+            const allBtns = document.querySelectorAll('.day-nav-btn');
+            allBtns.forEach(btn => btn.classList.remove('day-tab-active'));
+
+            e.target.classList.add('day-tab-active');
+            const targetId = e.target.getAttribute('data-target');
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) {
+                targetEl.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+            }
+        }
+    });
+
+    function validateAllSlots() {
+        let isValid = true;
+        const saveButton = document.querySelector('button[type="submit"]');
+        const allDays = document.querySelectorAll('[id^="day-"]');
+
+        allDays.forEach(dayCard => {
+            const slots = Array.from(dayCard.querySelectorAll('.slot-wrapper'));
+            const parsedSlots = [];
+
+            // Limpiar errores previos
+            slots.forEach(slot => slot.querySelector('.validation-error').textContent = '');
+
+            slots.forEach((slot, i) => {
+                const start = slot.querySelector('.start-time').value;
+                const end = slot.querySelector('.end-time').value;
+
+                const errorEl = slot.querySelector('.validation-error');
+
+                if (start && end) {
+                    if (start >= end) {
+                        errorEl.textContent = 'La hora de término debe ser posterior a la hora de inicio.';
+                        isValid = false;
+                    }
+
+                    parsedSlots.push({ index: i, start, end });
+                }
+            });
+
+            // Verificar solapamientos
+            for (let i = 0; i < parsedSlots.length; i++) {
+                for (let j = 0; j < parsedSlots.length; j++) {
+                    if (i !== j) {
+                        const a = parsedSlots[i];
+                        const b = parsedSlots[j];
+                        if (a.start <= b.end && b.start <= a.end) {
+                            const conflictMsg = `Este horario disponible choca con el n. ${b.index + 1}. ${b.start} - ${b.end}`;
+                            const errorEl = slots[i].querySelector('.validation-error');
+                            if (!errorEl.textContent) {
+                                errorEl.textContent = conflictMsg;
+                                isValid = false;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        saveButton.disabled = !isValid;
+    }
+
+    document.addEventListener('input', function (e) {
+        if (e.target.classList.contains('start-time') || e.target.classList.contains('end-time')) {
+            validateAllSlots();
         }
     });
 </script>
