@@ -18,9 +18,9 @@
                     {!! tenantText('slogan_body', 'Esta es nuestra página, <strong>¡conócenos!</strong>') !!}
                 </p>
                 @if (tenantAgendaFlow() === 'completo')
-                    <a href="/plans" class="btn btn-consulta" role="button">Agenda tu asesoría</a>
+                    <a href="/plans" class="btn btn-consulta" role="button">{{ tenantSetting('button_banner_text', 'Agenda aquí') }}</a>
                 @else
-                    <a href="/agenda/questionnaire" class="btn btn-consulta" role="button">Agenda tu asesoría</a>
+                    <a href="/agenda/questionnaire" class="btn btn-consulta" role="button">{{ tenantSetting('button_banner_text', 'Agenda aquí') }}</a>
                 @endif
                 <br>
             </div>
@@ -38,7 +38,7 @@
                 </div>
 
                 {{-- Texto: segundo plano en móviles, primer plano en pantallas grandes --}}
-                <h1 class="mb-5 text-center">Sobre {{ tenantSetting('name', 'Lorem Ipsum') }}</h1>
+                <h1 class="mb-5 text-center">{{ tenantSetting('header_about_section_text', 'Sobre nosotros') }}</h1>
                 <div class="col-md-6 order-2 order-md-1 fade-in-section">
                     {!! tenantText(
                         'about_text',
@@ -57,7 +57,7 @@
                     <div class="text-center">
                         <a href="/about" class="btn btn-consulta"
                             style="background-color: {{ tenantSetting('button_color_sidebar', '#ffffff54') }};"
-                            role="button">Conoce más</a>
+                            role="button">{{ tenantSetting('button_about_section_text', 'Conoce más') }}</a>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
 
     <section id="section2" class="scroll-section py-5">
         <div class="container">
-            <h1 class="mb-5 text-center">¿Qué servicios te ofrezco?</h1>
+            <h1 class="mb-5 text-center">{{ tenantSetting('header_services_section_text', 'Nuestros servicios') }}</h1>
             <div class="row g-4">
                 {{-- Recuadro 1 --}}
                 <div class="col-md-4">
@@ -126,7 +126,7 @@
             <div class="text-center mt-4">
                 <a href="/services" class="btn btn-consulta fade-in-section"
                     style="background-color: {{ tenantSetting('button_color_sidebar', '#ffffff54') }};"
-                    role="button">Revisa más detalles</a>
+                    role="button">{{ tenantSetting('button_services_section_text', 'Conoce más') }}</a>
             </div>
         </div>
     </section>
