@@ -5,12 +5,12 @@
 
     <div class="p-3 mb-4 text-center"
         style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }}; border-radius: 8px;">
-        <p class="mb-3" style="color: #dc3545;">
+        <p class="mb-3">
             {{ __('Una vez eliminada su cuenta, todos sus recursos y datos se eliminarán permanentemente.') }}
         </p>
         <div class="text-center">
             <button class="btn fw-medium py-1" data-bs-toggle="modal" data-bs-target="#confirmUserDeletion"
-                style="background-color: #dc3545; color: white; width: 210px;">
+                style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }}; color: {{ tenantSetting('primary_button_text_color', 'white') }}; width: 210px;">
                 <i class="bi bi-exclamation-triangle me-2"></i>{{ __('Eliminar Cuenta') }}
             </button>
         </div>
@@ -69,7 +69,7 @@
                         style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                         {{ __('Cancelar') }}
                     </button>
-                    <button type="submit" class="btn fw-medium" style="background-color: #dc3545; color: white;">
+                    <button type="submit" class="btn fw-medium" style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                         <i class="bi bi-trash3 me-1"></i>{{ __('Eliminar Definitivamente') }}
                     </button>
                 </div>

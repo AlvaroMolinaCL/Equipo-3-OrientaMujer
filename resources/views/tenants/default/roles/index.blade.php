@@ -47,7 +47,7 @@
                                 <tr>
                                     <td>{{ $rol->name }}</td>
                                     <td>
-                                        <div class="d-flex flex-column flex-md-row justify-content-center gap-2">
+                                        <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
                                             @if ($rol->name == 'Admin')
                                                 <div class="text-danger small">
                                                     <i class="bi bi-exclamation-circle me-1"></i>No puede editar ni eliminar
@@ -56,20 +56,19 @@
                                             @else
                                                 {{-- Editar --}}
                                                 <a href="{{ route('roles.edit', $rol) }}"
-                                                    class="btn btn-sm w-100 d-flex align-items-center justify-content-center gap-1"
-                                                    style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }}; color: {{ tenantSetting('button_banner_text_color', 'white') }};">
+                                                    class="btn btn-sm d-flex align-items-center justify-content-center gap-1"
+                                                    style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }}; color: {{ tenantSetting('button_banner_text_color', 'white') }}; min-width: 100px;">
                                                     <i class="bi bi-pencil"></i> Editar
                                                 </a>
 
                                                 {{-- Eliminar --}}
                                                 <form action="{{ route('roles.destroy', $rol) }}" method="POST"
-                                                    onsubmit="return confirm('¿Estás seguro de eliminar este tenant?')"
-                                                    class="w-100">
+                                                    onsubmit="return confirm('¿Estás seguro de eliminar este tenant?')">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
-                                                        class="btn btn-sm w-100 d-flex align-items-center justify-content-center gap-1"
-                                                        style="background-color: #dc3545; color: white;">
+                                                        class="btn btn-sm d-flex align-items-center justify-content-center gap-1"
+                                                        style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }}; color: white; min-width: 100px;">
                                                         <i class="bi bi-trash"></i> Eliminar
                                                     </button>
                                                 </form>

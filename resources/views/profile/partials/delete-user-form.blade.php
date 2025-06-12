@@ -9,7 +9,7 @@
         </p>
         <div class="text-center">
             <button class="btn fw-medium py-1" data-bs-toggle="modal" data-bs-target="#confirmUserDeletion"
-                style="background-color: #dc3545; color: white; width: 210px;">
+                style="background-color: #8C2D18; color: white; width: 210px;">
                 <i class="bi bi-exclamation-triangle me-2"></i>{{ __('Eliminar Cuenta') }}
             </button>
         </div>
@@ -64,7 +64,7 @@
                         style="background-color: #F5E8D0; color: #8C2D18;">
                         {{ __('Cancelar') }}
                     </button>
-                    <button type="submit" class="btn fw-medium" style="background-color: #dc3545; color: white;">
+                    <button type="submit" class="btn fw-medium" style="background-color: #8C2D18; color: white;">
                         <i class="bi bi-trash3 me-1"></i>{{ __('Eliminar Definitivamente') }}
                     </button>
                 </div>
