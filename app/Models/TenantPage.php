@@ -14,6 +14,7 @@ class TenantPage extends Model
         'title',
         'is_enabled',
         'is_visible',
+        'order',
         'settings',
     ];
 

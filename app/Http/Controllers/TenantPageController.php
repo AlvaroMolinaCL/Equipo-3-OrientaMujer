@@ -68,6 +68,8 @@ class TenantPageController extends Controller
                 ->with('error', 'No puedes habilitar el Cuestionario Pre-Agendamiento sin habilitar primero la Agenda.');
         }
 
+        $orders = $request->input('orders', []);
+
         foreach ($pages as $pageKey => $defaultTitle) {
             $isLogin = in_array($pageKey, ['login']);
 
@@ -77,6 +79,7 @@ class TenantPageController extends Controller
                     'is_enabled' => $isLogin ? true : in_array($pageKey, $request->input('enabled', [])),
                     'is_visible' => in_array($pageKey, $request->input('visible', [])),
                     'title' => $titles[$pageKey] ?? $defaultTitle,
+                    'order' => $orders[$pageKey] ?? 0,
                 ]
             );
         }
