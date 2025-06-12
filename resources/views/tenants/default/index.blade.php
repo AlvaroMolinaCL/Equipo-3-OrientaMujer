@@ -19,8 +19,10 @@
                 </p>
                 @if (tenantAgendaFlow() === 'completo')
                     <a href="/plans" class="btn btn-consulta" role="button">{{ tenantSetting('button_banner_text', 'Agenda aquí') }}</a>
-                @else
+                @if (tenantAgendaFlow() === 'parcial')
                     <a href="/agenda/questionnaire" class="btn btn-consulta" role="button">{{ tenantSetting('button_banner_text', 'Agenda aquí') }}</a>
+                @else
+                    <a href="/contact" class="btn btn-consulta" role="button">{{ tenantSetting('button_banner_text', 'Agenda aquí') }}</a>
                 @endif
                 <br>
             </div>
