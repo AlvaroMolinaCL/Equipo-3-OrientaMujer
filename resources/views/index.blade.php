@@ -201,9 +201,9 @@
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 border-0 shadow-sm rounded-4 p-4">
-                        <div class="d-flex mb-3">
-                            <img src="{{ asset('images/testimonial1.jpg') }}" class="rounded-circle me-3" width="60"
-                                height="60" alt="Dra. Martínez">
+                        <div class="d-flex mb-3 align-items-center">
+                            <img src="{{ asset('images/reseñas/reseña_1.jpg') }}" class="rounded-circle me-3 flex-shrink-0"
+                                style="width: 60px; height: 60px; object-fit: cover;" alt="Dra. Martínez">
                             <div>
                                 <h5 class="mb-1" style="color: #4A1D0B;">Dra. Martínez</h5>
                                 <p class="text-muted small mb-0">Derecho Familiar</p>
@@ -217,8 +217,8 @@
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 border-0 shadow-sm rounded-4 p-4">
                         <div class="d-flex mb-3">
-                            <img src="{{ asset('images/testimonial2.jpg') }}" class="rounded-circle me-3" width="60"
-                                height="60" alt="Dr. López">
+                            <img src="{{ asset('images/reseñas/reseña_2.jpg') }}" class="rounded-circle me-3 flex-shrink-0"
+                                style="width: 60px; height: 60px; object-fit: cover;" alt="Dr. López">
                             <div>
                                 <h5 class="mb-1" style="color: #4A1D0B;">Dr. López</h5>
                                 <p class="text-muted small mb-0">Derecho Corporativo</p>
@@ -231,9 +231,9 @@
 
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 border-0 shadow-sm rounded-4 p-4">
-                        <div class="d-flex mb-3">
-                            <img src="{{ asset('images/testimonial3.jpg') }}" class="rounded-circle me-3" width="60"
-                                height="60" alt="Dra. Rodríguez">
+                        <div class="d-flex mb-3 align-items-center">
+                            <img src="{{ asset('images/reseñas/reseña_3.jpeg') }}" class="rounded-circle me-3 flex-shrink-0"
+                                style="width: 60px; height: 60px; object-fit: cover;" alt="Dra. Rodríguez">
                             <div>
                                 <h5 class="mb-1" style="color: #4A1D0B;">Dra. Rodríguez</h5>
                                 <p class="text-muted small mb-0">Derecho Penal</p>
@@ -352,9 +352,8 @@
                             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                                 data-bs-parent="#faqAccordion">
                                 <div class="accordion-body">
-                                    Normalmente implementamos tu página web profesional en 7-10 días laborales después de
-                                    recibir toda la información necesaria (logo, contenido, fotos, etc.). La configuración
-                                    de las funciones avanzadas puede tomar 2-3 días adicionales.
+                                    Normalmente implementamos tu página web profesional en 4-7 días laborales después de
+                                    recibir toda la información necesaria (logo, contenido, fotos, etc.).
                                 </div>
                             </div>
                         </div>
@@ -388,9 +387,8 @@
                             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
                                 data-bs-parent="#faqAccordion">
                                 <div class="accordion-body">
-                                    Integramos con las principales pasarelas de pago como Webpay, Mercado Pago y PayPal. Tus
-                                    clientes podrán pagar con tarjeta de crédito/débito, transferencia bancaria o incluso en
-                                    efectivo en locales autorizados, según prefieras configurarlo.
+                                    Contamos con la integración de Webpay, por lo que tus
+                                    clientes podrán pagar con tarjeta de crédito/débito y transferencias bancarias.
                                 </div>
                             </div>
                         </div>
@@ -408,7 +406,7 @@
                                 <div class="accordion-body">
                                     Sí, incluimos una sesión de capacitación virtual de 1 hora con cada implementación,
                                     además de videotutoriales paso a paso y documentación detallada. También ofrecemos
-                                    soporte prioritario por correo y chat para resolver cualquier duda rápidamente.
+                                    soporte prioritario por correo para resolver cualquier duda rápidamente.
                                 </div>
                             </div>
                         </div>
@@ -437,14 +435,11 @@
     </section>
 
     <!-- Final CTA Section -->
-    <section class="py-5 text-center" style="background-color: #4A1D0B;">
+    <section class="py-3 text-center" style="background-color: #4A1D0B;">
         <div class="container">
-            <h3 class="text-white mb-4">Transforma tu Práctica Legal Hoy Mismo</h3>
-            <p class="lead text-white mb-5">Más de 200 abogados ya confían en nuestra plataforma para gestionar sus
+            <h3 class="text-white mt-2">Transforma tu Práctica Legal Hoy Mismo</h3>
+            <p class="lead text-white">Más de 200 abogados ya confían en nuestra plataforma para gestionar sus
                 despachos</p>
-            <a href="#contact" class="btn btn-light btn-lg px-5 py-3 fw-bold" style="color: #4A1D0B;">
-                <i class="bi bi-calendar-check me-2"></i> Agendar Demostración
-            </a>
         </div>
     </section>
 @endsection
