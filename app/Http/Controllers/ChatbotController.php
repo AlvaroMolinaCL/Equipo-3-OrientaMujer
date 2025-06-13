@@ -15,7 +15,8 @@ class ChatbotController extends Controller
         ]);
 
         $userMessage = $request->input('message');
-        $apiKey = config('services.openrouter.key');
+        $tenantApiKey = tenant()?->openrouter_api_key;
+        $apiKey = $tenantApiKey ?: config('services.openrouter.key');
         $baseUrl = config('services.openrouter.base_url');
 
         try {

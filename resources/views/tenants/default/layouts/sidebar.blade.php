@@ -1,8 +1,7 @@
 <style>
     .navbar-nav .nav-link.active {
         background-color:
-            {{ tenantSetting('button_color_sidebar', '#BF8A49') }}
-            !important;
+            {{ tenantSetting('button_color_sidebar', '#BF8A49') }} !important;
         border-radius: 0.375rem;
     }
 </style>
@@ -13,9 +12,10 @@
         <img src="{{ asset(tenantSetting('logo_path_1', 'images/logo/Logo_1_(Predeterminado).png')) }}" alt="Logo"
             style="max-width: 100%; height: 60px" class="img-fluid mx-auto d-block">
     </a>
-    <!-- Botón Inicio -->
+    {{-- Botón Inicio --}}
     <div class="px-3 mb-3 mt-3">
-        <a href="{{ route('tenants.default.index') }}" class="btn w-100" style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }};
+        <a href="{{ route('tenants.default.index') }}" class="btn w-100"
+            style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }};
               color: {{ tenantSetting('navbar_text_color_1', 'white') }};
               border-radius: 0.375rem;
               text-align: center;
@@ -35,30 +35,10 @@
 
         {{-- Apariencia --}}
         <li class="nav-item">
-            <a class="nav-link {{ Route::is('appearance.index') ? 'active' : '' }}" href="{{ route('appearance') }}"
+            <a class="nav-link {{ Route::is('appearance') ? 'active' : '' }}" href="{{ route('appearance') }}"
                 style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
                 <i class="bi bi-palette me-2"></i> Apariencia
             </a>
-        </li>
-
-        {{-- Mi Agenda --}}
-        <li class="nav-item">
-            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-                href="#availableSlotsMenu" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};"
-                aria-expanded="false">
-                <span><i class="bi bi-calendar me-2"></i> Mi Agenda</span>
-                <i class="bi bi-chevron-down small"></i>
-            </a>
-            <div class="collapse ps-3 {{ Route::is('available-slots.*') ? 'show' : '' }}" id="availableSlotsMenu"
-                data-bs-parent="#sidebarAccordion">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('available-slots.index') ? 'active' : '' }}"
-                            href="{{ route('available-slots.index') }}"
-                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Gestionar Disponibilidad</a>
-                    </li>
-                </ul>
-            </div>
         </li>
 
         {{-- Archivos --}}
@@ -78,11 +58,6 @@
                             style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Mis Archivos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::is('files.create') ? 'active' : '' }}"
-                            href="{{ route('files.create') }}"
-                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Agregar Archivos</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link {{ Route::is('files.shared.files') ? 'active' : '' }}"
                             href="{{ route('files.shared.files') }}"
                             style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Archivos
@@ -92,76 +67,37 @@
             </div>
         </li>
 
-        {{-- Usuarios --}}
+        {{-- Mi Agenda --}}
         <li class="nav-item">
-            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-                href="#usersMenu" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};"
-                aria-expanded="false">
-                <span><i class="bi bi-people me-2"></i> Usuarios</span>
-                <i class="bi bi-chevron-down small"></i>
+            <a class="nav-link {{ Route::is('available-slots.index') ? 'active' : '' }}"
+                href="{{ route('available-slots.index') }}"
+                style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
+                <span><i class="bi bi-calendar me-2"></i> Mi Agenda</span>
             </a>
-            <div class="collapse ps-3 {{ Route::is('users.*') ? 'show' : '' }}" id="usersMenu"
-                data-bs-parent="#sidebarAccordion">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('users.index') ? 'active' : '' }}"
-                            href="{{ route('users.index') }}"
-                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Ver Usuarios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('users.create') ? 'active' : '' }}"
-                            href="{{ route('users.create') }}"
-                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Agregar Usuario</a>
-                    </li>
-                </ul>
-            </div>
+        </li>
+
+        {{-- Planes --}}
+        <li class="nav-item">
+            <a class="nav-link {{ Route::is('products.index') ? 'active' : '' }}" href="{{ route('products.index') }}"
+                style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
+                <span><i class="bi bi-card-checklist me-2"></i> Planes</span>
+            </a>
         </li>
 
         {{-- Roles --}}
         <li class="nav-item">
-            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-                href="#rolesMenu" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
+            <a class="nav-link {{ Route::is('roles.index') ? 'active' : '' }}" href="{{ route('roles.index') }}"
+                style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
                 <span><i class="bi bi-person-check me-2"></i> Roles</span>
-                <i class="bi bi-chevron-down small"></i>
             </a>
-            <div class="collapse ps-3 {{ Route::is('roles.*') ? 'show' : '' }}" id="rolesMenu"
-                data-bs-parent="#sidebarAccordion">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('roles.index') ? 'active' : '' }}"
-                            href="{{ route('roles.index') }}"
-                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Ver Roles</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('roles.create') ? 'active' : '' }}"
-                            href="{{ route('roles.create') }}"
-                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Agregar Rol</a>
-                    </li>
-                </ul>
-            </div>
         </li>
-        {{-- Planes --}}
+
+        {{-- Usuarios --}}
         <li class="nav-item">
-            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-                href="#planesMenu" style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">
-                <span><i class="bi bi-card-checklist me-2"></i> Planes</span>
-                <i class="bi bi-chevron-down small"></i>
+            <a class="nav-link {{ Route::is('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}"
+                style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};" aria-expanded="false">
+                <span><i class="bi bi-people me-2"></i> Usuarios</span>
             </a>
-            <div class="collapse ps-3 {{ Route::is('products.*') ? 'show' : '' }}" id="planesMenu"
-                data-bs-parent="#sidebarAccordion">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('products.index') ? 'active' : '' }}"
-                            href="{{ route('products.index') }}"
-                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Ver Planes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('products.create') ? 'active' : '' }}"
-                            href="{{ route('products.create') }}"
-                            style="color: {{ tenantSetting('navbar_text_color_1', 'white') }};">Agregar Plan</a>
-                    </li>
-                </ul>
-            </div>
         </li>
     </ul>
 
@@ -175,7 +111,8 @@
                 style="color: {{ tenantSetting('navbar_text_color_1', '#BF8A49') }};">{{ Auth::user()->email }}</small>
         </div>
         <div class="dropup mt-2">
-            <button class="btn btn-sm w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }};
+            <button class="btn btn-sm w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }};
                color: {{ tenantSetting('navbar_text_color_1', 'white') }};
                border: 1px solid {{ tenantSetting('navbar_text_color_1', 'white') }};">
                 Cuenta
@@ -192,5 +129,4 @@
             </ul>
         </div>
     </div>
-
 </nav>

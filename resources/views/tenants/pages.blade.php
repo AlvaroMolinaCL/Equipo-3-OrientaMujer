@@ -30,28 +30,28 @@
                         <h5 class="fw-medium mb-3" style="color: #8C2D18;">
                             <i class="bi bi-list-check me-2"></i>Gestionar Páginas
                         </h5>
-                        @foreach ($pagesByCategory as $categoryName => $categoryPages)
-                            <h5 class="fw-medium mb-3 mt-4" style="color: #8C2D18;">
-                                <i class="bi bi-folder me-2"></i>{{ $categoryName }}
-                            </h5>
-
-                            @foreach ($categoryPages as $pageKey)
+                        <div class="sortable-pages mb-4" id="sortable-all">
+                            @foreach ($pages as $pageKey => $label)
                                 @php
-                                    $label = $pages[$pageKey];
                                     $page = $tenantPages[$pageKey] ?? null;
                                     $isEnabled = $page?->is_enabled ?? false;
                                     $isVisible = $page?->is_visible ?? false;
                                     $agendaEnabled = $tenantPages['agenda']->is_enabled ?? false;
+                                    // Buscar la categoría del pageKey
+                                    $category = collect($pagesByCategory)->filter(fn($arr) => in_array($pageKey, $arr))->keys()->first();
                                 @endphp
 
-                                {{-- Acordeón --}}
-                                <div class="accordion" id="accordionPages">
+                                <div class="accordion mb-2 page-item" data-key="{{ $pageKey }}" style="cursor:move;">
+                                    <input type="hidden" name="orders[{{ $pageKey }}]" value="{{ $page->order ?? 0 }}" class="order-input">
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="heading-{{ $pageKey }}">
                                             <button class="accordion-button collapsed fw-semibold" type="button"
                                                 data-bs-toggle="collapse" data-bs-target="#collapse-{{ $pageKey }}"
                                                 aria-expanded="false" aria-controls="collapse-{{ $pageKey }}">
-                                                {{ $pages[$pageKey] ?? ucwords($pageKey) }} (<i>{{ $pageKey }}</i>)
+                                                {{ $label }} (<i>{{ $pageKey }}</i>)
+                                                @if($category)
+                                                    <span class="badge bg-secondary ms-2">{{ $category }}</span>
+                                                @endif
                                             </button>
                                         </h2>
                                         <div id="collapse-{{ $pageKey }}" class="accordion-collapse collapse"
@@ -69,15 +69,13 @@
                                                 <div class="d-flex flex-row gap-4 align-items-center">
                                                     <div class="form-check form-switch">
                                                         @if ($pageKey == 'login')
-                                                            <input type="hidden" name="enabled[]"
-                                                                value="{{ $pageKey }}">
+                                                            <input type="hidden" name="enabled[]" value="{{ $pageKey }}">
                                                             <input class="form-check-input enabled-toggle" type="checkbox"
                                                                 value="{{ $pageKey }}"
                                                                 id="enabled-{{ $pageKey }}"
                                                                 data-key="{{ $pageKey }}"
                                                                 {{ $isEnabled ? 'checked' : '' }} disabled>
-                                                            <label class="form-check-label"
-                                                                for="enabled-{{ $pageKey }}">
+                                                            <label class="form-check-label" for="enabled-{{ $pageKey }}">
                                                                 Habilitado
                                                             </label>
                                                         @elseif ($pageKey == 'questionnaire' && !$agendaEnabled)
@@ -86,8 +84,7 @@
                                                                 id="enabled-{{ $pageKey }}"
                                                                 data-key="{{ $pageKey }}"
                                                                 {{ $isEnabled ? 'checked' : '' }} disabled>
-                                                            <label class="form-check-label"
-                                                                for="enabled-{{ $pageKey }}">
+                                                            <label class="form-check-label" for="enabled-{{ $pageKey }}">
                                                                 Habilitado
                                                             </label>
                                                             <div class="text-muted small mt-1 ms-1">
@@ -99,8 +96,7 @@
                                                                 id="enabled-{{ $pageKey }}"
                                                                 data-key="{{ $pageKey }}"
                                                                 {{ $isEnabled ? 'checked' : '' }}>
-                                                            <label class="form-check-label"
-                                                                for="enabled-{{ $pageKey }}">
+                                                            <label class="form-check-label" for="enabled-{{ $pageKey }}">
                                                                 Habilitado
                                                             </label>
                                                         @endif
@@ -113,8 +109,7 @@
                                                                 data-key="{{ $pageKey }}"
                                                                 {{ $isVisible ? 'checked' : '' }}
                                                                 {{ !$isEnabled ? 'disabled' : '' }}>
-                                                            <label class="form-check-label"
-                                                                for="visible-{{ $pageKey }}">
+                                                            <label class="form-check-label" for="visible-{{ $pageKey }}">
                                                                 Visible en Barra de Navegación
                                                             </label>
                                                         </div>
@@ -125,7 +120,7 @@
                                     </div>
                                 </div>
                             @endforeach
-                        @endforeach
+                        </div>
                     </div>
 
                     <div class="mt-4 pt-3 border-top text-center">
@@ -138,6 +133,39 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const list = document.getElementById('sortable-all');
+            new Sortable(list, {
+                animation: 150,
+                onEnd: function () {
+                    list.querySelectorAll('.page-item').forEach(function(item, idx) {
+                        item.querySelector('.order-input').value = idx;
+                    });
+                }
+            });
+
+            list.querySelectorAll('.page-item').forEach(function(item, idx) {
+                item.querySelector('.order-input').value = idx;
+            });
+
+            const enabledToggles = document.querySelectorAll('.enabled-toggle');
+            enabledToggles.forEach(toggle => {
+                toggle.addEventListener('change', function() {
+                    const key = this.dataset.key;
+                    const visibleCheckbox = document.querySelector(`#visible-${key}`);
+                    if (this.checked) {
+                        visibleCheckbox.disabled = false;
+                    } else {
+                        visibleCheckbox.disabled = true;
+                        visibleCheckbox.checked = false;
+                    }
+                });
+            });
+        });
+    </script>
 
     <style>
         .form-check-input:checked {
@@ -159,23 +187,4 @@
             user-select: none;
         }
     </style>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const enabledToggles = document.querySelectorAll('.enabled-toggle');
-
-            enabledToggles.forEach(toggle => {
-                toggle.addEventListener('change', function() {
-                    const key = this.dataset.key;
-                    const visibleCheckbox = document.querySelector(`#visible-${key}`);
-                    if (this.checked) {
-                        visibleCheckbox.disabled = false;
-                    } else {
-                        visibleCheckbox.disabled = true;
-                        visibleCheckbox.checked = false;
-                    }
-                });
-            });
-        });
-    </script>
 @endsection

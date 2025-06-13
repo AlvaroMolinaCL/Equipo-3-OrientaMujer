@@ -40,7 +40,7 @@
 
             </div>
 
-            <h1 class="mb-3 mt-5" style="font-family: 'Arial'">Experiencia</h1>
+            <h1 class="mb-3 mt-5" style="font-family: {{ tenantSetting('heading_font', '') }}">{{ tenantSetting('header_about_experience_text', 'Nuestra experiencia') }}</h1>
 
             <div>
                 {!! tenantText(

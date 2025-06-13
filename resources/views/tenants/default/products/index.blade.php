@@ -76,7 +76,7 @@
                                                 @method('DELETE')
                                                 <button
                                                     class="btn btn-sm d-flex align-items-center justify-content-center gap-1 flex-grow-2"
-                                                    style="background-color: #dc3545; color: white; min-width: 100px;">
+                                                    style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }}; color: white; min-width: 100px;">
                                                     <i class="bi bi-trash"></i> Eliminar
                                                 </button>
                                             </form>

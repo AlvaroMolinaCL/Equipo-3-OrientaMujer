@@ -1,5 +1,8 @@
 @php
-    $enabledPages = \App\Models\TenantPage::where('tenant_id', tenant()->id)->where('is_enabled', true)->get();
+    $enabledPages = \App\Models\TenantPage::where('tenant_id', tenant()->id)
+        ->where('is_enabled', true)
+        ->orderBy('order')
+        ->get();
     $cartCount = Auth::check() ? \App\Models\Cart::where('user_id', Auth::id())->where('status', 'active')->first()?->items->count() ?? 0 : 0;
 @endphp
 
