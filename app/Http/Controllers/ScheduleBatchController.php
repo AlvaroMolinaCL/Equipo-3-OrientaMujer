@@ -11,36 +11,35 @@ class ScheduleBatchController extends Controller
 {
     public function store(Request $request)
     {
-        // Validación básica
         $validated = $request->validate([
             'days' => 'required|integer|min:1|max:14',
             'slots' => 'required|array',
+            'name'  => 'nullable|string|max:255',
         ]);
 
-        // Crear el batch
+        // Crear la carga
         $batch = ScheduleBatch::create([
             'user_id' => Auth::id(),
-            'start_date' => now()->toDateString(),
-            'end_date' => now()->addDays($validated['days'] - 1)->toDateString(),
+            'name'    => $validated['name'] ?? null,
+            'days'    => $validated['days'],
         ]);
 
-        // Recorrer los días y guardar cada horario
-        foreach ($request->input('slots') as $dayIndex => $slots) {
+        // Guardar horarios día por día
+        foreach ($validated['slots'] as $dayIndex => $slots) {
             foreach ($slots as $slot) {
                 if (!empty($slot['start']) && !empty($slot['end'])) {
                     ScheduleBatchSlot::create([
-                        'batch_id' => $batch->id,
-                        'day_index' => $dayIndex,
+                        'batch_id'   => $batch->id,
+                        'day_index'  => $dayIndex,
                         'start_time' => $slot['start'],
-                        'end_time' => $slot['end'],
-                        'max_bookings' => 1, // valor fijo por diseño actual
+                        'end_time'   => $slot['end'],
                     ]);
                 }
             }
         }
 
         return redirect()->route('available-slots.index')
-                         ->with('success', 'Carga de horarios guardada correctamente.');
+            ->with('success', 'Carga de horarios guardada correctamente.');
     }
 
     public function applyBatch(Request $request)

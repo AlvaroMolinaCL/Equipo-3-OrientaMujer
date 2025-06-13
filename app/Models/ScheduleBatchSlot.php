@@ -14,15 +14,11 @@ class ScheduleBatchSlot extends Model
         'day_index',
         'start_time',
         'end_time',
-        'max_bookings',
     ];
 
-    protected $casts = [
-        'start_time' => 'datetime:H:i',
-        'end_time' => 'datetime:H:i',
-    ];
-
-    // Relaciones
+    /**
+     * Cada slot pertenece a un batch.
+     */
     public function batch()
     {
         return $this->belongsTo(ScheduleBatch::class, 'batch_id');

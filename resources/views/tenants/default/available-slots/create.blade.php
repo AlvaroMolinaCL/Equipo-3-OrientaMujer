@@ -42,6 +42,14 @@
             font-size: 0.85rem;
             margin-top: 0.25rem;
         }
+
+        .btn-disabled {
+            background-color: #ccc !important;
+            color: #666 !important;
+            border: 1px solid #bbb !important;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
     </style>
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
@@ -70,10 +78,18 @@
                     <option value="{{ $i }}">{{ $i }} día{{ $i > 1 ? 's' : '' }}</option>
                 @endfor
             </select>
-            {{-- Menú de navegación por día --}}
-            <ul id="dayTabs" class="nav nav-pills justify-content-center mb-4 d-none flex-wrap">
-            </ul>
         </div>
+
+        {{-- Nombre de la carga (opcional) --}}
+        <div id="batchNameWrapper" class="mb-4 d-none">
+            <label for="batchName" class="form-label fw-bold" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                Nombre de la carga (opcional)
+            </label>
+            <input type="text" class="form-control" name="name" id="batchName" placeholder="Ej: Semana del 10 de Julio">
+        </div>
+
+        {{-- Menú de navegación por día --}}
+        <ul id="dayTabs" class="nav nav-pills justify-content-center mb-4 d-none flex-wrap"></ul>
 
         {{-- Contenedor de formularios por día --}}
         <div class="scroll-container d-flex gap-3 mb-4" id="daysContainer"
@@ -84,9 +100,11 @@
 
         {{-- Botón de envío --}}
         <div class="mt-4 text-center border-top pt-4">
-            <button type="submit" class="btn fw-bold px-4 py-2"
+            <button id="saveButton" type="submit"
+                class="btn fw-bold px-4 py-2 btn-disabled"
+                disabled
                 style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};
-                       color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }};">
+                    color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }};">
                 <i class="bi bi-save me-2"></i>Guardar Carga de Horarios
             </button>
         </div>
@@ -103,6 +121,14 @@
 
     daysCount.addEventListener('change', () => {
         const count = parseInt(daysCount.value);
+        // Mostrar el campo de nombre de carga si se selecciona una cantidad de días
+        const nameWrapper = document.getElementById('batchNameWrapper');
+        if (count > 0) {
+            nameWrapper.classList.remove('d-none');
+        } else {
+            nameWrapper.classList.add('d-none');
+        }
+
         daysContainer.innerHTML = '';
         const dayTabs = document.getElementById('dayTabs');
         dayTabs.innerHTML = '';
@@ -165,11 +191,11 @@
                     </span>
                     <div style="flex: 1;">
                         <label class="form-label">Hora de inicio</label>
-                        <input type="text" class="form-control flat-time start-time" required>
+                        <input type="text" name="slots[${dayIndex}][${slotIndex}][start]" class="form-control flat-time start-time" required>
                     </div>
                     <div style="flex: 1;">
                         <label class="form-label">Hora de término</label>
-                        <input type="text" class="form-control flat-time end-time" required>
+                        <input type="text" name="slots[${dayIndex}][${slotIndex}][end]" class="form-control flat-time end-time" required>
                     </div>
                     <div style="flex: 0;">
                         <label class="form-label d-block">&nbsp;</label>
@@ -236,21 +262,22 @@
     });
 
     function validateAllSlots() {
+        const saveButton = document.getElementById('saveButton');
         let isValid = true;
-        const saveButton = document.querySelector('button[type="submit"]');
+
         const allDays = document.querySelectorAll('[id^="day-"]');
 
         allDays.forEach(dayCard => {
             const slots = Array.from(dayCard.querySelectorAll('.slot-wrapper'));
             const parsedSlots = [];
 
-            // Limpiar errores previos
-            slots.forEach(slot => slot.querySelector('.validation-error').textContent = '');
+            slots.forEach(slot => {
+                slot.querySelector('.validation-error').textContent = '';
+            });
 
             slots.forEach((slot, i) => {
                 const start = slot.querySelector('.start-time').value;
                 const end = slot.querySelector('.end-time').value;
-
                 const errorEl = slot.querySelector('.validation-error');
 
                 if (start && end) {
@@ -260,20 +287,21 @@
                     }
 
                     parsedSlots.push({ index: i, start, end });
+                } else {
+                    isValid = false;
                 }
             });
 
-            // Verificar solapamientos
+            // Validar solapamientos
             for (let i = 0; i < parsedSlots.length; i++) {
                 for (let j = 0; j < parsedSlots.length; j++) {
                     if (i !== j) {
                         const a = parsedSlots[i];
                         const b = parsedSlots[j];
-                        if (a.start <= b.end && b.start <= a.end) {
-                            const conflictMsg = `Este horario disponible choca con el n. ${b.index + 1}. ${b.start} - ${b.end}`;
+                        if (a.start < b.end && b.start < a.end) {
                             const errorEl = slots[i].querySelector('.validation-error');
                             if (!errorEl.textContent) {
-                                errorEl.textContent = conflictMsg;
+                                errorEl.textContent = `Este horario disponible choca con el n. ${b.index + 1}. ${b.start} - ${b.end}`;
                                 isValid = false;
                             }
                         }
@@ -282,7 +310,13 @@
             }
         });
 
+        // Aplicar estado final al botón
         saveButton.disabled = !isValid;
+        if (isValid) {
+            saveButton.classList.remove('btn-disabled');
+        } else {
+            saveButton.classList.add('btn-disabled');
+        }
     }
 
     document.addEventListener('input', function (e) {

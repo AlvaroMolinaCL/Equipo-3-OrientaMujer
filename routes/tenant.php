@@ -65,7 +65,6 @@ Route::middleware([
     // Página "Chatbot"
     Route::post('/chatbot', [ChatbotController::class, 'chat']);
 
-
     // API para mostrar solo horarios no agendados al cliente
     Route::get('/api/client-slots', [AvailableSlotController::class, 'clientSlots']);
     Route::post('/api/apply-batch', [ScheduleBatchController::class, 'applyBatch']);

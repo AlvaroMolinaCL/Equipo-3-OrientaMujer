@@ -13,7 +13,6 @@ return new class extends Migration {
             $table->integer('day_index'); // 0 = primer día, 1 = segundo día, etc.
             $table->time('start_time');
             $table->time('end_time');
-            $table->integer('max_bookings')->default(1);
             $table->timestamps();
         });
     }

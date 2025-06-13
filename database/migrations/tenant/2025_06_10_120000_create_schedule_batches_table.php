@@ -11,8 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name')->nullable(); // Ej: "Semana 1 julio"
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->integer('days'); // Cantidad de días programados
             $table->timestamp('used_at')->nullable(); // Fecha en que se aplicó la carga
             $table->timestamps();
         });
