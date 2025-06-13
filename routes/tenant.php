@@ -146,6 +146,8 @@ Route::middleware([
         // Cargas de horarios (schedule_batches)
         Route::get('/schedule-batches/create', [ScheduleBatchController::class, 'create'])->name('schedule-batches.create');
         Route::post('/schedule-batches', [ScheduleBatchController::class, 'store'])->name('schedule-batches.store');
+        Route::get('/schedule-batches/{id}/edit', [ScheduleBatchController::class, 'edit'])->name('schedule-batches.edit');
+        Route::delete('/schedule-batches/{id}', [ScheduleBatchController::class, 'destroy'])->name('schedule-batches.destroy');
 
         // Gestión de Apariencia
         Route::get('/appearance', [AppearanceController::class, 'index'])->name('appearance');

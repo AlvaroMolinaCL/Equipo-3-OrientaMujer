@@ -150,6 +150,40 @@
             margin-left: 5px;
             line-height: 1;
         }
+
+        /* Estilos para la tabla de cargas */
+        .table-custom {
+            background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};
+            color: #000; /* Color negro para el texto */
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .table-custom th {
+            background-color: {{ tenantSetting('color_tables', '#8C2D18') }};
+            color: #fff;
+            border-color: #dee2e6;
+        }
+
+        .table-custom td {
+            border-color: #dee2e6 !important;
+            color: #000;
+        }
+
+        .table-custom tbody tr {
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .table-custom tbody tr:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .table-responsive {
+            border-radius: 12px;
+            overflow: hidden;
+        }
     </style>
 
     <div class="container">
@@ -178,28 +212,46 @@
                 <p class="text-muted">Aún no has guardado ninguna carga de horarios.</p>
             @else
                 <div class="table-responsive">
-                    <table class="table table-bordered align-middle" style="background-color: {{ tenantSetting('background_color_1', '#FDF5E5') }};">
+                    <table class="table align-middle table-custom">
                         <thead class="table-light">
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Fecha creación</th>
-                                <th scope="col">Días programados</th>
-                                <th scope="col">Total horarios</th>
-                                <th scope="col">Acción</th>
+                                <th>Nombre</th>
+                                <th>Días programados</th>
+                                <th>Total horarios</th>
+                                <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($scheduleBatches as $batch)
                                 <tr>
-                                    <th scope="row">{{ $loop->iteration }}</th>
-                                    <td>{{ \Carbon\Carbon::parse($batch->created_at)->format('d/m/Y H:i') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($batch->start_date)->diffInDays($batch->end_date) + 1 }}</td>
+                                    <td class="fw-bold text-dark" title="Creada el {{ $batch->created_at->format('d/m/Y H:i') }}">
+                                        {{ $batch->name ?? 'Carga de horarios de ' . $batch->days . ' días' }}
+                                    </td>
+
+                                    <td>{{ $batch->days }}</td>
                                     <td>{{ $batch->slots_count }}</td>
-                                    <td>
-                                        <form method="GET" action="{{ route('available-slots.index') }}">
+                                    <td class="text-center">
+                                        {{-- Botones con íconos --}}
+                                        <a href="#" class="btn btn-sm btn-outline-info me-1" title="Previsualizar">
+                                            <i class="bi bi-eye-fill"></i>
+                                        </a>
+
+                                        <form method="GET" action="{{ route('available-slots.index') }}" class="d-inline">
                                             <input type="hidden" name="batch_id" value="{{ $batch->id }}">
-                                            <button type="submit" class="btn btn-sm btn-outline-primary">
-                                                Aplicar carga
+                                            <button type="submit" class="btn btn-sm btn-outline-success me-1" title="Aplicar">
+                                                <i class="bi bi-check2-circle"></i>
+                                            </button>
+                                        </form>
+
+                                        <a href="{{ route('schedule-batches.edit', $batch->id) }}" class="btn btn-sm btn-outline-primary me-1" title="Editar">
+                                            <i class="bi bi-pencil-fill"></i>
+                                        </a>
+
+                                        <form method="POST" action="{{ route('schedule-batches.destroy', $batch->id) }}" class="d-inline" onsubmit="return confirm('¿Seguro que deseas eliminar esta carga?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Eliminar">
+                                                <i class="bi bi-trash3-fill"></i>
                                             </button>
                                         </form>
                                     </td>
