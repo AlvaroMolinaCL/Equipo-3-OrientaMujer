@@ -38,9 +38,31 @@
                         <div class="mb-3">
                             <label for="name" class="form-label">Nombre</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                placeholder="Por ejemplo: Alejandra Pereira" id="name" name="name"
+                                placeholder="Por ejemplo: Alejandra" id="name" name="name"
                                 value="{{ old('name') }}" required autofocus>
                             @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- last_name -->
+                        <div class="mb-3">
+                            <label for="last_name" class="form-label">Apellido Paterno</label>
+                            <input type="text" class="form-control @error('last_name') is-invalid @enderror"
+                                placeholder="Por ejemplo: Pereira" id="last_name" name="last_name"
+                                value="{{ old('last_name') }}" required autofocus>
+                            @error('last_name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- second_last_name -->
+                        <div class="mb-3">
+                            <label for="second_last_name" class="form-label">Apellido Materno</label>
+                            <input type="text" class="form-control @error('second_last_name') is-invalid @enderror"
+                                placeholder="Por ejemplo: González" id="second_last_name" name="second_last_name"
+                                value="{{ old('second_last_name') }}" required autofocus>
+                            @error('second_last_name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
