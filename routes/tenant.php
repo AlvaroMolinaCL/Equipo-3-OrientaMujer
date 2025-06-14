@@ -148,6 +148,7 @@ Route::middleware([
         Route::post('/schedule-batches', [ScheduleBatchController::class, 'store'])->name('schedule-batches.store');
         Route::get('/schedule-batches/{id}/edit', [ScheduleBatchController::class, 'edit'])->name('schedule-batches.edit');
         Route::delete('/schedule-batches/{id}', [ScheduleBatchController::class, 'destroy'])->name('schedule-batches.destroy');
+        Route::put('/schedule-batches/{id}', [ScheduleBatchController::class, 'update'])->name('schedule-batches.update');
 
         // Gestión de Apariencia
         Route::get('/appearance', [AppearanceController::class, 'index'])->name('appearance');

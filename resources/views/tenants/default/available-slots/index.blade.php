@@ -288,7 +288,7 @@
                                             <i class="bi bi-pencil-fill"></i>
                                         </a>
 
-                                        <form method="POST" action="{{ route('schedule-batches.destroy', $batch->id) }}" class="d-inline" onsubmit="return confirm('¿Seguro que deseas eliminar esta carga?')">
+                                        <form method="POST" action="{{ route('schedule-batches.destroy', $batch->id) }}" class="d-inline delete-batch-form">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger" title="Eliminar">
@@ -300,6 +300,26 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <!-- Modal de Confirmación para eliminar una carga -->
+                    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content border-0 shadow">
+                                <div class="modal-header text-white"
+                                    style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};">
+                                    <h5 class="modal-title" id="deleteConfirmLabel">Confirmar eliminación</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                </div>
+                                <div class="modal-body">
+                                    ¿Estás seguro de que deseas eliminar esta carga de horarios?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button id="confirmDeleteBtn" type="button" class="btn btn-danger">Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="preview-popup" class="card shadow-sm d-none"
                         style="z-index: 2000;
                                 position: fixed;
@@ -800,5 +820,20 @@
 
             calendar.render();
         });
+
+        // Confirmación visual al eliminar una carga
+        let selectedDeleteForm = null;
+        document.querySelectorAll('.delete-batch-form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault(); // Evitar envío inmediato
+                selectedDeleteForm = form;
+                const modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+                modal.show();
+            });
+        });
+        document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
+            if (selectedDeleteForm) selectedDeleteForm.submit();
+        });
+
     </script>
 @endsection
