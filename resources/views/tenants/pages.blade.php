@@ -123,6 +123,35 @@
                         </div>
                     </div>
 
+                    {{-- Sección para la API Key --}}
+                    <div class="mb-4 border-bottom pb-3">
+                        <h5 class="fw-medium mb-3" style="color: #8C2D18;">
+                            <i class="bi bi-robot me-2"></i>Configuración de Chatbot
+                        </h5>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <label class="form-label fw-bold mb-0">OpenRouter API Key</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" 
+                                        id="api_key_toggle" name="api_key_enabled"
+                                        {{ $tenant->openrouter_api_key !== null ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="api_key_toggle">
+                                        {{ $tenant->openrouter_api_key !== null ? 'Habilitado' : 'Deshabilitado' }}
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <input type="password" class="form-control" 
+                                name="openrouter_api_key" id="openrouter_api_key"
+                                value="{{ $tenant->openrouter_api_key ?? '' }}"
+                                placeholder="Ingresa tu API Key de OpenRouter"
+                                {{ $tenant->openrouter_api_key === null ? 'disabled' : '' }}>
+                            <div class="form-text">
+                                Esta clave se utilizará para conectar con los servicios de inteligencia artificial.
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="mt-4 pt-3 border-top text-center">
                         <button type="submit" class="btn fw-medium py-1"
                             style="background-color: #8C2D18; color: white; width: 250px;">
@@ -165,6 +194,41 @@
                 });
             });
         });
+            document.addEventListener('DOMContentLoaded', function() {
+        const apiToggle = document.getElementById('api_key_toggle');
+        const apiKeyInput = document.getElementById('openrouter_api_key');
+        const apiToggleLabel = apiToggle.nextElementSibling;
+
+        // Estado inicial basado en si hay un valor existente
+        const hasExistingKey = apiKeyInput.value !== '';
+
+        apiToggle.addEventListener('change', function() {
+            if (this.checked) {
+                apiKeyInput.disabled = false;
+                apiToggleLabel.textContent = 'Habilitado';
+                // Si había un valor anterior, lo restauramos
+                if (hasExistingKey) {
+                    apiKeyInput.value = "{{ $tenant->openrouter_api_key }}";
+                }
+            } else {
+                apiKeyInput.disabled = true;
+                apiToggleLabel.textContent = 'Deshabilitado';
+                // Guardamos el valor actual antes de limpiar (opcional)
+                if (apiKeyInput.value) {
+                    hasExistingKey = true;
+                }
+                apiKeyInput.value = '';
+            }
+        });
+
+        // Manejar el caso cuando el formulario se envía con el toggle desactivado
+        document.querySelector('form').addEventListener('submit', function() {
+            if (!apiToggle.checked) {
+                apiKeyInput.disabled = false; // Habilitar temporalmente para enviar null
+                apiKeyInput.value = ''; // Asegurar que se envía vacío
+            }
+        });
+    });
     </script>
 
     <style>
