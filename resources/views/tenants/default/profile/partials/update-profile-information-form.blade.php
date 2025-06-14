@@ -34,6 +34,51 @@
         </div>
 
         <div class="mb-4">
+            <label for="last_name" class="form-label fw-medium"
+                style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                <i class="bi bi-person-badge me-1"></i>{{ __('Apellido Paterno') }}
+            </label>
+            <div class="input-group">
+                <span class="input-group-text"
+                    style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                    <i class="bi bi-fonts"></i>
+                </span>
+                <input id="last_name" type="text" class="form-control border-start-0" placeholder="Por ejemplo: Pereira"
+                    style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};" name="last_name"
+                    value="{{ old('last_name', $user->last_name) }}" required autocomplete="family-name">
+            </div>
+            @error('last_name')
+                <div class="text-danger small mt-2">
+                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="mb-4">
+            <label for="second_last_name" class="form-label fw-medium"
+                style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                <i class="bi bi-person-badge-fill me-1"></i>{{ __('Apellido Materno') }}
+            </label>
+            <div class="input-group">
+                <span class="input-group-text"
+                    style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }}; color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
+                    <i class="bi bi-fonts"></i>
+                </span>
+                <input id="second_last_name" type="text" class="form-control border-start-0"
+                    placeholder="Por ejemplo: Soto"
+                    style="background-color: {{ tenantSetting('background_color_1', '#F5E8D0') }};"
+                    name="second_last_name" value="{{ old('second_last_name', $user->second_last_name) }}" required
+                    autocomplete="additional-name">
+            </div>
+            @error('second_last_name')
+                <div class="text-danger small mt-2">
+                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                </div>
+            @enderror
+        </div>
+
+
+        <div class="mb-4">
             <label for="email" class="form-label fw-medium"
                 style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
                 <i class="bi bi-envelope me-1"></i>{{ __('Correo Electrónico') }}
@@ -68,8 +113,7 @@
 
                 @if (session('status') === 'verification-link-sent')
                     <div class="mt-2 small text-success">
-                        <i
-                            class="bi bi-check-circle me-1"></i>{{ __('Se ha enviado un nuevo enlace de verificación.') }}
+                        <i class="bi bi-check-circle me-1"></i>{{ __('Se ha enviado un nuevo enlace de verificación.') }}
                     </div>
                 @endif
             @endif
