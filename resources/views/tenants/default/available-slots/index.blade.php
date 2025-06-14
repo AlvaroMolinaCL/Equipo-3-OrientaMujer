@@ -412,9 +412,10 @@
                 },
 
                 dateClick: function (info) {
-                    if (batchPreviewMode && batchPreviewSlots.length > 0) {
-                        const startDate = new Date(info.dateStr);
+                    const [year, month, day] = info.dateStr.split('-');
+                    const startDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
 
+                    if (batchPreviewMode && document.getElementById('batch-apply-message') && batchPreviewSlots.length > 0) {
                         // Eliminar tarjeta anterior si ya existe
                         const existingCard = document.getElementById('batch-confirmation-card');
                         if (existingCard) existingCard.remove();
@@ -458,11 +459,10 @@
                             card.remove();
                         });
 
-                        return; // Para que no siga con el flujo normal del modal
+                        return; // Detiene la ejecución para que no se abra el modal
                     }
 
-
-
+                    // Si no está en modo batch, se ejecuta flujo normal
                     const selectedDate = new Date(info.date);
                     const today = new Date();
                     today.setHours(0, 0, 0, 0);
@@ -667,6 +667,11 @@
 
             if (batchId) {
                 batchPreviewMode = true;
+                fetch(`/api/batch-preview?id=${batchId}`)
+                .then(res => res.json())
+                .then(data => {
+                    batchPreviewSlots = data;
+                });
 
                 const calendarBox = document.getElementById('calendar');
                 const msg = document.createElement('div');
