@@ -175,11 +175,6 @@
             border-bottom: 1px solid #dee2e6;
         }
 
-        .table-custom tbody tr:hover {
-            background-color: rgba(0, 0, 0, 0.03);
-            transition: background-color 0.2s ease-in-out;
-        }
-
         .table-responsive {
             border-radius: 12px;
             overflow: hidden;
@@ -232,10 +227,12 @@
                                     <td>{{ $batch->slots_count }}</td>
                                     <td class="text-center">
                                         {{-- Botones con íconos --}}
-                                        <a href="#" class="btn btn-sm btn-outline-info me-1" title="Previsualizar">
+                                        <button type="button"
+                                            class="btn btn-sm btn-outline-info me-1 preview-batch-btn"
+                                            data-batch-id="{{ $batch->id }}"
+                                            title="Previsualizar">
                                             <i class="bi bi-eye-fill"></i>
-                                        </a>
-
+                                        </button>
                                         <form method="GET" action="{{ route('available-slots.index') }}" class="d-inline">
                                             <input type="hidden" name="batch_id" value="{{ $batch->id }}">
                                             <button type="submit" class="btn btn-sm btn-outline-success me-1" title="Aplicar">
@@ -259,6 +256,24 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div id="preview-popup" class="card shadow-sm d-none"
+                        style="z-index: 2000;
+                                position: fixed;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                max-width: 600px;
+                                width: 90%;
+                                background: #fff;
+                                border-radius: 12px;
+                                border: 1px solid #ccc;
+                                padding: 24px;">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="fw-bold m-0" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">Previsualización</h5>
+                            <button type="button" class="btn-close" aria-label="Cerrar" onclick="document.getElementById('preview-popup').classList.add('d-none');"></button>
+                        </div>
+                        <div id="preview-popup-content" style="overflow-x: auto; max-height: 400px;"></div>
+                    </div>
                 </div>
             @endif
         </div>
@@ -291,6 +306,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <script>
+        const calendarColor = "{{ tenantSetting('navbar_color_2', '#8C2D18') }}";
+        const calendarTextColor = "{{ tenantSetting('navbar_text_color_2', '#FFFFFF') }}";
+        
         document.addEventListener('DOMContentLoaded', function () {
             const calendarEl = document.getElementById('calendar');
             const modal = new bootstrap.Modal(document.getElementById('dayModal'));
@@ -612,6 +630,74 @@
             document.documentElement.style.setProperty('--fc-border-color', '{{ tenantSetting('color_tables', '#8C2D18') }}');
             document.documentElement.style.setProperty('--fc-event-bg-color', '{{ tenantSetting('navbar_color_2', '#8C2D18') }}');
             document.documentElement.style.setProperty('--fc-event-text-color', '{{ tenantSetting('navbar_text_color_2', '#FFFFFF') }}');
+
+            document.querySelectorAll('.preview-batch-btn').forEach(button => {
+                button.addEventListener('click', function (e) {
+                    const batchId = this.dataset.batchId;
+                    const popup = document.getElementById('preview-popup');
+                    const popupContent = document.getElementById('preview-popup-content');
+
+                    fetch(`/api/batch-preview?id=${batchId}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            const days = {};
+
+                            // Agrupar por day_index
+                            data.forEach(slot => {
+                                if (!days[slot.day_index]) {
+                                    days[slot.day_index] = [];
+                                }
+                                days[slot.day_index].push(slot);
+                            });
+
+                            // Ordenar por hora de inicio
+                            for (let day in days) {
+                                days[day].sort((a, b) => a.start_time.localeCompare(b.start_time));
+                            }
+
+                            // Construir tabla
+                            let html = `
+                                <div style="overflow-x: auto; max-width: 100%;">
+                                    <table class="table table-sm mb-0" style="min-width: 900px;">
+                                        <thead><tr>`;
+                            Object.keys(days).forEach(day => {
+                                html += `<th>Día ${parseInt(day) + 1}</th>`;
+                            });
+
+                            const maxRows = Math.max(...Object.values(days).map(arr => arr.length));
+                            for (let i = 0; i < maxRows; i++) {
+                                html += '<tr>';
+                                Object.values(days).forEach(slots => {
+                                    const slot = slots[i];
+                                    if (slot) {
+                                        html += `<td><span class="badge rounded-pill d-block text-truncate px-2 py-1"
+                                            style="background-color: ${calendarColor}; color: ${calendarTextColor}; font-size: 0.875rem; text-align: center;">
+                                            ${slot.start_time.slice(0, 5)} - ${slot.end_time.slice(0, 5)}
+                                        </span></td>`;
+                                    } else {
+                                        html += `<td></td>`;
+                                    }
+                                });
+                                html += '</tr>';
+                            }
+
+                            html += `</tbody></table></div>`;
+                            popupContent.innerHTML = html;
+                            popup.classList.remove('d-none');
+                        });
+                });
+            });
+
+            // Cerrar el popup al hacer clic fuera
+            document.addEventListener('click', function (e) {
+                const popup = document.getElementById('preview-popup');
+                const isInside = popup.contains(e.target);
+                const isButton = e.target.closest('.preview-batch-btn');
+
+                if (!isInside && !isButton) {
+                    popup.classList.add('d-none');
+                }
+            });
         });
     </script>
 @endsection
