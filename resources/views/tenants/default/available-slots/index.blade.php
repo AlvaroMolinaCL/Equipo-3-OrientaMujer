@@ -223,6 +223,12 @@
         <h3 class="fw-bold mt-3 mb-4" style="color: {{ tenantSetting('text_color_1', '#8C2D18') }};">
             <i class="bi bi-calendar-event me-2"></i>{{ __('Calendario de Disponibilidad') }}
         </h3>
+        <div id="batch-error-message" class="alert alert-danger text-center fw-bold shadow d-none"
+            style="position: absolute; left: 50%; transform: translateX(-50%); z-index: 4000; padding: 12px 24px;
+                    border-radius: 8px; font-size: 0.95rem; width: fit-content;">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            La carga de horarios se canceló por un choque de horarios existentes.
+        </div>
         <div id="calendar"></div>
         <div class="text-center mt-5 mb-3">
             <a href="{{ route('schedule-batches.create') }}"
@@ -449,8 +455,27 @@
                                 card.remove();
                                 if (response.success) {
                                     window.location.href = '{{ route('available-slots.index') }}';
-                                } else {
-                                    alert('Hubo un choque de horarios al intentar realizar la carga.');
+                                } else if (response.error === 'overlap') {
+                                    // Mostrar mensaje de error
+                                    const errorMsg = document.getElementById('batch-error-message');
+                                    errorMsg.classList.remove('d-none');
+
+                                    // Ocultar mensaje tras 5 segundos
+                                    setTimeout(() => {
+                                        errorMsg.classList.add('d-none');
+                                    }, 5000);
+
+                                    // Cerrar tarjeta de confirmación (si aún está abierta)
+                                    const card = document.getElementById('batch-confirmation-card');
+                                    if (card) card.remove();
+
+                                    // Ocultar mensaje flotante de instrucción
+                                    const msg = document.getElementById('batch-apply-message');
+                                    if (msg) msg.remove();
+
+                                    // Cancelar flujo de inserción
+                                    batchPreviewMode = false;
+                                    batchPreviewSlots = [];
                                 }
                             });
                         });

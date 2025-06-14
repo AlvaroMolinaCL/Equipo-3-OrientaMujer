@@ -51,16 +51,40 @@ class ScheduleBatchController extends Controller
 
         $batch = ScheduleBatch::with('slots')->findOrFail($request->batch_id);
         $startDate = \Carbon\Carbon::parse($request->start_date);
-        $originalStart = \Carbon\Carbon::parse($batch->start_date);
-        $daysOffset = $startDate->diffInDays($originalStart, false);
+        $userId = Auth::id();
 
         foreach ($batch->slots as $slot) {
-            $newDate = \Carbon\Carbon::parse($batch->start_date)
-                ->addDays($slot->day_index + $daysOffset);
+            $targetDate = $startDate->copy()->addDays($slot->day_index)->toDateString();
+
+            $startTime = $slot->start_time;
+            $endTime = $slot->end_time;
+
+            // Validar solapamiento con horarios existentes del mismo usuario y misma fecha
+            $hasConflict = \App\Models\AvailableSlot::where('user_id', $userId)
+                ->where('date', $targetDate)
+                ->where(function ($query) use ($startTime, $endTime) {
+                    $query->where(function ($q) use ($startTime, $endTime) {
+                        $q->where('start_time', '<', $endTime)
+                        ->where('end_time', '>', $startTime);
+                    });
+                })
+                ->exists();
+
+            if ($hasConflict) {
+                return response()->json([
+                    'success' => false,
+                    'error' => 'overlap'
+                ]);
+            }
+        }
+
+        // Si no hay conflictos, proceder con la inserción
+        foreach ($batch->slots as $slot) {
+            $targetDate = $startDate->copy()->addDays($slot->day_index)->toDateString();
 
             \App\Models\AvailableSlot::create([
-                'user_id' => Auth::id(),
-                'date' => $newDate->format('Y-m-d'),
+                'user_id' => $userId,
+                'date' => $targetDate,
                 'start_time' => $slot->start_time,
                 'end_time' => $slot->end_time,
             ]);
