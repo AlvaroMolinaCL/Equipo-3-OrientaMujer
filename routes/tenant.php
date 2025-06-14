@@ -65,9 +65,10 @@ Route::middleware([
     // Página "Chatbot"
     Route::post('/chatbot', [ChatbotController::class, 'chat']);
 
-
     // API para mostrar solo horarios no agendados al cliente
     Route::get('/api/client-slots', [AvailableSlotController::class, 'clientSlots']);
+    Route::post('/api/apply-batch', [ScheduleBatchController::class, 'applyBatch']);
+    Route::get('/api/batch-preview', [ScheduleBatchController::class, 'previewBatch']);
 
     // Rutas solo para usuarios que han iniciado sesión
     Route::middleware(['auth'])->group(function () {
@@ -145,6 +146,8 @@ Route::middleware([
         // Cargas de horarios (schedule_batches)
         Route::get('/schedule-batches/create', [ScheduleBatchController::class, 'create'])->name('schedule-batches.create');
         Route::post('/schedule-batches', [ScheduleBatchController::class, 'store'])->name('schedule-batches.store');
+        Route::get('/schedule-batches/{id}/edit', [ScheduleBatchController::class, 'edit'])->name('schedule-batches.edit');
+        Route::delete('/schedule-batches/{id}', [ScheduleBatchController::class, 'destroy'])->name('schedule-batches.destroy');
 
         // Gestión de Apariencia
         Route::get('/appearance', [AppearanceController::class, 'index'])->name('appearance');

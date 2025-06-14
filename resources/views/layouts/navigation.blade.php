@@ -3,6 +3,18 @@
         <img src="{{ asset('images/abogasense3.png') }}" alt="Logo" style="height: 60px;">
     </a>
 
+    {{-- Botón Inicio --}}
+    <div class="px-3 mb-3 mt-3">
+        <a href="{{ route('tenants.default.index') }}" class="btn w-100"
+            style="background-color: #BF8A49;
+              color: white;
+              border-radius: 0.375rem;
+              text-align: center;
+              display: block;">
+            <i class="bi bi-house-door-fill me-2"></i> Inicio
+        </a>
+    </div>
+
     <ul class="navbar-nav flex-column w-100" id="sidebarAccordion">
         <li class="nav-item">
             <a class="nav-link {{ Route::is('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}"
@@ -11,92 +23,20 @@
             </a>
         </li>
 
-        {{-- Tenants --}}
-        <li class="nav-item">
-            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-                href="#tenantsMenu" style="color: white;">
-                <span><i class="bi bi-building me-2"></i> Tenants</span>
-                <i class="bi bi-chevron-down small"></i>
-            </a>
-            <div class="collapse ps-3 {{ Route::is('tenants.*') ? 'show' : '' }}" id="tenantsMenu"
-                data-bs-parent="#sidebarAccordion">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('tenants.index') ? 'active' : '' }}"
-                            href="{{ route('tenants.index') }}" style="color: white;">Ver Tenants</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('tenants.create') ? 'active' : '' }}"
-                            href="{{ route('tenants.create') }}" style="color: white;">Agregar Tenant</a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-
         {{-- Dominios --}}
         <li class="nav-item">
-            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-                href="#domainsMenu" style="color: white;">
+            <a class="nav-link {{ Route::is('domains.index') ? 'active' : '' }}" href="{{ route('domains.index') }}"
+                style="color: white;">
                 <span><i class="bi bi-globe-americas me-2"></i> Dominios</span>
-                <i class="bi bi-chevron-down small"></i>
             </a>
-            <div class="collapse ps-3 {{ Route::is('domains.*') ? 'show' : '' }}" id="domainsMenu"
-                data-bs-parent="#sidebarAccordion">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('domains.index') ? 'active' : '' }}"
-                            href="{{ route('domains.index') }}" style="color: white;">Ver Dominios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('domains.create') ? 'active' : '' }}"
-                            href="{{ route('domains.create') }}" style="color: white;">Agregar Dominio</a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-
-        {{-- Usuarios --}}
-        <li class="nav-item">
-            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-                href="#usersMenu" style="color: white;">
-                <span><i class="bi bi-people me-2"></i> Usuarios</span>
-                <i class="bi bi-chevron-down small"></i>
-            </a>
-            <div class="collapse ps-3 {{ Route::is('users.*') ? 'show' : '' }}" id="usersMenu"
-                data-bs-parent="#sidebarAccordion">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('users.index') ? 'active' : '' }}"
-                            href="{{ route('users.index') }}" style="color: white;">Ver Usuarios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('users.create') ? 'active' : '' }}"
-                            href="{{ route('users.create') }}" style="color: white;">Agregar Usuario</a>
-                    </li>
-                </ul>
-            </div>
         </li>
 
         {{-- Roles --}}
         <li class="nav-item">
-            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-                href="#rolesMenu" style="color: white;">
+            <a class="nav-link {{ Route::is('roles.index') ? 'active' : '' }}" href="{{ route('roles.index') }}"
+                style="color: white;">
                 <span><i class="bi bi-person-check me-2"></i> Roles</span>
-                <i class="bi bi-chevron-down small"></i>
             </a>
-            <div class="collapse ps-3 {{ Route::is('roles.*') ? 'show' : '' }}" id="rolesMenu"
-                data-bs-parent="#sidebarAccordion">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('roles.index') ? 'active' : '' }}"
-                            href="{{ route('roles.index') }}" style="color: white;">Ver Roles</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('roles.create') ? 'active' : '' }}"
-                            href="{{ route('roles.create') }}" style="color: white;">Agregar Rol</a>
-                    </li>
-                </ul>
-            </div>
         </li>
 
         {{-- Token de Acceso --}}
@@ -104,6 +44,22 @@
             <a class="nav-link {{ Route::is('admin.token') ? 'active' : '' }}" href="{{ route('admin.token') }}"
                 style="color: white;">
                 <i class="bi bi-key me-2"></i> Solicitudes de Acceso
+            </a>
+        </li>
+
+        {{-- Tenants --}}
+        <li class="nav-item">
+            <a class="nav-link {{ Route::is('tenants.index') ? 'active' : '' }}" href="{{ route('tenants.index') }}"
+                style="color: white;">
+                <span><i class="bi bi-building me-2"></i> Tenants</span>
+            </a>
+        </li>
+
+        {{-- Usuarios --}}
+        <li class="nav-item">
+            <a class="nav-link {{ Route::is('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}"
+                style="color: white;">
+                <span><i class="bi bi-people me-2"></i> Usuarios</span>
             </a>
         </li>
     </ul>

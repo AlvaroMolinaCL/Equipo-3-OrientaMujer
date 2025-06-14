@@ -63,7 +63,7 @@
                                                     @method('DELETE')
                                                     <button type="submit"
                                                         class="btn btn-sm w-100 d-flex align-items-center justify-content-center gap-1"
-                                                        style="background-color: #dc3545; color: white;">
+                                                        style="background-color: #BF8A49; color: white;">
                                                         <i class="bi bi-trash"></i> Eliminar
                                                     </button>
                                                 </form>

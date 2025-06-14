@@ -3,7 +3,7 @@
 @section('title', tenantPageName('contact', 'Contacto') . ' - ' . tenantSetting('name', 'Tenant'))
 
 @section('navbar')
-    @section('navbar-class', 'navbar-light-mode')
+@section('navbar-class', 'navbar-light-mode')
     @include('tenants.default.layouts.navigation')
 @endsection
 
@@ -14,7 +14,13 @@
         <div class="container">
             <h1 class="mb-4" style="font-family: {{ tenantSetting('heading_font', '') }}">{{ tenantPageName('contact', 'Contacto') }}</h1>
             <p class="mb-4">
-                Te invito a agendar tu asesoría. Estoy aquí para escuchar, guiar y apoyar, con un enfoque integral y humano.
+                {!! tenantText(
+                    'body_contact',
+                    '
+                        <p style="text-align: justify;">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vel dapibus nunc.
+                    ',
+                ) !!}
             </p>
 
             <div class="row">
@@ -77,6 +83,4 @@
             </div>                        
         </div>
     </section>
-
-    @include('tenants.default.layouts.footer')
 @endsection

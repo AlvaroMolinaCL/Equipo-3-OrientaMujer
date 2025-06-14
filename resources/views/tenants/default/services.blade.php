@@ -24,20 +24,23 @@
                             class="card-img-top" alt="Asesoría jurídica integral">
                         <div class="card-body">
                             <h5 class="card-title" style="font-weight: bold">
-                                {!!  tenantText('title_service_1', 'Asesoría jurídica integral') !!}
+                                {!! tenantText('title_service_1', 'Servicio 1') !!}
                             </h5>
                             <div class="card-text">
-                                {!! tenantText('body_service_1', '
-                                <p style="text-align: justify;">Te ofrezco un servicio de orientación legal para identificar el escenario jurídico que enfrentas.</p>
-                                <p style="text-align: justify;">Conocerás:</p>
-                                <ul>
-                                    <li style="text-align: justify;">La procedencia de acciones judiciales en materias de violencia contra la mujer.</li>
-                                    <li style="text-align: justify;">Pasos a seguir para iniciar procedimientos judiciales.</li>
-                                    <li style="text-align: justify;">Análisis de la necesidad de representación privada o derivación a organismos públicos.</li>
-                                    <li style="text-align: justify;">Explicación clara de la dinámica de los procesos en derecho penal, familia y otras áreas.</li>
-                                    <li style="text-align: justify;">Derivación segura a abogadas especializadas si así lo requieres.</li>
-                                </ul>
-                            ') !!}
+                                {!! tenantText(
+                                    'body_service_1',
+                                    '
+                                        <p style="text-align: justify;">Quisque accumsan odio quis facilisis ullamcorper.</p>
+                                        <p style="text-align: justify;">Praesent pharetra:</p>
+                                        <ul>
+                                            <li style="text-align: justify;">Ut elementum neque sem, vitae condimentum magna ullamcorper eget.</li>
+                                            <li style="text-align: justify;">Pellentesque eleifend mauris non risus consequat feugiat.</li>
+                                            <li style="text-align: justify;">Fusce rhoncus justo elementum eros hendrerit, ac tincidunt neque tempor.</li>
+                                            <li style="text-align: justify;">Donec eleifend, elit et rhoncus sodales, eros risus euismod justo, ac tristique massa est vitae nisl.</li>
+                                            <li style="text-align: justify;">Nunc ac dictum mauris, in blandit tortor.</li>
+                                        </ul>
+                                    ',
+                                ) !!}
                             </div>
                         </div>
                     </div>
@@ -50,17 +53,20 @@
                             class="card-img-top" alt="Representación judicial">
                         <div class="card-body">
                             <h5 class="card-title" style="font-weight: bold">
-                                {!! tenantText('title_service_2', 'Representación judicial en causas de derecho penal, familia, u otros') !!}
+                                {!! tenantText('title_service_2', 'Servicio 2') !!}
                             </h5>
                             <div class="card-text">
-                                {!! tenantText('body_service_2', '
-                                <p style="text-align: justify;">Te represento en procesos judiciales penales, de familia u otras materias, comprometiéndome a:</p>
-                                <ul>
-                                    <li style="text-align: justify;">Diseñar contigo la estrategia de defensa o acción.</li>
-                                    <li style="text-align: justify;">Representar tus intereses bajo perspectiva de género, territorio, interculturalidad, derechos humanos, según corresponda.</li>
-                                    <li style="text-align: justify;">Informarte en cada etapa, asegurando tu participación activa en la toma de decisiones.</li>
-                                </ul>
-                            ') !!}
+                                {!! tenantText(
+                                    'body_service_2',
+                                    '
+                                        <p style="text-align: justify;">Sed tincidunt ligula odio, sit amet tempor leo elementum et:</p>
+                                        <ul>
+                                            <li style="text-align: justify;">Quisque bibendum hendrerit libero. </li>
+                                            <li style="text-align: justify;">Nulla vestibulum quam ante, vel tincidunt mi dapibus ac.</li>
+                                            <li style="text-align: justify;">Praesent pharetra, urna quis porta auctor, mi lacus pellentesque metus, at pharetra purus lorem sed quam.</li>
+                                        </ul>
+                                    ',
+                                ) !!}
                             </div>
                         </div>
                     </div>
@@ -73,18 +79,21 @@
                             class="card-img-top" alt="Capacitaciones y charlas">
                         <div class="card-body">
                             <h5 class="card-title" style="font-weight: bold">
-                                {!! tenantText('title_service_3', 'Capacitaciones y charlas') !!}
+                                {!! tenantText('title_service_3', 'Servicio 3') !!}
                             </h5>
                             <div class="card-text">
-                                {!! tenantText('body_service_3', '
-                                                                <p style="text-align: justify;">Realizo talleres, charlas y capacitaciones para grupos en contextos académicos, laborales o comunitarios.</p>
-                                                                <p style="text-align: justify;">Temáticas abordadas:</p>
-                                                                <ul>
-                                                                    <li style="text-align: justify;">Sensibilización en género.</li>
-                                                                    <li style="text-align: justify;">Normativa nacional e internacional sobre derechos humanos, género y otras materias.</li>
-                                                                    <li style="text-align: justify;">Funcionamiento práctico de los procedimientos judiciales.</li>
-                                                                </ul>
-                                                            ') !!}
+                                {!! tenantText(
+                                    'body_service_3',
+                                    '
+                                        <p style="text-align: justify;">Praesent tempus accumsan urna. Sed vel tempor nulla, et sodales enim. Vivamus a dictum urna, ut cursus leo.</p>
+                                        <p style="text-align: justify;">Aliquam erat volutpat:</p>
+                                        <ul>
+                                            <li style="text-align: justify;">Mauris pretium aliquam neque vitae efficitur.</li>
+                                            <li style="text-align: justify;">Sed massa neque, malesuada ut blandit in, maximus non lorem.</li>
+                                            <li style="text-align: justify;">Duis posuere placerat vestibulum.</li>
+                                        </ul>
+                                    ',
+                                ) !!}
                             </div>
                         </div>
                     </div>
@@ -92,6 +101,4 @@
             </div>
         </div>
     </section>
-
-    @include('tenants.default.layouts.footer')
 @endsection

@@ -44,23 +44,22 @@
                                     <td>{{ $domain->domain }}</td>
                                     <td>{{ $domain->tenant_id . '.' . config('app.domain') }}</td>
                                     <td>
-                                        <div class="d-flex flex-column flex-md-row justify-content-center gap-2">
+                                        <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
                                             {{-- Editar --}}
                                             <a href="{{ route('domains.edit', $domain) }}"
-                                                class="btn btn-sm w-100 d-flex align-items-center justify-content-center gap-1"
-                                                style="background-color: #8C2D18; color: white;">
+                                                class="btn btn-sm d-flex align-items-center justify-content-center gap-1"
+                                                style="background-color: #8C2D18; color: white; min-width: 100px;">
                                                 <i class="bi bi-pencil"></i> Editar
                                             </a>
 
                                             {{-- Eliminar --}}
                                             <form action="{{ route('domains.destroy', $domain) }}" method="POST"
-                                                onsubmit="return confirm('¿Estás seguro de eliminar este dominio?')"
-                                                class="w-100">
+                                                onsubmit="return confirm('¿Estás seguro de eliminar este dominio?')">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
-                                                    class="btn btn-sm w-100 d-flex align-items-center justify-content-center gap-1"
-                                                    style="background-color: #dc3545; color: white;">
+                                                    class="btn btn-sm d-flex align-items-center justify-content-center gap-1"
+                                                    style="background-color: #BF8A49; color: white; min-width: 100px;">
                                                     <i class="bi bi-trash"></i> Eliminar
                                                 </button>
                                             </form>

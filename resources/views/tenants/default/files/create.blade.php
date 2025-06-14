@@ -8,11 +8,11 @@
 
 @if ($isUser)
     @section('navbar')
-    @section('navbar-class', 'navbar-dark-mode')
+    @section('navbar-class', 'navbar-light-mode')
         @include('tenants.default.layouts.navigation')
     @endsection
     
-    @section('body-class', 'theme-dark')
+    @section('body-class', 'theme-light')
 @endif
 
 @section('content')

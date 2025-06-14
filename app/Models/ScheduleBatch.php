@@ -12,25 +12,23 @@ class ScheduleBatch extends Model
     protected $fillable = [
         'user_id',
         'name',
-        'start_date',
-        'end_date',
+        'days',
         'used_at',
     ];
 
-    protected $casts = [
-        'start_date' => 'date',
-        'end_date' => 'date',
-        'used_at' => 'datetime',
-    ];
-
-    // Relaciones
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
+    /**
+     * Un batch tiene muchos horarios asociados.
+     */
     public function slots()
     {
         return $this->hasMany(ScheduleBatchSlot::class, 'batch_id');
+    }
+
+    /**
+     * Relación con el usuario que creó la carga.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

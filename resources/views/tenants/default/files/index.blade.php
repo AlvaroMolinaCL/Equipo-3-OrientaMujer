@@ -9,11 +9,11 @@
     @section('title', 'Mis Archivos - ' . tenantSetting('name', 'Tenant'))
 
     @section('navbar')
-    @section('navbar-class', 'navbar-dark-mode')
+    @section('navbar-class', 'navbar-light-mode')
         @include('tenants.default.layouts.navigation')
     @endsection
     
-    @section('body-class', 'theme-dark')
+    @section('body-class', 'theme-light')
 @endif
 
 @if ($isAdmin)
@@ -120,7 +120,7 @@
                                     <td>{{ $file->name }}</td>
                                     <td>{{ $file->created_at->format('d/m/Y H:i') }}</td>
                                     <td>
-                                        <div class="d-flex flex-column flex-md-row justify-content-center gap-2">
+                                        <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
                                             <a href="{{ route('files.preview', $file) }}" target="_blank"
                                                 class="btn btn-sm d-flex align-items-center justify-content-center gap-1"
                                                 style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }};
@@ -139,7 +139,7 @@
                                                 {{-- Botón para abrir el modal --}}
                                                 <button type="button"
                                                     class="btn btn-sm d-flex align-items-center justify-content-center gap-1"
-                                                    style="background-color: #ffc107; color: black; width: 120px;"
+                                                    style="background-color: {{ tenantSetting('color_tables', '#8C2D18') }}; color: white; width: 120px;"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#shareModal-{{ $file->id }}">
                                                     <i class="bi bi-share"></i> Compartir
@@ -187,7 +187,7 @@
                                                                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                                     <button type="submit" class="btn"
                                                                         style="background-color: {{ tenantSetting('button_color_sidebar', '#F5E8D0') }}; color: white;">
-                                                                        Guardar cambios
+                                                                        Guardar Cambios
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -198,12 +198,11 @@
 
                                             @if (auth()->user()->hasRole('Admin') || $file->uploaded_by == auth()->id())
                                                 <form action="{{ route('files.destroy', $file) }}" method="POST" class="d-flex"
-                                                    style="width: 120px;"
                                                     onsubmit="return confirm('¿Estás seguro de que deseas eliminar este archivo?')">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-sm d-flex align-items-center justify-content-center gap-1 w-100"
-                                                        style="background-color: #dc3545; color: white;">
+                                                        style="background-color: {{ tenantSetting('button_color_sidebar', '#BF8A49') }}; color: white; min-width: 100px;">
                                                         <i class="bi bi-trash"></i> Eliminar
                                                     </button>
                                                 </form>

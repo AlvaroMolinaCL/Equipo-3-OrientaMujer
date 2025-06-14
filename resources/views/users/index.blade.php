@@ -53,16 +53,18 @@
                                     <td>
                                         @if ($user->email == Auth::user()->email)
                                             {{-- Editar --}}
-                                            <a href="{{ route('profile.edit', $user) }}"
-                                                class="btn btn-sm d-flex align-items-center justify-content-center gap-1 flex-grow-1"
-                                                style="background-color: #8C2D18; color: white; min-width: 100px;">
-                                                <i class="bi bi-pencil"></i> Editar
-                                            </a>
+                                            <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
+                                                <a href="{{ route('profile.edit', $user) }}"
+                                                    class="btn btn-sm d-flex align-items-center justify-content-center gap-1"
+                                                    style="background-color: #8C2D18; color: white; min-width: 100px;">
+                                                    <i class="bi bi-pencil"></i> Editar
+                                                </a>
+                                            </div>
                                         @else
-                                            <div class="d-flex flex-wrap justify-content-center gap-2">
+                                            <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
                                                 {{-- Editar --}}
                                                 <a href="{{ route('users.edit', $user) }}"
-                                                    class="btn btn-sm d-flex align-items-center justify-content-center gap-1 flex-grow-1"
+                                                    class="btn btn-sm d-flex align-items-center justify-content-center gap-1"
                                                     style="background-color: #8C2D18; color: white; min-width: 100px;">
                                                     <i class="bi bi-pencil"></i> Editar
                                                 </a>
@@ -71,13 +73,12 @@
                                                 @if ($user->id !== $firstSuperAdminId)
                                                     {{-- Mostrar botón eliminar --}}
                                                     <form action="{{ route('users.destroy', $user) }}" method="POST"
-                                                        onsubmit="return confirm('¿Estás seguro de eliminar este usuario?')"
-                                                        class="flex-grow-1">
+                                                        onsubmit="return confirm('¿Estás seguro de eliminar este usuario?')">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"
-                                                            class="btn btn-sm d-flex align-items-center justify-content-center gap-1 w-100"
-                                                            style="background-color: #dc3545; color: white; min-width: 100px;">
+                                                            class="btn btn-sm d-flex align-items-center justify-content-center gap-1"
+                                                            style="background-color: #BF8A49; color: white; min-width: 100px;">
                                                             <i class="bi bi-trash"></i> Eliminar
                                                         </button>
                                                     </form>

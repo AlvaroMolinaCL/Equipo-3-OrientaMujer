@@ -17,8 +17,15 @@ class AvailableSlotController extends Controller
             ->orderBy('date', 'desc')
             ->get();
 
-        return view('tenants.default.available-slots.index', compact('slots'));
+        $scheduleBatches = ScheduleBatch::withCount('slots')
+            ->where('user_id', Auth::id())
+            ->latest()
+            ->take(10)
+            ->get();
+
+        return view('tenants.default.available-slots.index', compact('slots', 'scheduleBatches'));
     }
+
 
     public function apiIndex(Request $request)
     {

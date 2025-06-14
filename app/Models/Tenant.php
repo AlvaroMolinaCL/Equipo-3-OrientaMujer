@@ -51,6 +51,7 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         'contact_instagram',
         'contact_linkedin',
         'google_analytics_id',
+        'openrouter_api_key',
     ];
 
     protected static function booted()

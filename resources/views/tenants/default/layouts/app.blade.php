@@ -361,110 +361,114 @@
     @endif
 </head>
 
-<body class="@yield('body-class', 'theme-light')">
-    <div class="d-flex min-h-screen">
+<body class="@yield('body-class', 'theme-light') d-flex flex-column min-vh-100">
+    <div class="flex-grow-1">
+        @hasSection('navbar')
+            @yield('navbar')
+        @endif
 
-        <div class="flex-grow-1">
-            @hasSection('navbar')
-                @yield('navbar')
-            @endif
-
-            <main>
-                @yield('content')
-            </main>
-        </div>
+        <main>
+            @yield('content')
+        </main>
     </div>
+
+    @include('tenants.default.layouts.footer')
+    
     @stack('scripts')
     @stack('styles')
 
-    <div id="chat-bubble" onclick="toggleChat()">💬</div>
-
-    <div id="chat-window">
-        <div id="chat-header">Asistente Legal</div>
-        <div id="chat-body">
-            <p class="bot-message"><strong>Bot:</strong> ¡Hola! ¿En qué puedo ayudarte?</p>
+    @if (tenantSetting('openrouter_api_key'))
+        <div id="chat-bubble" onclick="toggleChat()">💬</div>
+        
+        <div id="chat-window">
+            <div id="chat-header">Asistente Legal</div>
+            <div id="chat-body">
+                <p class="bot-message"><strong>Bot:</strong> ¡Hola! ¿En qué puedo ayudarte?</p>
+            </div>
+            <div id="chat-input">
+                <input type="text" id="userInput" placeholder="Escribe tu pregunta..." />
+                <button onclick="sendChat()">Enviar</button>
+            </div>
         </div>
-        <div id="chat-input">
-            <input type="text" id="userInput" placeholder="Escribe tu pregunta..." />
-            <button onclick="sendChat()">Enviar</button>
-        </div>
-    </div>
+    @endif
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script>
-        function toggleChat() {
-            const chatWindow = document.getElementById('chat-window');
-            chatWindow.style.display = (chatWindow.style.display === 'none' || chatWindow.style.display === '') ? 'flex' : 'none';
-            if (chatWindow.style.display === 'flex') {
-                document.getElementById('userInput').focus();
-                const chatBody = document.getElementById('chat-body');
-                chatBody.scrollTop = chatBody.scrollHeight;
-            }
-        }
-
-        function sendChat() {
-            const input = document.getElementById('userInput');
-            const message = input.value.trim();
-            if (!message) return;
-
-            const chatBody = document.getElementById('chat-body');
-            const sendButton = document.querySelector('#chat-input button');
-
-            input.disabled = true;
-            sendButton.disabled = true;
-
-            chatBody.innerHTML += `<div class="user-message"><strong>Tú:</strong> ${message}</div>`;
-            input.value = '';
-
-            const loadingId = 'loading-' + Date.now();
-            chatBody.innerHTML += `<div id="${loadingId}" class="bot-message typing-indicator">
-                                        <strong>Bot:</strong> <span></span><span></span><span></span>
-                                    </div>`;
-            chatBody.scrollTop = chatBody.scrollHeight;
-
-            fetch('/chatbot', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    message
-                })
-            })
-                .then(res => {
-                    if (!res.ok) throw new Error(res.statusText);
-                    return res.json();
-                })
-                .then(data => {
-                    const loadingElement = document.getElementById(loadingId);
-                    if (loadingElement) {
-                        loadingElement.outerHTML = `<div class="bot-message">${marked.parse("<strong>Bot:</strong> " + data.message)}</div>`;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching chatbot response:', error);
-                    const loadingElement = document.getElementById(loadingId);
-                    if (loadingElement) {
-                        loadingElement.outerHTML =
-                            `<div class="bot-message error"><strong>Bot:</strong> Lo siento, hubo un error al procesar tu mensaje. Por favor, inténtalo de nuevo más tarde.</div>`;
-                    }
-                })
-                .finally(() => {
-                    input.disabled = false;
-                    sendButton.disabled = false;
-                    input.focus();
+    @if (tenantSetting('openrouter_api_key'))
+        <script>
+            function toggleChat() {
+                const chatWindow = document.getElementById('chat-window');
+                chatWindow.style.display = (chatWindow.style.display === 'none' || chatWindow.style.display === '') ? 'flex' : 'none';
+                if (chatWindow.style.display === 'flex') {
+                    document.getElementById('userInput').focus();
+                    const chatBody = document.getElementById('chat-body');
                     chatBody.scrollTop = chatBody.scrollHeight;
-                });
-        }
-
-        document.getElementById('userInput').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter' && !this.disabled) {
-                sendChat();
+                }
             }
-        });
-    </script>
+
+            function sendChat() {
+                const input = document.getElementById('userInput');
+                const message = input.value.trim();
+                if (!message) return;
+
+                const chatBody = document.getElementById('chat-body');
+                const sendButton = document.querySelector('#chat-input button');
+
+                input.disabled = true;
+                sendButton.disabled = true;
+
+                chatBody.innerHTML += `<div class="user-message"><strong>Tú:</strong> ${message}</div>`;
+                input.value = '';
+
+                const loadingId = 'loading-' + Date.now();
+                chatBody.innerHTML += `<div id="${loadingId}" class="bot-message typing-indicator">
+                                            <strong>Bot:</strong> <span></span><span></span><span></span>
+                                        </div>`;
+                chatBody.scrollTop = chatBody.scrollHeight;
+
+                fetch('/chatbot', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message
+                    })
+                })
+                    .then(res => {
+                        if (!res.ok) throw new Error(res.statusText);
+                        return res.json();
+                    })
+                    .then(data => {
+                        const loadingElement = document.getElementById(loadingId);
+                        if (loadingElement) {
+                            loadingElement.outerHTML = `<div class="bot-message">${marked.parse("<strong>Bot:</strong> " + data.message)}</div>`;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching chatbot response:', error);
+                        const loadingElement = document.getElementById(loadingId);
+                        if (loadingElement) {
+                            loadingElement.outerHTML =
+                                `<div class="bot-message error"><strong>Bot:</strong> Lo siento, hubo un error al procesar tu mensaje. Por favor, inténtalo de nuevo más tarde.</div>`;
+                        }
+                    })
+                    .finally(() => {
+                        input.disabled = false;
+                        sendButton.disabled = false;
+                        input.focus();
+                        chatBody.scrollTop = chatBody.scrollHeight;
+                    });
+            }
+
+            document.getElementById('userInput').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter' && !this.disabled) {
+                    sendChat();
+                }
+            });
+        </script>
+    @endif
 
 </body>
 
