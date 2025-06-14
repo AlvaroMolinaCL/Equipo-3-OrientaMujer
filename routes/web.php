@@ -78,8 +78,6 @@ Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
     Route::get('solicitudes-superadmin', [AdminSuperAdminRequestController::class, 'index']);
     Route::post('solicitudes-superadmin/{id}/aprobar', [AdminSuperAdminRequestController::class, 'approve'])->name('admin.solicitudes.aprobar');
 
-    // Token de Acceso
-    Route::get('/admin/token', [TokenController::class, 'show'])->name('admin.token');
 });
 
 require __DIR__ . '/auth.php';
