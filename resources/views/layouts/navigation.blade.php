@@ -39,14 +39,6 @@
             </a>
         </li>
 
-        {{-- Token de Acceso --}}
-        <li class="nav-item">
-            <a class="nav-link {{ Route::is('admin.token') ? 'active' : '' }}" href="{{ route('admin.token') }}"
-                style="color: white;">
-                <i class="bi bi-key me-2"></i> Solicitudes de Acceso
-            </a>
-        </li>
-
         {{-- Tenants --}}
         <li class="nav-item">
             <a class="nav-link {{ Route::is('tenants.index') ? 'active' : '' }}" href="{{ route('tenants.index') }}"

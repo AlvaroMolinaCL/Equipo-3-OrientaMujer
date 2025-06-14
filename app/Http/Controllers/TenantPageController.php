@@ -45,6 +45,17 @@ class TenantPageController extends Controller
 
     public function update(Request $request, Tenant $tenant)
     {
+
+        // Validación
+        $request->validate([
+            'openrouter_api_key' => $request->input('api_key_enabled') ? 'required|string' : 'nullable'
+        ]);
+
+        // Actualizar el API key según el estado del toggle
+        $tenant->update([
+            'openrouter_api_key' => $request->input('api_key_enabled') ? $request->input('openrouter_api_key') : null
+        ]);
+
         $defaultTitles = [
             'login' => 'Iniciar Sesión',
             'register' => 'Registrarse',
