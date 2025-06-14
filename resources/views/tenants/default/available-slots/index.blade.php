@@ -179,6 +179,44 @@
             border-radius: 12px;
             overflow: hidden;
         }
+
+        .container {
+            position: relative;
+        }
+
+        #batch-apply-message {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3000;
+            padding: 12px 24px;
+            border-radius: 8px;
+            background-color: #cfe2ff;
+            color: #084298;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+            font-weight: bold;
+            width: fit-content;
+            font-size: 0.95rem;
+            margin-top: 12px; /* opcional para separación */
+        }
+
+        #batch-confirmation-card {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5000;
+            background-color: #fff;
+            padding: 24px 32px;
+            border-radius: 12px;
+            border: 2px solid #dee2e6;
+            box-shadow: 0 0 16px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
     </style>
 
     <div class="container">
@@ -233,7 +271,7 @@
                                             title="Previsualizar">
                                             <i class="bi bi-eye-fill"></i>
                                         </button>
-                                        <form method="GET" action="{{ route('available-slots.index') }}" class="d-inline">
+                                        <form method="GET" action="{{ route('available-slots.index') }}" class="d-inline form-apply-batch">
                                             <input type="hidden" name="batch_id" value="{{ $batch->id }}">
                                             <button type="submit" class="btn btn-sm btn-outline-success me-1" title="Aplicar">
                                                 <i class="bi bi-check2-circle"></i>
@@ -376,33 +414,54 @@
                 dateClick: function (info) {
                     if (batchPreviewMode && batchPreviewSlots.length > 0) {
                         const startDate = new Date(info.dateStr);
-                        const confirmApply = confirm("¿Deseas aplicar esta carga comenzando desde el " + startDate.toLocaleDateString('es-CL') + "?");
 
-                        if (!confirmApply) return;
+                        // Eliminar tarjeta anterior si ya existe
+                        const existingCard = document.getElementById('batch-confirmation-card');
+                        if (existingCard) existingCard.remove();
 
-                        const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+                        // Crear tarjeta
+                        const card = document.createElement('div');
+                        card.id = 'batch-confirmation-card';
+                        card.innerHTML = `
+                            <p class="mb-3">¿Estás seguro de aplicar esta carga comenzando desde el <strong>${startDate.toLocaleDateString('es-CL')}</strong>?</p>
+                            <div class="d-flex justify-content-center gap-3 mt-3">
+                                <button class="btn btn-success" id="confirm-apply-yes">Sí</button>
+                                <button class="btn btn-outline-secondary" id="confirm-apply-no">No</button>
+                            </div>
+                        `;
+                        document.body.appendChild(card);
 
-                        fetch('/api/apply-batch', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': csrfToken
-                            },
-                            body: JSON.stringify({
-                                batch_id: batchId,
-                                start_date: info.dateStr
-                            })
-                        }).then(res => res.json())
-                        .then(response => {
-                            if (response.success) {
-                                window.location.href = '{{ route('available-slots.index') }}';
-                            } else {
-                                alert('Ocurrió un error al aplicar la carga.');
-                            }
+                        document.getElementById('confirm-apply-yes').addEventListener('click', () => {
+                            const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+                            fetch('/api/apply-batch', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': csrfToken
+                                },
+                                body: JSON.stringify({
+                                    batch_id: batchId,
+                                    start_date: info.dateStr
+                                })
+                            }).then(res => res.json())
+                            .then(response => {
+                                card.remove();
+                                if (response.success) {
+                                    window.location.href = '{{ route('available-slots.index') }}';
+                                } else {
+                                    alert('Hubo un choque de horarios al intentar realizar la carga.');
+                                }
+                            });
                         });
 
-                        return;
+                        document.getElementById('confirm-apply-no').addEventListener('click', () => {
+                            card.remove();
+                        });
+
+                        return; // Para que no siga con el flujo normal del modal
                     }
+
+
 
                     const selectedDate = new Date(info.date);
                     const today = new Date();
@@ -609,22 +668,17 @@
             if (batchId) {
                 batchPreviewMode = true;
 
-                const alert = document.createElement('div');
-                alert.className = 'alert alert-info text-center mt-4 fw-bold';
-                alert.innerHTML = `
-                    <i class="bi bi-mouse me-1"></i>Selecciona el día en el calendario donde deseas comenzar a aplicar la carga de horarios.
+                const calendarBox = document.getElementById('calendar');
+                const msg = document.createElement('div');
+                msg.id = 'batch-apply-message';
+                msg.className = 'alert alert-primary text-center fw-bold shadow';
+                msg.innerHTML = `
+                    <i class="bi bi-mouse me-1"></i>
+                    Selecciona el día en el calendario donde deseas comenzar a aplicar la carga de horarios.
                     <a href="{{ route('available-slots.index') }}" class="btn btn-sm btn-outline-secondary ms-3">Cancelar</a>
                 `;
-                document.querySelector('.container').appendChild(alert);
-
-                fetch(`/api/batch-preview?id=${batchId}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        batchPreviewSlots = data;
-                    });
+                calendarBox.insertAdjacentElement('afterend', msg);
             }
-            
-            calendar.render();
 
             // Aplicar colores personalizados desde tenantSetting
             document.documentElement.style.setProperty('--fc-border-color', '{{ tenantSetting('color_tables', '#8C2D18') }}');
@@ -698,6 +752,23 @@
                     popup.classList.add('d-none');
                 }
             });
+
+            document.querySelectorAll('.form-apply-batch').forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const batchIdInput = this.querySelector('input[name="batch_id"]');
+                    if (!batchIdInput) return;
+
+                    const batchId = batchIdInput.value;
+
+                    // Redirigir con el batch_id en la URL
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('batch_id', batchId);
+                    window.location.href = url.toString();
+                });
+            });
+
+            calendar.render();
         });
     </script>
 @endsection
