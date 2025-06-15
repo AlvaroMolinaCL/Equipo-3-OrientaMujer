@@ -23,6 +23,11 @@ class CheckoutController extends Controller
             ->where('status', 'active')
             ->firstOrFail();
 
+        // Si el carrito no tiene items, redirigir al index
+        if ($cart->items->isEmpty()) {
+            return redirect()->route('tenants.default.index')->with('message', 'Tu carrito está vacío.');
+        }
+
         // Calcular el total aquí mismo
         $total = $cart->items->sum(function ($item) {
             return $item->price * $item->quantity;

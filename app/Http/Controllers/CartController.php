@@ -25,33 +25,29 @@ class CartController extends Controller
     {
         $request->validate([
             'product_id' => 'required|exists:products,id',
-            'quantity' => 'required|integer|min:1',
         ]);
 
         $cart = Cart::firstOrCreate(
             ['user_id' => Auth::id(), 'status' => 'active']
         );
 
+        // Antes de agregar el nuevo producto, limpia los anteriores
+        $cart->items()->delete();
+
         $product = Product::findOrFail($request->product_id);
 
-        $item = CartItem::where('cart_id', $cart->id)
-            ->where('product_id', $product->id)
-            ->first();
-
-        if ($item) {
-            $item->quantity += $request->quantity;
-            $item->save();
-        } else {
-            CartItem::create([
-                'cart_id' => $cart->id,
-                'product_id' => $product->id,
-                'quantity' => $request->quantity,
-                'price' => $product->price,
-            ]);
-        }
+        // Agrega el nuevo producto con cantidad fija 1
+        CartItem::create([
+            'cart_id' => $cart->id,
+            'product_id' => $product->id,
+            'quantity' => 1,
+            'price' => $product->price,
+        ]);
 
         return redirect()->route('tenant.agenda.questionnaire')->with('success', 'Producto agregado al carrito.');
     }
+
+
 
     public function remove($itemId)
     {
