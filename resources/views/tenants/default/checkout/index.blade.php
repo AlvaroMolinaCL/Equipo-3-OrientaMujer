@@ -104,21 +104,22 @@
                                     value="{{ auth()->user()->email }}" readonly>
                             </div>
 
-                            <!-- Métodos de Pago -->
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="payment_method" id="credit-card"
-                                        value="tarjeta" checked>
-                                    <label class="form-check-label" for="credit-card">
-                                        <i class="fas fa-credit-card me-2"></i>Tarjeta de crédito/débito
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="payment_method" id="transfer"
-                                        value="transferencia">
-                                    <label class="form-check-label" for="transfer">
-                                        <i class="fas fa-university me-2"></i>Transferencia bancaria
-                                    </label>
+                            <!-- métodos de pago con: -->
+                            <div class="col-lg-4">
+                                <div class="bg-white rounded shadow-sm p-4">
+                                    <h3 class="mb-4">Pago con Webpay</h3>
+
+                                    <form id="webpayForm" action="{{ route('checkout.process') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="total_amount" value="{{ $total }}">
+
+                                        <div class="d-grid gap-2">
+                                            <button type="submit" id="payButton" class="btn btn-primary w-100 py-3">
+                                                <i class="fas fa-credit-card me-2"></i> Pagar
+                                                ${{ number_format($total, 0, ',', '.') }}
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
 
@@ -142,8 +143,9 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn w-100 py-2" style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};
-                                                           color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }};">
+                            <button type="submit" class="btn w-100 py-2"
+                                style="background-color: {{ tenantSetting('navbar_color_2', '#8C2D18') }};
+                                                                       color: {{ tenantSetting('navbar_text_color_2', '#FFFFFF') }};">
                                 <i class="fas fa-lock me-2"></i>Pagar ahora
                             </button>
                         </form>

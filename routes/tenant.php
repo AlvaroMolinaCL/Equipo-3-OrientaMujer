@@ -19,6 +19,7 @@ use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\ScheduleBatchController;
+use App\Http\Controllers\TransbankController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,15 +118,24 @@ Route::middleware([
         Route::patch('/update/{item}', [CartController::class, 'update'])->name('cart.update');
         Route::delete('/cart/item/{id}', [CartController::class, 'remove'])->name('cart.remove.item');
 
-        // Rutas de Checkout
-        Route::prefix('checkout')->group(function () {
-            Route::get('/', [CheckoutController::class, 'index'])->name('checkout');
-            Route::post('/process', [CheckoutController::class, 'process'])->name('checkout.process');
-            Route::get('/success', [CheckoutController::class, 'success'])->name('checkout.success');
-        })->middleware(['web', 'auth']);
+
 
         // Planes
         Route::get('/plans', [ProductController::class, 'plans'])->name('products.plans');
+
+        // Rutas de Transbank
+        Route::post('/pagar', [TransbankController::class, 'createTransaction'])->name('transbank.create');
+        Route::match(['GET', 'POST'], '/webpay/response', [TransbankController::class, 'response'])->name('transbank.response');
+        Route::post('/agenda/initiate-payment', [AgendaController::class, 'initiatePayment'])
+            ->name('tenant.agenda.initiatePayment');
+
+        // Elimina la redirección en checkout.process
+        Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+
+        // Rutas de checkout
+        Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+        Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+        Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     });
 
     // Rutas exclusivas para Administrador
