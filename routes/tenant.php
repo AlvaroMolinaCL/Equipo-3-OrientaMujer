@@ -19,6 +19,7 @@ use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\ScheduleBatchController;
+use App\Http\Controllers\CaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -172,6 +173,17 @@ Route::middleware([
         Route::get('/admin/disponibilidad/calendario', function () {
             return view('tenants.default.available-slots.calendar');
         })->middleware('role:Admin')->name('admin.disponibilidad.calendario');
+
+        //Casos;
+
+    Route::prefix('{tenantId}/cases')->group(function () {
+    Route::get('/', [CaseController::class, 'index'])->name('cases.index');
+    Route::get('/create', [CaseController::class, 'create'])->name('cases.create');
+    Route::post('/', [CaseController::class, 'store'])->name('cases.store');
+    Route::get('/{case}/edit', [CaseController::class, 'edit'])->name('cases.edit');
+    Route::put('/{case}', [CaseController::class, 'update'])->name('cases.update');
+});
+
     });
 
     require __DIR__ . '/tenant-auth.php';
