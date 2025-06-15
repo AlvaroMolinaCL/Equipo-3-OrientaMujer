@@ -129,8 +129,7 @@ Route::middleware([
         Route::post('/agenda/initiate-payment', [AgendaController::class, 'initiatePayment'])
             ->name('tenant.agenda.initiatePayment');
 
-        // Elimina la redirección en checkout.process
-        Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+        Route::get('checkout/confirm', [CheckoutController::class, 'confirm'])->name('checkout.confirm');
 
         // Rutas de checkout
         Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');

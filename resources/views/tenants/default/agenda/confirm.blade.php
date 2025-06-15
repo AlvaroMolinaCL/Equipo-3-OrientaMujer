@@ -25,7 +25,7 @@
         <form action="{{ route('tenant.agenda.store') }}" method="POST">
             @csrf
             <input type="hidden" name="available_slot_id" value="{{ $slot->id }}">
-    <input type="hidden" name="questionnaire_response_id" value="{{ session('appointment_questionnaire_response_id') }}">
+<input type="hidden" name="questionnaire_response_id" value="{{ $questionnaireResponseId }}">
     
             <div class="mb-3">
                 <label for="first_name" class="form-label">Nombre:</label>
