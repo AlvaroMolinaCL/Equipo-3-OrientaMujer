@@ -6,6 +6,7 @@ use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AppearanceController;
 use App\Http\Controllers\AvailableSlotController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CaseController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileController;
@@ -118,8 +119,6 @@ Route::middleware([
         Route::patch('/update/{item}', [CartController::class, 'update'])->name('cart.update');
         Route::delete('/cart/item/{id}', [CartController::class, 'remove'])->name('cart.remove.item');
 
-
-
         // Planes
         Route::get('/plans', [ProductController::class, 'plans'])->name('products.plans');
 
@@ -131,7 +130,7 @@ Route::middleware([
 
         Route::get('checkout/confirm', [CheckoutController::class, 'confirm'])->name('checkout.confirm');
 
-        // Rutas de checkout
+        // Rutas de Checkout
         Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
         Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
         Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
@@ -139,12 +138,12 @@ Route::middleware([
 
     // Rutas exclusivas para Administrador
     Route::middleware(['auth', 'role:Admin'])->group(function () {
-        // Rutas para la gestión de textos
-        Route::put('/tenant/texts/update', [TenantTextController::class, 'update'])->name('tenant.texts.update');
-        Route::get('/panel/textos', [TenantTextController::class, 'edit'])->name('tenant.texts.edit');
-
         // Panel de Control
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        // Gestión de Textos
+        Route::put('/tenant/texts/update', [TenantTextController::class, 'update'])->name('tenant.texts.update');
+        Route::get('/panel/textos', [TenantTextController::class, 'edit'])->name('tenant.texts.edit');
 
         // Gestión de Agenda
         Route::resource('available-slots', AvailableSlotController::class)->only(['index', 'store', 'destroy']);
@@ -152,7 +151,7 @@ Route::middleware([
         Route::get('/available-slots/{slot}/edit', [AvailableSlotController::class, 'edit'])->name('available-slots.edit');
         Route::put('/available-slots/{slot}', [AvailableSlotController::class, 'update'])->name('available-slots.update');
 
-        // Cargas de horarios (schedule_batches)
+        // Cargas de Horarios
         Route::get('/schedule-batches/create', [ScheduleBatchController::class, 'create'])->name('schedule-batches.create');
         Route::post('/schedule-batches', [ScheduleBatchController::class, 'store'])->name('schedule-batches.store');
         Route::get('/schedule-batches/{id}/edit', [ScheduleBatchController::class, 'edit'])->name('schedule-batches.edit');
@@ -176,6 +175,14 @@ Route::middleware([
         Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
         Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
         Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+        // Gestión de Casos
+        Route::get('/cases', [CaseController::class, 'index'])->name('cases.index');
+        Route::get('/cases/create', [CaseController::class, 'create'])->name('cases.create');
+        Route::post('/cases', [CaseController::class, 'store'])->name('cases.store');
+        Route::get('/cases/{case}/edit', [CaseController::class, 'edit'])->name('cases.edit');
+        Route::put('/cases/{case}', [CaseController::class, 'update'])->name('cases.update');
+        Route::delete('/cases/{case}', [CaseController::class, 'destroy'])->name('cases.destroy');
 
         // Calendario de Disponibilidad
         Route::get('/admin/disponibilidad/calendario', function () {

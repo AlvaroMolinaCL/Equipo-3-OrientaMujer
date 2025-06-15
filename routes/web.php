@@ -9,7 +9,6 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SuperAdminInvitationController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\TenantPageController;
-use App\Http\Controllers\Admin\TokenController;
 use App\Http\Controllers\App\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -69,7 +68,6 @@ Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
     // Gestión de Usuarios
     Route::resource('users', UserController::class);
     Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
-
 
     // Gestión de Roles
     Route::resource('roles', RoleController::class);
