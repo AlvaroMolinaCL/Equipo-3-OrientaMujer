@@ -58,6 +58,9 @@ class CheckoutController extends Controller
             'payment_method' => 'webpay'
         ]);
 
+        session(['current_order_id' => $order->id]);
+
+
         // Guardar items de la orden
         foreach ($cart->items as $item) {
             $order->items()->create([
