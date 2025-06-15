@@ -51,7 +51,7 @@ Route::middleware([
     // Página "Contacto"
     Route::get('/contact', function () {
         return view(tenantView('contact'));
-    })->middleware('check.tenant.page.enabled:contact');
+    })->middleware('check.tenant.page.enabled:contact')->name('tenant.contact');
 
     // Página "Tips"
     Route::get('/tips', function () {
