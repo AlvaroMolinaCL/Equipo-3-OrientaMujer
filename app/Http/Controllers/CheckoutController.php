@@ -23,36 +23,50 @@ class CheckoutController extends Controller
             ->where('status', 'active')
             ->firstOrFail();
 
+        // Si el carrito no tiene items, redirigir al index
+        if ($cart->items->isEmpty()) {
+            return redirect()->route('tenants.default.index')->with('message', 'Tu carrito está vacío.');
+        }
+
+        // Calcular el total aquí mismo
+        $total = $cart->items->sum(function ($item) {
+            return $item->price * $item->quantity;
+        });
+
         return view('tenants.default.checkout.index', [
             'cart' => $cart,
-            'items' => $cart->items
+            'items' => $cart->items,
+            'total' => $total // Pasar el total calculado a la vista
         ]);
     }
 
     public function process(Request $request)
     {
-        $user = auth()->user();
-
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'payment_method' => 'required|in:tarjeta,transferencia'
+        $request->validate([
+            'total_amount' => 'required|numeric|min:100'
         ]);
 
+        $user = auth()->user();
         $cart = Cart::with('items.product')
             ->where('user_id', $user->id)
             ->where('status', 'active')
             ->firstOrFail();
 
+        // Usar el total recibido del formulario
+        $total = $request->total_amount;
+
+        // Crear la orden con el total
         $order = Order::create([
             'user_id' => $user->id,
-            'total' => $cart->items->sum(function ($item) {
-                return $item->price * $item->quantity;
-            }),
-            'status' => 'completed',
-            'payment_method' => $validated['payment_method']
+            'total' => $total,
+            'status' => 'pending',
+            'payment_method' => 'webpay'
         ]);
 
+        session(['current_order_id' => $order->id]);
+
+
+        // Guardar items de la orden
         foreach ($cart->items as $item) {
             $order->items()->create([
                 'product_id' => $item->product_id,
@@ -61,57 +75,17 @@ class CheckoutController extends Controller
             ]);
         }
 
-        $cart->update(['status' => 'completed']);
+        // Guardar en sesión
+        session([
+            'current_order_id' => $order->id,
+            'current_cart_id' => $cart->id,
+            'transbank_amount' => $total
+        ]);
 
-        $slotId = session('appointment_slot_id');
-        $firstName = session('appointment_first_name');
-        $lastName = session('appointment_last_name');
-        $secondLastName = session('appointment_second_last_name');
-        $email = session('appointment_email');
-        $phoneNumber = session('appointment_phone_number');
-        $residenceRegionId = session('appointment_residence_region_id');
-        $residenceCommuneId = session('appointment_residence_commune_id');
-        $incidentRegionId = session('appointment_incident_region_id');
-        $incidentCommuneId = session('appointment_incident_commune_id');
-        $questionnaireResponseId = session('appointment_questionnaire_response_id');
-
-        if ($slotId && $firstName && $lastName && $secondLastName && $email && $phoneNumber && $residenceRegionId && $residenceCommuneId && $incidentRegionId && $incidentCommuneId && $questionnaireResponseId) {
-            $slot = AvailableSlot::find($slotId);
-
-            if ($slot) {
-                Appointment::create([
-                    'user_id' => $user->id,
-                    'available_slot_id' => $slotId,
-                    'first_name' => $firstName,
-                    'last_name' => $lastName,
-                    'second_last_name' => $secondLastName,
-                    'email' => $email,
-                    'phone_number' => $phoneNumber,
-                    'residence_region_id' => $residenceRegionId,
-                    'residence_commune_id' => $residenceCommuneId,
-                    'incident_region_id' => $incidentRegionId,
-                    'incident_commune_id' => $incidentCommuneId,
-                    'questionnaire_response_id' => $questionnaireResponseId
-                ]);
-
-                $userName = $user->name;
-                $productNames = $cart->items->map(function ($item) {
-                    return $item->product->name ?? 'Producto desconocido';
-                })->toArray();
-
-                Mail::to($user->email)->send(
-                    new AppointmentConfirmationMail($userName, $slot, $productNames)
-                );
-            }
-
-            session()->forget(['appointment_slot_id', 'appointment_description']);
-        }
-
-        Mail::to($user->email)->send(new OrderConfirmationMail($order));
-
-        return redirect()->route('checkout.success')->with([
-            'order_id' => $order->id,
-            'total' => $order->total
+        // Redirigir al proceso de pago
+        return view('tenants.default.checkout.process', [
+            'amount' => $total,
+            'order' => $order
         ]);
     }
 

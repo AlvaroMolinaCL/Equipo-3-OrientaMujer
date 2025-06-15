@@ -120,6 +120,13 @@ class AgendaController extends Controller
 
         $user = Auth::user();
 
+        // Busca el último cuestionario respondido por el usuario
+        $questionnaireResponse = QuestionnaireResponse::where('user_id', $user->id)
+            ->latest()
+            ->first();
+
+        $questionnaireResponseId = $questionnaireResponse ? $questionnaireResponse->id : null;
+
         return view('tenants.default.agenda.confirm', compact('slot', 'regions', 'communes', 'user', 'questionnaireResponseId'));
     }
 }

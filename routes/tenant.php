@@ -19,7 +19,7 @@ use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\ScheduleBatchController;
-use App\Http\Controllers\CaseController;
+use App\Http\Controllers\TransbankController;
 
 /*
 |--------------------------------------------------------------------------
@@ -118,15 +118,23 @@ Route::middleware([
         Route::patch('/update/{item}', [CartController::class, 'update'])->name('cart.update');
         Route::delete('/cart/item/{id}', [CartController::class, 'remove'])->name('cart.remove.item');
 
-        // Rutas de Checkout
-        Route::prefix('checkout')->group(function () {
-            Route::get('/', [CheckoutController::class, 'index'])->name('checkout');
-            Route::post('/process', [CheckoutController::class, 'process'])->name('checkout.process');
-            Route::get('/success', [CheckoutController::class, 'success'])->name('checkout.success');
-        })->middleware(['web', 'auth']);
+
 
         // Planes
         Route::get('/plans', [ProductController::class, 'plans'])->name('products.plans');
+
+        // Rutas de Transbank
+        Route::post('/pagar', [TransbankController::class, 'createTransaction'])->name('transbank.create');
+        Route::match(['GET', 'POST'], '/webpay/response', [TransbankController::class, 'response'])->name('transbank.response');
+        Route::post('/agenda/initiate-payment', [AgendaController::class, 'initiatePayment'])
+            ->name('tenant.agenda.initiatePayment');
+
+        Route::get('checkout/confirm', [CheckoutController::class, 'confirm'])->name('checkout.confirm');
+
+        // Rutas de checkout
+        Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+        Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+        Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     });
 
     // Rutas exclusivas para Administrador
@@ -173,17 +181,6 @@ Route::middleware([
         Route::get('/admin/disponibilidad/calendario', function () {
             return view('tenants.default.available-slots.calendar');
         })->middleware('role:Admin')->name('admin.disponibilidad.calendario');
-
-        //Casos;
-
-    Route::prefix('{tenantId}/cases')->group(function () {
-    Route::get('/', [CaseController::class, 'index'])->name('cases.index');
-    Route::get('/create', [CaseController::class, 'create'])->name('cases.create');
-    Route::post('/', [CaseController::class, 'store'])->name('cases.store');
-    Route::get('/{case}/edit', [CaseController::class, 'edit'])->name('cases.edit');
-    Route::put('/{case}', [CaseController::class, 'update'])->name('cases.update');
-});
-
     });
 
     require __DIR__ . '/tenant-auth.php';

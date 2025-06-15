@@ -14,6 +14,12 @@ return [
     |
     */
 
+    'transbank' => [
+        'commerce_code' => env('TRANSBANK_COMMERCE_CODE'),
+        'api_key' => env('TRANSBANK_API_KEY'),
+        'environment' => env('TRANSBANK_ENVIRONMENT', 'integration'),
+    ],
+
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
