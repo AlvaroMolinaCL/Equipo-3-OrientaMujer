@@ -135,6 +135,9 @@ Route::middleware([
         Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
         Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
         Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+
+        Route::get('/webpay/cancelled', [TransbankController::class, 'cancelled'])
+            ->name('transbank.cancelled');
     });
 
     // Rutas exclusivas para Administrador
